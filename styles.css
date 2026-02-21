@@ -1,12 +1,12 @@
 :root {
-  --ink: #17212d;
-  --ink-soft: #314356;
-  --paper: #fcfbf8;
+  --ink: #0f1f3d;
+  --ink-soft: #2d4a7a;
+  --paper: #f0f5fc;
   --card: #ffffff;
-  --line: #d9dedf;
-  --accent: #0f766e;
-  --accent-warm: #b45309;
-  --shadow: 0 12px 28px rgba(23, 33, 45, 0.08);
+  --line: #c5d5e8;
+  --accent: #1565c0;
+  --accent-warm: #0891b2;
+  --shadow: 0 12px 28px rgba(15, 31, 61, 0.09);
   --radius: 18px;
 }
 
@@ -33,9 +33,9 @@ body {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 10% 15%, rgba(15, 118, 110, 0.14), transparent 35%),
-    radial-gradient(circle at 90% 10%, rgba(180, 83, 9, 0.12), transparent 30%),
-    linear-gradient(180deg, #fffdf8 0%, #f5f8f7 100%);
+    radial-gradient(circle at 10% 15%, rgba(21, 101, 192, 0.14), transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(8, 145, 178, 0.12), transparent 30%),
+    linear-gradient(180deg, #f0f5fc 0%, #e2edf8 100%);
 }
 
 .site-header {
@@ -46,9 +46,9 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 5vw;
-  border-bottom: 1px solid rgba(23, 33, 45, 0.08);
+  border-bottom: 1px solid rgba(15, 31, 61, 0.10);
   backdrop-filter: blur(8px);
-  background: rgba(252, 251, 248, 0.88);
+  background: rgba(240, 245, 252, 0.90);
 }
 
 .wordmark {
@@ -152,7 +152,7 @@ h2 {
 .button-primary {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.22);
+  box-shadow: 0 8px 20px rgba(21, 101, 192, 0.28);
 }
 
 .button-ghost {
@@ -164,7 +164,7 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 1rem;
-  background: linear-gradient(180deg, #ffffff 0%, #f7faf9 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #eef4fb 100%);
 }
 
 .avatar {
@@ -210,8 +210,8 @@ h2 {
 }
 
 .tag-grid article {
-  background: #f8fbfa;
-  border: 1px solid #e4ebea;
+  background: #eef4fb;
+  border: 1px solid #c5d5e8;
   border-radius: 12px;
   padding: 0.9rem;
 }
@@ -233,7 +233,7 @@ h2 {
 }
 
 .pub-item {
-  border: 1px solid #e4ebea;
+  border: 1px solid #c5d5e8;
   border-left: 4px solid var(--accent);
   border-radius: 12px;
   padding: 0.9rem 1rem;
