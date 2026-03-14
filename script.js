@@ -205,7 +205,7 @@ function setupFilters() {
                 const filter = btn.getAttribute("data-filter");
                 if (filter === "all") {
                           renderArticleList(container, publications);
-                } else if (filter === "review") {
+                } else if (filter === "other") {
                           renderArticleList(container, publications.filter(p => p.type !== "journal" && p.type !== "chapter" && p.type !== "methods"));
                 } else {
                           renderArticleList(container, publications.filter(p => p.type === filter));
