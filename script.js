@@ -206,7 +206,7 @@ function setupFilters() {
                 if (filter === "all") {
                           renderArticleList(container, publications);
                 } else if (filter === "other") {
-                          renderArticleList(container, publications.filter(p => p.type !== "journal" && p.type !== "chapter" && p.type !== "methods"));
+                          renderArticleList(container, publications.filter(p => p.type !== "journal" && p.type !== "chapter"));
                 } else {
                           renderArticleList(container, publications.filter(p => p.type === filter));
                 }
