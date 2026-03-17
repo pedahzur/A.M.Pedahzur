@@ -32,6 +32,16 @@ const books = [
     ]
   },
   {
+    title: "Root Causes of Suicide Terrorism: The Globalization of Martyrdom",
+    publisher: "Routledge",
+    year: "2006",
+    description: "An edited volume bringing together leading scholars to examine the root causes of suicide terrorism — from individual motivations to organizational strategies and societal conditions.",
+    page: "book-root-causes.html",
+    links: [
+      { label: "Publisher", url: "https://www.routledge.com/Root-Causes-of-Suicide-Terrorism-The-Globalization-of-Martyrdom/Pedahzur/p/book/9780415770309" }
+    ]
+  },
+  {
     title: "The Triumph of Israel's Radical Right",
     publisher: "Oxford University Press",
     year: "2012",
@@ -50,6 +60,7 @@ const publications = [
     venue: "Studies in Conflict & Terrorism",
     year: "2025",
     type: "journal",
+    topics: ["terrorism"],
     featured: true,
     summary: "Examines how territorial control changes the structure, capabilities, and weaknesses of violent non-state actors.",
     links: [{ label: "DOI", url: "https://doi.org/10.1080/1057610X.2025.2528333" }]
@@ -60,6 +71,7 @@ const publications = [
     venue: "Israel Affairs",
     year: "2022",
     type: "journal",
+    topics: ["terrorism", "sof"],
     summary: "Connects the Munich massacre to the international spread of specialized counter-terrorism units and doctrine.",
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=The+Munich+Massacre+and+the+Proliferation+of+Counter-Terrorism+Special+Operation+Forces+Pedahzur" }]
   },
@@ -69,6 +81,7 @@ const publications = [
     venue: "Small Wars & Insurgencies",
     year: "2021",
     type: "journal",
+    topics: ["terrorism"],
     summary: "Investigates the operational theater of terrorism and how spatial and organizational factors shape violent campaigns.",
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Reconstructing+the+Theater+of+Terror+Sweeney+Perliger+Pedahzur" }]
   },
@@ -78,6 +91,7 @@ const publications = [
     venue: "Perspectives on Politics",
     year: "2021",
     type: "methods",
+    topics: [],
     summary: "Assesses replication practices and the quality of online appendices in political science research.",
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Can+We+Do+Better+Replication+Online+Appendices+Political+Science+Grossman+Pedahzur" }]
   },
@@ -87,6 +101,7 @@ const publications = [
     venue: "Political Science Quarterly",
     year: "2020",
     type: "methods",
+    topics: [],
     summary: "Argues for the use of unstructured big data in political science and outlines practical strategies for analysis.",
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Political+Science+Big+Data+Unstructured+Grossman+Pedahzur" }]
   },
@@ -96,6 +111,7 @@ const publications = [
     venue: "Political Studies",
     year: "2016",
     type: "journal",
+    topics: ["terrorism", "extremism"],
     summary: "Explores the interaction between group dynamics, counter-cultures, and the emergence of religious terrorism.",
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Counter-Cultures+Group+Dynamics+Religious+Terrorism+Perliger+Pedahzur" }]
   },
@@ -105,6 +121,7 @@ const publications = [
     venue: "PS: Political Science and Politics",
     year: "2011",
     type: "methods",
+    topics: ["terrorism"],
     summary: "Shows how social network analysis can reveal structure, diffusion, and hierarchy in violent organizations.",
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Social+Network+Analysis+Study+Terrorism+Political+Violence+Perliger+Pedahzur" }]
   },
@@ -114,6 +131,7 @@ const publications = [
     venue: "Social Forces",
     year: "2006",
     type: "journal",
+    topics: ["terrorism"],
     summary: "Uses a social network perspective to explain changes in suicide attack organization and execution.",
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=The+Changing+Nature+of+Suicide+Attacks+Social+Network+Perspective+Pedahzur+Perliger" }]
   }
@@ -179,6 +197,9 @@ function setupFilters() {
       const filter = btn.getAttribute("data-filter");
       if (filter === "all") {
         renderArticleList(container, publications);
+      } else if (filter.startsWith("topic-")) {
+        const topic = filter.replace("topic-", "");
+        renderArticleList(container, publications.filter(p => p.topics && p.topics.includes(topic)));
       } else {
         renderArticleList(container, publications.filter(p => p.type === filter));
       }

@@ -4,9 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ami Pedahzur | Political Violence, Warfare & Strategy</title>
-  <meta name="description" content=" Academic website of Prof. Ami Pedahzur, University of Haifa. Research on terrorism, political violence, political extremism, warfare, and research methods.">
+  <meta name="description" content="Academic website of Prof. Ami Pedahzur, University of Haifa. Research on terrorism, political violence, political extremism, warfare, and research methods.">
   <link rel="canonical" href="https://pedahzur.github.io/A.M.Pedahzur/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Ami Pedahzur",
+      "jobTitle": "Professor of Geostrategic Studies",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "University of Haifa",
+        "department": "Department of Middle Eastern and Islamic Studies"
+      },
+      "url": "https://pedahzur.github.io/A.M.Pedahzur/",
+      "sameAs": [
+        "https://scholar.google.com/citations?hl=en&user=wAMQjZ0AAAAJ",
+        "https://orcid.org/0000-0002-0925-4993",
+        "https://marsci.haifa.ac.il/en/ami-pedahzur/"
+      ],
+      "knowsAbout": ["Terrorism", "Political Violence", "Political Extremism", "Special Operations Forces", "Warfare", "Research Methods"]
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
@@ -18,6 +42,7 @@
   <nav aria-label="Primary">
     <a href="#top">Home</a>
     <a href="#about">About</a>
+    <a href="#projects">Projects</a>
     <a href="#books">Books</a>
     <a href="#articles">Articles</a>
     <a href="#contact">Contact</a>
@@ -32,6 +57,7 @@
       <h1>Ami Pedahzur</h1>
       <p class="hero-subtitle">Professor of Geostrategic Studies</p>
       <p class="hero-lead">Researching terrorism, political extremism, special operations forces, and the changing character of warfare.</p>
+      <blockquote class="hero-quote">"Understanding political violence requires moving beyond headlines to the networks, ideologies, and strategic calculations that drive it."</blockquote>
       <div class="hero-buttons">
         <a class="btn btn-outline" href="https://scholar.google.com/citations?hl=en&user=wAMQjZ0AAAAJ" target="_blank" rel="noopener">Google Scholar</a>
         <a class="btn btn-outline" href="https://marsci.haifa.ac.il/en/ami-pedahzur/" target="_blank" rel="noopener">University Profile</a>
@@ -43,8 +69,8 @@
     <div class="section-header"><h2>About</h2></div>
     <div class="about-grid">
       <div class="about-text">
-        <p>Prof. Ami Pedahzur is a Professor of Geostrategic Studies in the Department of Middle Eastern and Islamic Studies at the University of Haifa and the Director of the Chaikin Institute for Geostrategy. His research spans terrorism and political violence, special operations forces, modern warfare, political extremism, and research methods in security studies.</p>
-        <p>His work has been published in leading journals and by major academic publishers including Oxford University Press, Columbia University Press, Cambridge University Press, and Routledge.</p>
+        <p>My research asks a central question: <em>how do states and non-state actors use organized violence, and what does that tell us about power, ideology, and strategy?</em> Over three decades I have studied suicide terrorism, religious and ethno-nationalist extremism, and the evolution of special operations forces — work that has taken me from IDF archives to field interviews across three continents.</p>
+        <p>I direct the <em>Chaikin Institute for Geostrategy</em> at the University of Haifa and hold a professorship in Geostrategic Studies. Before returning to Israel I spent two decades at the University of Texas at Austin, where I built an interdisciplinary research program at the intersection of security studies and computational methods. My books have been published by Oxford University Press, Columbia University Press, Cambridge University Press, and Routledge.</p>
       </div>
       <div class="about-fields">
         <h3>Research Fields</h3>
@@ -58,7 +84,27 @@
     </div>
   </section>
 
-  <section id="books" class="section section-alt">
+  <section id="projects" class="section section-alt">
+    <div class="section-header">
+      <h2>Current Projects</h2>
+    </div>
+    <div class="project-grid">
+      <div class="project-card">
+        <span class="project-status">In Progress</span>
+        <h3>The Global Rise of Israel's Special Operations Forces</h3>
+        <p class="project-publisher">Oxford University Press (forthcoming)</p>
+        <p>A nonfiction account of how Israeli SOF units — born in improvised raids of the 1950s — became a model adopted by militaries and security services worldwide.</p>
+      </div>
+      <div class="project-card">
+        <span class="project-status">In Progress</span>
+        <h3>Research Methods in the Social Sciences in the Era of AI</h3>
+        <p class="project-publisher">Co-authored</p>
+        <p>A methodological guide exploring how artificial intelligence is reshaping research design, data collection, and analysis across the social sciences.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="books" class="section">
     <div class="section-header">
       <h2>Books</h2>
       <p class="section-sub">Monographs and edited volumes</p>
@@ -66,7 +112,7 @@
     <div id="book-list" class="pub-grid"></div>
   </section>
 
-  <section id="articles" class="section">
+  <section id="articles" class="section section-alt">
     <div class="section-header">
       <h2>Articles and Chapters</h2>
       <p class="section-sub">Sourced from Google Scholar</p>
@@ -75,11 +121,18 @@
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="journal">Journal Articles</button>
       <button class="filter-btn" data-filter="methods">Methods</button>
+      <span class="filter-divider"></span>
+      <button class="filter-btn" data-filter="topic-terrorism">Terrorism</button>
+      <button class="filter-btn" data-filter="topic-extremism">Political Extremism</button>
+      <button class="filter-btn" data-filter="topic-sof">Special Operations</button>
     </div>
     <div id="article-list" class="pub-list"></div>
+    <div class="scholar-link">
+      <a class="btn btn-outline" href="https://scholar.google.com/citations?hl=en&user=wAMQjZ0AAAAJ" target="_blank" rel="noopener">View full publication list on Google Scholar &rarr;</a>
+    </div>
   </section>
 
-  <section id="contact" class="section section-alt">
+  <section id="contact" class="section">
     <div class="section-header"><h2>Contact</h2></div>
     <div class="contact-grid">
       <a class="contact-item" href="mailto:apedahzur@univ.haifa.ac.il"><strong>Email</strong><span>apedahzur@univ.haifa.ac.il</span></a>
