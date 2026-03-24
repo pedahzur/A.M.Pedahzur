@@ -155,26 +155,25 @@ function renderBooks() {
 }
 
 /* ── Render Articles ── */
+const TYPE_LABELS = { journal: "Journal Article", methods: "Methods", chapter: "Book Chapter" };
+
 function renderArticles() {
   const container = document.getElementById("article-list");
   if (!container) return;
-  renderArticleList(container, publications);
-}
-
-function renderArticleList(container, items) {
-  container.innerHTML = items.map(pub => {
+  container.innerHTML = publications.map(pub => {
     const linksHtml = pub.links.map(l =>
       `<a class="cite-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`
     ).join("");
     const featuredClass = pub.featured ? " pub-item-featured" : "";
     const eyebrow = pub.featured ? `<p class="pub-eyebrow">Featured Work</p>` : "";
+    const topicsAttr = (pub.topics || []).join(" ");
     return `
-      <article class="pub-item${featuredClass}">
+      <article class="pub-item${featuredClass}" data-type="${pub.type}" data-topics="${topicsAttr}">
         ${eyebrow}
         <h3>${pub.title}</h3>
         <p class="pub-meta">${pub.authors} &middot; ${pub.venue}</p>
         <div class="pub-badges">
-          <span class="pub-badge">${pub.type === "journal" ? "Journal Article" : pub.type === "methods" ? "Methods" : pub.type === "chapter" ? "Book Chapter" : pub.type}</span>
+          <span class="pub-badge">${TYPE_LABELS[pub.type] || pub.type}</span>
           <span class="pub-badge">${pub.year}</span>
         </div>
         ${pub.summary ? `<p class="pub-summary">${pub.summary}</p>` : ""}
@@ -195,14 +194,16 @@ function setupFilters() {
       buttons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       const filter = btn.getAttribute("data-filter");
-      if (filter === "all") {
-        renderArticleList(container, publications);
-      } else if (filter.startsWith("topic-")) {
-        const topic = filter.replace("topic-", "");
-        renderArticleList(container, publications.filter(p => p.topics && p.topics.includes(topic)));
-      } else {
-        renderArticleList(container, publications.filter(p => p.type === filter));
-      }
+      container.querySelectorAll(".pub-item").forEach(article => {
+        if (filter === "all") {
+          article.hidden = false;
+        } else if (filter.startsWith("topic-")) {
+          const topic = filter.replace("topic-", "");
+          article.hidden = !(article.dataset.topics && article.dataset.topics.split(" ").includes(topic));
+        } else {
+          article.hidden = article.dataset.type !== filter;
+        }
+      });
     });
   });
 }
@@ -236,9 +237,10 @@ function copyCitation() {
 
 /* ── Modal Tab Switching ── */
 function setupModalTabs() {
-  document.querySelectorAll(".modal-tab").forEach(tab => {
+  const tabs = document.querySelectorAll(".modal-tab");
+  tabs.forEach(tab => {
     tab.addEventListener("click", () => {
-      document.querySelectorAll(".modal-tab").forEach(t => t.classList.remove("active"));
+      tabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
       const format = tab.getAttribute("data-format");
       const modal = document.getElementById("cite-modal");
