@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pedahzur.github.io/A.M.Pedahzur/sitemap.xml

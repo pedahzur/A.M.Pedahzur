@@ -7,6 +7,20 @@
   <meta name="description" content="Academic website of Prof. Ami Pedahzur, University of Haifa. Research on terrorism, political violence, political extremism, warfare, and research methods.">
   <link rel="canonical" href="https://pedahzur.github.io/A.M.Pedahzur/">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Ami Pedahzur">
+  <meta property="og:title" content="Ami Pedahzur | Political Violence, Warfare & Strategy">
+  <meta property="og:description" content="Academic website of Prof. Ami Pedahzur, University of Haifa. Research on terrorism, political violence, political extremism, special operations forces, and research methods.">
+  <meta property="og:url" content="https://pedahzur.github.io/A.M.Pedahzur/">
+  <meta property="og:image" content="https://pedahzur.github.io/A.M.Pedahzur/profile-social.jpg">
+  <meta property="og:image:alt" content="Portrait of Prof. Ami Pedahzur">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="800">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ami Pedahzur | Political Violence, Warfare & Strategy">
+  <meta name="twitter:description" content="Academic website of Prof. Ami Pedahzur, University of Haifa. Research on terrorism, political violence, political extremism, special operations forces, and research methods.">
+  <meta name="twitter:image" content="https://pedahzur.github.io/A.M.Pedahzur/profile-social.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <script type="application/ld+json">
   {
@@ -16,6 +30,7 @@
       "@type": "Person",
       "name": "Ami Pedahzur",
       "jobTitle": "Professor of Geostrategic Studies",
+      "image": "https://pedahzur.github.io/A.M.Pedahzur/profile-social.jpg",
       "affiliation": {
         "@type": "Organization",
         "name": "University of Haifa",
@@ -25,9 +40,10 @@
       "sameAs": [
         "https://scholar.google.com/citations?hl=en&user=wAMQjZ0AAAAJ",
         "https://orcid.org/0000-0002-0925-4993",
-        "https://marsci.haifa.ac.il/en/ami-pedahzur/"
+        "https://marsci.haifa.ac.il/en/ami-pedahzur/",
+        "https://docs.google.com/document/d/1lmhk1nBhQLZViefMiA6WLvVui_AFOr4Cj884wTtdb-w/edit?usp=sharing"
       ],
-      "knowsAbout": ["Terrorism", "Political Violence", "Political Extremism", "Special Operations Forces", "Warfare", "Research Methods"]
+      "knowsAbout": ["Terrorism", "Political Violence", "Political Extremism", "Special Operations Forces", "Counterterrorism", "Warfare", "Social Network Analysis", "Research Methods", "AI-Enhanced Research Methods"]
     }
   }
   </script>
@@ -42,7 +58,8 @@
   <nav aria-label="Primary">
     <a href="#top">Home</a>
     <a href="#about">About</a>
-<a href="#books">Books</a>
+    <a href="#current-work">Current Work</a>
+    <a href="#books">Books</a>
     <a href="#articles">Articles</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -60,8 +77,13 @@
       <div class="hero-buttons">
         <a class="btn btn-outline" href="https://scholar.google.com/citations?hl=en&user=wAMQjZ0AAAAJ" target="_blank" rel="noopener">Google Scholar</a>
         <a class="btn btn-outline" href="https://marsci.haifa.ac.il/en/ami-pedahzur/" target="_blank" rel="noopener">University Profile</a>
+        <a class="btn btn-outline" href="https://docs.google.com/document/d/1lmhk1nBhQLZViefMiA6WLvVui_AFOr4Cj884wTtdb-w/edit?usp=sharing" target="_blank" rel="noopener">Curriculum Vitae</a>
       </div>
     </div>
+    <figure class="hero-portrait">
+      <img src="profile-hero.jpg" alt="Prof. Ami Pedahzur">
+      <figcaption>Professor of Geostrategic Studies, University of Haifa</figcaption>
+    </figure>
   </section>
 
   <section id="about" class="section">
@@ -76,10 +98,36 @@
         <ul class="field-list">
           <li>Terrorism and Political Violence</li>
           <li>Political Extremism</li>
-          <li>Warfare</li>
-          <li>Research Methods and AI</li>
+          <li>Special Operations Forces</li>
+          <li>Counterterrorism</li>
+          <li>Social Network Analysis</li>
+          <li>AI-Enhanced Research Methods</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section id="current-work" class="section section-current">
+    <div class="section-header">
+      <h2>Current Work</h2>
+      <p class="section-sub">Recent directions and active research themes</p>
+    </div>
+    <div class="current-grid">
+      <article class="current-card">
+        <span class="current-date">2025</span>
+        <h3>Territorial control and violent non-state actors</h3>
+        <p>Recent work examines how territorial control transforms the capabilities and vulnerabilities of violent organizations.</p>
+      </article>
+      <article class="current-card">
+        <span class="current-date">Ongoing</span>
+        <h3>Special operations forces and political influence</h3>
+        <p>Research on how elite military institutions shape doctrine, national security policy, and political leadership.</p>
+      </article>
+      <article class="current-card">
+        <span class="current-date">Methods</span>
+        <h3>AI, data, and political violence research</h3>
+        <p>Work on research design, social network analysis, and computational methods for studying security and conflict.</p>
+      </article>
     </div>
   </section>
 
@@ -97,14 +145,15 @@
       <p class="section-sub">Sourced from Google Scholar</p>
     </div>
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="journal">Journal Articles</button>
-      <button class="filter-btn" data-filter="methods">Methods</button>
+      <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="filter-btn" type="button" data-filter="journal" aria-pressed="false">Journal Articles</button>
+      <button class="filter-btn" type="button" data-filter="methods" aria-pressed="false">Methods</button>
       <span class="filter-divider"></span>
-      <button class="filter-btn" data-filter="topic-terrorism">Terrorism</button>
-      <button class="filter-btn" data-filter="topic-extremism">Political Extremism</button>
-      <button class="filter-btn" data-filter="topic-sof">Special Operations</button>
+      <button class="filter-btn" type="button" data-filter="topic-terrorism" aria-pressed="false">Terrorism</button>
+      <button class="filter-btn" type="button" data-filter="topic-extremism" aria-pressed="false">Political Extremism</button>
+      <button class="filter-btn" type="button" data-filter="topic-sof" aria-pressed="false">Special Operations</button>
     </div>
+    <p id="article-count" class="filter-status" aria-live="polite"></p>
     <div id="article-list" class="pub-list"></div>
     <div class="scholar-link">
       <a class="btn btn-outline" href="https://scholar.google.com/citations?hl=en&user=wAMQjZ0AAAAJ" target="_blank" rel="noopener">View full publication list on Google Scholar &rarr;</a>
@@ -129,18 +178,18 @@
   <p>&copy; <span id="year"></span> Ami Pedahzur. All rights reserved.</p>
 </footer>
 
-<div id="cite-modal" class="modal-overlay" hidden>
-  <div class="modal">
+<div id="cite-modal" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="cite-modal-title">
+  <div class="modal" tabindex="-1">
     <div class="modal-header">
       <h3 id="cite-modal-title">Cite</h3>
-      <button class="modal-close" onclick="closeCiteModal()">&times;</button>
+      <button class="modal-close" type="button" aria-label="Close citation dialog" onclick="closeCiteModal()">&times;</button>
     </div>
     <div class="modal-tabs">
-      <button class="modal-tab active" data-format="bib">BibTeX (.bib)</button>
-      <button class="modal-tab" data-format="ris">RIS (.ris)</button>
+      <button class="modal-tab active" type="button" data-format="bib" aria-pressed="true">BibTeX (.bib)</button>
+      <button class="modal-tab" type="button" data-format="ris" aria-pressed="false">RIS (.ris)</button>
     </div>
     <pre id="cite-content" class="cite-block"></pre>
-    <button class="btn btn-primary btn-sm" onclick="copyCitation()">Copy to Clipboard</button>
+    <button class="btn btn-primary btn-sm" type="button" onclick="copyCitation()">Copy to Clipboard</button>
     <a id="cite-download" class="btn btn-outline btn-sm" download>Download File</a>
   </div>
 </div>

@@ -3,6 +3,7 @@
 const books = [
   {
     title: "Suicide Terrorism",
+    authors: "Ami Pedahzur",
     publisher: "Polity Press",
     year: "2005",
     description: "A comprehensive cross-cultural analysis of suicide terrorism, tracing its emergence in Lebanon, Israel, Sri Lanka, Turkey, Chechnya, Iraq, and Al-Qaeda's global jihad.",
@@ -13,6 +14,7 @@ const books = [
   },
   {
     title: "The Israeli Secret Services and the Struggle Against Terrorism",
+    authors: "Ami Pedahzur",
     publisher: "Columbia University Press",
     year: "2009",
     description: "Examines Israel's counterterrorism strategies from 1948 onward, arguing that defensive measures have proven more effective than offensive operations and targeted killings.",
@@ -23,6 +25,7 @@ const books = [
   },
   {
     title: "Jewish Terrorism in Israel",
+    authors: "Ami Pedahzur and Arie Perliger",
     publisher: "Columbia University Press",
     year: "2009",
     description: "Explores how religious terrorism emerges from totalistic communities, spanning from the ancient sicarii to the assassination of Prime Minister Yitzhak Rabin.",
@@ -33,6 +36,7 @@ const books = [
   },
   {
     title: "Root Causes of Suicide Terrorism: The Globalization of Martyrdom",
+    authors: "Ami Pedahzur",
     publisher: "Routledge",
     year: "2006",
     description: "An edited volume bringing together leading scholars to examine the root causes of suicide terrorism — from individual motivations to organizational strategies and societal conditions.",
@@ -43,6 +47,7 @@ const books = [
   },
   {
     title: "The Triumph of Israel's Radical Right",
+    authors: "Ami Pedahzur",
     publisher: "Oxford University Press",
     year: "2012",
     description: "Documents the radical right's ascendance in Israeli politics and its institutional networks, tracing the movement from fringe ideology to mainstream governance.",
@@ -141,13 +146,14 @@ const publications = [
 function renderBooks() {
   const container = document.getElementById("book-list");
   if (!container) return;
-  container.innerHTML = books.map(b => `
+  container.innerHTML = books.map((b, index) => `
     <div class="book-card">
       <h3>${b.title}</h3>
-      <p class="book-meta">${b.publisher}, ${b.year}</p>
+      <p class="book-meta">${b.authors} &middot; ${b.publisher}, ${b.year}</p>
       <p>${b.description}</p>
       <div class="cite-buttons">
         <a class="cite-btn" href="${b.page}">Read More</a>
+        <button class="cite-btn" type="button" data-cite-kind="book" data-cite-index="${index}">Cite</button>
         ${b.links.map(l => `<a class="cite-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join("")}
       </div>
     </div>
@@ -163,6 +169,7 @@ function renderArticles() {
 
 function renderArticleList(container, items) {
   container.innerHTML = items.map(pub => {
+    const citationIndex = publications.indexOf(pub);
     const linksHtml = pub.links.map(l =>
       `<a class="cite-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`
     ).join("");
@@ -178,10 +185,17 @@ function renderArticleList(container, items) {
           <span class="pub-badge">${pub.year}</span>
         </div>
         ${pub.summary ? `<p class="pub-summary">${pub.summary}</p>` : ""}
-        <div class="cite-buttons">${linksHtml}</div>
+        <div class="cite-buttons">
+          <button class="cite-btn" type="button" data-cite-kind="article" data-cite-index="${citationIndex}">Cite</button>
+          ${linksHtml}
+        </div>
       </article>
     `;
   }).join("");
+  const count = document.getElementById("article-count");
+  if (count) {
+    count.textContent = `${items.length} ${items.length === 1 ? "entry" : "entries"} shown`;
+  }
 }
 
 /* ── Filters ── */
@@ -192,8 +206,12 @@ function setupFilters() {
 
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-      buttons.forEach(b => b.classList.remove("active"));
+      buttons.forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
       btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
       const filter = btn.getAttribute("data-filter");
       if (filter === "all") {
         renderArticleList(container, publications);
@@ -213,10 +231,13 @@ function closeCiteModal() {
   if (modal) {
     modal.hidden = true;
     modal.style.display = "none";
+    if (modal._previousFocus && typeof modal._previousFocus.focus === "function") {
+      modal._previousFocus.focus();
+    }
   }
 }
 
-function openCiteModal(title, bibtex, ris) {
+function openCiteModal(title, bibtex, ris, slug) {
   const modal = document.getElementById("cite-modal");
   const titleEl = document.getElementById("cite-modal-title");
   const contentEl = document.getElementById("cite-content");
@@ -227,6 +248,16 @@ function openCiteModal(title, bibtex, ris) {
   modal.style.display = "";
   modal._bibtex = bibtex;
   modal._ris = ris;
+  modal._slug = slug || slugify(title);
+  modal._previousFocus = document.activeElement;
+  document.querySelectorAll(".modal-tab").forEach(tab => {
+    const isBib = tab.getAttribute("data-format") === "bib";
+    tab.classList.toggle("active", isBib);
+    tab.setAttribute("aria-pressed", isBib ? "true" : "false");
+  });
+  updateCitationDownload("bib");
+  const panel = modal.querySelector(".modal");
+  if (panel) panel.focus();
 }
 
 function copyCitation() {
@@ -238,13 +269,18 @@ function copyCitation() {
 function setupModalTabs() {
   document.querySelectorAll(".modal-tab").forEach(tab => {
     tab.addEventListener("click", () => {
-      document.querySelectorAll(".modal-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".modal-tab").forEach(t => {
+        t.classList.remove("active");
+        t.setAttribute("aria-pressed", "false");
+      });
       tab.classList.add("active");
+      tab.setAttribute("aria-pressed", "true");
       const format = tab.getAttribute("data-format");
       const modal = document.getElementById("cite-modal");
       const contentEl = document.getElementById("cite-content");
       if (modal && contentEl) {
         contentEl.textContent = format === "ris" ? (modal._ris || "") : (modal._bibtex || "");
+        updateCitationDownload(format);
       }
     });
   });
@@ -258,6 +294,85 @@ function setupModalOverlay() {
       if (e.target === modal) closeCiteModal();
     });
   }
+}
+
+function setupCitationButtons() {
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-cite-kind]");
+    if (!button) return;
+
+    const kind = button.getAttribute("data-cite-kind");
+    const index = Number(button.getAttribute("data-cite-index"));
+    const item = kind === "book" ? books[index] : publications[index];
+    if (!item) return;
+
+    openCiteModal(
+      item.title,
+      makeBibTex(item, kind),
+      makeRis(item, kind),
+      slugify(`${item.authors || "ami-pedahzur"}-${item.year}-${item.title}`)
+    );
+  });
+}
+
+function setupEscapeToClose() {
+  document.addEventListener("keydown", (event) => {
+    const modal = document.getElementById("cite-modal");
+    if (event.key === "Escape" && modal && !modal.hidden) {
+      closeCiteModal();
+    }
+  });
+}
+
+function updateCitationDownload(format) {
+  const modal = document.getElementById("cite-modal");
+  const link = document.getElementById("cite-download");
+  if (!modal || !link) return;
+  const isRis = format === "ris";
+  const text = isRis ? (modal._ris || "") : (modal._bibtex || "");
+  const extension = isRis ? "ris" : "bib";
+  link.href = `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`;
+  link.download = `${modal._slug || "citation"}.${extension}`;
+}
+
+function makeBibTex(item, kind) {
+  const key = slugify(`${item.authors || "pedahzur"}-${item.year}-${item.title}`);
+  const type = kind === "book" ? "book" : "article";
+  const fields = [
+    ["author", item.authors],
+    ["title", item.title],
+    ["year", item.year],
+    [kind === "book" ? "publisher" : "journal", kind === "book" ? item.publisher : item.venue]
+  ].filter(([, value]) => value);
+
+  return `@${type}{${key},\n${fields.map(([name, value]) => `  ${name} = {${value}}`).join(",\n")}\n}`;
+}
+
+function makeRis(item, kind) {
+  const type = kind === "book" ? "BOOK" : "JOUR";
+  const authorLines = (item.authors || "")
+    .split(/\s+and\s+|,\s*/)
+    .filter(Boolean)
+    .map(author => author.replace(/^and\s+/i, ""))
+    .map(author => `AU  - ${author}`)
+    .join("\n");
+  const source = kind === "book" ? item.publisher : item.venue;
+  return [
+    `TY  - ${type}`,
+    authorLines,
+    `TI  - ${item.title}`,
+    source ? `T2  - ${source}` : "",
+    item.year ? `PY  - ${item.year}` : "",
+    "ER  -"
+  ].filter(Boolean).join("\n");
+}
+
+function slugify(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
 }
 
 /* ── Year ── */
@@ -291,8 +406,10 @@ function activateReveal() {
 renderBooks();
 renderArticles();
 setupFilters();
+setupCitationButtons();
 setupModalTabs();
 setupModalOverlay();
+setupEscapeToClose();
 closeCiteModal();
 setYear();
 activateReveal();
