@@ -81,6 +81,19 @@ const publications = [
     links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=The+Munich+Massacre+and+the+Proliferation+of+Counter-Terrorism+Special+Operation+Forces+Pedahzur" }]
   },
   {
+    title: "Managing High-Volume Digital Sources in Political Research with Emerging Technologies",
+    authors: "Jonathan Grossman, Orel B. Amano, and Ami Pedahzur",
+    venue: "Working Paper, SSRN",
+    year: "2022",
+    type: "methods",
+    label: "Unpublished Working Paper",
+    topics: [],
+    bibtexType: "unpublished",
+    risType: "UNPB",
+    summary: "A pre-ChatGPT working paper on using personal knowledge management systems to organize high-volume digital sources without losing context, source criticism, or human interpretation.",
+    links: [{ label: "SSRN", url: "https://ssrn.com/abstract=4012684" }]
+  },
+  {
     title: "Reconstructing the Theater of Terror",
     authors: "Matthew Sweeney, Arie Perliger, and Ami Pedahzur",
     venue: "Small Wars & Insurgencies",
@@ -175,13 +188,14 @@ function renderArticleList(container, items) {
     ).join("");
     const featuredClass = pub.featured ? " pub-item-featured" : "";
     const eyebrow = pub.featured ? `<p class="pub-eyebrow">Featured Work</p>` : "";
+    const badgeLabel = pub.label || (pub.type === "journal" ? "Journal Article" : pub.type === "methods" ? "Methods" : pub.type === "chapter" ? "Book Chapter" : pub.type);
     return `
       <article class="pub-item${featuredClass}">
         ${eyebrow}
         <h3>${pub.title}</h3>
         <p class="pub-meta">${pub.authors} &middot; ${pub.venue}</p>
         <div class="pub-badges">
-          <span class="pub-badge">${pub.type === "journal" ? "Journal Article" : pub.type === "methods" ? "Methods" : pub.type === "chapter" ? "Book Chapter" : pub.type}</span>
+          <span class="pub-badge">${badgeLabel}</span>
           <span class="pub-badge">${pub.year}</span>
         </div>
         ${pub.summary ? `<p class="pub-summary">${pub.summary}</p>` : ""}
@@ -337,19 +351,25 @@ function updateCitationDownload(format) {
 
 function makeBibTex(item, kind) {
   const key = slugify(`${item.authors || "pedahzur"}-${item.year}-${item.title}`);
-  const type = kind === "book" ? "book" : "article";
+  const type = item.bibtexType || (kind === "book" ? "book" : "article");
+  const sourceField = kind === "book"
+    ? ["publisher", item.publisher]
+    : item.bibtexType === "unpublished"
+      ? ["note", item.venue]
+      : ["journal", item.venue];
   const fields = [
     ["author", item.authors],
     ["title", item.title],
     ["year", item.year],
-    [kind === "book" ? "publisher" : "journal", kind === "book" ? item.publisher : item.venue]
+    sourceField,
+    ["url", item.links && item.links[0] ? item.links[0].url : ""]
   ].filter(([, value]) => value);
 
   return `@${type}{${key},\n${fields.map(([name, value]) => `  ${name} = {${value}}`).join(",\n")}\n}`;
 }
 
 function makeRis(item, kind) {
-  const type = kind === "book" ? "BOOK" : "JOUR";
+  const type = item.risType || (kind === "book" ? "BOOK" : "JOUR");
   const authorLines = (item.authors || "")
     .split(/\s+and\s+|,\s*/)
     .filter(Boolean)

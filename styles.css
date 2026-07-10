@@ -404,6 +404,44 @@ h3 {
   white-space: nowrap;
 }
 
+.method-foundation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, .08), rgba(255, 250, 242, .94)),
+    var(--bg-card);
+  border: 1px solid rgba(15, 118, 110, .24);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 42px rgba(69, 50, 28, .07);
+}
+
+.method-foundation .method-eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.method-foundation h3 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  line-height: 1.18;
+  letter-spacing: -.015em;
+}
+
+.method-foundation p {
+  margin-top: .65rem;
+  color: var(--text-dim);
+}
+
+.method-foundation .method-link {
+  margin-top: 0;
+  padding-top: .2rem;
+  white-space: nowrap;
+}
+
 .methods-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -991,6 +1029,14 @@ blockquote .bq-source {
 
   .methods-intro {
     flex-direction: column;
+  }
+
+  .method-foundation {
+    grid-template-columns: 1fr;
+  }
+
+  .method-foundation .method-link {
+    white-space: normal;
   }
 
   .contact-grid {
