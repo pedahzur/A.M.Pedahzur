@@ -367,6 +367,114 @@ h3 {
   color: var(--text-dim);
 }
 
+/* AI Methods Blog */
+.section-methods {
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-methods::before {
+  content: "";
+  position: absolute;
+  inset: 1.75rem 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(15, 118, 110, .32), transparent);
+}
+
+.methods-intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding: 1.1rem 1.2rem;
+  background: rgba(255, 250, 242, .74);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 34px rgba(69, 50, 28, .05);
+}
+
+.methods-intro p {
+  max-width: 76ch;
+  color: var(--text-dim);
+}
+
+.methods-intro .btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.method-post {
+  display: flex;
+  min-width: 0;
+  min-height: 100%;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgba(255, 250, 242, .98), rgba(244, 234, 217, .72));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: 0 14px 38px rgba(69, 50, 28, .06);
+  transition: border-color .18s, transform .18s, box-shadow .18s;
+}
+
+.method-post:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.method-eyebrow {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: .65rem;
+  padding: .18rem .55rem;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, .1);
+  border: 1px solid rgba(15, 118, 110, .2);
+  color: var(--accent);
+  font-size: .72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.method-post h3 {
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  line-height: 1.18;
+  letter-spacing: -.015em;
+}
+
+.method-post p {
+  margin-top: .7rem;
+  color: var(--text-dim);
+  font-size: .92rem;
+}
+
+.method-post strong {
+  color: var(--accent-dark);
+}
+
+.method-link {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 1rem;
+  color: var(--accent);
+  font-size: .9rem;
+  font-weight: 800;
+}
+
+.method-link:hover {
+  color: var(--accent-dark);
+}
+
 /* Book Cards */
 .pub-grid {
   display: grid;
@@ -874,10 +982,15 @@ blockquote .bq-source {
 
   .about-grid,
   .current-grid,
+  .methods-grid,
   .pub-grid,
   .project-grid,
   .book-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .methods-intro {
+    flex-direction: column;
   }
 
   .contact-grid {
