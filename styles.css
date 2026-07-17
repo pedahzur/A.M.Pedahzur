@@ -150,6 +150,7 @@ h1 {
 
 .hero-portrait {
   position: relative;
+  aspect-ratio: 4 / 5;
   border-radius: var(--radius);
   overflow: hidden;
   background: #17212d;
@@ -167,10 +168,15 @@ h1 {
 }
 
 .hero-portrait img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center 12%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: clamp(1.5rem, 8vw, 3.25rem);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(78, 158, 150, .2), transparent 43%),
+    linear-gradient(145deg, #213145, #101821);
 }
 
 .hero-portrait figcaption {
