@@ -1,0 +1,95 @@
+from html.parser import HTMLParser
+from pathlib import Path
+from urllib.parse import unquote, urlparse
+import unittest
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+class LinkCollector(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.links: list[str] = []
+        self.ids: set[str] = set()
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        values = dict(attrs)
+        if values.get("id"):
+            self.ids.add(values["id"] or "")
+        if tag not in {"a", "link", "script"}:
+            return
+        target = values.get("href") or values.get("src")
+        if target:
+            self.links.append(target)
+
+
+class SiteContractTests(unittest.TestCase):
+    def test_internal_links_resolve(self) -> None:
+        broken: list[str] = []
+        for page in ROOT.rglob("*.html"):
+            collector = LinkCollector()
+            collector.feed(page.read_text(encoding="utf-8"))
+            for target in collector.links:
+                parsed = urlparse(target)
+                if parsed.scheme or target.startswith(("mailto:", "data:")):
+                    continue
+                if not parsed.path and parsed.fragment:
+                    self.assertIn(
+                        unquote(parsed.fragment),
+                        collector.ids,
+                        f"{page.relative_to(ROOT)} -> {target}",
+                    )
+                    continue
+                path = unquote(parsed.path)
+                candidate = (page.parent / path).resolve()
+                if path.endswith("/"):
+                    candidate = candidate / "index.html"
+                if not candidate.exists():
+                    broken.append(f"{page.relative_to(ROOT)} -> {target}")
+                    continue
+                if parsed.fragment and candidate.suffix in {".html", ".htm"}:
+                    target_page = LinkCollector()
+                    target_page.feed(candidate.read_text(encoding="utf-8"))
+                    if unquote(parsed.fragment) not in target_page.ids:
+                        broken.append(f"{page.relative_to(ROOT)} -> {target}")
+        self.assertEqual([], broken, "\n".join(broken))
+
+    def test_field_guide_publication_contract(self) -> None:
+        landing = (ROOT / "field-guide" / "index.html").read_text(encoding="utf-8")
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn("Working Edition 0.2", landing)
+        self.assertIn("Read the current edition", landing)
+        self.assertIn("Collection as Evidence", landing)
+        self.assertIn(
+            'href="https://pedahzur.github.io/A.M.Pedahzur/field-guide/"',
+            landing,
+        )
+        self.assertIn('href="guide.css"', landing)
+        self.assertIn('href="field-guide/"', homepage)
+        self.assertIn("Explore the Field Guide", homepage)
+
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertIn(
+            "https://pedahzur.github.io/A.M.Pedahzur/field-guide/",
+            sitemap,
+        )
+
+        for name in (
+            "From-Question-to-Evidence.pdf",
+            "From-Question-to-Evidence.docx",
+        ):
+            self.assertTrue((ROOT / "field-guide" / "book" / name).is_file())
+
+    def test_public_pages_contain_no_private_paths(self) -> None:
+        for page in ROOT.rglob("*.html"):
+            text = page.read_text(encoding="utf-8")
+            self.assertNotIn("/Users/", text, str(page.relative_to(ROOT)))
+            self.assertNotIn("Second-Brain", text, str(page.relative_to(ROOT)))
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,0 +1,7 @@
+# Quarto-generated publication snapshot; preserve its emitted formatting.
+field-guide/book/** -whitespace
+
+*.docx binary
+*.pdf binary
+*.xlsx binary
+*.woff binary

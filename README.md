@@ -16,3 +16,10 @@ Expected URL:
 
 - `https://pedahzur.github.io/A.M.Pedahzur/`
 
+## Living Field Guide
+
+The open-access book is published as a subsite:
+
+- Landing page: `https://pedahzur.github.io/A.M.Pedahzur/field-guide/`
+- HTML edition: `https://pedahzur.github.io/A.M.Pedahzur/field-guide/book/`
+- Canonical manuscript source: `https://github.com/pedahzur/from-question-to-evidence`

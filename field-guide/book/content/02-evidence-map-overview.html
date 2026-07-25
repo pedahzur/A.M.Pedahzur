@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ami Pedahzur">
+<meta name="author" content="Jonathan Grossman">
+<meta name="dcterms.date" content="2026-07-12">
+<meta name="description" content="The module’s central artifact and logic.">
+
+<title>3&nbsp; The Evidence Map – From Question to Evidence</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/03-frame.html" rel="next">
+<link href="../content/01-origins-and-purpose.html" rel="prev">
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.scss">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/02-evidence-map-overview.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Evidence Map</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Question to Evidence</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../From-Question-to-Evidence.docx">
+              <i class="bi bi-file-word pe-1"></i>
+            Download Docx
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../From-Question-to-Evidence.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=|url|" title="LinkedIn" class="quarto-navigation-tool px-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">From Question to Evidence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/01-origins-and-purpose.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Origins and Purpose</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-evidence-map-overview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Evidence Map</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/03-frame.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Stage 1: Frame the Question</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/04-decompose.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Stage 2: Decompose the Question</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/05-map-source-families.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Stage 3: Map Source Families</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/06-search-iteratively.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Stage 4: Search Iteratively</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/07-evaluate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stage 5: Evaluate Evidence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/08-test-coverage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stage 6: Test Coverage</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/09-produce-evidence-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Stage 7: Produce the Evidence Map</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/12-literature-as-evidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Literature as Evidence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/13-define-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Stage 1: Define the Review</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/14-map-concepts-vocabulary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Stage 2: Map Concepts and Vocabulary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/15-discover-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Stage 3: Discover Through Multiple Routes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/16-evaluate-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Stage 4: Evaluate Sources and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/17-read-annotate-compare.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Stage 5: Read, Annotate, and Compare</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/18-synthesize-audit-stop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Stage 6: Synthesize, Audit, and Stop</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/19-ai-research-integrity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/20-next-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#the-collection-problem" id="toc-the-collection-problem" class="nav-link active" data-scroll-target="#the-collection-problem"><span class="header-section-number">3.1</span> The Collection Problem</a></li>
+  <li><a href="#the-seven-stages" id="toc-the-seven-stages" class="nav-link" data-scroll-target="#the-seven-stages"><span class="header-section-number">3.2</span> The Seven Stages</a></li>
+  <li><a href="#the-worked-example" id="toc-the-worked-example" class="nav-link" data-scroll-target="#the-worked-example"><span class="header-section-number">3.3</span> The Worked Example</a></li>
+  <li><a href="#what-the-map-contains" id="toc-what-the-map-contains" class="nav-link" data-scroll-target="#what-the-map-contains"><span class="header-section-number">3.4</span> What the Map Contains</a></li>
+  <li><a href="#the-role-of-ai" id="toc-the-role-of-ai" class="nav-link" data-scroll-target="#the-role-of-ai"><span class="header-section-number">3.5</span> The Role of AI</a></li>
+  <li><a href="#reader-resources" id="toc-reader-resources" class="nav-link" data-scroll-target="#reader-resources"><span class="header-section-number">3.6</span> Reader Resources</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Evidence Map</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ami Pedahzur </p>
+             <p>Jonathan Grossman </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 12, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="the-collection-problem" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="the-collection-problem"><span class="header-section-number">3.1</span> The Collection Problem</h2>
+<p>A folder can contain ten thousand documents and still fail to constitute a corpus. Quantity does not establish relevance. Storage does not create an argument. Search results do not explain what was missed.</p>
+<p>An evidence map addresses this problem by placing the research question at the center of collection. Around it sit the concepts that require clarification, the actors and institutions that may have produced records, the periods and places that bound the inquiry, and the source families capable of answering different parts of the question. As collection proceeds, the map records where evidence accumulates and where it does not.</p>
+<p>The term echoes the evidence gap map of systematic-review practice, a matrix of interventions against outcomes that shows where published findings are dense or thin. The evidence map here serves a different task. It charts not published findings but the sources that could bear on a single question, and it grows as the collection grows.</p>
+<p>The map borrows the discipline of reproducible search reporting without treating every qualitative project as a systematic review.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> A historian cannot always specify the archive’s contents in advance. An ethnographer may revise the question after entering the field. A researcher working under authoritarian rule may withhold operational detail to protect participants. Transparency must answer to method and ethics.</p>
+<p>The purpose is not mechanical replication. The purpose is reasoned reconstruction. The record is intended to let another scholar reconstruct how the inquiry moved, why some materials entered the corpus, why others did not, and where uncertainty remains.</p>
+</section>
+<section id="the-seven-stages" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-seven-stages"><span class="header-section-number">3.2</span> The Seven Stages</h2>
+<p>The evidence map develops through seven stages. The first frames the question. The second decomposes it into concepts and contexts. The third identifies source families. The fourth conducts and records iterative searches. The fifth evaluates individual records and collections. The sixth tests coverage. The seventh turns the accumulated artifacts into a collection plan and stopping rule.</p>
+<p>The sequence is ordered, but research rarely follows it once. A new archive may reveal an actor missing from the original question. A contradictory interview may expose a concept that was defined too narrowly. A failed search may show that a source family never existed. Each discovery sends the researcher backward. Revision is not evidence that the method failed. Revision is the method working.</p>
+<p>The map therefore preserves versions. The question recorded on the first day does not disappear when the question changes. The source inventory does not overwrite a mistaken expectation. A rejected AI suggestion remains in the audit log with the reason for rejection. These records show how the project learned.</p>
+</section>
+<section id="the-worked-example" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-worked-example"><span class="header-section-number">3.3</span> The Worked Example</h2>
+<p>Our running question asks why accounts of terrorism patterns diverge across official records, independent databases, news sources, and scholarly research. The question does not presume that one source class is correct and the others are mistaken. It asks how distinct systems produce different pictures of violence.</p>
+<p>The problem begins with definition. A database must decide what counts as terrorism. It must translate that decision into inclusion criteria. It must then apply those criteria to sources created for other purposes. A news report seeks to describe an event under deadline. A police record serves an administrative or legal process. A scholarly database standardizes information across cases. Each source sees something. None sees everything.</p>
+<p>Collection practices add another layer. The official documentation for the Global Terrorism Database describes a system built across several historical collection efforts and a codebook designed to let users apply different definitional thresholds.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Research using that system has also shown why domestic and transnational events may require analytical separation and why changes in coding or source coverage matter.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The point here is not to settle disputes about terrorism counts. It is to reveal the chain of decisions between event and claim.</p>
+<p>This is the pattern. Evidence reaches the researcher through institutions.</p>
+</section>
+<section id="what-the-map-contains" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="what-the-map-contains"><span class="header-section-number">3.4</span> What the Map Contains</h2>
+<p>The map exists in two states. A working map grows and changes from the first stage, as searches run and records accumulate. A frozen map, dated and set aside at the seventh stage, marks the end of a collection phase. The frozen map contains six connected records, and the seventh stage assembles them rather than adding a record of its own. The question frame defines the inquiry and its provisional boundaries. The concept-and-context grid translates the question into searchable dimensions. The source-family inventory identifies who could have recorded each dimension and where those records might reside. The search log records routes, terms, dates, results, and revisions. The evidence register assesses each record’s relevance, provenance, and limits. The gap analysis shows empty, weak, or contradictory parts of the map.</p>
+<p>Two of these records form a matrix. The concept-and-context grid supplies the rows, the question’s dimensions. The source-family inventory supplies the columns. Each cell asks whether a dimension has been recorded by a given family, and with what quality. Coverage testing and gap analysis read these cells: which are filled, which are empty, and which rest on a single dependent source.</p>
+<p>The stopping rule sits across all six. It states what conditions justify ending active collection for the present phase. It identifies what remains missing, why the missing material matters, and what would cause the search to reopen.</p>
+<p>A stopping rule is not a declaration that nothing else exists. It is an argument that the present corpus can support the next analytical task.</p>
+</section>
+<section id="the-role-of-ai" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="the-role-of-ai"><span class="header-section-number">3.5</span> The Role of AI</h2>
+<p>AI can assist at four points in this module. It can propose dimensions after the researcher frames the question. It can expand search vocabulary and candidate source families. It can challenge a search plan by adopting neglected perspectives. It can inspect a filled map for weak cells and repeated dependence on one source stream.</p>
+<p>These uses share one condition: the system proposes, and the researcher disposes. A plausible archive name must be verified. A suggested source family must be examined for ethical and practical access. A proposed gap must be tested against the question rather than accepted because the model stated it fluently.</p>
+<p>The guide records every accepted suggestion and every consequential rejection. This is not a clerical burden. It is evidence of judgment.</p>
+</section>
+<section id="reader-resources" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="reader-resources"><span class="header-section-number">3.6</span> Reader Resources</h2>
+<p>The pilot includes five editable resources. They are separate from the prose so that researchers can use them without adopting a particular software system.</p>
+<div class="resource-grid">
+<section id="frame-the-question" class="level3 resource-card" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="frame-the-question"><span class="header-section-number">3.6.1</span> Frame the question</h3>
+<p><a href="../templates/question-framing.docx">Download the Word worksheet</a></p>
+</section>
+<section id="decompose-concepts" class="level3 resource-card" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="decompose-concepts"><span class="header-section-number">3.6.2</span> Decompose concepts</h3>
+<p><a href="../templates/concept-context-grid.xlsx">Download the concept grid</a></p>
+</section>
+<section id="map-source-families" class="level3 resource-card" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="map-source-families"><span class="header-section-number">3.6.3</span> Map source families</h3>
+<p><a href="../templates/source-family-inventory.xlsx">Download the source inventory</a></p>
+</section>
+<section id="record-searches-and-ai" class="level3 resource-card" data-number="3.6.4">
+<h3 data-number="3.6.4" class="anchored" data-anchor-id="record-searches-and-ai"><span class="header-section-number">3.6.4</span> Record searches and AI</h3>
+<p><a href="../templates/search-ai-audit-log.xlsx">Download the audit log</a></p>
+</section>
+<section id="assemble-the-final-map" class="level3 resource-card" data-number="3.6.5">
+<h3 data-number="3.6.5" class="anchored" data-anchor-id="assemble-the-final-map"><span class="header-section-number">3.6.5</span> Assemble the final map</h3>
+<p><a href="../templates/evidence-map-stopping-rule.xlsx">Download the evidence-map workbook</a></p>
+</section>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-enders2011domestic" class="csl-entry" role="listitem">
+Enders, Walter, Todd Sandler, and Khusrav Gaibulloev. <span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics.”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37. <a href="https://doi.org/10.1177/0022343311398926">https://doi.org/10.1177/0022343311398926</a>.
+</div>
+<div id="ref-start2024codebook" class="csl-entry" role="listitem">
+National Consortium for the Study of Terrorism and Responses to Terrorism. <em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>. 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
+</div>
+<div id="ref-page2021prisma" class="csl-entry" role="listitem">
+<span class="nocase">Page, Matthew J., Joanne E. McKenzie, Patrick M. Bossuyt, et al.</span> <span>“The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.”</span> <em>BMJ</em> 372 (2021): n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a>.
+</div>
+<div id="ref-rethlefsen2021prismas" class="csl-entry" role="listitem">
+Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. <span>“PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10, no. 1 (2021): 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>For current reporting standards on information sources, search strategies, and record management, see <span class="citation" data-cites="rethlefsen2021prismas">Melissa L. Rethlefsen et al., <a href="references.html#ref-rethlefsen2021prismas" role="doc-biblioref"><span>“PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews,”</span> <em>Systematic Reviews</em> 10, no. 1 (2021): 39, <span>https://doi.org/10.1186/s13643-020-01542-z</span></a></span> and <span class="citation" data-cites="page2021prisma"><span class="nocase">Matthew J. Page et al.</span>, <a href="references.html#ref-page2021prisma" role="doc-biblioref"><span>“The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews,”</span> <em>BMJ</em> 372 (2021): n71, <span>https://doi.org/10.1136/bmj.n71</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>, 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>See <span class="citation" data-cites="enders2011domestic">Walter Enders et al., <a href="references.html#ref-enders2011domestic" role="doc-biblioref"><span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics,”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37, <span>https://doi.org/10.1177/0022343311398926</span></a></span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/01-origins-and-purpose.html" class="pagination-link" aria-label="Origins and Purpose">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Origins and Purpose</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../content/03-frame.html" class="pagination-link" aria-label="Stage 1: Frame the Question">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Stage 1: Frame the Question</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
