@@ -84,6 +84,19 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertTrue((ROOT / "field-guide" / "book" / name).is_file())
 
+        book_home = (
+            ROOT / "field-guide" / "book" / "index.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn("Nearly a decade ago", book_home)
+        self.assertIn("What we were missing was processing power", book_home)
+        book_styles = "\n".join(
+            stylesheet.read_text(encoding="utf-8")
+            for stylesheet in (
+                ROOT / "field-guide" / "book" / "site_libs" / "bootstrap"
+            ).glob("bootstrap-*.min.css")
+        )
+        self.assertIn("NEARLY A DECADE IN THE MAKING", book_styles)
+
         module = (
             ROOT
             / "field-guide"
