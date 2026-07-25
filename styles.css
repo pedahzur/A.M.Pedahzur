@@ -468,6 +468,41 @@ h3 {
   transition: border-color .18s, transform .18s, box-shadow .18s;
 }
 
+.method-figure {
+  margin: 0 0 .95rem;
+}
+
+.method-figure a {
+  display: block;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color .18s, box-shadow .18s;
+}
+
+.method-figure a:hover,
+.method-figure a:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 10px 26px rgba(31, 41, 51, .09);
+}
+
+.method-figure img {
+  display: block;
+  width: 100%;
+  height: 146px;
+  padding: .4rem;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.method-figure figcaption {
+  margin-top: .4rem;
+  color: var(--text-dim);
+  font-size: .74rem;
+  line-height: 1.45;
+}
+
 .method-post:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
