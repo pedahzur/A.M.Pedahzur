@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -68,7 +69,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5d08110f26fdebc0ddbff02dc7bb9dbe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,7 +100,6 @@ div.csl-indent {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.scss">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -408,12 +408,12 @@ div.csl-indent {
 <p>Formal synthesis traditions require their own standards. Living reviews additionally require ownership, review intervals, corrections, and version rules.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-page2021prisma" class="csl-entry" role="listitem">
-<span class="nocase">Page, Matthew J., Joanne E. McKenzie, Patrick M. Bossuyt, et al.</span> <span>“The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.”</span> <em>BMJ</em> 372 (2021): n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a>.
+<span class="nocase">Page, Matthew J., Joanne E. McKenzie, Patrick M. Bossuyt, Isabelle Boutron, Tammy C. Hoffmann, Cynthia D. Mulrow, et al.</span> <span>“The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.”</span> <em>BMJ</em> 372 (2021): n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a>.
 </div>
 <div id="ref-rethlefsen2021prismas" class="csl-entry" role="listitem">
-Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. <span>“PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10, no. 1 (2021): 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
+Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, Ana Patricia Ayala, David Moher, Matthew J. Page, and Jonathan B. Koffel. <span>“PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10, no. 1 (2021): 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
 </div>
 </div>
 </section>
@@ -425,6 +425,16 @@ Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. <span>“PRISMA
 </section>
 
 </main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

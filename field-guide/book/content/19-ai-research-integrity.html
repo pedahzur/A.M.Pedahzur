@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -68,7 +69,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5d08110f26fdebc0ddbff02dc7bb9dbe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,7 +100,6 @@ div.csl-indent {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.scss">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -370,20 +370,30 @@ div.csl-indent {
 <p>AI use is defensible when it makes judgment more visible. It fails when it hides judgment behind convenience.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-autio2024genai" class="csl-entry" role="listitem">
-Autio, Chloe, Reva Schwartz, Jesse Dunietz, et al. <em>Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile</em>. NIST AI 600-1. <span>National Institute of Standards and Technology</span>, 2024. <a href="https://doi.org/10.6028/NIST.AI.600-1">https://doi.org/10.6028/NIST.AI.600-1</a>.
+Autio, Chloe, Reva Schwartz, Jesse Dunietz, Shomik Jain, Martin Stanley, Elham Tabassi, Patrick Hall, and Kamie Roberts. <span>“Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile.”</span> <span>National Institute of Standards and Technology</span>, 2024. <a href="https://doi.org/10.6028/NIST.AI.600-1">https://doi.org/10.6028/NIST.AI.600-1</a>.
 </div>
 </div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>See <span class="citation" data-cites="autio2024genai">Chloe Autio et al., <a href="references.html#ref-autio2024genai" role="doc-biblioref"><em>Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile</em>, NIST AI 600-1 (<span>National Institute of Standards and Technology</span>, 2024), <span>https://doi.org/10.6028/NIST.AI.600-1</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>See <span class="citation" data-cites="autio2024genai">Chloe Autio et al., <a href="references.html#ref-autio2024genai" role="doc-biblioref"><span>“Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile”</span> (<span>National Institute of Standards and Technology</span>, 2024), <span>https://doi.org/10.6028/NIST.AI.600-1</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
 </main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

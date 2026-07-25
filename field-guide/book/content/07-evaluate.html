@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -68,7 +69,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5d08110f26fdebc0ddbff02dc7bb9dbe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,7 +100,6 @@ div.csl-indent {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.scss">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -419,24 +419,34 @@ div.csl-indent {
 <p>Teams should calibrate judgments through difficult examples rather than pursue artificial agreement on every record. Preserve reasoned disagreement when it affects interpretation. Consensus can erase uncertainty that belongs in the final analysis.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-enders2011domestic" class="csl-entry" role="listitem">
 Enders, Walter, Todd Sandler, and Khusrav Gaibulloev. <span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics.”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37. <a href="https://doi.org/10.1177/0022343311398926">https://doi.org/10.1177/0022343311398926</a>.
 </div>
 <div id="ref-start2024codebook" class="csl-entry" role="listitem">
-National Consortium for the Study of Terrorism and Responses to Terrorism. <em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>. 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
+National Consortium for the Study of Terrorism and Responses to Terrorism. <span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
 </div>
 </div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>, 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>See <span class="citation" data-cites="enders2011domestic">Walter Enders et al., <a href="references.html#ref-enders2011domestic" role="doc-biblioref"><span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics,”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37, <span>https://doi.org/10.1177/0022343311398926</span></a></span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See <span class="citation" data-cites="enders2011domestic">Walter Enders, Todd Sandler, and Khusrav Gaibulloev, <a href="references.html#ref-enders2011domestic" role="doc-biblioref"><span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics,”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37, <span>https://doi.org/10.1177/0022343311398926</span></a></span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
 </main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

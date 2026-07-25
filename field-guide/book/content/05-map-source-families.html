@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -68,7 +69,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5d08110f26fdebc0ddbff02dc7bb9dbe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,7 +100,6 @@ div.csl-indent {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.scss">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -379,20 +379,30 @@ div.csl-indent {
 <p>Source families can change over time. A newspaper’s ownership, a ministry’s filing system, or a database’s collection vendor may shift within the study period. Treat a family as stable only after checking the institutions that produced it. Where the process changed, create separate records for each phase and mark the transition as part of the evidence.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-start2024codebook" class="csl-entry" role="listitem">
-National Consortium for the Study of Terrorism and Responses to Terrorism. <em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>. 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
+National Consortium for the Study of Terrorism and Responses to Terrorism. <span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
 </div>
 </div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>, 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
 </main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

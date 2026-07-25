@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -68,7 +69,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5d08110f26fdebc0ddbff02dc7bb9dbe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,7 +100,6 @@ div.csl-indent {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.scss">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -397,27 +397,37 @@ div.csl-indent {
 <p>Research librarians can improve recall and documentation. Record who designed and checked each strategy. Living reviews should separate the multi-route baseline from monitoring and version both.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-booth2016systematic" class="csl-entry" role="listitem">
-Booth, Andrew, Anthea Sutton, and Diana Papaioannou. <em>Systematic Approaches to a Successful Literature Review</em>. 2nd ed. SAGE Publications, 2016.
+Booth, Andrew, Anthea Sutton, and Diana Papaioannou. <em>Systematic Approaches to a Successful Literature Review</em>. 2nd ed. London: SAGE Publications, 2016.
 </div>
 <div id="ref-greenhalgh2005search" class="csl-entry" role="listitem">
 Greenhalgh, Trisha, and Richard Peacock. <span>“Effectiveness and Efficiency of Search Methods in Systematic Reviews of Complex Evidence: Audit of Primary Sources.”</span> <em>BMJ</em> 331, no. 7524 (2005): 1064–65. <a href="https://doi.org/10.1136/bmj.38636.593461.68">https://doi.org/10.1136/bmj.38636.593461.68</a>.
 </div>
 <div id="ref-wohlin2014snowballing" class="csl-entry" role="listitem">
-Wohlin, Claes. <span>“Guidelines for Snowballing in Systematic Literature Studies and a Replication in Software Engineering.”</span> <em>Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering</em>, 2014, 1–10. <a href="https://doi.org/10.1145/2601248.2601268">https://doi.org/10.1145/2601248.2601268</a>.
+Wohlin, Claes. <span>“Guidelines for Snowballing in Systematic Literature Studies and a Replication in Software Engineering.”</span> In <em>Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering</em>, 1–10. Association for Computing Machinery, 2014. <a href="https://doi.org/10.1145/2601248.2601268">https://doi.org/10.1145/2601248.2601268</a>.
 </div>
 </div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p><a href="#ref-wohlin2014snowballing" role="doc-biblioref">Claes Wohlin, <span>“Guidelines for Snowballing in Systematic Literature Studies and a Replication in Software Engineering,”</span> <em>Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering</em>, 2014, 1–10, <span>https://doi.org/10.1145/2601248.2601268</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a href="#ref-greenhalgh2005search" role="doc-biblioref">Trisha Greenhalgh and Richard Peacock, <span>“Effectiveness and Efficiency of Search Methods in Systematic Reviews of Complex Evidence: Audit of Primary Sources,”</span> <em>BMJ</em> 331, no. 7524 (2005): 1064–65, <span>https://doi.org/10.1136/bmj.38636.593461.68</span></a>; <a href="#ref-booth2016systematic" role="doc-biblioref">Andrew Booth et al., <em>Systematic Approaches to a Successful Literature Review</em>, 2nd ed. (SAGE Publications, 2016)</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p><a href="#ref-wohlin2014snowballing" role="doc-biblioref">Claes Wohlin, <span>“Guidelines for Snowballing in Systematic Literature Studies and a Replication in Software Engineering,”</span> in <em>Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering</em> (Association for Computing Machinery, 2014), 1–10, <span>https://doi.org/10.1145/2601248.2601268</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="#ref-greenhalgh2005search" role="doc-biblioref">Trisha Greenhalgh and Richard Peacock, <span>“Effectiveness and Efficiency of Search Methods in Systematic Reviews of Complex Evidence: Audit of Primary Sources,”</span> <em>BMJ</em> 331, no. 7524 (2005): 1064–65, <span>https://doi.org/10.1136/bmj.38636.593461.68</span></a>; <a href="#ref-booth2016systematic" role="doc-biblioref">Andrew Booth, Anthea Sutton, and Diana Papaioannou, <em>Systematic Approaches to a Successful Literature Review</em>, 2nd ed. (London: SAGE Publications, 2016)</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
 </main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -68,7 +69,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5d08110f26fdebc0ddbff02dc7bb9dbe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,7 +100,6 @@ div.csl-indent {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.scss">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -363,20 +363,30 @@ div.csl-indent {
 <p>The manuscript also opens a conversation between the original authors. The information environment changed; the purpose remains recognizable. We wanted to help researchers work with greater discipline and less fear of abundance. We still do.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-lebo2013provo" class="csl-entry" role="listitem">
-Lebo, Timothy, Satya Sahoo, and Deborah McGuinness. <em><span>PROV-O</span>: The <span>PROV</span> Ontology</em>. W3C Recommendation. World Wide Web Consortium, 2013. <a href="https://www.w3.org/TR/prov-o/">https://www.w3.org/TR/prov-o/</a>.
+Lebo, Timothy, Satya Sahoo, and Deborah McGuinness. <span>“<span>PROV-O</span>: The <span>PROV</span> Ontology.”</span> W3C Recommendation. World Wide Web Consortium, 2013. <a href="https://www.w3.org/TR/prov-o/">https://www.w3.org/TR/prov-o/</a>.
 </div>
 </div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>The formal vocabulary of entities, activities, and agents follows the W3C provenance model. See <span class="citation" data-cites="lebo2013provo">Timothy Lebo et al., <a href="references.html#ref-lebo2013provo" role="doc-biblioref"><em><span>PROV-O</span>: The <span>PROV</span> Ontology</em>, W3C Recommendation (World Wide Web Consortium, 2013), <span>https://www.w3.org/TR/prov-o/</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The formal vocabulary of entities, activities, and agents follows the W3C provenance model. See <span class="citation" data-cites="lebo2013provo">Timothy Lebo, Satya Sahoo, and Deborah McGuinness, <a href="references.html#ref-lebo2013provo" role="doc-biblioref"><span>“<span>PROV-O</span>: The <span>PROV</span> Ontology,”</span> W3C Recommendation (World Wide Web Consortium, 2013), <span>https://www.w3.org/TR/prov-o/</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
 </main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

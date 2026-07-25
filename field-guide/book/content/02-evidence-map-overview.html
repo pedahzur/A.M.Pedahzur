@@ -31,6 +31,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -68,7 +69,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea8ef702a3f84812c808b1cddcfad5b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5d08110f26fdebc0ddbff02dc7bb9dbe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -99,7 +100,6 @@ div.csl-indent {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.scss">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -343,6 +343,132 @@ div.csl-indent {
 <p>The evidence map develops through seven stages. The first frames the question. The second decomposes it into concepts and contexts. The third identifies source families. The fourth conducts and records iterative searches. The fifth evaluates individual records and collections. The sixth tests coverage. The seventh turns the accumulated artifacts into a collection plan and stopping rule.</p>
 <p>The sequence is ordered, but research rarely follows it once. A new archive may reveal an actor missing from the original question. A contradictory interview may expose a concept that was defined too narrowly. A failed search may show that a source family never existed. Each discovery sends the researcher backward. Revision is not evidence that the method failed. Revision is the method working.</p>
 <p>The map therefore preserves versions. The question recorded on the first day does not disappear when the question changes. The source inventory does not overwrite a mistaken expectation. A rejected AI suggestion remains in the audit log with the reason for rejection. These records show how the project learned.</p>
+<div class="visual-companion" role="region" data-evidence-map-pilot="" aria-labelledby="visual-companion-title">
+  <header class="visual-companion-header">
+    <div>
+      <p class="visual-kicker">Interactive visual companion</p>
+      <h3 id="visual-companion-title" class="anchored">Follow the method. Inspect the map.</h3>
+      <p>Select a stage to see its decision, artifact, and appropriate AI role. Then explore how the running example connects concepts, source families, and reviewable research records.</p>
+    </div>
+    <p class="visual-companion-note"><strong>Web enrichment</strong><br>This companion adds exploration to the stable method described in the text. It does not replace the worksheets or the frozen evidence map.</p>
+  </header>
+
+  <div class="stage-lab" aria-labelledby="stage-lab-title">
+    <div class="visual-section-heading">
+      <div>
+        <p class="visual-kicker">Seven-stage pathway</p>
+        <h4 id="stage-lab-title" class="anchored">From question to stopping rule</h4>
+      </div>
+      <p>Research moves forward, but discoveries can send the inquiry back to an earlier decision.</p>
+    </div>
+
+    <div class="stage-rail" role="tablist" aria-label="Evidence-map stages">
+      <button id="stage-tab-frame" class="stage-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="stage-detail" data-stage="frame"><span>01</span>Frame</button>
+      <button id="stage-tab-decompose" class="stage-tab" type="button" role="tab" aria-selected="false" aria-controls="stage-detail" data-stage="decompose" tabindex="-1"><span>02</span>Decompose</button>
+      <button id="stage-tab-sources" class="stage-tab" type="button" role="tab" aria-selected="false" aria-controls="stage-detail" data-stage="sources" tabindex="-1"><span>03</span>Map sources</button>
+      <button id="stage-tab-search" class="stage-tab" type="button" role="tab" aria-selected="false" aria-controls="stage-detail" data-stage="search" tabindex="-1"><span>04</span>Search</button>
+      <button id="stage-tab-evaluate" class="stage-tab" type="button" role="tab" aria-selected="false" aria-controls="stage-detail" data-stage="evaluate" tabindex="-1"><span>05</span>Evaluate</button>
+      <button id="stage-tab-coverage" class="stage-tab" type="button" role="tab" aria-selected="false" aria-controls="stage-detail" data-stage="coverage" tabindex="-1"><span>06</span>Test coverage</button>
+      <button id="stage-tab-freeze" class="stage-tab" type="button" role="tab" aria-selected="false" aria-controls="stage-detail" data-stage="freeze" tabindex="-1"><span>07</span>Freeze map</button>
+    </div>
+
+    <article id="stage-detail" class="stage-detail" role="tabpanel" aria-live="polite" aria-labelledby="stage-tab-frame" tabindex="0">
+      <div class="stage-detail-number" aria-hidden="true">01</div>
+      <div class="stage-detail-copy">
+        <p class="stage-detail-label">Frame the question</p>
+        <h5 class="anchored">Decide what the inquiry is trying to explain.</h5>
+        <p class="stage-detail-summary">State the purpose, unit of analysis, provisional boundaries, and what the project will not attempt to answer.</p>
+      </div>
+      <dl class="stage-detail-grid">
+        <div><dt>Decision</dt><dd data-stage-field="decision">Which question is specific enough to guide collection without foreclosing discovery?</dd></div>
+        <div><dt>Artifact</dt><dd data-stage-field="artifact">Question-framing worksheet</dd></div>
+        <div><dt>AI role</dt><dd data-stage-field="ai">Challenge boundaries after the researcher has stated the purpose.</dd></div>
+      </dl>
+      <a class="stage-detail-link" data-stage-link="" href="03-frame.html">Open the stage chapter <span aria-hidden="true">→</span></a>
+    </article>
+  </div>
+
+  <div class="map-lab" aria-labelledby="map-lab-title">
+    <div class="visual-section-heading">
+      <div>
+        <p class="visual-kicker">Worked example</p>
+        <h4 id="map-lab-title" class="anchored">Why do accounts of terrorism patterns diverge?</h4>
+      </div>
+      <p>Filter the map by layer or inspect a node. Lines indicate a research dependency, not proof of a causal relationship.</p>
+    </div>
+
+    <div class="map-toolbar" role="group" aria-label="Filter evidence-map nodes">
+      <button class="map-filter is-active" type="button" data-map-filter="all" aria-pressed="true">All layers</button>
+      <button class="map-filter" type="button" data-map-filter="concept" aria-pressed="false">Concepts</button>
+      <button class="map-filter" type="button" data-map-filter="source" aria-pressed="false">Source families</button>
+      <button class="map-filter" type="button" data-map-filter="artifact" aria-pressed="false">Artifacts</button>
+      <button class="map-filter" type="button" data-map-filter="gap" aria-pressed="false">Weak or missing</button>
+    </div>
+
+    <div class="evidence-map-canvas">
+      <svg class="evidence-map-edges" aria-hidden="true"></svg>
+
+      <button class="map-node map-node-question" type="button" data-map-node="question" data-layer="question" data-status="anchor">
+        <span>Research question</span>
+        Why do accounts of terrorism patterns diverge?
+      </button>
+
+      <button class="map-node" type="button" data-map-node="definition" data-connects="question" data-layer="concept" data-status="mixed">
+        <span>Concept</span>
+        Definition
+      </button>
+      <button class="map-node" type="button" data-map-node="coverage" data-connects="question" data-layer="concept" data-status="gap">
+        <span>Concept</span>
+        Coverage
+      </button>
+      <button class="map-node" type="button" data-map-node="institutions" data-connects="question" data-layer="concept" data-status="strong">
+        <span>Context</span>
+        Institutional purpose
+      </button>
+
+      <button class="map-node" type="button" data-map-node="official" data-connects="definition coverage institutions" data-layer="source" data-status="mixed">
+        <span>Source family</span>
+        Official records
+      </button>
+      <button class="map-node" type="button" data-map-node="independent" data-connects="definition coverage institutions" data-layer="source" data-status="strong">
+        <span>Source family</span>
+        Independent databases
+      </button>
+      <button class="map-node" type="button" data-map-node="news" data-connects="definition coverage institutions" data-layer="source" data-status="mixed">
+        <span>Source family</span>
+        News sources
+      </button>
+      <button class="map-node" type="button" data-map-node="scholarship" data-connects="definition coverage institutions" data-layer="source" data-status="mixed">
+        <span>Source family</span>
+        Scholarly research
+      </button>
+
+      <button class="map-node" type="button" data-map-node="register" data-connects="official independent news scholarship" data-layer="artifact" data-status="strong">
+        <span>Research record</span>
+        Evidence register
+      </button>
+      <button class="map-node" type="button" data-map-node="gaps" data-connects="register" data-layer="artifact" data-status="gap">
+        <span>Research record</span>
+        Gap analysis
+      </button>
+      <button class="map-node" type="button" data-map-node="stopping" data-connects="register gaps" data-layer="artifact" data-status="gap">
+        <span>Research record</span>
+        Stopping rule
+      </button>
+    </div>
+
+    <div class="map-inspector" role="status" aria-live="polite">
+      <div>
+        <p class="map-inspector-label">Selected node</p>
+        <h5 data-map-detail-title="" class="anchored">Research question</h5>
+      </div>
+      <p data-map-detail-copy="">The question organizes collection without presuming that one source family contains the complete or correct account.</p>
+      <p class="map-inspector-status"><span data-map-detail-status="">Anchor</span></p>
+    </div>
+
+    <noscript><p class="visual-noscript">The interactive filters require JavaScript. All nodes remain visible, and the chapter text provides the complete method.</p></noscript>
+  </div>
+</div>
 </section>
 <section id="the-worked-example" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="the-worked-example"><span class="header-section-number">3.3</span> The Worked Example</h2>
@@ -391,18 +517,18 @@ div.csl-indent {
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-enders2011domestic" class="csl-entry" role="listitem">
 Enders, Walter, Todd Sandler, and Khusrav Gaibulloev. <span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics.”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37. <a href="https://doi.org/10.1177/0022343311398926">https://doi.org/10.1177/0022343311398926</a>.
 </div>
 <div id="ref-start2024codebook" class="csl-entry" role="listitem">
-National Consortium for the Study of Terrorism and Responses to Terrorism. <em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>. 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
+National Consortium for the Study of Terrorism and Responses to Terrorism. <span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
 </div>
 <div id="ref-page2021prisma" class="csl-entry" role="listitem">
-<span class="nocase">Page, Matthew J., Joanne E. McKenzie, Patrick M. Bossuyt, et al.</span> <span>“The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.”</span> <em>BMJ</em> 372 (2021): n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a>.
+<span class="nocase">Page, Matthew J., Joanne E. McKenzie, Patrick M. Bossuyt, Isabelle Boutron, Tammy C. Hoffmann, Cynthia D. Mulrow, et al.</span> <span>“The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.”</span> <em>BMJ</em> 372 (2021): n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a>.
 </div>
 <div id="ref-rethlefsen2021prismas" class="csl-entry" role="listitem">
-Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. <span>“PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10, no. 1 (2021): 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
+Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, Ana Patricia Ayala, David Moher, Matthew J. Page, and Jonathan B. Koffel. <span>“PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10, no. 1 (2021): 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
 </div>
 </div>
 </section>
@@ -410,12 +536,22 @@ Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. <span>“PRISMA
 <hr>
 <ol>
 <li id="fn1"><p>For current reporting standards on information sources, search strategies, and record management, see <span class="citation" data-cites="rethlefsen2021prismas">Melissa L. Rethlefsen et al., <a href="references.html#ref-rethlefsen2021prismas" role="doc-biblioref"><span>“PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews,”</span> <em>Systematic Reviews</em> 10, no. 1 (2021): 39, <span>https://doi.org/10.1186/s13643-020-01542-z</span></a></span> and <span class="citation" data-cites="page2021prisma"><span class="nocase">Matthew J. Page et al.</span>, <a href="references.html#ref-page2021prisma" role="doc-biblioref"><span>“The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews,”</span> <em>BMJ</em> 372 (2021): n71, <span>https://doi.org/10.1136/bmj.n71</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><em>Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables</em>, 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>See <span class="citation" data-cites="enders2011domestic">Walter Enders et al., <a href="references.html#ref-enders2011domestic" role="doc-biblioref"><span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics,”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37, <span>https://doi.org/10.1177/0022343311398926</span></a></span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>See <span class="citation" data-cites="enders2011domestic">Walter Enders, Todd Sandler, and Khusrav Gaibulloev, <a href="references.html#ref-enders2011domestic" role="doc-biblioref"><span>“Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics,”</span> <em>Journal of Peace Research</em> 48, no. 3 (2011): 319–37, <span>https://doi.org/10.1177/0022343311398926</span></a></span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
 </main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

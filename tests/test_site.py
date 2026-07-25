@@ -84,6 +84,25 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertTrue((ROOT / "field-guide" / "book" / name).is_file())
 
+        module = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "content"
+            / "02-evidence-map-overview.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn("data-evidence-map-pilot", module)
+        self.assertIn("Interactive visual companion", module)
+        self.assertTrue(
+            (
+                ROOT
+                / "field-guide"
+                / "book"
+                / "assets"
+                / "evidence-map-pilot.js"
+            ).is_file()
+        )
+
     def test_public_pages_contain_no_private_paths(self) -> None:
         for page in ROOT.rglob("*.html"):
             text = page.read_text(encoding="utf-8")
