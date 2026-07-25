@@ -291,7 +291,6 @@ h3 {
 }
 
 .about-grid > *,
-.current-card,
 .book-card,
 .pub-item,
 .contact-item,
@@ -325,52 +324,6 @@ h3 {
   color: var(--accent-dark);
   font-size: .84rem;
   font-weight: 700;
-}
-
-/* Current Work */
-.section-current {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.current-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-.current-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(111, 127, 149, .08));
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.2rem;
-  box-shadow: 0 14px 38px rgba(31, 41, 51, .055);
-  transition: border-color .18s, transform .18s, box-shadow .18s;
-}
-
-.current-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-.current-date {
-  display: inline-block;
-  margin-bottom: .55rem;
-  padding: .18rem .55rem;
-  border-radius: 999px;
-  background: rgba(166, 106, 44, .1);
-  border: 1px solid rgba(166, 106, 44, .2);
-  color: var(--accent-light);
-  font-size: .72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-}
-
-.current-card p {
-  font-size: .92rem;
-  color: var(--text-dim);
 }
 
 /* AI Methods Blog */
@@ -407,45 +360,6 @@ h3 {
 
 .methods-intro .btn {
   flex: 0 0 auto;
-  white-space: nowrap;
-}
-
-.method-foundation {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
-  align-items: start;
-  margin-bottom: 1.25rem;
-  padding: 1.25rem;
-  background:
-    linear-gradient(135deg, rgba(23, 50, 77, .07), rgba(255, 255, 255, .96)),
-    var(--bg-card);
-  border: 1px solid rgba(23, 50, 77, .2);
-  border-radius: var(--radius);
-  box-shadow: 0 16px 42px rgba(31, 41, 51, .065);
-}
-
-.method-foundation .method-eyebrow {
-  grid-column: 1 / -1;
-  margin-bottom: 0;
-}
-
-.method-foundation h3 {
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  line-height: 1.18;
-  font-weight: 700;
-  letter-spacing: -.01em;
-}
-
-.method-foundation p {
-  margin-top: .65rem;
-  color: var(--text-dim);
-}
-
-.method-foundation .method-link {
-  margin-top: 0;
-  padding-top: .2rem;
   white-space: nowrap;
 }
 
@@ -1062,7 +976,6 @@ blockquote .bq-source {
   }
 
   .about-grid,
-  .current-grid,
   .methods-grid,
   .pub-grid,
   .project-grid,
@@ -1072,14 +985,6 @@ blockquote .bq-source {
 
   .methods-intro {
     flex-direction: column;
-  }
-
-  .method-foundation {
-    grid-template-columns: 1fr;
-  }
-
-  .method-foundation .method-link {
-    white-space: normal;
   }
 
   .contact-grid {
