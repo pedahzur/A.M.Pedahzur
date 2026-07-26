@@ -106,6 +106,9 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("Review Articles and Meta-Analysis in Transition", landing)
         self.assertIn("dependent effect estimates", review_chapter)
         self.assertIn("conditional future", review_chapter)
+        self.assertIn("Literature-discovery skill", review_chapter)
+        self.assertIn("project context packet", review_chapter)
+        self.assertIn("least privilege", review_chapter)
 
         book_home = (
             ROOT / "field-guide" / "book" / "index.html"

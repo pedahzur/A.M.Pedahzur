@@ -6,7 +6,7 @@ date: 2026-07-12
 status: revision-draft
 subtitle: A Living Field Guide for Qualitative Research
 title: From Question to Evidence
-updated: 2026-07-26
+updated: 2026-07-27
 ---
 
 # 1. From Question to Evidence
@@ -23,7 +23,7 @@ The book treats this record as a scholarly Second Brain. Its purpose is not to s
 
 The manuscript is written for two readers. The first is beginning a substantial qualitative project and needs a sequence that can be followed without assuming years of tacit experience. The second has conducted research for years but wants to reconsider established practices after the arrival of new search systems and generative AI. Both readers face the same decisions. They differ in how much explanation, contestation, and adaptation they require.
 
-The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new synthesis chapter examines how review articles and meta-analyses are becoming open, versioned research objects. A second bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
+The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new synthesis chapter examines how review articles and meta-analyses are becoming open, versioned research objects. It also shows how reusable skills, bounded agents, and versioned project context can support discovery, gap analysis, methodology, and collection without transferring scholarly authority to the system. A second bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
 
 The first worked example concerns competing accounts of terrorism. It suits the method because terrorism data do not arrive as neutral observations waiting to be counted. Definitions vary. Collection systems change. Sources disappear. Governments, news organizations, researchers, and database teams record different parts of the same event. The example is familiar to our own work. But the method must also survive evidence that researchers help produce. The revised book therefore adds a composite oral-history study of how tenants experienced and remembered municipal redevelopment. That case will carry interviews, consent records, field notes, administrative documents, researcher memos, silence, refusal, and unequal access through the same sequence of decisions.
 
@@ -1254,7 +1254,69 @@ Use AI as a proposal layer. The system can suggest records, fields, links, and c
 
 Human validation is not a ceremonial final glance. It is a measured procedure. Record the validation sample, sampling rule, reference coding, error categories, model and prompt version, decision threshold, and response to failure. Revalidate after material changes in the corpus or system.
 
-### 18.2.9 Separate the present from the forecast
+### 18.2.9 Build skills, agents, and project context as separate layers
+
+Repeated AI use becomes more reliable when a project separates procedure, execution, and memory. A **skill is a reusable research procedure**. It specifies when a task should run, what inputs it accepts, which steps it follows, what it must produce, and how its output will be checked. An **agent is a bounded executor** that receives a goal, approved tools, selected context, stopping conditions, and an output schema. It may combine several skills and adjust its plan as evidence appears. Neither should become the authority that decides what the project means.
+
+This distinction prevents a common design error. A long prompt may contain a useful procedure, but it remains difficult to test, version, and reuse. A general agent may take many actions, but breadth makes its errors harder to locate. Skills should hold stable method. Agents should coordinate bounded work. Human gates should control consequential changes to the corpus, protocol, argument, and public record.
+
+#### 18.2.9.1 Design a minimal research skill stack
+
+A skill should encode knowledge that the project would otherwise have to reconstruct. Its manifest should name its purpose, triggers, required inputs, procedure, output schema, verification rules, failure conditions, permissions, version, and benchmark cases. High-risk operations need narrow instructions and deterministic checks. Interpretive tasks need room for alternatives, but they still require evidence identifiers and an abstention route.
+
+Five skills provide a useful starting stack for review-based social research:
+
+| Research function | Reusable skill | Required artifact | Human gate |
+|----|----|----|----|
+| Literature discovery | **Literature-discovery skill** | Candidate register, query history, discovery-route coverage | Approve final inclusion and exclusion |
+| Gap identification | **Gap-analysis skill** | Gap-claim register with supporting and contrary corpus entries | Authorize any claim that a field lacks evidence |
+| Methodology | **Methodology-audit skill** | Question-design alignment memo, threat register, proposed tests | Approve protocol or analysis changes |
+| Data collection | **Data-collection skill** | Candidate records, provenance links, validation report | Promote records into the research corpus |
+| Project continuity | **Project-context skill** | Versioned project context packet and proposed change log | Modify the project charter, concepts, or accepted claims |
+
+The literature-discovery skill should translate concepts into search vocabulary, vary discovery routes, preserve queries, deduplicate candidates, and flag coverage risks. It should not produce a list of “the most important” publications from model recall. Its unit of output is a candidate with a discovery route and verification status.
+
+The gap-analysis skill should distinguish several kinds of gap. A corpus may lack evidence about a population, setting, period, mechanism, measure, comparison, or method. It may contain contradictory findings, weak replication, or a concept that has not been operationalized consistently. These are different research problems. The skill must also distinguish absence in the bounded corpus from absence in the field. A **false gap** occurs when failed retrieval, unfamiliar vocabulary, access limits, language bias, or an incorrect boundary is presented as a missing body of knowledge.
+
+The methodology-audit skill should compare the research question with the evidence, design, unit of analysis, estimand, inferential claim, and known threats. It can propose alternative designs or sensitivity tests. It should not silently rewrite the approved protocol. Every recommendation needs a location, a reason, the evidence affected, and the decision that remains with the researcher.
+
+The data-collection skill should enforce the transformations defined elsewhere in this book. It can create candidate records, check required fields, preserve source spans, detect likely duplicates, and route uncertain cases. It should write only to a staging area. Promotion into the verified corpus requires source review, rights and ethics checks, and a named human decision.
+
+The project-context skill is different from the other four. Its task is not to perform a substantive review operation. It prepares the smallest sufficient account of the project for another task. It retrieves the current research question, approved scope, working concepts, source hierarchy, ethical limits, corpus and codebook versions, accepted decisions, unresolved disputes, artifact locations, and active release. It also reports conflicts among these objects rather than resolving them through a plausible summary.
+
+Skills need tests before routine use. Discovery can be evaluated through recall, false exclusions, route diversity, and labor saved. Gap analysis needs cases where a missing concept is genuine and cases where it is only hidden by vocabulary or indexing. Methodology audits need known design defects and defensible designs that should not be criticized. Data collection needs stratified extraction and provenance benchmarks. Project-context tests should include stale decisions, conflicting versions, renamed concepts, and inaccessible artifacts.
+
+#### 18.2.9.2 Assign agents work packages, not identities
+
+Language-model agents can interleave planning, retrieval, tool use, and revision.[^28] Research prototypes have also combined observation, retrieval, reflection, and planning in persistent agent architectures.[^29] These patterns make multi-step research assistance possible. They do not show that an agent can independently establish relevance, a scholarly gap, methodological validity, or causal interpretation.
+
+A research agent should therefore receive a work order. The order names one goal, the skill versions it may invoke, permitted collections and tools, project context version, expected artifacts, prohibited actions, stopping rule, and escalation conditions. The agent should return evidence-linked proposals and an execution log. It should not inherit an open-ended instruction to “finish the literature review.”
+
+The five skills above can support corresponding agents. A literature scout executes searches and updates the candidate register but cannot reject the final record. A gap analyst compares the verified corpus with the review protocol and produces candidate gap claims with counterevidence. A methodology critic tests alignment and assumptions without editing the protocol. A collection steward prepares and validates candidate data while leaving promotion to a reviewer. A context curator assembles the current project packet and proposes corrections without overwriting canonical project records.
+
+Agent specialization should reduce ambiguity, not imitate an academic department. Adding several agents that use the same model, sources, and instructions does not create independent corroboration. Their errors remain correlated. Agreement among them is not consensus, and disagreement is not automatically informative. Use multiple agents when tasks can be separated by evidence, method, or validation role. Do not create a panel merely to generate more text.
+
+Apply least privilege. A discovery agent usually needs search and read access, not permission to change the corpus. A methodology critic needs the protocol and selected artifacts, not participant data. A context curator needs approved project records, but it should not publish, delete, or revise them. Rights, privacy, security, and cost boundaries belong in the work order rather than in an informal reminder.
+
+Consequential decisions require explicit human gates. These include approving inclusion and exclusion, declaring a research gap, changing the research question or protocol, promoting a candidate record, accepting a new variable, interpreting a causal relationship, and releasing a public claim. The gate should record who decided, which agent output was reviewed, what evidence supported the decision, and what changed downstream.
+
+#### 18.2.9.3 Preserve broad context through governed retrieval
+
+The broad project context should live outside the conversation. A chat transcript mixes instructions, exploration, corrections, and obsolete claims. Treating all of it as memory makes current and superseded decisions difficult to distinguish. Supplying the entire project archive is not a solution either. Empirical work on long-context models shows that access to a long input does not ensure reliable use of information throughout that input.[^30]
+
+Create a **project context packet** with three layers. The stable layer contains the research question, scope, central concepts, evidence standards, ethics and rights constraints, and authority for decisions. The current-state layer names the active stage, corpus and codebook versions, accepted claims, unresolved questions, recent decisions, and release status. The task layer contains only the materials, instructions, and stopping rule needed for the present work.
+
+Use progressive disclosure. Every agent receives a short project card and the task layer. It retrieves method, corpus, or source details only when the work requires them. Each retrieved item carries a stable identifier, version, date, and authority status. This design preserves the global argument while reducing irrelevant material and exposure of sensitive records.
+
+The project context packet is a map, not a substitute for evidence. It may say that a definition was adopted in decision `D-014`, that corpus `C-03` supports claim `CL-08`, and that a contrary memo remains unresolved. The agent must follow those identifiers to the relevant artifact before making a consequential recommendation. A compressed statement without provenance remains a lead.
+
+Context updates should follow the same proposal boundary as data extraction. An agent may identify that the active question conflicts with the latest protocol or that a manuscript cites an obsolete corpus. It writes the proposed correction to a staging area. A researcher decides whether to update the canonical packet, records the reason, and increments its version.
+
+This architecture supports continuity across literature review, gap analysis, methodology, and collection. The literature scout sees the current vocabulary and boundaries. The gap analyst sees the verified coverage audit. The methodology critic sees the approved estimand and threats. The collection steward sees the source frame and codebook. The context curator sees how their artifacts connect, but it does not turn their provisional outputs into settled project knowledge.
+
+Evaluate the system as a chain. Record whether a task used the correct context version, whether the appropriate skill triggered, whether the agent stayed within permissions, whether its evidence links resolved, whether it abstained when required, and whether the human gate caught consequential errors. Productivity matters, but speed without these measures can make an incoherent project move faster.
+
+### 18.2.10 Separate the present from the forecast
 
 The current review article can already be modular and open. Protocols, machine-readable data, executable analysis, linked corrections, and citable releases are available practices. Semi-automated screening and extraction are emerging practices whose value must be demonstrated in the local corpus. Continuous synthesis across interoperable evidence registries remains a conditional future.
 
@@ -1286,6 +1348,10 @@ The public package contains the protocol, search histories, decision log, coded 
 
 An AI system expands intervention names and ranks new search results. It proposes extraction fields with source spans. Researchers validate screening recall on a stratified sample and adjudicate all exclusions near the decision boundary. The system never decides whether a program belongs in the same causal family or whether a trust measure is substantively comparable. Those judgments remain part of the review’s argument.
 
+The team implements this arrangement as separate skills and agents. The literature-discovery skill records every query and route. A scout agent runs that skill against approved databases and deposits candidates in a staging register. The gap-analysis skill compares the verified corpus with the protocol. Its agent proposes a geographic gap, but the coverage audit shows that two relevant local-language indexes were never searched. The team records an unresolved coverage limit instead of claiming that no such research exists.
+
+The context curator prepares project packet 1.3 for the annual update. It includes the current question, intervention taxonomy, approved trust measures, corpus release, open disagreement about quasi-experimental designs, and links to every decision. The methodology critic identifies that a proposed new synthesis would mix immediate and long-term outcomes. It recommends a protocol amendment but cannot make it. Researchers review the affected records, approve a revised timing rule, and issue packet 1.4 before the other agents resume work.
+
 ## 18.4 Try It
 
 Start with one review question and write the decision it must support. Name the review form that best fits that purpose. Then state why two neighboring forms would answer different questions.
@@ -1298,9 +1364,13 @@ Draft a result paragraph that reports the mean, its uncertainty, heterogeneity, 
 
 Finally, write an update policy. Specify surveillance sources, cadence, update triggers, owner, release format, correction route, and retirement condition. Label each planned feature as current, emerging, or conditional future. This prevents an aspiration from being presented as an implemented method.
 
+Design one research skill for the review. Write its trigger, required inputs, procedure, output schema, verification rule, permissions, failure condition, and three benchmark cases. Then write an agent work order that may invoke the skill. Give the agent one goal, a context version, approved tools, a stopping rule, and an escalation route.
+
+Create project context packet 0.1. Limit its stable layer to one page. Add a current-state table and a task layer for one operation. Ask a colleague to locate one accepted decision, one unresolved dispute, and one source artifact using only the packet. Revise any entry that cannot be traced.
+
 ## 18.5 Guided AI Workflow
 
-Use AI in four bounded passes. In the design pass, provide the research question and intended decision. Ask the system to compare plausible review forms and list the evidence each would require. In the structure pass, provide verified study metadata and researcher-defined fields. Ask it to flag possible construct mismatch, dependence, and missing values without deciding eligibility. In the audit pass, provide the analysis plan and output. Ask for unsupported inferences, omitted sensitivity tests, and discrepancies between the estimand and conclusion. In the update pass, ask it to rank new candidate records and explain each ranking.
+Begin by issuing a versioned project context packet and work order. Then use AI in four bounded passes. In the design pass, provide the research question and intended decision. Ask the system to compare plausible review forms and list the evidence each would require. In the structure pass, provide verified study metadata and researcher-defined fields. Ask it to flag possible construct mismatch, dependence, and missing values without deciding eligibility. In the audit pass, provide the analysis plan and output. Ask for unsupported inferences, omitted sensitivity tests, and discrepancies between the estimand and conclusion. In the update pass, ask it to rank new candidate records and explain each ranking.
 
 A useful audit prompt is:
 
@@ -1309,7 +1379,7 @@ A useful audit prompt is:
 **Permitted input:** Verified metadata, researcher-authored protocols, rights-cleared text, structured extraction fields, de-identified effect data, code, and public analytical output.\
 **Do not provide:** Licensed full text without permission, confidential peer-review material, protected participant data, restricted archives, or identifiable sensitive records.\
 **Verify:** Check every proposed inclusion, exclusion, extracted value, source span, transformation, dependence link, citation, and analytical claim. Test screening and extraction performance on a representative human-coded sample.\
-**Record:** Save model and version, prompt, input description, output, reviewer decision, error category, protocol and corpus versions, analysis release, and date.
+**Record:** Save model and version, skill and agent versions, project context packet, work order, prompt, input description, tool actions, output, reviewer decision, error category, protocol and corpus versions, analysis release, and date.
 
 Do not ask a model to select the final review form, infer missing statistics without a declared method, adjudicate risk of bias alone, or choose a publication-bias correction after seeing which result is favorable. Do not accept a causal or policy conclusion that cannot be reconstructed from the reviewed evidence objects.
 
@@ -1323,6 +1393,10 @@ Open release also has limits. Study-level data may contain confidential informat
 
 AI assistance creates additional disclosure duties. Name the operations it supported, the system version, validation procedure, and known failures. Do not list a general-purpose model as an author or allow it to conceal who made consequential decisions.
 
+Agent delegation can obscure responsibility. A coordinating agent may summarize another agent’s output and remove its qualifications. Several agents may repeat one mistaken extraction and make it appear independently confirmed. Preserve the complete provenance chain, label shared models and inputs, and route agent outputs through the same evidence checks as direct model output.
+
+Project context can contain unpublished arguments, access credentials, participant information, and restricted source locations. Give each agent only the layer required for its task. A context packet prepared for discovery should not expose material needed only for confidential analysis.
+
 Finally, resist prestige by method. A complex model cannot compensate for a weak corpus. A transparent narrative synthesis can be more informative than an invalid pooled estimate. The review earns trust by matching its claim to its evidence and preserving the path between them.
 
 ## 18.7 Save the Artifact
@@ -1332,6 +1406,8 @@ Save a review design memo that links the question, intended decision, review for
 Maintain a source register, screening log, extraction dictionary, coded corpus, dependence map, and synthesis memo. For meta-analysis, add raw and transformed effect data, executable code, session information, model diagnostics, prediction intervals, and sensitivity results.
 
 Create a release manifest. It should name the corpus version, protocol version, codebook version, analysis commit, public files, restricted files, license, citation, review date, correction route, update trigger, and retirement condition. Give each release a stable identifier and preserve earlier releases.
+
+Maintain a research-automation register. For every skill, save its manifest, instructions, scripts or schemas, benchmark set, evaluation results, permissions, owner, and version. For every agent, save its work-order template, permitted skills and tools, expected output, escalation rule, and tests. Archive each project context packet and its approved change log. Do not store credentials or protected source content in these public or reusable definitions.
 
 The article, dataset, code, and review website should point to the same manifest. This shared reference prevents a current webpage from silently changing the evidence behind an older citation.
 
@@ -1347,6 +1423,10 @@ Multiverse meta-analysis can reveal how defensible choices about inclusion, effe
 
 The mature review program connects these methods to a Second Brain without collapsing private work into public evidence. Source notes, decision records, and synthesis memos support learning. Stable public releases support scrutiny and reuse. The boundary between them is deliberate.
 
+An advanced system may use a coordinating agent to divide a review update into discovery, gap analysis, methods audit, and collection tasks. Coordination should occur through artifacts rather than conversational summaries. Each specialist receives the same approved project card, a distinct work order, and only the context needed for its task. The coordinator can detect missing outputs and schema conflicts, but human reviewers still control the gates between candidate, verified, accepted, and published states.
+
+Treat the context curator as a librarian, not an executive. It maintains indexes, reports contradictions, assembles task packets, and proposes version changes. It does not decide that a disputed claim has become accepted or that an old limitation no longer matters. Keeping this boundary protects the project’s intellectual history from being rewritten for the convenience of the current task.
+
 The future review article is therefore neither a traditional essay with added links nor a database without an argument. It is a governed scholarly claim over a versioned evidence system. Its authority comes from the fit among question, corpus, method, and interpretation. Its capacity to change becomes a strength only when readers can see what changed, why it changed, and which conclusion the earlier evidence supported.
 
 # 19. Building Event Databases with AI
@@ -1355,7 +1435,7 @@ The future review article is therefore neither a traditional essay with added li
 
 Event databases convert dispersed accounts into comparable records. A researcher may begin with a question about protest, repression, political violence, institutional reform, migration, or disaster response. The relevant traces may appear across newspapers, archival catalogues, government reports, organizational records, and born-digital collections. Before generative AI, much of the work required repetitive searching, copying, normalization, and initial classification. These tasks consumed time that researchers needed for interpretation.
 
-AI changes the feasible scale of this work. A system can expand queries, search an authorized collection, extract candidate fields, compare reports, and flag records that may describe the same occurrence. It can apply a preliminary codebook to thousands of passages and identify dimensions the original codebook omitted. Studies of text annotation show that language models can perform some bounded classification tasks quickly and inexpensively. Performance, however, varies substantially across tasks and datasets, which makes local validation indispensable.[^28]
+AI changes the feasible scale of this work. A system can expand queries, search an authorized collection, extract candidate fields, compare reports, and flag records that may describe the same occurrence. It can apply a preliminary codebook to thousands of passages and identify dimensions the original codebook omitted. Studies of text annotation show that language models can perform some bounded classification tasks quickly and inexpensively. Performance, however, varies substantially across tasks and datasets, which makes local validation indispensable.[^31]
 
 The resulting speed creates a methodological danger. A fluent extraction can make an uncertain mention look like an observed event. Several articles can make one wire report look like independent confirmation. A model can produce a precise code for an ambiguous passage or a causal probability without defining the comparison that gives the number meaning. Faster processing does not remove these problems. It can reproduce them at scale.
 
@@ -1373,9 +1453,9 @@ This order matters because a model will readily propose whatever categories are 
 
 ### 19.2.2 Build a source frame
 
-Manual newspaper searching often proceeds title by title and query by query. A digital source frame allows the researcher to define a collection before searching it. The frame records each newspaper, archive, database, date range, language, access route, known gap, and relevant restriction. Open news infrastructures can support large-scale retrieval, while library archives can expose searchable historical newspapers and catalogue records.[^29] The frame should also include local and oppositional sources that a prominent aggregator may not index.
+Manual newspaper searching often proceeds title by title and query by query. A digital source frame allows the researcher to define a collection before searching it. The frame records each newspaper, archive, database, date range, language, access route, known gap, and relevant restriction. Open news infrastructures can support large-scale retrieval, while library archives can expose searchable historical newspapers and catalogue records.[^32] The frame should also include local and oppositional sources that a prominent aggregator may not index.
 
-Digitized collections are not transparent windows onto the past. Selection, survival, digitization, OCR quality, licensing, and search interfaces shape what becomes discoverable. Studies of newspaper digitization show why collection composition must be examined before researchers interpret search results as historical coverage.[^30] A failed query may indicate absence, vocabulary mismatch, OCR error, unavailable dates, or a source omitted from the platform. Record which explanation remains plausible.
+Digitized collections are not transparent windows onto the past. Selection, survival, digitization, OCR quality, licensing, and search interfaces shape what becomes discoverable. Studies of newspaper digitization show why collection composition must be examined before researchers interpret search results as historical coverage.[^33] A failed query may indicate absence, vocabulary mismatch, OCR error, unavailable dates, or a source omitted from the platform. Record which explanation remains plausible.
 
 AI can accelerate work inside the source frame. It can translate query concepts, generate historical names, adapt syntax across archives, and rank retrieved documents for review. A search-connected system may also query an approved interface directly. These operations remain collection procedures. The search log should preserve the source collection, query, date, filters, result count, model or script, and review decision. Access must comply with archive rules, licenses, privacy obligations, and research ethics.
 
@@ -1391,7 +1471,7 @@ This separation allows wide retrieval without lowering the evidentiary threshold
 
 News collections rarely provide one document per event. The same account may be syndicated, translated, updated, quoted by another outlet, or repeated in a retrospective report. Conversely, one article may describe several occurrences. The database therefore needs an event-resolution stage between verified records and analytical events.
 
-AI can compare names, dates, places, actions, and source spans to generate possible matches. Event extraction research shows, however, that simple zero-shot prompting can perform poorly when reports contain ambiguity, hypothetical language, or several interacting actors.[^31] A match score should therefore open a review task instead of merging records automatically.
+AI can compare names, dates, places, actions, and source spans to generate possible matches. Event extraction research shows, however, that simple zero-shot prompting can perform poorly when reports contain ambiguity, hypothetical language, or several interacting actors.[^34] A match score should therefore open a review task instead of merging records automatically.
 
 The **event resolution log** records every merge, split, and non-match. It links source-record identifiers to a stable event identifier and gives the rule, evidence, reviewer, and confidence category. It also records dependence. Five newspapers repeating one wire dispatch represent broad circulation, not five independent observations. Preserving that distinction prevents source abundance from becoming false corroboration.
 
@@ -1409,7 +1489,7 @@ This workflow turns AI into a critic of the original design. The model may notic
 
 Automated coding should be evaluated against researcher-coded material drawn from the intended corpus. The validation sample should include different periods, sources, languages, common classes, rare classes, and difficult boundary cases. A temporal holdout helps expose drift. A source holdout tests whether the system has learned one outlet’s style instead of the event concept.
 
-Report performance by variable and class. Overall accuracy can conceal failure on rare but substantively important events. Precision, recall, and error types usually provide more useful guidance. Double-code a consequential or ambiguous subset, adjudicate disagreements, and record whether each error arose from retrieval, source quality, event resolution, the codebook, or the model. Contemporary event-data research treats this as a measurement problem, not merely a software benchmark.[^32]
+Report performance by variable and class. Overall accuracy can conceal failure on rare but substantively important events. Precision, recall, and error types usually provide more useful guidance. Double-code a consequential or ambiguous subset, adjudicate disagreements, and record whether each error arose from retrieval, source quality, event resolution, the codebook, or the model. Contemporary event-data research treats this as a measurement problem, not merely a software benchmark.[^35]
 
 Validation has a scope. A model that performs well on English national newspapers from one decade has not been validated for local-language archives or another period. Record the tested population, prompt, model, codebook version, and decision threshold. Revalidate after a material change to any of them.
 
@@ -1421,11 +1501,11 @@ Written evidence can change the relative plausibility of rival causal explanatio
 \frac{P(H_{1} \mid E)}{P(H_{0} \mid E)} = \frac{P(H_{1})}{P(H_{0})} \times \frac{P(E \mid H_{1})}{P(E \mid H_{0})}
 ```
 
-The first ratio represents prior odds. The second is the **likelihood ratio**: how much more expected the evidence would be under one explanation than the other. Explicit Bayesian process tracing can discipline comparison among explanations, but priors and likelihoods are not mechanically supplied by a document.[^33]
+The first ratio represents prior odds. The second is the **likelihood ratio**: how much more expected the evidence would be under one explanation than the other. Explicit Bayesian process tracing can discipline comparison among explanations, but priors and likelihoods are not mechanically supplied by a document.[^36]
 
 AI can help prepare the reasoning. It can extract passages bearing on each hypothesis, identify temporal sequence, propose rival explanations, detect duplicated evidence, and ask what each hypothesis predicts. It can calculate posterior odds from declared inputs and run a sensitivity analysis across plausible likelihood ranges.
 
-The researcher assigns the prior and likelihood judgments. The researcher also decides whether a report is independent, authentic, contemporaneous, and diagnostic. A percentage generated from model confidence is not a likelihood ratio. Research on confidence elicitation shows that a language model’s stated certainty requires separate calibration and cannot substitute for a causal model.[^34]
+The researcher assigns the prior and likelihood judgments. The researcher also decides whether a report is independent, authentic, contemporaneous, and diagnostic. A percentage generated from model confidence is not a likelihood ratio. Research on confidence elicitation shows that a language model’s stated certainty requires separate calibration and cannot substitute for a causal model.[^37]
 
 The Bayesian evidence table should therefore record the hypothesis pair, evidence identifier, provenance, predicted observation under each hypothesis, dependence group, likelihood range, rationale, reviewer, update, and sensitivity result. The model may draft alternatives for review. It may not convert fluent interpretation into causal probability.
 
@@ -1504,7 +1584,7 @@ Generative AI can accelerate parts of evidence mapping. It can propose synonyms,
 
 The researcher defines the purpose. The researcher controls the material supplied to the system. The researcher verifies claims and sources. The researcher decides what enters the corpus. The researcher accounts for the result.
 
-This division of labor is necessary because fluent output can contain fabricated references, unsupported inference, privacy disclosure, and bias inherited from training data or the prompt. Current risk guidance treats these as properties that require management across the system’s use, not as rare accidents.[^35]
+This division of labor is necessary because fluent output can contain fabricated references, unsupported inference, privacy disclosure, and bias inherited from training data or the prompt. Current risk guidance treats these as properties that require management across the system’s use, not as rare accidents.[^38]
 
 ## 20.2 Model-Neutral Workflows
 
@@ -1628,6 +1708,8 @@ Lebo, Timothy, Satya Sahoo, and Deborah McGuinness. “PROV-O: The PROV Ontology
 
 Littell, Julia H. “Conceptual and Practical Classification of Research Reviews and Other Evidence Synthesis Products.” *Campbell Systematic Reviews* 14, no. 1 (2018): 1–21. <https://doi.org/10.4073/cmdp.2018.1>.
 
+Liu, Nelson F., Kevin Lin, John Hewitt, Ashwin Paranjape, Michele Bevilacqua, Fabio Petroni, and Percy Liang. “Lost in the Middle: How Language Models Use Long Contexts.” *Transactions of the Association for Computational Linguistics* 12 (2024): 157–73. <https://doi.org/10.1162/tacl_a_00638>.
+
 Malterud, Kirsti, Volkert Dirk Siersma, and Ann Dorrit Guassora. “Sample Size in Qualitative Interview Studies: Guided by Information Power.” *Qualitative Health Research* 26, no. 13 (2016): 1753–60. <https://doi.org/10.1177/1049732315617444>.
 
 Marshall, Iain J., and Byron C. Wallace. “Toward Systematic Review Automation: A Practical Guide to Using Machine Learning Tools in Research Synthesis.” *Systematic Reviews* 8, no. 1 (2019): 163. <https://doi.org/10.1186/s13643-019-1074-9>.
@@ -1639,6 +1721,8 @@ National Consortium for the Study of Terrorism and Responses to Terrorism. “Gl
 Page, Matthew J., Joanne E. McKenzie, Patrick M. Bossuyt, Isabelle Boutron, Tammy C. Hoffmann, Cynthia D. Mulrow, et al. “The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.” *BMJ* 372 (2021): n71. <https://doi.org/10.1136/bmj.n71>.
 
 Pangakis, Nicholas, Samuel Wolken, and Sergio Fasching. “Automated Annotation with Generative AI Requires Validation.” *arXiv*, 2023. <https://doi.org/10.48550/arXiv.2306.00176>.
+
+Park, Joon Sung, Joseph C. O’Brien, Carrie J. Cai, Meredith Ringel Morris, Percy Liang, and Michael S. Bernstein. “Generative Agents: Interactive Simulacra of Human Behavior.” In *Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology*, 1–22, 2023. <https://doi.org/10.1145/3586183.3606763>.
 
 Pigott, Terri D., and Joshua R. Polanin. “Methodological Guidance Paper: High-Quality Meta-Analysis in a Systematic Review.” *Review of Educational Research* 90, no. 1 (2020): 24–46. <https://doi.org/10.3102/0034654319877153>.
 
@@ -1659,6 +1743,8 @@ Uttley, Lesley, Yuliang Weng, and Louise Falzon. “What’s the Meta Now? More 
 Wohlin, Claes. “Guidelines for Snowballing in Systematic Literature Studies and a Replication in Software Engineering.” In *Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering*, 1–10. Association for Computing Machinery, 2014. <https://doi.org/10.1145/2601248.2601268>.
 
 Xiong, Miao, Zhiyuan Hu, Xinyang Lu, Yifei Li, Jie Fu, Junxian He, and Bryan Hooi. “Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs.” In *The Twelfth International Conference on Learning Representations*, 2024. <https://openreview.net/forum?id=gjeQKFxFpZ>.
+
+Yao, Shunyu, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. “ReAct: Synergizing Reasoning and Acting in Language Models.” In *The Eleventh International Conference on Learning Representations*, 2023. <https://openreview.net/forum?id=WE_vluYUL-X>.
 
 Zaks, Sherry. “Updating Bayesian(s): A Critical Evaluation of Bayesian Process Tracing.” *Political Analysis* 29, no. 1 (2021): 58–74. <https://doi.org/10.1017/pan.2020.10>.
 
@@ -1719,18 +1805,24 @@ Ziems, Caleb, William Held, Omar Shaikh, Jiaao Chen, Zhehao Zhang, and Diyi Yang
 
 [^27]: Aymeric Blaizot et al., “Using Artificial Intelligence Methods for Systematic Review in Health Sciences: A Systematic Review,” *Research Synthesis Methods* 13, no. 3 (2022): 353–62, <https://doi.org/10.1002/jrsm.1553>; M. Sharmila A. Sousa et al., “The Landscape of Artificial Intelligence Tools and Platforms for Evidence Synthesis: A Scoping Review,” *Systematic Reviews* 15, no. 1 (2026): 82, <https://doi.org/10.1186/s13643-025-02842-y>.
 
-[^28]: Fabrizio Gilardi, Meysam Alizadeh, and Maël Kubli, “ChatGPT Outperforms Crowd Workers for Text-Annotation Tasks,” *Proceedings of the National Academy of Sciences* 120, no. 30 (2023): e2305016120, <https://doi.org/10.1073/pnas.2305016120>; Nicholas Pangakis, Samuel Wolken, and Sergio Fasching, “Automated Annotation with Generative AI Requires Validation,” *arXiv*, 2023, <https://doi.org/10.48550/arXiv.2306.00176>; Caleb Ziems et al., “Can Large Language Models Transform Computational Social Science?” *Computational Linguistics* 50, no. 1 (2024): 237–91, <https://doi.org/10.1162/coli_a_00502>.
+[^28]: Shunyu Yao et al., “ReAct: Synergizing Reasoning and Acting in Language Models,” in *The Eleventh International Conference on Learning Representations*, 2023, <https://openreview.net/forum?id=WE_vluYUL-X>.
 
-[^29]: Hal Roberts et al., “Media Cloud: Massive Open Source Collection of Global News on the Open Web,” *Proceedings of the International AAAI Conference on Web and Social Media* 15, no. 1 (2021): 1034–45, <https://doi.org/10.1609/icwsm.v15i1.18127>.
+[^29]: Joon Sung Park et al., “Generative Agents: Interactive Simulacra of Human Behavior,” in *Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology*, 2023, 1–22, <https://doi.org/10.1145/3586183.3606763>.
 
-[^30]: Kaspar Beelen et al., “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan,” *Digital Scholarship in the Humanities* 38, no. 1 (2023): 1–22, <https://doi.org/10.1093/llc/fqac037>.
+[^30]: Nelson F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics* 12 (2024): 157–73, <https://doi.org/10.1162/tacl_a_00638>.
 
-[^31]: Erica Cai and Brendan O’Connor, “A Monte Carlo Language Model Pipeline for Zero-Shot Sociopolitical Event Extraction,” in *NeurIPS 2023 Workshop on Instruction Tuning and Instruction Following*, 2023, <https://doi.org/10.48550/arXiv.2305.15051>.
+[^31]: Fabrizio Gilardi, Meysam Alizadeh, and Maël Kubli, “ChatGPT Outperforms Crowd Workers for Text-Annotation Tasks,” *Proceedings of the National Academy of Sciences* 120, no. 30 (2023): e2305016120, <https://doi.org/10.1073/pnas.2305016120>; Nicholas Pangakis, Samuel Wolken, and Sergio Fasching, “Automated Annotation with Generative AI Requires Validation,” *arXiv*, 2023, <https://doi.org/10.48550/arXiv.2306.00176>; Caleb Ziems et al., “Can Large Language Models Transform Computational Social Science?” *Computational Linguistics* 50, no. 1 (2024): 237–91, <https://doi.org/10.1162/coli_a_00502>.
 
-[^32]: Patrick T. Brandt and Marcus Sianan, “Measurement of Event Data from Text,” *Frontiers in Political Science* 6 (2025): 1453640, <https://doi.org/10.3389/fpos.2024.1453640>.
+[^32]: Hal Roberts et al., “Media Cloud: Massive Open Source Collection of Global News on the Open Web,” *Proceedings of the International AAAI Conference on Web and Social Media* 15, no. 1 (2021): 1034–45, <https://doi.org/10.1609/icwsm.v15i1.18127>.
 
-[^33]: Tasha Fairfield and Andrew E. Charman, “Explicit Bayesian Analysis for Process Tracing: Guidelines, Opportunities, and Caveats,” *Political Analysis* 25, no. 3 (2017): 363–80, <https://doi.org/10.1017/pan.2017.14>; Sherry Zaks, “Updating Bayesian(s): A Critical Evaluation of Bayesian Process Tracing,” *Political Analysis* 29, no. 1 (2021): 58–74, <https://doi.org/10.1017/pan.2020.10>.
+[^33]: Kaspar Beelen et al., “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan,” *Digital Scholarship in the Humanities* 38, no. 1 (2023): 1–22, <https://doi.org/10.1093/llc/fqac037>.
 
-[^34]: Miao Xiong et al., “Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs,” in *The Twelfth International Conference on Learning Representations*, 2024, <https://openreview.net/forum?id=gjeQKFxFpZ>.
+[^34]: Erica Cai and Brendan O’Connor, “A Monte Carlo Language Model Pipeline for Zero-Shot Sociopolitical Event Extraction,” in *NeurIPS 2023 Workshop on Instruction Tuning and Instruction Following*, 2023, <https://doi.org/10.48550/arXiv.2305.15051>.
 
-[^35]: See Chloe Autio et al., “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile” (National Institute of Standards and Technology, 2024), <https://doi.org/10.6028/NIST.AI.600-1>.
+[^35]: Patrick T. Brandt and Marcus Sianan, “Measurement of Event Data from Text,” *Frontiers in Political Science* 6 (2025): 1453640, <https://doi.org/10.3389/fpos.2024.1453640>.
+
+[^36]: Tasha Fairfield and Andrew E. Charman, “Explicit Bayesian Analysis for Process Tracing: Guidelines, Opportunities, and Caveats,” *Political Analysis* 25, no. 3 (2017): 363–80, <https://doi.org/10.1017/pan.2017.14>; Sherry Zaks, “Updating Bayesian(s): A Critical Evaluation of Bayesian Process Tracing,” *Political Analysis* 29, no. 1 (2021): 58–74, <https://doi.org/10.1017/pan.2020.10>.
+
+[^37]: Miao Xiong et al., “Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs,” in *The Twelfth International Conference on Learning Representations*, 2024, <https://openreview.net/forum?id=gjeQKFxFpZ>.
+
+[^38]: See Chloe Autio et al., “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile” (National Institute of Standards and Technology, 2024), <https://doi.org/10.6028/NIST.AI.600-1>.
