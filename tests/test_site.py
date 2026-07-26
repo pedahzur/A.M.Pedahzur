@@ -81,8 +81,20 @@ class SiteContractTests(unittest.TestCase):
         for name in (
             "From-Question-to-Evidence.pdf",
             "From-Question-to-Evidence.docx",
+            "From-Question-to-Evidence.md",
         ):
             self.assertTrue((ROOT / "field-guide" / "book" / name).is_file())
+
+        event_chapter = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "content"
+            / "19-building-event-databases-with-ai.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn("Building Event Databases with AI", landing)
+        self.assertIn("candidate record", event_chapter)
+        self.assertIn("Bayesian evidence table", event_chapter)
 
         book_home = (
             ROOT / "field-guide" / "book" / "index.html"

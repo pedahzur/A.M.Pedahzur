@@ -11,7 +11,7 @@
 <meta name="dcterms.date" content="2026-07-12">
 <meta name="description" content="Use generative AI without surrendering scholarly judgment.">
 
-<title>18&nbsp; AI and Research Integrity – From Question to Evidence</title>
+<title>19&nbsp; AI and Research Integrity – From Question to Evidence</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,7 +58,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../content/20-next-steps.html" rel="next">
-<link href="../content/18-synthesize-audit-stop.html" rel="prev">
+<link href="../content/19-building-event-databases-with-ai.html" rel="prev">
 <link href="../assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -111,7 +111,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/19-ai-research-integrity.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/19-ai-research-integrity.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -260,20 +260,26 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../content/19-building-event-databases-with-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../content/19-ai-research-integrity.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/20-next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -286,13 +292,13 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#a-division-of-labor" id="toc-a-division-of-labor" class="nav-link active" data-scroll-target="#a-division-of-labor"><span class="header-section-number">18.1</span> A Division of Labor</a></li>
-  <li><a href="#model-neutral-workflows" id="toc-model-neutral-workflows" class="nav-link" data-scroll-target="#model-neutral-workflows"><span class="header-section-number">18.2</span> Model-Neutral Workflows</a></li>
-  <li><a href="#privacy-and-data-minimization" id="toc-privacy-and-data-minimization" class="nav-link" data-scroll-target="#privacy-and-data-minimization"><span class="header-section-number">18.3</span> Privacy and Data Minimization</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification"><span class="header-section-number">18.4</span> Verification</a></li>
-  <li><a href="#bias-and-missing-perspectives" id="toc-bias-and-missing-perspectives" class="nav-link" data-scroll-target="#bias-and-missing-perspectives"><span class="header-section-number">18.5</span> Bias and Missing Perspectives</a></li>
-  <li><a href="#reproducibility-and-drift" id="toc-reproducibility-and-drift" class="nav-link" data-scroll-target="#reproducibility-and-drift"><span class="header-section-number">18.6</span> Reproducibility and Drift</a></li>
-  <li><a href="#the-standard" id="toc-the-standard" class="nav-link" data-scroll-target="#the-standard"><span class="header-section-number">18.7</span> The Standard</a></li>
+  <li><a href="#a-division-of-labor" id="toc-a-division-of-labor" class="nav-link active" data-scroll-target="#a-division-of-labor"><span class="header-section-number">19.1</span> A Division of Labor</a></li>
+  <li><a href="#model-neutral-workflows" id="toc-model-neutral-workflows" class="nav-link" data-scroll-target="#model-neutral-workflows"><span class="header-section-number">19.2</span> Model-Neutral Workflows</a></li>
+  <li><a href="#privacy-and-data-minimization" id="toc-privacy-and-data-minimization" class="nav-link" data-scroll-target="#privacy-and-data-minimization"><span class="header-section-number">19.3</span> Privacy and Data Minimization</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification"><span class="header-section-number">19.4</span> Verification</a></li>
+  <li><a href="#bias-and-missing-perspectives" id="toc-bias-and-missing-perspectives" class="nav-link" data-scroll-target="#bias-and-missing-perspectives"><span class="header-section-number">19.5</span> Bias and Missing Perspectives</a></li>
+  <li><a href="#reproducibility-and-drift" id="toc-reproducibility-and-drift" class="nav-link" data-scroll-target="#reproducibility-and-drift"><span class="header-section-number">19.6</span> Reproducibility and Drift</a></li>
+  <li><a href="#the-standard" id="toc-the-standard" class="nav-link" data-scroll-target="#the-standard"><span class="header-section-number">19.7</span> The Standard</a></li>
   </ul>
 </nav>
     </div>
@@ -301,7 +307,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></h1>
 </div>
 
 
@@ -331,42 +337,42 @@ div.csl-indent {
 </header>
 
 
-<section id="a-division-of-labor" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="a-division-of-labor"><span class="header-section-number">18.1</span> A Division of Labor</h2>
+<section id="a-division-of-labor" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="a-division-of-labor"><span class="header-section-number">19.1</span> A Division of Labor</h2>
 <p>Generative AI can accelerate parts of evidence mapping. It can propose synonyms, group candidate records, compare definitions, and question a stopping rule. These are acts of assistance. They are not transfers of authorship or responsibility.</p>
 <p>The researcher defines the purpose. The researcher controls the material supplied to the system. The researcher verifies claims and sources. The researcher decides what enters the corpus. The researcher accounts for the result.</p>
 <p>This division of labor is necessary because fluent output can contain fabricated references, unsupported inference, privacy disclosure, and bias inherited from training data or the prompt. Current risk guidance treats these as properties that require management across the system’s use, not as rare accidents.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </section>
-<section id="model-neutral-workflows" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="model-neutral-workflows"><span class="header-section-number">18.2</span> Model-Neutral Workflows</h2>
+<section id="model-neutral-workflows" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="model-neutral-workflows"><span class="header-section-number">19.2</span> Model-Neutral Workflows</h2>
 <p>The guide avoids instructions that depend on one product interface. A workflow states the research task, required input, prompt sequence, verification procedure, and audit record. The model may change. The scholarly obligation does not.</p>
 <p>A useful prompt gives the system a bounded role. “Identify candidate dimensions missing from this question frame” is inspectable. “Research this topic for me” conceals the stages at which error can enter. Prompts should request candidates, alternatives, or critiques. They should not request certainty the system cannot establish.</p>
 <p>Run more than one pass when the task matters. The first pass generates. The second challenges. The third compares the output with the evidence map. Repetition does not guarantee truth, but role separation makes error easier to see.</p>
 <p>Model neutrality has a limit worth stating. The verification-heavy workflows in this guide assume access to a capable model, and capable models often cost money. The privacy fallback assumes a local or institutional system that many researchers do not have. Capability also varies by tool, language, and region. For these reasons the method does not depend on AI. The map, the search log, the evidence register, and the stopping rule stand on their own. A researcher without access to a frontier model loses an assistant, not the method.</p>
 </section>
-<section id="privacy-and-data-minimization" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="privacy-and-data-minimization"><span class="header-section-number">18.3</span> Privacy and Data Minimization</h2>
+<section id="privacy-and-data-minimization" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="privacy-and-data-minimization"><span class="header-section-number">19.3</span> Privacy and Data Minimization</h2>
 <p>Do not place material into an external system merely because it accepts text. Interview transcripts, archival restrictions, personal data, allegations, unpublished findings, and partner-owned datasets may carry legal and ethical limits. Removing names does not lift those limits. De-identification of qualitative data is unreliable, and re-identification is often possible from context alone. Under most data-protection regimes and ethics approvals, pseudonymized participant data remains regulated personal data, and many approvals and data agreements forbid sending it to a third-party processor at all. Consumer tools may also retain inputs or train on them. Before any participant-derived material enters an external system, confirm that the ethics approval and the data agreements permit third-party processing. Use an abstract description when the full record is unnecessary. Prefer a local or institutionally approved system when protection requires it. When in doubt, do not upload, and consult the ethics board or the data-protection officer.</p>
 <p>The audit log records what category of material entered the system. It need not reproduce protected content. It should record the model, date, task, input description, relevant settings, output disposition, and human reviewer.</p>
 </section>
-<section id="verification" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="verification"><span class="header-section-number">18.4</span> Verification</h2>
+<section id="verification" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="verification"><span class="header-section-number">19.4</span> Verification</h2>
 <p>Verification follows the claim. A proposed publication must be located through a DOI resolver, library catalogue, publisher, or trusted index. A named archive must be checked through the institution. A quotation must be compared with the source. A classification must be traced to the evidence and decision rule.</p>
 <p>An AI-generated reference is not a citation. It is a search lead.</p>
 <p>The same rule applies to summaries. A model may produce an elegant account of a document while missing a qualification that changes its meaning. Verify against the original and record which passages support the summary.</p>
 </section>
-<section id="bias-and-missing-perspectives" class="level2" data-number="18.5">
-<h2 data-number="18.5" class="anchored" data-anchor-id="bias-and-missing-perspectives"><span class="header-section-number">18.5</span> Bias and Missing Perspectives</h2>
+<section id="bias-and-missing-perspectives" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="bias-and-missing-perspectives"><span class="header-section-number">19.5</span> Bias and Missing Perspectives</h2>
 <p>Models can reproduce the visibility structure of their training material. Well-indexed English-language institutions may appear central because they are easier for the system to name. Local archives, non-English terms, and informal records may disappear from the response. This weakness makes AI useful as one critic among several, never as the sole designer of a source map.</p>
 <p>Ask what position the response assumes. Ask which actors it treats as authoritative. Ask which language and region dominate its suggestions. Then use domain expertise and human consultation to correct the map.</p>
 </section>
-<section id="reproducibility-and-drift" class="level2" data-number="18.6">
-<h2 data-number="18.6" class="anchored" data-anchor-id="reproducibility-and-drift"><span class="header-section-number">18.6</span> Reproducibility and Drift</h2>
+<section id="reproducibility-and-drift" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="reproducibility-and-drift"><span class="header-section-number">19.6</span> Reproducibility and Drift</h2>
 <p>The same prompt may produce different outputs across runs. A provider may change the model without preserving the prior version. Search-connected systems may draw on a changing index. The audit record should therefore support reconstruction of the decision, not promise exact reproduction of the text.</p>
 <p>Preserve consequential outputs when terms permit. Record accepted and rejected suggestions. State when AI assistance changed the question, search vocabulary, source inventory, or stopping rule. The manuscript needs the decision trail more than it needs a transcript of every exchange.</p>
 </section>
-<section id="the-standard" class="level2" data-number="18.7">
-<h2 data-number="18.7" class="anchored" data-anchor-id="the-standard"><span class="header-section-number">18.7</span> The Standard</h2>
+<section id="the-standard" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="the-standard"><span class="header-section-number">19.7</span> The Standard</h2>
 <p>AI use is defensible when it makes judgment more visible. It fails when it hides judgment behind convenience.</p>
 
 
@@ -801,13 +807,13 @@ Autio, Chloe, Reva Schwartz, Jesse Dunietz, Shomik Jain, Martin Stanley, Elham T
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/18-synthesize-audit-stop.html" class="pagination-link" aria-label="Stage 6: Synthesize, Audit, and Stop">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Stage 6: Synthesize, Audit, and Stop</span></span>
+      <a href="../content/19-building-event-databases-with-ai.html" class="pagination-link" aria-label="Building Event Databases with AI">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../content/20-next-steps.html" class="pagination-link" aria-label="Building the Full Field Guide">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
