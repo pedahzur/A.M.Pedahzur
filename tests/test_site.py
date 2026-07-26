@@ -116,6 +116,32 @@ class SiteContractTests(unittest.TestCase):
             ).is_file()
         )
 
+    def test_field_guide_uses_restrained_editorial_design(self) -> None:
+        landing = (ROOT / "field-guide" / "index.html").read_text(encoding="utf-8")
+        styles = (ROOT / "field-guide" / "guide.css").read_text(encoding="utf-8")
+
+        for landmark in (
+            'class="publication-header"',
+            'class="publication-masthead"',
+            'class="edition-register"',
+            'class="module-index"',
+            'class="publication-footer"',
+        ):
+            self.assertIn(landmark, landing)
+
+        for token in (
+            "--page: #f4f4f0;",
+            "--ink: #18222d;",
+            "--accent: #245f86;",
+            "--measure: 68ch;",
+            "font-size: clamp(2.45rem, 4.5vw, 3.9rem);",
+        ):
+            self.assertIn(token, styles)
+
+        self.assertNotIn("radial-gradient", styles)
+        self.assertNotIn("border-radius: 999px", styles)
+        self.assertNotIn('class="guide-hero"', landing)
+
     def test_public_pages_contain_no_private_paths(self) -> None:
         for page in ROOT.rglob("*.html"):
             text = page.read_text(encoding="utf-8")
