@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ami Pedahzur">
+<meta name="author" content="Jonathan Grossman">
+<meta name="dcterms.date" content="2026-07-26">
+<meta name="description" content="Choose a review form, synthesize quantitative evidence responsibly, and design an open, versioned review that can change without losing its history.">
+
+<title>18&nbsp; Review Articles and Meta-Analysis in Transition – From Question to Evidence</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../content/19-building-event-databases-with-ai.html" rel="next">
+<link href="../content/18-synthesize-audit-stop.html" rel="prev">
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3a534ea7b24c560f9a137ce7e71693b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/19-review-articles-and-meta-analysis.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Review Articles and Meta-Analysis in Transition</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">From Question to Evidence</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../From-Question-to-Evidence.docx">
+              <i class="bi bi-file-word pe-1"></i>
+            Download Docx
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="../From-Question-to-Evidence.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=|url|" title="LinkedIn" class="quarto-navigation-tool px-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">From Question to Evidence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/01-origins-and-purpose.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Origins and Purpose</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-evidence-map-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Evidence Map</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/03-frame.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Stage 1: Frame the Question</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/04-decompose.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Stage 2: Decompose the Question</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/05-map-source-families.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Stage 3: Map Source Families</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/06-search-iteratively.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Stage 4: Search Iteratively</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/07-evaluate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stage 5: Evaluate Evidence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/08-test-coverage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stage 6: Test Coverage</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/09-produce-evidence-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Stage 7: Produce the Evidence Map</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/12-literature-as-evidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Literature as Evidence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/13-define-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Stage 1: Define the Review</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/14-map-concepts-vocabulary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Stage 2: Map Concepts and Vocabulary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/15-discover-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Stage 3: Discover Through Multiple Routes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/16-evaluate-literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Stage 4: Evaluate Sources and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/17-read-annotate-compare.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Stage 5: Read, Annotate, and Compare</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/18-synthesize-audit-stop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Stage 6: Synthesize, Audit, and Stop</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/19-review-articles-and-meta-analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Review Articles and Meta-Analysis in Transition</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/19-building-event-databases-with-ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/19-ai-research-integrity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/20-next-steps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#orientation" id="toc-orientation" class="nav-link active" data-scroll-target="#orientation"><span class="header-section-number">18.1</span> Orientation</a></li>
+  <li><a href="#learn" id="toc-learn" class="nav-link" data-scroll-target="#learn"><span class="header-section-number">18.2</span> Learn</a></li>
+  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example"><span class="header-section-number">18.3</span> Worked Example</a></li>
+  <li><a href="#try-it" id="toc-try-it" class="nav-link" data-scroll-target="#try-it"><span class="header-section-number">18.4</span> Try It</a></li>
+  <li><a href="#guided-ai-workflow" id="toc-guided-ai-workflow" class="nav-link" data-scroll-target="#guided-ai-workflow"><span class="header-section-number">18.5</span> Guided AI Workflow</a></li>
+  <li><a href="#integrity-checkpoint" id="toc-integrity-checkpoint" class="nav-link" data-scroll-target="#integrity-checkpoint"><span class="header-section-number">18.6</span> Integrity Checkpoint</a></li>
+  <li><a href="#save-the-artifact" id="toc-save-the-artifact" class="nav-link" data-scroll-target="#save-the-artifact"><span class="header-section-number">18.7</span> Save the Artifact</a></li>
+  <li><a href="#advanced-practice" id="toc-advanced-practice" class="nav-link" data-scroll-target="#advanced-practice"><span class="header-section-number">18.8</span> Advanced Practice</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Review Articles and Meta-Analysis in Transition</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ami Pedahzur </p>
+             <p>Jonathan Grossman </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 26, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="orientation" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="orientation"><span class="header-section-number">18.1</span> Orientation</h2>
+<p>A review article once appeared to be a retrospective product. Its authors surveyed an established literature, organized its main findings, and published a settled account. That model still has value, but it no longer describes the entire task. Digital discovery produces larger and more varied corpora. Open research practices expose protocols, coding decisions, data, and analysis. New studies can make a synthesis stale soon after publication. AI can accelerate several clerical operations, while also multiplying plausible errors.</p>
+<p>These changes are turning the review from a static article into a form of research infrastructure. The article remains an argument, but the argument now rests on inspectable and potentially reusable objects: a protocol, search history, screening record, coded corpus, analysis, sensitivity tests, and update policy. A trustworthy review links these objects without pretending that procedural detail can replace judgment.</p>
+<p>This chapter explains the present and plausible future of review articles and meta-analyses in the social sciences. Its central claim is simple. New tools can shorten discovery, screening, extraction, and updating, but they cannot decide what evidence is comparable or what variation means. The durable unit of progress is therefore not an automated summary. It is a versioned chain of decisions that another researcher can inspect, challenge, and extend.</p>
+</section>
+<section id="learn" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="learn"><span class="header-section-number">18.2</span> Learn</h2>
+<section id="begin-with-the-review-family" class="level3" data-number="18.2.1">
+<h3 data-number="18.2.1" class="anchored" data-anchor-id="begin-with-the-review-family"><span class="header-section-number">18.2.1</span> Begin with the review family</h3>
+<p>The term <em>literature review</em> covers several products with different purposes. A narrative or integrative review may clarify a concept, reconstruct an intellectual debate, or develop a theoretical account. A scoping review maps the extent and characteristics of a broad body of work. A systematic review answers a bounded question through explicit, reproducible procedures. A qualitative evidence synthesis interprets meanings or mechanisms across studies. An evidence and gap map describes the distribution of evidence without necessarily estimating a common effect. An umbrella review examines existing reviews. A rapid review makes declared concessions to produce a timely answer. Meta-analysis statistically synthesizes estimates that meet defined comparability conditions.<span class="citation" data-cites="grant2009typology littell2018classification snyder2019literature"><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></span></p>
+<p>This review family is not a hierarchy. A systematic review is not automatically superior to an interpretive review. A meta-analysis is not a badge of rigor that can be added to any corpus. Each form answers a different question and makes different assumptions. The first design decision is therefore functional: what must the review allow its reader to understand, estimate, compare, or decide?</p>
+<p>A review of how a concept changed across disciplines may require close comparison of definitions and citation lineages. A review of whether an intervention changes an outcome may support statistical synthesis. A review of how participants experience that intervention may require qualitative synthesis. A review of an emerging field may first need a scoping map because its populations, measures, and outcomes remain unstable. Combining these products can be useful, but their inferential roles must remain distinct.</p>
+<p>Method names do not settle the design. Authors sometimes label a broad database search a systematic review even when eligibility decisions and synthesis rules remain unclear. Other reviews apply a narrow checklist to a question that requires historical or conceptual interpretation. The defensible sequence runs from question to evidence type, from evidence type to review form, and from review form to procedure.</p>
+</section>
+<section id="understand-what-meta-analysis-adds" class="level3" data-number="18.2.2">
+<h3 data-number="18.2.2" class="anchored" data-anchor-id="understand-what-meta-analysis-adds"><span class="header-section-number">18.2.2</span> Understand what meta-analysis adds</h3>
+<p>Meta-analysis is not a synonym for systematic review. It is a set of statistical methods for describing and explaining a distribution of comparable effect estimates within a defined corpus.<span class="citation" data-cites="pigott2020meta"><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></span> The systematic review establishes how studies entered that corpus. The meta-analysis addresses what their estimates imply under declared statistical assumptions.</p>
+<p>This distinction matters because a precise pooled estimate can conceal a weak evidence base. Studies may use different constructs under the same label, compare unlike populations, report incompatible outcomes, or estimate effects under different causal conditions. A statistical model can combine the numbers, but it cannot make the underlying questions equivalent.</p>
+<p>Before pooling, construct an estimand table. Each row should record the population, treatment or exposure, comparison, outcome, timing, design, effect measure, and adjustment set. Add the unit of assignment, unit of analysis, and level at which uncertainty was estimated. The table makes comparability a visible decision instead of an assumption hidden inside software.</p>
+<p>The pooled mean is only one possible target. A review may seek the average association across settings, the distribution of effects, an expected effect in a new setting, or the moderators that account for variation. These are different questions. A model chosen for one should not be interpreted as if it answered the others.</p>
+</section>
+<section id="treat-heterogeneity-as-substantive-evidence" class="level3" data-number="18.2.3">
+<h3 data-number="18.2.3" class="anchored" data-anchor-id="treat-heterogeneity-as-substantive-evidence"><span class="header-section-number">18.2.3</span> Treat heterogeneity as substantive evidence</h3>
+<p>Social science effects often vary because institutions, histories, populations, measures, and implementation differ. Heterogeneity is therefore more than noise around a universal effect. It may be the principal finding.</p>
+<p>A random-effects model acknowledges variation among the effects represented by the included studies. It does not prove that those studies form one meaningful population. Nor does it license an inference to every setting beyond them. The review must explain which sources of variation were expected before analysis and which appeared only after inspecting the data.</p>
+<p>Report the distribution of effects, not only its mean. A confidence interval describes uncertainty around an estimated parameter. A prediction interval addresses a different question: where an effect from a comparable future setting might plausibly fall. When heterogeneity is substantial, the prediction interval may cross thresholds that the pooled mean does not. Its width can be more informative for policy than the significance of the mean.</p>
+<p>Moderator analyses can examine theoretically specified variation, but they are vulnerable to low power, multiple testing, and ecological interpretation. A moderator measured at the study level cannot establish the corresponding individual-level mechanism. Separate planned tests from exploratory ones. Record which coding distinctions existed before results were examined.</p>
+<p>Qualitative and quantitative synthesis can inform each other here. Close reading may identify institutional differences that define plausible moderator categories. Quantitative patterns may identify cases that deserve renewed interpretation. Mixed evidence becomes valuable when the forms remain legible, not when one is used to decorate the other.</p>
+</section>
+<section id="preserve-dependence-and-multiplicity" class="level3" data-number="18.2.4">
+<h3 data-number="18.2.4" class="anchored" data-anchor-id="preserve-dependence-and-multiplicity"><span class="header-section-number">18.2.4</span> Preserve dependence and multiplicity</h3>
+<p>Many social science studies report several outcomes, time points, subgroups, models, or treatment contrasts. Several articles may also analyze the same dataset. These estimates share observations and design decisions. Treating them as independent produces excessive precision and gives prolific studies or datasets disproportionate influence.</p>
+<p>Every effect table should therefore include a study identifier, sample identifier, dataset identifier, outcome family, time point, and model family. This structure reveals dependent effect estimates before analysis. The reviewer can then select one estimate under a preregistered rule, model the hierarchy, use an appropriate multivariate method, or apply robust variance estimation when its assumptions and sample requirements fit the corpus.<span class="citation" data-cites="hedges2010robust"><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></span></p>
+<p>Dependence is also intellectual. A set of studies may repeat one operationalization, share code, or inherit the same measurement error. Statistical correction for clustered standard errors does not remove that shared conceptual ancestry. The written synthesis should distinguish repeated analysis from independent replication.</p>
+<p>Model multiplicity creates another problem. Authors can often report many defensible specifications. Reviews that select one estimate per study after seeing the results may reproduce selective reporting. Collecting all relevant estimates and modeling their dependence can be preferable, but it requires careful coding and a declared strategy. Contemporary social science guidance identifies dependence, systematic heterogeneity, and publication selection as recurring issues that every quantitative synthesis should address.<span class="citation" data-cites="irsova2024meta"><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></span></p>
+</section>
+<section id="examine-selective-reporting-without-a-mechanical-verdict" class="level3" data-number="18.2.5">
+<h3 data-number="18.2.5" class="anchored" data-anchor-id="examine-selective-reporting-without-a-mechanical-verdict"><span class="header-section-number">18.2.5</span> Examine selective reporting without a mechanical verdict</h3>
+<p>The available literature is not a neutral sample of completed research. Statistically striking results may be more likely to be written, submitted, accepted, or emphasized. Outcomes and specifications can also be selected within a published study. Gray literature searches may reduce some forms of selection while introducing new differences in reviewability and metadata.</p>
+<p>No single funnel plot, regression, or adjustment method can diagnose and repair every form of publication bias. Small-study patterns can arise from heterogeneity, design quality, or genuine differences in populations. Statistical corrections rely on assumptions that may not fit the selection process. Use several sources of evidence: prospective registrations where available, dissertations and reports, requests for unreported results, outcome comparison within studies, sensitivity analyses, and a substantive account of incentives in the field.</p>
+<p>The review should state what would have to be missing to change its conclusion. That question turns a generic limitation into a sensitivity claim. It also prevents the adjusted estimate from appearing as a recovered truth. A corrected result remains conditional on a model of what became observable.</p>
+</section>
+<section id="make-the-synthesis-reproducible" class="level3" data-number="18.2.6">
+<h3 data-number="18.2.6" class="anchored" data-anchor-id="make-the-synthesis-reproducible"><span class="header-section-number">18.2.6</span> Make the synthesis reproducible</h3>
+<p>Open practice changes a meta-analysis from a report about an analysis into a rerunnable research object. A strong public package includes the protocol, complete search strategies, screening decisions, extraction definitions, coded data, transformation code, analysis code, output tables, and a record of deviations. When materials cannot be shared, the package should describe the restriction and expose the largest safe portion.</p>
+<p>Preregistration does not freeze a review against learning. It distinguishes planned decisions from changes made after contact with the evidence. A deviation log can record what changed, why it changed, when the team decided, and which outputs the change affected. Open materials allow readers to evaluate those decisions and allow later teams to update the review rather than reconstruct it.<span class="citation" data-cites="moreau2022open"><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></span></p>
+<p>Transparency must extend to the quantitative data structure. A spreadsheet of final effect sizes is insufficient if it omits study relationships, transformation rules, excluded estimates, and coding uncertainty. Preserve raw extracted values alongside derived values. Give every effect a stable identifier that links it to its source location and coding decision.</p>
+<p>Meta-research has found persistent gaps in the transparency and reproducibility of published meta-analyses.<span class="citation" data-cites="polanin2020transparency uttley2026meta"><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></span> A long methods section does not by itself solve the problem. Reproducibility depends on whether the released objects recreate the stated result and make consequential judgment visible.</p>
+</section>
+<section id="design-living-reviews-as-governed-projects" class="level3" data-number="18.2.7">
+<h3 data-number="18.2.7" class="anchored" data-anchor-id="design-living-reviews-as-governed-projects"><span class="header-section-number">18.2.7</span> Design living reviews as governed projects</h3>
+<p>A living review incorporates new evidence under a continuing workflow. It is an update mode, not another review question type. The same systematic review can be maintained in living form when new research arrives frequently and could change a consequential conclusion.<span class="citation" data-cites="elliott2017living"><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></span></p>
+<p>Living status requires more than an editable webpage. The team needs a surveillance strategy, update trigger, review interval, ownership rule, version number, correction process, and retirement condition. Each release should preserve a citable snapshot. Readers must be able to identify which evidence and analysis supported the version they used.</p>
+<p>Updates also create statistical problems. Repeatedly recalculating and testing a pooled effect as new studies arrive can change error rates. A living meta-analysis therefore needs a declared updating method, especially when policy decisions depend on crossing a threshold. The correct method depends on the inferential target, expected evidence flow, heterogeneity, and cost of error. No universal update rule replaces these design choices.</p>
+<p>Maintenance should be selective. A slowly changing historical literature may not justify continuous surveillance. A fast-moving policy question might. A review can leave living mode when new studies become unlikely, the conclusion stabilizes for its decision purpose, or resources no longer support responsible maintenance. Calling every online review living would conceal these commitments.</p>
+</section>
+<section id="give-ai-bounded-work" class="level3" data-number="18.2.8">
+<h3 data-number="18.2.8" class="anchored" data-anchor-id="give-ai-bounded-work"><span class="header-section-number">18.2.8</span> Give AI bounded work</h3>
+<p>AI can assist with query expansion, deduplication, screening prioritization, structured extraction, citation checking, code explanation, and update surveillance. Earlier machine-learning research found some mature applications for study identification, while extraction and judgment-intensive tasks required more development.<span class="citation" data-cites="marshall2019automation"><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></span> Later reviews documented rapid growth in available systems, especially around search, screening, extraction, and synthesis.<span class="citation" data-cites="blaizot2022ai sousa2026ai"><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></span></p>
+<p>The number of tools does not establish their reliability for a particular review. Performance depends on the question, source type, language, study design, prevalence of eligible records, and definition of an error. A system that ranks relevant records near the top may save labor without being safe for autonomous exclusion. A fluent extraction may still assign a number to the wrong group, outcome, or time point.</p>
+<p>Use AI as a proposal layer. The system can suggest records, fields, links, and checks. A controlled review step decides what enters the evidence base. For screening, validate recall on a representative researcher-coded sample and inspect every false exclusion. For extraction, require an exact source span and abstention option. For risk-of-bias assessment, causal interpretation, and final inclusion, retain human adjudication.</p>
+<p>Human validation is not a ceremonial final glance. It is a measured procedure. Record the validation sample, sampling rule, reference coding, error categories, model and prompt version, decision threshold, and response to failure. Revalidate after material changes in the corpus or system.</p>
+</section>
+<section id="separate-the-present-from-the-forecast" class="level3" data-number="18.2.9">
+<h3 data-number="18.2.9" class="anchored" data-anchor-id="separate-the-present-from-the-forecast"><span class="header-section-number">18.2.9</span> Separate the present from the forecast</h3>
+<p>The current review article can already be modular and open. Protocols, machine-readable data, executable analysis, linked corrections, and citable releases are available practices. Semi-automated screening and extraction are emerging practices whose value must be demonstrated in the local corpus. Continuous synthesis across interoperable evidence registries remains a conditional future.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Horizon</th>
+<th>Review form</th>
+<th>Required safeguard</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Current practice</td>
+<td>An article linked to protocol, corpus, code, and a citable release</td>
+<td>Reproducibility, provenance, and disclosed deviations</td>
+</tr>
+<tr class="even">
+<td>Emerging practice</td>
+<td>A living review with AI-assisted surveillance, prioritization, and extraction</td>
+<td>Local validation, human adjudication, and version governance</td>
+</tr>
+<tr class="odd">
+<td>Conditional future</td>
+<td>A continuously updated evidence service built from interoperable study, claim, and effect objects</td>
+<td>Durable standards, equitable access, preservation, and accountable ownership</td>
+</tr>
+</tbody>
+</table>
+<p>The conditional future is technically plausible but institutionally demanding. Journals and repositories would need stable citation rules for changing objects. Research teams would need credit for maintenance, correction, data stewardship, and negative updates. Shared schemas would need to preserve construct differences rather than forcing every study into one vocabulary.</p>
+<p>The review article may become an interface over a versioned evidence system. Readers could inspect the current conclusion, trace it to effects or qualitative findings, change defensible assumptions, and compare releases. Such an interface would not eliminate authorship. Its design would make authorship more visible by showing where inclusion, coding, modeling, and interpretation shaped the answer.</p>
+<p>This future also carries risks. Well-resourced fields may maintain sophisticated living syntheses while other regions and languages remain poorly indexed. Proprietary systems may make public evidence dependent on private infrastructure. Continuous updating can create an illusion of completeness and exhaust the teams responsible for it. The goal is not permanent motion. It is controlled revision when new evidence matters.</p>
+</section>
+</section>
+<section id="worked-example" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="worked-example"><span class="header-section-number">18.3</span> Worked Example</h2>
+<p>Consider a review asking whether community-policing programs increase public trust in police. The first search identifies experiments, quasi-experiments, surveys, qualitative interviews, and program evaluations across several countries. A single pooled estimate would answer the wrong question because the studies do not share one treatment, outcome, or causal design.</p>
+<p>The team divides the project into linked products. A scoping map describes programs, populations, research designs, trust measures, and geographic coverage. A systematic review evaluates studies with a defensible comparison group. A qualitative synthesis examines how residents describe contact, legitimacy, safety, and unequal treatment. The products share a source register but maintain separate eligibility and synthesis rules.</p>
+<p>The quantitative subset still contains hidden multiplicity. Several reports use one national survey. Individual studies report trust immediately after contact and again months later. Some programs combine foot patrols with public meetings, while others change only officer assignment. The estimand table exposes these differences. The effect table links multiple estimates to samples, outcomes, and program families.</p>
+<p>The main model estimates an average across a defined family of programs. It also reports a prediction interval and planned comparisons by intervention component and institutional setting. A dependence-aware analysis prevents one large survey and its related articles from dominating precision. The review treats the remaining heterogeneity as a finding: program labels conceal distinct mechanisms and political contexts.</p>
+<p>Publication-bias analysis finds that small published studies report more favorable estimates. The team does not declare the pattern corrected after one adjustment. It searches evaluation repositories and dissertations, compares registered outcomes where possible, and reports sensitivity to several selection assumptions. The conclusion becomes conditional: favorable average results do not establish that every program or setting will improve trust.</p>
+<p>The public package contains the protocol, search histories, decision log, coded corpus, effect transformations, analysis code, and a redacted qualitative matrix. The team schedules annual surveillance but triggers an earlier update if a large multisite evaluation appears. Release 1.0 remains frozen and citable when release 1.1 adds new evidence.</p>
+<p>An AI system expands intervention names and ranks new search results. It proposes extraction fields with source spans. Researchers validate screening recall on a stratified sample and adjudicate all exclusions near the decision boundary. The system never decides whether a program belongs in the same causal family or whether a trust measure is substantively comparable. Those judgments remain part of the review’s argument.</p>
+</section>
+<section id="try-it" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="try-it"><span class="header-section-number">18.4</span> Try It</h2>
+<p>Start with one review question and write the decision it must support. Name the review form that best fits that purpose. Then state why two neighboring forms would answer different questions.</p>
+<p>Create an estimand table for five candidate studies. Record population, exposure or intervention, comparison, outcome, timing, design, and effect measure. Add sample and dataset identifiers. Mark which studies could enter one quantitative synthesis and explain every exclusion from pooling.</p>
+<p>For the eligible estimates, draw a dependence map. Connect effects that share participants, datasets, outcomes, authorship pipelines, or measurement instruments. Choose a strategy for each connection and state what assumption the strategy requires.</p>
+<p>Draft a result paragraph that reports the mean, its uncertainty, heterogeneity, a prediction interval, and one limitation arising from the corpus. Remove any sentence that treats statistical significance as a complete substantive conclusion.</p>
+<p>Finally, write an update policy. Specify surveillance sources, cadence, update triggers, owner, release format, correction route, and retirement condition. Label each planned feature as current, emerging, or conditional future. This prevents an aspiration from being presented as an implemented method.</p>
+</section>
+<section id="guided-ai-workflow" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="guided-ai-workflow"><span class="header-section-number">18.5</span> Guided AI Workflow</h2>
+<p>Use AI in four bounded passes. In the design pass, provide the research question and intended decision. Ask the system to compare plausible review forms and list the evidence each would require. In the structure pass, provide verified study metadata and researcher-defined fields. Ask it to flag possible construct mismatch, dependence, and missing values without deciding eligibility. In the audit pass, provide the analysis plan and output. Ask for unsupported inferences, omitted sensitivity tests, and discrepancies between the estimand and conclusion. In the update pass, ask it to rank new candidate records and explain each ranking.</p>
+<p>A useful audit prompt is:</p>
+<blockquote class="blockquote">
+<p>Review this estimand table, effect structure, analysis plan, and draft conclusion. Identify claims that exceed the eligible corpus, effect estimates that may be dependent, sources of heterogeneity not represented in the model, and statements that confuse a pooled mean with an expected effect in a new setting. Cite only the supplied record identifiers. Return “not established” when the record is insufficient.</p>
+</blockquote>
+<p><strong>Permitted input:</strong> Verified metadata, researcher-authored protocols, rights-cleared text, structured extraction fields, de-identified effect data, code, and public analytical output.<br>
+<strong>Do not provide:</strong> Licensed full text without permission, confidential peer-review material, protected participant data, restricted archives, or identifiable sensitive records.<br>
+<strong>Verify:</strong> Check every proposed inclusion, exclusion, extracted value, source span, transformation, dependence link, citation, and analytical claim. Test screening and extraction performance on a representative human-coded sample.<br>
+<strong>Record:</strong> Save model and version, prompt, input description, output, reviewer decision, error category, protocol and corpus versions, analysis release, and date.</p>
+<p>Do not ask a model to select the final review form, infer missing statistics without a declared method, adjudicate risk of bias alone, or choose a publication-bias correction after seeing which result is favorable. Do not accept a causal or policy conclusion that cannot be reconstructed from the reviewed evidence objects.</p>
+</section>
+<section id="integrity-checkpoint" class="level2" data-number="18.6">
+<h2 data-number="18.6" class="anchored" data-anchor-id="integrity-checkpoint"><span class="header-section-number">18.6</span> Integrity Checkpoint</h2>
+<p>A comprehensive search can still reproduce unequal visibility. Dominant databases index some journals, languages, regions, and publication forms more completely than others. AI systems inherit those boundaries and may rank familiar terminology above locally specific concepts. Audit discovery by language, geography, discipline, publication form, and institutional access.</p>
+<p>Quantitative synthesis can erase difference through a common effect measure. Before converting outcomes, ask whether they represent the same construct and decision. Preserve original scales and definitions alongside transformed values. Report exclusions from pooling without treating unpooled studies as inferior evidence.</p>
+<p>Open release also has limits. Study-level data may contain confidential information or enable reidentification. Search histories can expose sensitive research interests or restricted holdings. Release a calibrated public package and document the withheld components, access basis, and responsible contact.</p>
+<p>AI assistance creates additional disclosure duties. Name the operations it supported, the system version, validation procedure, and known failures. Do not list a general-purpose model as an author or allow it to conceal who made consequential decisions.</p>
+<p>Finally, resist prestige by method. A complex model cannot compensate for a weak corpus. A transparent narrative synthesis can be more informative than an invalid pooled estimate. The review earns trust by matching its claim to its evidence and preserving the path between them.</p>
+</section>
+<section id="save-the-artifact" class="level2" data-number="18.7">
+<h2 data-number="18.7" class="anchored" data-anchor-id="save-the-artifact"><span class="header-section-number">18.7</span> Save the Artifact</h2>
+<p>Save a review design memo that links the question, intended decision, review form, eligible evidence, and synthesis method. Preserve the protocol and every dated amendment.</p>
+<p>Maintain a source register, screening log, extraction dictionary, coded corpus, dependence map, and synthesis memo. For meta-analysis, add raw and transformed effect data, executable code, session information, model diagnostics, prediction intervals, and sensitivity results.</p>
+<p>Create a release manifest. It should name the corpus version, protocol version, codebook version, analysis commit, public files, restricted files, license, citation, review date, correction route, update trigger, and retirement condition. Give each release a stable identifier and preserve earlier releases.</p>
+<p>The article, dataset, code, and review website should point to the same manifest. This shared reference prevents a current webpage from silently changing the evidence behind an older citation.</p>
+</section>
+<section id="advanced-practice" class="level2" data-number="18.8">
+<h2 data-number="18.8" class="anchored" data-anchor-id="advanced-practice"><span class="header-section-number">18.8</span> Advanced Practice</h2>
+<p>Prospective meta-analysis coordinates eligible studies and analyses before their results become known. It can reduce some forms of outcome selection and harmonize measures while preserving study-level independence. It requires governance that protects local study ownership and records any changes made after results arrive.</p>
+<p>Individual-participant-data meta-analysis can examine common definitions and participant-level variation that published aggregates cannot support. Its advantages depend on data access, harmonization quality, missingness, and representation of studies that cannot share data. The unavailable studies remain part of the inference problem.</p>
+<p>Bayesian meta-analysis can encode uncertainty about heterogeneity, combine prior information with new evidence, and support sequential updating. Priors should be justified, sensitivity-tested, and separated from evidence supplied by the included studies. Bayesian computation does not make incomparable effects comparable.</p>
+<p>Multiverse meta-analysis can reveal how defensible choices about inclusion, effect selection, dependence, and modeling affect the conclusion. The set of specifications must follow substantive and methodological reasoning. A large grid of arbitrary models can obscure judgment as easily as one preferred model.</p>
+<p>The mature review program connects these methods to a Second Brain without collapsing private work into public evidence. Source notes, decision records, and synthesis memos support learning. Stable public releases support scrutiny and reuse. The boundary between them is deliberate.</p>
+<p>The future review article is therefore neither a traditional essay with added links nor a database without an argument. It is a governed scholarly claim over a versioned evidence system. Its authority comes from the fit among question, corpus, method, and interpretation. Its capacity to change becomes a strength only when readers can see what changed, why it changed, and which conclusion the earlier evidence supported.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-blaizot2022ai" class="csl-entry" role="listitem">
+Blaizot, Aymeric, Sajesh K. Veettil, Pantakarn Saidoung, Carlos Francisco Moreno-Garcia, Nirmalie Wiratunga, Magaly Aceves-Martins, Nai Ming Lai, and Nathorn Chaiyakunapruk. <span>“Using Artificial Intelligence Methods for Systematic Review in Health Sciences: A Systematic Review.”</span> <em>Research Synthesis Methods</em> 13, no. 3 (2022): 353–62. <a href="https://doi.org/10.1002/jrsm.1553">https://doi.org/10.1002/jrsm.1553</a>.
+</div>
+<div id="ref-elliott2017living" class="csl-entry" role="listitem">
+Elliott, Julian H., Anneliese Synnot, Tari Turner, Mark Simmonds, Elie A. Akl, Steve McDonald, Georgia Salanti, et al. <span>“Living Systematic Review: 1. Introduction, the Why, What, When, and How.”</span> <em>Journal of Clinical Epidemiology</em> 91 (2017): 23–30. <a href="https://doi.org/10.1016/j.jclinepi.2017.08.010">https://doi.org/10.1016/j.jclinepi.2017.08.010</a>.
+</div>
+<div id="ref-grant2009typology" class="csl-entry" role="listitem">
+Grant, Maria J., and Andrew Booth. <span>“A Typology of Reviews: An Analysis of 14 Review Types and Associated Methodologies.”</span> <em>Health Information<br>
+&amp; Libraries Journal</em> 26, no. 2 (2009): 91–108. <a href="https://doi.org/10.1111/j.1471-1842.2009.00848.x">https://doi.org/10.1111/j.1471-1842.2009.00848.x</a>.
+</div>
+<div id="ref-hedges2010robust" class="csl-entry" role="listitem">
+Hedges, Larry V., Elizabeth Tipton, and Matthew C. Johnson. <span>“Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates.”</span> <em>Research Synthesis Methods</em> 1, no. 1 (2010): 39–65. <a href="https://doi.org/10.1002/jrsm.5">https://doi.org/10.1002/jrsm.5</a>.
+</div>
+<div id="ref-irsova2024meta" class="csl-entry" role="listitem">
+Irsova, Zuzana, Hristos Doucouliagos, Tomas Havranek, and T. D. Stanley. <span>“Meta-Analysis of Social Science Research: A Practitioner’s Guide.”</span> <em>Journal of Economic Surveys</em> 38, no. 5 (2024): 1547–66. <a href="https://doi.org/10.1111/joes.12595">https://doi.org/10.1111/joes.12595</a>.
+</div>
+<div id="ref-littell2018classification" class="csl-entry" role="listitem">
+Littell, Julia H. <span>“Conceptual and Practical Classification of Research Reviews and Other Evidence Synthesis Products.”</span> <em>Campbell Systematic Reviews</em> 14, no. 1 (2018): 1–21. <a href="https://doi.org/10.4073/cmdp.2018.1">https://doi.org/10.4073/cmdp.2018.1</a>.
+</div>
+<div id="ref-marshall2019automation" class="csl-entry" role="listitem">
+Marshall, Iain J., and Byron C. Wallace. <span>“Toward Systematic Review Automation: A Practical Guide to Using Machine Learning Tools in Research Synthesis.”</span> <em>Systematic Reviews</em> 8, no. 1 (2019): 163. <a href="https://doi.org/10.1186/s13643-019-1074-9">https://doi.org/10.1186/s13643-019-1074-9</a>.
+</div>
+<div id="ref-moreau2022open" class="csl-entry" role="listitem">
+Moreau, David, and Beau Gamble. <span>“Conducting a Meta-Analysis in the Age of Open Science: Tools, Tips, and Practical Recommendations.”</span> <em>Psychological Methods</em> 27, no. 3 (2022): 426–32. <a href="https://doi.org/10.1037/met0000351">https://doi.org/10.1037/met0000351</a>.
+</div>
+<div id="ref-pigott2020meta" class="csl-entry" role="listitem">
+Pigott, Terri D., and Joshua R. Polanin. <span>“Methodological Guidance Paper: High-Quality Meta-Analysis in a Systematic Review.”</span> <em>Review of Educational Research</em> 90, no. 1 (2020): 24–46. <a href="https://doi.org/10.3102/0034654319877153">https://doi.org/10.3102/0034654319877153</a>.
+</div>
+<div id="ref-polanin2020transparency" class="csl-entry" role="listitem">
+Polanin, Joshua R., Emily A. Hennessy, and Sho Tsuji. <span>“Transparency and Reproducibility of Meta-Analyses in Psychology: A Meta-Review.”</span> <em>Perspectives on Psychological Science</em> 15, no. 4 (2020): 1026–41. <a href="https://doi.org/10.1177/1745691620906416">https://doi.org/10.1177/1745691620906416</a>.
+</div>
+<div id="ref-snyder2019literature" class="csl-entry" role="listitem">
+Snyder, Hannah. <span>“Literature Review as a Research Methodology: An Overview and Guidelines.”</span> <em>Journal of Business Research</em> 104 (2019): 333–39. <a href="https://doi.org/10.1016/j.jbusres.2019.07.039">https://doi.org/10.1016/j.jbusres.2019.07.039</a>.
+</div>
+<div id="ref-sousa2026ai" class="csl-entry" role="listitem">
+Sousa, M. Sharmila A., Sasha Peiris, Mabel F. Figueiró, Michelle M. Haby, Ana Cyntia Baraldi, Ludovic Reveiz, and João Paulo Souza. <span>“The Landscape of Artificial Intelligence Tools and Platforms for Evidence Synthesis: A Scoping Review.”</span> <em>Systematic Reviews</em> 15, no. 1 (2026): 82. <a href="https://doi.org/10.1186/s13643-025-02842-y">https://doi.org/10.1186/s13643-025-02842-y</a>.
+</div>
+<div id="ref-uttley2026meta" class="csl-entry" role="listitem">
+Uttley, Lesley, Yuliang Weng, and Louise Falzon. <span>“What’s the Meta Now? More Updates on the Problems with Systematic Reviews.”</span> <em>Journal of Clinical Epidemiology</em> 198 (2026): 112393. <a href="https://doi.org/10.1016/j.jclinepi.2026.112393">https://doi.org/10.1016/j.jclinepi.2026.112393</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="#ref-grant2009typology" role="doc-biblioref">Maria J. Grant and Andrew Booth, <span>“A Typology of Reviews: An Analysis of 14 Review Types and Associated Methodologies,”</span> <em>Health Information<br>
+&amp; Libraries Journal</em> 26, no. 2 (2009): 91–108, <span>https://doi.org/10.1111/j.1471-1842.2009.00848.x</span></a>; <a href="#ref-littell2018classification" role="doc-biblioref">Julia H. Littell, <span>“Conceptual and Practical Classification of Research Reviews and Other Evidence Synthesis Products,”</span> <em>Campbell Systematic Reviews</em> 14, no. 1 (2018): 1–21, <span>https://doi.org/10.4073/cmdp.2018.1</span></a>; <a href="#ref-snyder2019literature" role="doc-biblioref">Hannah Snyder, <span>“Literature Review as a Research Methodology: An Overview and Guidelines,”</span> <em>Journal of Business Research</em> 104 (2019): 333–39, <span>https://doi.org/10.1016/j.jbusres.2019.07.039</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="#ref-pigott2020meta" role="doc-biblioref">Terri D. Pigott and Joshua R. Polanin, <span>“Methodological Guidance Paper: High-Quality Meta-Analysis in a Systematic Review,”</span> <em>Review of Educational Research</em> 90, no. 1 (2020): 24–46, <span>https://doi.org/10.3102/0034654319877153</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="#ref-hedges2010robust" role="doc-biblioref">Larry V. Hedges, Elizabeth Tipton, and Matthew C. Johnson, <span>“Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates,”</span> <em>Research Synthesis Methods</em> 1, no. 1 (2010): 39–65, <span>https://doi.org/10.1002/jrsm.5</span></a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="#ref-irsova2024meta" role="doc-biblioref">Zuzana Irsova et al., <span>“Meta-Analysis of Social Science Research: A Practitioner’s Guide,”</span> <em>Journal of Economic Surveys</em> 38, no. 5 (2024): 1547–66, <span>https://doi.org/10.1111/joes.12595</span></a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="#ref-moreau2022open" role="doc-biblioref">David Moreau and Beau Gamble, <span>“Conducting a Meta-Analysis in the Age of Open Science: Tools, Tips, and Practical Recommendations,”</span> <em>Psychological Methods</em> 27, no. 3 (2022): 426–32, <span>https://doi.org/10.1037/met0000351</span></a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="#ref-polanin2020transparency" role="doc-biblioref">Joshua R. Polanin, Emily A. Hennessy, and Sho Tsuji, <span>“Transparency and Reproducibility of Meta-Analyses in Psychology: A Meta-Review,”</span> <em>Perspectives on Psychological Science</em> 15, no. 4 (2020): 1026–41, <span>https://doi.org/10.1177/1745691620906416</span></a>; <a href="#ref-uttley2026meta" role="doc-biblioref">Lesley Uttley, Yuliang Weng, and Louise Falzon, <span>“What’s the Meta Now? More Updates on the Problems with Systematic Reviews,”</span> <em>Journal of Clinical Epidemiology</em> 198 (2026): 112393, <span>https://doi.org/10.1016/j.jclinepi.2026.112393</span></a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="#ref-elliott2017living" role="doc-biblioref">Julian H. Elliott et al., <span>“Living Systematic Review: 1. Introduction, the Why, What, When, and How,”</span> <em>Journal of Clinical Epidemiology</em> 91 (2017): 23–30, <span>https://doi.org/10.1016/j.jclinepi.2017.08.010</span></a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="#ref-marshall2019automation" role="doc-biblioref">Iain J. Marshall and Byron C. Wallace, <span>“Toward Systematic Review Automation: A Practical Guide to Using Machine Learning Tools in Research Synthesis,”</span> <em>Systematic Reviews</em> 8, no. 1 (2019): 163, <span>https://doi.org/10.1186/s13643-019-1074-9</span></a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="#ref-blaizot2022ai" role="doc-biblioref">Aymeric Blaizot et al., <span>“Using Artificial Intelligence Methods for Systematic Review in Health Sciences: A Systematic Review,”</span> <em>Research Synthesis Methods</em> 13, no. 3 (2022): 353–62, <span>https://doi.org/10.1002/jrsm.1553</span></a>; <a href="#ref-sousa2026ai" role="doc-biblioref">M. Sharmila A. Sousa et al., <span>“The Landscape of Artificial Intelligence Tools and Platforms for Evidence Synthesis: A Scoping Review,”</span> <em>Systematic Reviews</em> 15, no. 1 (2026): 82, <span>https://doi.org/10.1186/s13643-025-02842-y</span></a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script>
+(() => {
+  if (!document.querySelector("[data-evidence-map-pilot]")) return;
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.content || "";
+  const script = document.createElement("script");
+  script.src = `${offset}assets/evidence-map-pilot.js`;
+  script.defer = true;
+  document.body.append(script);
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../content/18-synthesize-audit-stop.html" class="pagination-link" aria-label="Stage 6: Synthesize, Audit, and Stop">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Stage 6: Synthesize, Audit, and Stop</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../content/19-building-event-databases-with-ai.html" class="pagination-link" aria-label="Building Event Databases with AI">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

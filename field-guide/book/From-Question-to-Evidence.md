@@ -23,7 +23,7 @@ The book treats this record as a scholarly Second Brain. Its purpose is not to s
 
 The manuscript is written for two readers. The first is beginning a substantial qualitative project and needs a sequence that can be followed without assuming years of tacit experience. The second has conducted research for years but wants to reconsider established practices after the arrival of new search systems and generative AI. Both readers face the same decisions. They differ in how much explanation, contestation, and adaptation they require.
 
-The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
+The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new synthesis chapter examines how review articles and meta-analyses are becoming open, versioned research objects. A second bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
 
 The first worked example concerns competing accounts of terrorism. It suits the method because terrorism data do not arrive as neutral observations waiting to be counted. Definitions vary. Collection systems change. Sources disappear. Governments, news organizations, researchers, and database teams record different parts of the same event. The example is familiar to our own work. But the method must also survive evidence that researchers help produce. The revised book therefore adds a composite oral-history study of how tenants experienced and remembered municipal redevelopment. That case will carry interviews, consent records, field notes, administrative documents, researcher memos, silence, refusal, and unequal access through the same sequence of decisions.
 
@@ -1162,21 +1162,208 @@ Archive the review artifacts together, prefer open formats, and preserve only ma
 
 Formal synthesis traditions require their own standards. Living reviews additionally require ownership, review intervals, corrections, and version rules.
 
-# 18. Building Event Databases with AI
+# 18. Review Articles and Meta-Analysis in Transition
 
 ## 18.1 Orientation
 
+A review article once appeared to be a retrospective product. Its authors surveyed an established literature, organized its main findings, and published a settled account. That model still has value, but it no longer describes the entire task. Digital discovery produces larger and more varied corpora. Open research practices expose protocols, coding decisions, data, and analysis. New studies can make a synthesis stale soon after publication. AI can accelerate several clerical operations, while also multiplying plausible errors.
+
+These changes are turning the review from a static article into a form of research infrastructure. The article remains an argument, but the argument now rests on inspectable and potentially reusable objects: a protocol, search history, screening record, coded corpus, analysis, sensitivity tests, and update policy. A trustworthy review links these objects without pretending that procedural detail can replace judgment.
+
+This chapter explains the present and plausible future of review articles and meta-analyses in the social sciences. Its central claim is simple. New tools can shorten discovery, screening, extraction, and updating, but they cannot decide what evidence is comparable or what variation means. The durable unit of progress is therefore not an automated summary. It is a versioned chain of decisions that another researcher can inspect, challenge, and extend.
+
+## 18.2 Learn
+
+### 18.2.1 Begin with the review family
+
+The term *literature review* covers several products with different purposes. A narrative or integrative review may clarify a concept, reconstruct an intellectual debate, or develop a theoretical account. A scoping review maps the extent and characteristics of a broad body of work. A systematic review answers a bounded question through explicit, reproducible procedures. A qualitative evidence synthesis interprets meanings or mechanisms across studies. An evidence and gap map describes the distribution of evidence without necessarily estimating a common effect. An umbrella review examines existing reviews. A rapid review makes declared concessions to produce a timely answer. Meta-analysis statistically synthesizes estimates that meet defined comparability conditions.[^19]
+
+This review family is not a hierarchy. A systematic review is not automatically superior to an interpretive review. A meta-analysis is not a badge of rigor that can be added to any corpus. Each form answers a different question and makes different assumptions. The first design decision is therefore functional: what must the review allow its reader to understand, estimate, compare, or decide?
+
+A review of how a concept changed across disciplines may require close comparison of definitions and citation lineages. A review of whether an intervention changes an outcome may support statistical synthesis. A review of how participants experience that intervention may require qualitative synthesis. A review of an emerging field may first need a scoping map because its populations, measures, and outcomes remain unstable. Combining these products can be useful, but their inferential roles must remain distinct.
+
+Method names do not settle the design. Authors sometimes label a broad database search a systematic review even when eligibility decisions and synthesis rules remain unclear. Other reviews apply a narrow checklist to a question that requires historical or conceptual interpretation. The defensible sequence runs from question to evidence type, from evidence type to review form, and from review form to procedure.
+
+### 18.2.2 Understand what meta-analysis adds
+
+Meta-analysis is not a synonym for systematic review. It is a set of statistical methods for describing and explaining a distribution of comparable effect estimates within a defined corpus.[^20] The systematic review establishes how studies entered that corpus. The meta-analysis addresses what their estimates imply under declared statistical assumptions.
+
+This distinction matters because a precise pooled estimate can conceal a weak evidence base. Studies may use different constructs under the same label, compare unlike populations, report incompatible outcomes, or estimate effects under different causal conditions. A statistical model can combine the numbers, but it cannot make the underlying questions equivalent.
+
+Before pooling, construct an estimand table. Each row should record the population, treatment or exposure, comparison, outcome, timing, design, effect measure, and adjustment set. Add the unit of assignment, unit of analysis, and level at which uncertainty was estimated. The table makes comparability a visible decision instead of an assumption hidden inside software.
+
+The pooled mean is only one possible target. A review may seek the average association across settings, the distribution of effects, an expected effect in a new setting, or the moderators that account for variation. These are different questions. A model chosen for one should not be interpreted as if it answered the others.
+
+### 18.2.3 Treat heterogeneity as substantive evidence
+
+Social science effects often vary because institutions, histories, populations, measures, and implementation differ. Heterogeneity is therefore more than noise around a universal effect. It may be the principal finding.
+
+A random-effects model acknowledges variation among the effects represented by the included studies. It does not prove that those studies form one meaningful population. Nor does it license an inference to every setting beyond them. The review must explain which sources of variation were expected before analysis and which appeared only after inspecting the data.
+
+Report the distribution of effects, not only its mean. A confidence interval describes uncertainty around an estimated parameter. A prediction interval addresses a different question: where an effect from a comparable future setting might plausibly fall. When heterogeneity is substantial, the prediction interval may cross thresholds that the pooled mean does not. Its width can be more informative for policy than the significance of the mean.
+
+Moderator analyses can examine theoretically specified variation, but they are vulnerable to low power, multiple testing, and ecological interpretation. A moderator measured at the study level cannot establish the corresponding individual-level mechanism. Separate planned tests from exploratory ones. Record which coding distinctions existed before results were examined.
+
+Qualitative and quantitative synthesis can inform each other here. Close reading may identify institutional differences that define plausible moderator categories. Quantitative patterns may identify cases that deserve renewed interpretation. Mixed evidence becomes valuable when the forms remain legible, not when one is used to decorate the other.
+
+### 18.2.4 Preserve dependence and multiplicity
+
+Many social science studies report several outcomes, time points, subgroups, models, or treatment contrasts. Several articles may also analyze the same dataset. These estimates share observations and design decisions. Treating them as independent produces excessive precision and gives prolific studies or datasets disproportionate influence.
+
+Every effect table should therefore include a study identifier, sample identifier, dataset identifier, outcome family, time point, and model family. This structure reveals dependent effect estimates before analysis. The reviewer can then select one estimate under a preregistered rule, model the hierarchy, use an appropriate multivariate method, or apply robust variance estimation when its assumptions and sample requirements fit the corpus.[^21]
+
+Dependence is also intellectual. A set of studies may repeat one operationalization, share code, or inherit the same measurement error. Statistical correction for clustered standard errors does not remove that shared conceptual ancestry. The written synthesis should distinguish repeated analysis from independent replication.
+
+Model multiplicity creates another problem. Authors can often report many defensible specifications. Reviews that select one estimate per study after seeing the results may reproduce selective reporting. Collecting all relevant estimates and modeling their dependence can be preferable, but it requires careful coding and a declared strategy. Contemporary social science guidance identifies dependence, systematic heterogeneity, and publication selection as recurring issues that every quantitative synthesis should address.[^22]
+
+### 18.2.5 Examine selective reporting without a mechanical verdict
+
+The available literature is not a neutral sample of completed research. Statistically striking results may be more likely to be written, submitted, accepted, or emphasized. Outcomes and specifications can also be selected within a published study. Gray literature searches may reduce some forms of selection while introducing new differences in reviewability and metadata.
+
+No single funnel plot, regression, or adjustment method can diagnose and repair every form of publication bias. Small-study patterns can arise from heterogeneity, design quality, or genuine differences in populations. Statistical corrections rely on assumptions that may not fit the selection process. Use several sources of evidence: prospective registrations where available, dissertations and reports, requests for unreported results, outcome comparison within studies, sensitivity analyses, and a substantive account of incentives in the field.
+
+The review should state what would have to be missing to change its conclusion. That question turns a generic limitation into a sensitivity claim. It also prevents the adjusted estimate from appearing as a recovered truth. A corrected result remains conditional on a model of what became observable.
+
+### 18.2.6 Make the synthesis reproducible
+
+Open practice changes a meta-analysis from a report about an analysis into a rerunnable research object. A strong public package includes the protocol, complete search strategies, screening decisions, extraction definitions, coded data, transformation code, analysis code, output tables, and a record of deviations. When materials cannot be shared, the package should describe the restriction and expose the largest safe portion.
+
+Preregistration does not freeze a review against learning. It distinguishes planned decisions from changes made after contact with the evidence. A deviation log can record what changed, why it changed, when the team decided, and which outputs the change affected. Open materials allow readers to evaluate those decisions and allow later teams to update the review rather than reconstruct it.[^23]
+
+Transparency must extend to the quantitative data structure. A spreadsheet of final effect sizes is insufficient if it omits study relationships, transformation rules, excluded estimates, and coding uncertainty. Preserve raw extracted values alongside derived values. Give every effect a stable identifier that links it to its source location and coding decision.
+
+Meta-research has found persistent gaps in the transparency and reproducibility of published meta-analyses.[^24] A long methods section does not by itself solve the problem. Reproducibility depends on whether the released objects recreate the stated result and make consequential judgment visible.
+
+### 18.2.7 Design living reviews as governed projects
+
+A living review incorporates new evidence under a continuing workflow. It is an update mode, not another review question type. The same systematic review can be maintained in living form when new research arrives frequently and could change a consequential conclusion.[^25]
+
+Living status requires more than an editable webpage. The team needs a surveillance strategy, update trigger, review interval, ownership rule, version number, correction process, and retirement condition. Each release should preserve a citable snapshot. Readers must be able to identify which evidence and analysis supported the version they used.
+
+Updates also create statistical problems. Repeatedly recalculating and testing a pooled effect as new studies arrive can change error rates. A living meta-analysis therefore needs a declared updating method, especially when policy decisions depend on crossing a threshold. The correct method depends on the inferential target, expected evidence flow, heterogeneity, and cost of error. No universal update rule replaces these design choices.
+
+Maintenance should be selective. A slowly changing historical literature may not justify continuous surveillance. A fast-moving policy question might. A review can leave living mode when new studies become unlikely, the conclusion stabilizes for its decision purpose, or resources no longer support responsible maintenance. Calling every online review living would conceal these commitments.
+
+### 18.2.8 Give AI bounded work
+
+AI can assist with query expansion, deduplication, screening prioritization, structured extraction, citation checking, code explanation, and update surveillance. Earlier machine-learning research found some mature applications for study identification, while extraction and judgment-intensive tasks required more development.[^26] Later reviews documented rapid growth in available systems, especially around search, screening, extraction, and synthesis.[^27]
+
+The number of tools does not establish their reliability for a particular review. Performance depends on the question, source type, language, study design, prevalence of eligible records, and definition of an error. A system that ranks relevant records near the top may save labor without being safe for autonomous exclusion. A fluent extraction may still assign a number to the wrong group, outcome, or time point.
+
+Use AI as a proposal layer. The system can suggest records, fields, links, and checks. A controlled review step decides what enters the evidence base. For screening, validate recall on a representative researcher-coded sample and inspect every false exclusion. For extraction, require an exact source span and abstention option. For risk-of-bias assessment, causal interpretation, and final inclusion, retain human adjudication.
+
+Human validation is not a ceremonial final glance. It is a measured procedure. Record the validation sample, sampling rule, reference coding, error categories, model and prompt version, decision threshold, and response to failure. Revalidate after material changes in the corpus or system.
+
+### 18.2.9 Separate the present from the forecast
+
+The current review article can already be modular and open. Protocols, machine-readable data, executable analysis, linked corrections, and citable releases are available practices. Semi-automated screening and extraction are emerging practices whose value must be demonstrated in the local corpus. Continuous synthesis across interoperable evidence registries remains a conditional future.
+
+| Horizon | Review form | Required safeguard |
+|----|----|----|
+| Current practice | An article linked to protocol, corpus, code, and a citable release | Reproducibility, provenance, and disclosed deviations |
+| Emerging practice | A living review with AI-assisted surveillance, prioritization, and extraction | Local validation, human adjudication, and version governance |
+| Conditional future | A continuously updated evidence service built from interoperable study, claim, and effect objects | Durable standards, equitable access, preservation, and accountable ownership |
+
+The conditional future is technically plausible but institutionally demanding. Journals and repositories would need stable citation rules for changing objects. Research teams would need credit for maintenance, correction, data stewardship, and negative updates. Shared schemas would need to preserve construct differences rather than forcing every study into one vocabulary.
+
+The review article may become an interface over a versioned evidence system. Readers could inspect the current conclusion, trace it to effects or qualitative findings, change defensible assumptions, and compare releases. Such an interface would not eliminate authorship. Its design would make authorship more visible by showing where inclusion, coding, modeling, and interpretation shaped the answer.
+
+This future also carries risks. Well-resourced fields may maintain sophisticated living syntheses while other regions and languages remain poorly indexed. Proprietary systems may make public evidence dependent on private infrastructure. Continuous updating can create an illusion of completeness and exhaust the teams responsible for it. The goal is not permanent motion. It is controlled revision when new evidence matters.
+
+## 18.3 Worked Example
+
+Consider a review asking whether community-policing programs increase public trust in police. The first search identifies experiments, quasi-experiments, surveys, qualitative interviews, and program evaluations across several countries. A single pooled estimate would answer the wrong question because the studies do not share one treatment, outcome, or causal design.
+
+The team divides the project into linked products. A scoping map describes programs, populations, research designs, trust measures, and geographic coverage. A systematic review evaluates studies with a defensible comparison group. A qualitative synthesis examines how residents describe contact, legitimacy, safety, and unequal treatment. The products share a source register but maintain separate eligibility and synthesis rules.
+
+The quantitative subset still contains hidden multiplicity. Several reports use one national survey. Individual studies report trust immediately after contact and again months later. Some programs combine foot patrols with public meetings, while others change only officer assignment. The estimand table exposes these differences. The effect table links multiple estimates to samples, outcomes, and program families.
+
+The main model estimates an average across a defined family of programs. It also reports a prediction interval and planned comparisons by intervention component and institutional setting. A dependence-aware analysis prevents one large survey and its related articles from dominating precision. The review treats the remaining heterogeneity as a finding: program labels conceal distinct mechanisms and political contexts.
+
+Publication-bias analysis finds that small published studies report more favorable estimates. The team does not declare the pattern corrected after one adjustment. It searches evaluation repositories and dissertations, compares registered outcomes where possible, and reports sensitivity to several selection assumptions. The conclusion becomes conditional: favorable average results do not establish that every program or setting will improve trust.
+
+The public package contains the protocol, search histories, decision log, coded corpus, effect transformations, analysis code, and a redacted qualitative matrix. The team schedules annual surveillance but triggers an earlier update if a large multisite evaluation appears. Release 1.0 remains frozen and citable when release 1.1 adds new evidence.
+
+An AI system expands intervention names and ranks new search results. It proposes extraction fields with source spans. Researchers validate screening recall on a stratified sample and adjudicate all exclusions near the decision boundary. The system never decides whether a program belongs in the same causal family or whether a trust measure is substantively comparable. Those judgments remain part of the review’s argument.
+
+## 18.4 Try It
+
+Start with one review question and write the decision it must support. Name the review form that best fits that purpose. Then state why two neighboring forms would answer different questions.
+
+Create an estimand table for five candidate studies. Record population, exposure or intervention, comparison, outcome, timing, design, and effect measure. Add sample and dataset identifiers. Mark which studies could enter one quantitative synthesis and explain every exclusion from pooling.
+
+For the eligible estimates, draw a dependence map. Connect effects that share participants, datasets, outcomes, authorship pipelines, or measurement instruments. Choose a strategy for each connection and state what assumption the strategy requires.
+
+Draft a result paragraph that reports the mean, its uncertainty, heterogeneity, a prediction interval, and one limitation arising from the corpus. Remove any sentence that treats statistical significance as a complete substantive conclusion.
+
+Finally, write an update policy. Specify surveillance sources, cadence, update triggers, owner, release format, correction route, and retirement condition. Label each planned feature as current, emerging, or conditional future. This prevents an aspiration from being presented as an implemented method.
+
+## 18.5 Guided AI Workflow
+
+Use AI in four bounded passes. In the design pass, provide the research question and intended decision. Ask the system to compare plausible review forms and list the evidence each would require. In the structure pass, provide verified study metadata and researcher-defined fields. Ask it to flag possible construct mismatch, dependence, and missing values without deciding eligibility. In the audit pass, provide the analysis plan and output. Ask for unsupported inferences, omitted sensitivity tests, and discrepancies between the estimand and conclusion. In the update pass, ask it to rank new candidate records and explain each ranking.
+
+A useful audit prompt is:
+
+> Review this estimand table, effect structure, analysis plan, and draft conclusion. Identify claims that exceed the eligible corpus, effect estimates that may be dependent, sources of heterogeneity not represented in the model, and statements that confuse a pooled mean with an expected effect in a new setting. Cite only the supplied record identifiers. Return “not established” when the record is insufficient.
+
+**Permitted input:** Verified metadata, researcher-authored protocols, rights-cleared text, structured extraction fields, de-identified effect data, code, and public analytical output.\
+**Do not provide:** Licensed full text without permission, confidential peer-review material, protected participant data, restricted archives, or identifiable sensitive records.\
+**Verify:** Check every proposed inclusion, exclusion, extracted value, source span, transformation, dependence link, citation, and analytical claim. Test screening and extraction performance on a representative human-coded sample.\
+**Record:** Save model and version, prompt, input description, output, reviewer decision, error category, protocol and corpus versions, analysis release, and date.
+
+Do not ask a model to select the final review form, infer missing statistics without a declared method, adjudicate risk of bias alone, or choose a publication-bias correction after seeing which result is favorable. Do not accept a causal or policy conclusion that cannot be reconstructed from the reviewed evidence objects.
+
+## 18.6 Integrity Checkpoint
+
+A comprehensive search can still reproduce unequal visibility. Dominant databases index some journals, languages, regions, and publication forms more completely than others. AI systems inherit those boundaries and may rank familiar terminology above locally specific concepts. Audit discovery by language, geography, discipline, publication form, and institutional access.
+
+Quantitative synthesis can erase difference through a common effect measure. Before converting outcomes, ask whether they represent the same construct and decision. Preserve original scales and definitions alongside transformed values. Report exclusions from pooling without treating unpooled studies as inferior evidence.
+
+Open release also has limits. Study-level data may contain confidential information or enable reidentification. Search histories can expose sensitive research interests or restricted holdings. Release a calibrated public package and document the withheld components, access basis, and responsible contact.
+
+AI assistance creates additional disclosure duties. Name the operations it supported, the system version, validation procedure, and known failures. Do not list a general-purpose model as an author or allow it to conceal who made consequential decisions.
+
+Finally, resist prestige by method. A complex model cannot compensate for a weak corpus. A transparent narrative synthesis can be more informative than an invalid pooled estimate. The review earns trust by matching its claim to its evidence and preserving the path between them.
+
+## 18.7 Save the Artifact
+
+Save a review design memo that links the question, intended decision, review form, eligible evidence, and synthesis method. Preserve the protocol and every dated amendment.
+
+Maintain a source register, screening log, extraction dictionary, coded corpus, dependence map, and synthesis memo. For meta-analysis, add raw and transformed effect data, executable code, session information, model diagnostics, prediction intervals, and sensitivity results.
+
+Create a release manifest. It should name the corpus version, protocol version, codebook version, analysis commit, public files, restricted files, license, citation, review date, correction route, update trigger, and retirement condition. Give each release a stable identifier and preserve earlier releases.
+
+The article, dataset, code, and review website should point to the same manifest. This shared reference prevents a current webpage from silently changing the evidence behind an older citation.
+
+## 18.8 Advanced Practice
+
+Prospective meta-analysis coordinates eligible studies and analyses before their results become known. It can reduce some forms of outcome selection and harmonize measures while preserving study-level independence. It requires governance that protects local study ownership and records any changes made after results arrive.
+
+Individual-participant-data meta-analysis can examine common definitions and participant-level variation that published aggregates cannot support. Its advantages depend on data access, harmonization quality, missingness, and representation of studies that cannot share data. The unavailable studies remain part of the inference problem.
+
+Bayesian meta-analysis can encode uncertainty about heterogeneity, combine prior information with new evidence, and support sequential updating. Priors should be justified, sensitivity-tested, and separated from evidence supplied by the included studies. Bayesian computation does not make incomparable effects comparable.
+
+Multiverse meta-analysis can reveal how defensible choices about inclusion, effect selection, dependence, and modeling affect the conclusion. The set of specifications must follow substantive and methodological reasoning. A large grid of arbitrary models can obscure judgment as easily as one preferred model.
+
+The mature review program connects these methods to a Second Brain without collapsing private work into public evidence. Source notes, decision records, and synthesis memos support learning. Stable public releases support scrutiny and reuse. The boundary between them is deliberate.
+
+The future review article is therefore neither a traditional essay with added links nor a database without an argument. It is a governed scholarly claim over a versioned evidence system. Its authority comes from the fit among question, corpus, method, and interpretation. Its capacity to change becomes a strength only when readers can see what changed, why it changed, and which conclusion the earlier evidence supported.
+
+# 19. Building Event Databases with AI
+
+## 19.1 Orientation
+
 Event databases convert dispersed accounts into comparable records. A researcher may begin with a question about protest, repression, political violence, institutional reform, migration, or disaster response. The relevant traces may appear across newspapers, archival catalogues, government reports, organizational records, and born-digital collections. Before generative AI, much of the work required repetitive searching, copying, normalization, and initial classification. These tasks consumed time that researchers needed for interpretation.
 
-AI changes the feasible scale of this work. A system can expand queries, search an authorized collection, extract candidate fields, compare reports, and flag records that may describe the same occurrence. It can apply a preliminary codebook to thousands of passages and identify dimensions the original codebook omitted. Studies of text annotation show that language models can perform some bounded classification tasks quickly and inexpensively. Performance, however, varies substantially across tasks and datasets, which makes local validation indispensable.[^19]
+AI changes the feasible scale of this work. A system can expand queries, search an authorized collection, extract candidate fields, compare reports, and flag records that may describe the same occurrence. It can apply a preliminary codebook to thousands of passages and identify dimensions the original codebook omitted. Studies of text annotation show that language models can perform some bounded classification tasks quickly and inexpensively. Performance, however, varies substantially across tasks and datasets, which makes local validation indispensable.[^28]
 
 The resulting speed creates a methodological danger. A fluent extraction can make an uncertain mention look like an observed event. Several articles can make one wire report look like independent confirmation. A model can produce a precise code for an ambiguous passage or a causal probability without defining the comparison that gives the number meaning. Faster processing does not remove these problems. It can reproduce them at scale.
 
 This chapter presents an auditable alternative. AI compresses clerical stages while the researcher preserves a visible chain from source to record, record to event, event to variable, and written evidence to causal inference. Every transition produces an artifact that can be reviewed, corrected, and versioned.
 
-## 18.2 Learn
+## 19.2 Learn
 
-### 18.2.1 Begin with the unit, not the model
+### 19.2.1 Begin with the unit, not the model
 
 An event database requires a declared unit of observation. The unit might be an attack, demonstration, arrest, policy decision, organizational founding, public statement, or interaction between named actors. Its boundary must state what counts as one event, when two reports refer to the same event, and when one report contains several events.
 
@@ -1184,15 +1371,15 @@ Write the boundary before retrieval. Record inclusion and exclusion rules, tempo
 
 This order matters because a model will readily propose whatever categories are easy to extract. Extractability is not theoretical importance. If the system defines the unit through its output, the database may record what the model recognizes instead of what the research design requires.
 
-### 18.2.2 Build a source frame
+### 19.2.2 Build a source frame
 
-Manual newspaper searching often proceeds title by title and query by query. A digital source frame allows the researcher to define a collection before searching it. The frame records each newspaper, archive, database, date range, language, access route, known gap, and relevant restriction. Open news infrastructures can support large-scale retrieval, while library archives can expose searchable historical newspapers and catalogue records.[^20] The frame should also include local and oppositional sources that a prominent aggregator may not index.
+Manual newspaper searching often proceeds title by title and query by query. A digital source frame allows the researcher to define a collection before searching it. The frame records each newspaper, archive, database, date range, language, access route, known gap, and relevant restriction. Open news infrastructures can support large-scale retrieval, while library archives can expose searchable historical newspapers and catalogue records.[^29] The frame should also include local and oppositional sources that a prominent aggregator may not index.
 
-Digitized collections are not transparent windows onto the past. Selection, survival, digitization, OCR quality, licensing, and search interfaces shape what becomes discoverable. Studies of newspaper digitization show why collection composition must be examined before researchers interpret search results as historical coverage.[^21] A failed query may indicate absence, vocabulary mismatch, OCR error, unavailable dates, or a source omitted from the platform. Record which explanation remains plausible.
+Digitized collections are not transparent windows onto the past. Selection, survival, digitization, OCR quality, licensing, and search interfaces shape what becomes discoverable. Studies of newspaper digitization show why collection composition must be examined before researchers interpret search results as historical coverage.[^30] A failed query may indicate absence, vocabulary mismatch, OCR error, unavailable dates, or a source omitted from the platform. Record which explanation remains plausible.
 
 AI can accelerate work inside the source frame. It can translate query concepts, generate historical names, adapt syntax across archives, and rank retrieved documents for review. A search-connected system may also query an approved interface directly. These operations remain collection procedures. The search log should preserve the source collection, query, date, filters, result count, model or script, and review decision. Access must comply with archive rules, licenses, privacy obligations, and research ethics.
 
-### 18.2.3 Separate discovery from verification
+### 19.2.3 Separate discovery from verification
 
 The first extraction produces a **candidate record**, not an event. A candidate record reports that a particular source span may describe an event within scope. It should preserve the document identifier, publication date, page or URL, exact source span, retrieval route, proposed event date, actors, action, target, location, and model output. The preserved span allows a reviewer to return to the evidence without trusting the summary.
 
@@ -1200,15 +1387,15 @@ A candidate becomes a **verified record** only after the relevant passage and me
 
 This separation allows wide retrieval without lowering the evidentiary threshold. The system can favor recall during discovery because false positives remain outside the verified dataset. Reviewers can then favor precision when deciding what enters the database. A model should have an abstention route for passages that do not support a stable classification.
 
-### 18.2.4 Resolve reports into events
+### 19.2.4 Resolve reports into events
 
 News collections rarely provide one document per event. The same account may be syndicated, translated, updated, quoted by another outlet, or repeated in a retrospective report. Conversely, one article may describe several occurrences. The database therefore needs an event-resolution stage between verified records and analytical events.
 
-AI can compare names, dates, places, actions, and source spans to generate possible matches. Event extraction research shows, however, that simple zero-shot prompting can perform poorly when reports contain ambiguity, hypothetical language, or several interacting actors.[^22] A match score should therefore open a review task instead of merging records automatically.
+AI can compare names, dates, places, actions, and source spans to generate possible matches. Event extraction research shows, however, that simple zero-shot prompting can perform poorly when reports contain ambiguity, hypothetical language, or several interacting actors.[^31] A match score should therefore open a review task instead of merging records automatically.
 
 The **event resolution log** records every merge, split, and non-match. It links source-record identifiers to a stable event identifier and gives the rule, evidence, reviewer, and confidence category. It also records dependence. Five newspapers repeating one wire dispatch represent broad circulation, not five independent observations. Preserving that distinction prevents source abundance from becoming false corroboration.
 
-### 18.2.5 Let the codebook learn without moving silently
+### 19.2.5 Let the codebook learn without moving silently
 
 An initial codebook should express the research hypotheses, but it should not be treated as complete. Early records may reveal unanticipated actors, mechanisms, event sequences, source effects, or confounders. AI can scan verified records and propose additional variables that distinguish rival explanations or capture recurrent variation.
 
@@ -1218,15 +1405,15 @@ A proposed variable should be tested on a validation sample before promotion. Re
 
 This workflow turns AI into a critic of the original design. The model may notice a missing variable, but it does not decide that the variable belongs in the database. That decision remains theoretical, empirical, and comparative.
 
-### 18.2.6 Validate before scaling
+### 19.2.6 Validate before scaling
 
 Automated coding should be evaluated against researcher-coded material drawn from the intended corpus. The validation sample should include different periods, sources, languages, common classes, rare classes, and difficult boundary cases. A temporal holdout helps expose drift. A source holdout tests whether the system has learned one outlet’s style instead of the event concept.
 
-Report performance by variable and class. Overall accuracy can conceal failure on rare but substantively important events. Precision, recall, and error types usually provide more useful guidance. Double-code a consequential or ambiguous subset, adjudicate disagreements, and record whether each error arose from retrieval, source quality, event resolution, the codebook, or the model. Contemporary event-data research treats this as a measurement problem, not merely a software benchmark.[^23]
+Report performance by variable and class. Overall accuracy can conceal failure on rare but substantively important events. Precision, recall, and error types usually provide more useful guidance. Double-code a consequential or ambiguous subset, adjudicate disagreements, and record whether each error arose from retrieval, source quality, event resolution, the codebook, or the model. Contemporary event-data research treats this as a measurement problem, not merely a software benchmark.[^32]
 
 Validation has a scope. A model that performs well on English national newspapers from one decade has not been validated for local-language archives or another period. Record the tested population, prompt, model, codebook version, and decision threshold. Revalidate after a material change to any of them.
 
-### 18.2.7 Use Bayesian updating as a declared argument
+### 19.2.7 Use Bayesian updating as a declared argument
 
 Written evidence can change the relative plausibility of rival causal explanations. Bayesian reasoning makes this change explicit. Suppose (H_1) and (H_0) are rival explanations and (E) is a verified item of evidence. The update can be expressed as:
 
@@ -1234,15 +1421,15 @@ Written evidence can change the relative plausibility of rival causal explanatio
 \frac{P(H_{1} \mid E)}{P(H_{0} \mid E)} = \frac{P(H_{1})}{P(H_{0})} \times \frac{P(E \mid H_{1})}{P(E \mid H_{0})}
 ```
 
-The first ratio represents prior odds. The second is the **likelihood ratio**: how much more expected the evidence would be under one explanation than the other. Explicit Bayesian process tracing can discipline comparison among explanations, but priors and likelihoods are not mechanically supplied by a document.[^24]
+The first ratio represents prior odds. The second is the **likelihood ratio**: how much more expected the evidence would be under one explanation than the other. Explicit Bayesian process tracing can discipline comparison among explanations, but priors and likelihoods are not mechanically supplied by a document.[^33]
 
 AI can help prepare the reasoning. It can extract passages bearing on each hypothesis, identify temporal sequence, propose rival explanations, detect duplicated evidence, and ask what each hypothesis predicts. It can calculate posterior odds from declared inputs and run a sensitivity analysis across plausible likelihood ranges.
 
-The researcher assigns the prior and likelihood judgments. The researcher also decides whether a report is independent, authentic, contemporaneous, and diagnostic. A percentage generated from model confidence is not a likelihood ratio. Research on confidence elicitation shows that a language model’s stated certainty requires separate calibration and cannot substitute for a causal model.[^25]
+The researcher assigns the prior and likelihood judgments. The researcher also decides whether a report is independent, authentic, contemporaneous, and diagnostic. A percentage generated from model confidence is not a likelihood ratio. Research on confidence elicitation shows that a language model’s stated certainty requires separate calibration and cannot substitute for a causal model.[^34]
 
 The Bayesian evidence table should therefore record the hypothesis pair, evidence identifier, provenance, predicted observation under each hypothesis, dependence group, likelihood range, rationale, reviewer, update, and sensitivity result. The model may draft alternatives for review. It may not convert fluent interpretation into causal probability.
 
-## 18.3 Worked Example
+## 19.3 Worked Example
 
 Consider a project examining whether a campaign of coordinated attacks followed a central directive or emerged from local imitation. The source frame includes national and local newspapers, organizational statements, judicial records, and a digitized archive. Retrieval returns 8,000 documents. An AI-assisted classifier identifies 730 candidate records, while human verification accepts 412 and leaves 28 unresolved.
 
@@ -1254,7 +1441,7 @@ For causal analysis, similar tactics across several events initially appear to f
 
 The final database is smaller than the first extraction and stronger than a manually assembled spreadsheet. AI shortened retrieval, comparison, and preliminary coding. The audit chain preserved the difference between speed and evidence.
 
-## 18.4 Try It
+## 19.4 Try It
 
 Choose a research question that could be represented as events. Write one paragraph defining the unit, the event boundary, the source frame, and the minimum evidence required for a verified record. Then create ten candidate records from a small, rights-compliant sample. Preserve a source span for every proposed field.
 
@@ -1264,7 +1451,7 @@ Draft codebook version 0.1 from the research hypotheses. Ask an AI system to pro
 
 Finally, select two rival hypotheses and one verified item of written evidence. State what each hypothesis predicts, assign a transparent likelihood range, and calculate the posterior odds across that range. Repeat the calculation after treating two apparently separate reports as dependent. Explain why the answer changed or remained stable.
 
-## 18.5 Guided AI Workflow
+## 19.5 Guided AI Workflow
 
 Use three bounded passes. In the extraction pass, provide the event definition, codebook version, required output schema, and rights-cleared text. Require the model to return candidate records with exact source spans, uncertainty markers, and an abstention option. In the challenge pass, provide de-identified candidate records and ask for likely duplicates, boundary violations, missing variables, and rival interpretations. In the causal pass, provide only verified evidence identifiers, hypothesis predictions, and researcher-declared likelihood ranges. Ask for arithmetic and sensitivity checks, not a causal verdict.
 
@@ -1279,7 +1466,7 @@ A usable codebook prompt is:
 
 The model should return structured candidates, not silently edit the database. A human-controlled import step provides the boundary between proposal and record.
 
-## 18.6 Integrity Checkpoint
+## 19.6 Integrity Checkpoint
 
 Speed can redistribute visibility. Large searchable newspapers may dominate because they are technically accessible, while local publications, minority languages, ephemeral media, and undigitized collections disappear. Audit the source frame before interpreting the event distribution.
 
@@ -1289,7 +1476,7 @@ An event database can expose people who never consented to systematic aggregatio
 
 Dynamic coding can also produce retrospective confirmation. A variable proposed after seeing the outcome may be analytically useful, but its origin must be disclosed. Mark exploratory variables and test them against new material where possible.
 
-## 18.7 Save the Artifact
+## 19.7 Save the Artifact
 
 Save six linked artifacts: the source frame and search log; the candidate record table with source spans; the verification register; the event resolution log; the versioned codebook with its change log; and the validation report. For causal work, add a Bayesian evidence table that preserves hypothesis predictions, dependence, likelihood ranges, rationales, and sensitivity results.
 
@@ -1297,7 +1484,7 @@ Each analytical export should name the source-frame version, codebook version, m
 
 Release only what rights, privacy, security, and ethics permit. A public methodological register can describe restricted evidence without exposing it.
 
-## 18.8 Advanced Practice
+## 19.8 Advanced Practice
 
 A mature pipeline separates retrieval, extraction, verification, resolution, coding, and inference into distinct operations. Each operation can be rerun without silently overwriting the preceding layer. This structure supports multilingual retrieval, active learning, model comparison, and targeted human review.
 
@@ -1309,17 +1496,17 @@ For causal inference, compare several defensible prior and likelihood specificat
 
 AI improves an event database when it makes the pipeline faster and the transformations more visible. It weakens the database when convenience conceals where evidence ended and inference began.
 
-# 19. AI and Research Integrity
+# 20. AI and Research Integrity
 
-## 19.1 A Division of Labor
+## 20.1 A Division of Labor
 
 Generative AI can accelerate parts of evidence mapping. It can propose synonyms, group candidate records, compare definitions, and question a stopping rule. These are acts of assistance. They are not transfers of authorship or responsibility.
 
 The researcher defines the purpose. The researcher controls the material supplied to the system. The researcher verifies claims and sources. The researcher decides what enters the corpus. The researcher accounts for the result.
 
-This division of labor is necessary because fluent output can contain fabricated references, unsupported inference, privacy disclosure, and bias inherited from training data or the prompt. Current risk guidance treats these as properties that require management across the system’s use, not as rare accidents.[^26]
+This division of labor is necessary because fluent output can contain fabricated references, unsupported inference, privacy disclosure, and bias inherited from training data or the prompt. Current risk guidance treats these as properties that require management across the system’s use, not as rare accidents.[^35]
 
-## 19.2 Model-Neutral Workflows
+## 20.2 Model-Neutral Workflows
 
 The guide avoids instructions that depend on one product interface. A workflow states the research task, required input, prompt sequence, verification procedure, and audit record. The model may change. The scholarly obligation does not.
 
@@ -1329,13 +1516,13 @@ Run more than one pass when the task matters. The first pass generates. The seco
 
 Model neutrality has a limit worth stating. The verification-heavy workflows in this guide assume access to a capable model, and capable models often cost money. The privacy fallback assumes a local or institutional system that many researchers do not have. Capability also varies by tool, language, and region. For these reasons the method does not depend on AI. The map, the search log, the evidence register, and the stopping rule stand on their own. A researcher without access to a frontier model loses an assistant, not the method.
 
-## 19.3 Privacy and Data Minimization
+## 20.3 Privacy and Data Minimization
 
 Do not place material into an external system merely because it accepts text. Interview transcripts, archival restrictions, personal data, allegations, unpublished findings, and partner-owned datasets may carry legal and ethical limits. Removing names does not lift those limits. De-identification of qualitative data is unreliable, and re-identification is often possible from context alone. Under most data-protection regimes and ethics approvals, pseudonymized participant data remains regulated personal data, and many approvals and data agreements forbid sending it to a third-party processor at all. Consumer tools may also retain inputs or train on them. Before any participant-derived material enters an external system, confirm that the ethics approval and the data agreements permit third-party processing. Use an abstract description when the full record is unnecessary. Prefer a local or institutionally approved system when protection requires it. When in doubt, do not upload, and consult the ethics board or the data-protection officer.
 
 The audit log records what category of material entered the system. It need not reproduce protected content. It should record the model, date, task, input description, relevant settings, output disposition, and human reviewer.
 
-## 19.4 Verification
+## 20.4 Verification
 
 Verification follows the claim. A proposed publication must be located through a DOI resolver, library catalogue, publisher, or trusted index. A named archive must be checked through the institution. A quotation must be compared with the source. A classification must be traced to the evidence and decision rule.
 
@@ -1343,25 +1530,25 @@ An AI-generated reference is not a citation. It is a search lead.
 
 The same rule applies to summaries. A model may produce an elegant account of a document while missing a qualification that changes its meaning. Verify against the original and record which passages support the summary.
 
-## 19.5 Bias and Missing Perspectives
+## 20.5 Bias and Missing Perspectives
 
 Models can reproduce the visibility structure of their training material. Well-indexed English-language institutions may appear central because they are easier for the system to name. Local archives, non-English terms, and informal records may disappear from the response. This weakness makes AI useful as one critic among several, never as the sole designer of a source map.
 
 Ask what position the response assumes. Ask which actors it treats as authoritative. Ask which language and region dominate its suggestions. Then use domain expertise and human consultation to correct the map.
 
-## 19.6 Reproducibility and Drift
+## 20.6 Reproducibility and Drift
 
 The same prompt may produce different outputs across runs. A provider may change the model without preserving the prior version. Search-connected systems may draw on a changing index. The audit record should therefore support reconstruction of the decision, not promise exact reproduction of the text.
 
 Preserve consequential outputs when terms permit. Record accepted and rejected suggestions. State when AI assistance changed the question, search vocabulary, source inventory, or stopping rule. The manuscript needs the decision trail more than it needs a transcript of every exchange.
 
-## 19.7 The Standard
+## 20.7 The Standard
 
 AI use is defensible when it makes judgment more visible. It fails when it hides judgment behind convenience.
 
-# 20. Building the Full Field Guide
+# 21. Building the Full Field Guide
 
-## 20.1 What the Current Modules Establish
+## 21.1 What the Current Modules Establish
 
 The evidence map connects an intellectual question to the practical work of finding material. *Literature as Evidence* carries that logic into discovery, reading, comparison, and synthesis. Together, they show that one page pattern can support distinct tasks while keeping method separate from volatile products, giving AI bounded roles, and leaving a record another researcher can inspect.
 
@@ -1378,9 +1565,9 @@ The two modules share one architecture at different lengths. The evidence map ru
 
 The evidence map devotes two stages to discovery where the review devotes one, because a collection project separates who could have recorded evidence from how to search for it. The review adds a reading stage because it must interpret what it finds.
 
-The modules also reveal what remains outside the draft. They do not collect an interview, preserve a website, prepare a full archival corpus, or write the final empirical analysis. The bridge chapter on event databases introduces document extraction, dynamic coding, validation, and explicit causal updating. Each still requires fuller treatment across source types and analytical traditions.
+The modules also reveal what remains outside the draft. They do not collect an interview, preserve a website, prepare a full archival corpus, or write the final empirical analysis. The synthesis chapter extends the literature workflow into open, living, and quantitative reviews. The bridge chapter on event databases introduces document extraction, dynamic coding, validation, and explicit causal updating. Each still requires fuller treatment across source types and analytical traditions.
 
-## 20.2 The Full Field Guide
+## 21.2 The Full Field Guide
 
 The next module treats collection as evidence. It addresses documents, interviews, observations, images, audio, video, and web material. It connects capture to consent, metadata, storage, naming, backup, preservation, and chain of custody. A composite oral-history case will show where evidence co-produced with participants requires different decisions from retrieved documentary evidence.
 
@@ -1390,11 +1577,11 @@ An analysis module will resist a false division between qualitative and quantita
 
 A communication module will cover manuscripts, presentations, public data, visual explanation, repositories, and long-term access. Sharing is not the final act after research. Decisions made during collection determine what can later be verified, reused, or protected.
 
-## 20.3 A Hebrew Edition
+## 21.3 A Hebrew Edition
 
 English remains the canonical language during the pilot. A Hebrew edition should follow after the content model and navigation stabilize. Translation will require more than sentence substitution. Search terms, institutional examples, interfaces, and right-to-left design must be adapted. Stable page identifiers will keep the two editions connected without forcing them to change at the same pace.
 
-## 20.4 An Invitation
+## 21.4 An Invitation
 
 This draft is an argument and a test. It argues that researchers need a visible structure between question, corpus, analysis, and claim. It tests whether two different modules can carry novices and experienced scholars through the same page pattern at different depths.
 
@@ -1402,11 +1589,13 @@ The next step is both editorial and empirical. We will test the current modules 
 
 The old project began with abundance. The revived project begins with limits, artifacts, and reviewable decisions. This is progress.
 
-# 21. References
+# 22. References
 
 Autio, Chloe, Reva Schwartz, Jesse Dunietz, Shomik Jain, Martin Stanley, Elham Tabassi, Patrick Hall, and Kamie Roberts. “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile.” National Institute of Standards and Technology, 2024. <https://doi.org/10.6028/NIST.AI.600-1>.
 
 Beelen, Kaspar, Jon Lawrence, Daniel C. S. Wilson, and David Beavan. “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan.” *Digital Scholarship in the Humanities* 38, no. 1 (2023): 1–22. <https://doi.org/10.1093/llc/fqac037>.
+
+Blaizot, Aymeric, Sajesh K. Veettil, Pantakarn Saidoung, Carlos Francisco Moreno-Garcia, Nirmalie Wiratunga, Magaly Aceves-Martins, Nai Ming Lai, and Nathorn Chaiyakunapruk. “Using Artificial Intelligence Methods for Systematic Review in Health Sciences: A Systematic Review.” *Research Synthesis Methods* 13, no. 3 (2022): 353–62. <https://doi.org/10.1002/jrsm.1553>.
 
 Booth, Andrew, Anthea Sutton, and Diana Papaioannou. *Systematic Approaches to a Successful Literature Review*. 2nd ed. London: SAGE Publications, 2016.
 
@@ -1415,6 +1604,8 @@ Brandt, Patrick T., and Marcus Sianan. “Measurement of Event Data from Text.�
 Braun, Virginia, and Victoria Clarke. “One Size Fits All? What Counts as Quality Practice in (Reflexive) Thematic Analysis?” *Qualitative Research in Psychology* 18, no. 3 (2021): 328–52. <https://doi.org/10.1080/14780887.2020.1769238>.
 
 Cai, Erica, and Brendan O’Connor. “A Monte Carlo Language Model Pipeline for Zero-Shot Sociopolitical Event Extraction.” In *NeurIPS 2023 Workshop on Instruction Tuning and Instruction Following*, 2023. <https://doi.org/10.48550/arXiv.2305.15051>.
+
+Elliott, Julian H., Anneliese Synnot, Tari Turner, Mark Simmonds, Elie A. Akl, Steve McDonald, Georgia Salanti, et al. “Living Systematic Review: 1. Introduction, the Why, What, When, and How.” *Journal of Clinical Epidemiology* 91 (2017): 23–30. <https://doi.org/10.1016/j.jclinepi.2017.08.010>.
 
 Enders, Walter, Todd Sandler, and Khusrav Gaibulloev. “Domestic Versus Transnational Terrorism: Data Decomposition and Dynamics.” *Journal of Peace Research* 48, no. 3 (2011): 319–37. <https://doi.org/10.1177/0022343311398926>.
 
@@ -1429,17 +1620,29 @@ Grant, Maria J., and Andrew Booth. “A Typology of Reviews: An Analysis of 14 R
 
 Greenhalgh, Trisha, and Richard Peacock. “Effectiveness and Efficiency of Search Methods in Systematic Reviews of Complex Evidence: Audit of Primary Sources.” *BMJ* 331, no. 7524 (2005): 1064–65. <https://doi.org/10.1136/bmj.38636.593461.68>.
 
+Hedges, Larry V., Elizabeth Tipton, and Matthew C. Johnson. “Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates.” *Research Synthesis Methods* 1, no. 1 (2010): 39–65. <https://doi.org/10.1002/jrsm.5>.
+
+Irsova, Zuzana, Hristos Doucouliagos, Tomas Havranek, and T. D. Stanley. “Meta-Analysis of Social Science Research: A Practitioner’s Guide.” *Journal of Economic Surveys* 38, no. 5 (2024): 1547–66. <https://doi.org/10.1111/joes.12595>.
+
 Lebo, Timothy, Satya Sahoo, and Deborah McGuinness. “PROV-O: The PROV Ontology.” W3C Recommendation. World Wide Web Consortium, 2013. <https://www.w3.org/TR/prov-o/>.
 
 Littell, Julia H. “Conceptual and Practical Classification of Research Reviews and Other Evidence Synthesis Products.” *Campbell Systematic Reviews* 14, no. 1 (2018): 1–21. <https://doi.org/10.4073/cmdp.2018.1>.
 
 Malterud, Kirsti, Volkert Dirk Siersma, and Ann Dorrit Guassora. “Sample Size in Qualitative Interview Studies: Guided by Information Power.” *Qualitative Health Research* 26, no. 13 (2016): 1753–60. <https://doi.org/10.1177/1049732315617444>.
 
+Marshall, Iain J., and Byron C. Wallace. “Toward Systematic Review Automation: A Practical Guide to Using Machine Learning Tools in Research Synthesis.” *Systematic Reviews* 8, no. 1 (2019): 163. <https://doi.org/10.1186/s13643-019-1074-9>.
+
+Moreau, David, and Beau Gamble. “Conducting a Meta-Analysis in the Age of Open Science: Tools, Tips, and Practical Recommendations.” *Psychological Methods* 27, no. 3 (2022): 426–32. <https://doi.org/10.1037/met0000351>.
+
 National Consortium for the Study of Terrorism and Responses to Terrorism. “Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,” 2024. <https://www.start.umd.edu/gtd/downloads/Codebook.pdf>.
 
 Page, Matthew J., Joanne E. McKenzie, Patrick M. Bossuyt, Isabelle Boutron, Tammy C. Hoffmann, Cynthia D. Mulrow, et al. “The PRISMA 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.” *BMJ* 372 (2021): n71. <https://doi.org/10.1136/bmj.n71>.
 
 Pangakis, Nicholas, Samuel Wolken, and Sergio Fasching. “Automated Annotation with Generative AI Requires Validation.” *arXiv*, 2023. <https://doi.org/10.48550/arXiv.2306.00176>.
+
+Pigott, Terri D., and Joshua R. Polanin. “Methodological Guidance Paper: High-Quality Meta-Analysis in a Systematic Review.” *Review of Educational Research* 90, no. 1 (2020): 24–46. <https://doi.org/10.3102/0034654319877153>.
+
+Polanin, Joshua R., Emily A. Hennessy, and Sho Tsuji. “Transparency and Reproducibility of Meta-Analyses in Psychology: A Meta-Review.” *Perspectives on Psychological Science* 15, no. 4 (2020): 1026–41. <https://doi.org/10.1177/1745691620906416>.
 
 Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, Ana Patricia Ayala, David Moher, Matthew J. Page, and Jonathan B. Koffel. “PRISMA-s: An Extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews.” *Systematic Reviews* 10, no. 1 (2021): 39. <https://doi.org/10.1186/s13643-020-01542-z>.
 
@@ -1448,6 +1651,10 @@ Roberts, Hal, Rahul Bhargava, Linas Valiukas, Dennis Jen, Momin M. Malik, Cindy 
 Saunders, Benjamin, Julius Sim, Tom Kingstone, Shula Baker, Jackie Waterfield, Bernadette Bartlam, Heather Burroughs, and Clare Jinks. “Saturation in Qualitative Research: Exploring Its Conceptualization and Operationalization.” *Quality & Quantity* 52 (2018): 1893–1907. <https://doi.org/10.1007/s11135-017-0574-8>.
 
 Snyder, Hannah. “Literature Review as a Research Methodology: An Overview and Guidelines.” *Journal of Business Research* 104 (2019): 333–39. <https://doi.org/10.1016/j.jbusres.2019.07.039>.
+
+Sousa, M. Sharmila A., Sasha Peiris, Mabel F. Figueiró, Michelle M. Haby, Ana Cyntia Baraldi, Ludovic Reveiz, and João Paulo Souza. “The Landscape of Artificial Intelligence Tools and Platforms for Evidence Synthesis: A Scoping Review.” *Systematic Reviews* 15, no. 1 (2026): 82. <https://doi.org/10.1186/s13643-025-02842-y>.
+
+Uttley, Lesley, Yuliang Weng, and Louise Falzon. “What’s the Meta Now? More Updates on the Problems with Systematic Reviews.” *Journal of Clinical Epidemiology* 198 (2026): 112393. <https://doi.org/10.1016/j.jclinepi.2026.112393>.
 
 Wohlin, Claes. “Guidelines for Snowballing in Systematic Literature Studies and a Replication in Software Engineering.” In *Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering*, 1–10. Association for Computing Machinery, 2014. <https://doi.org/10.1145/2601248.2601268>.
 
@@ -1494,18 +1701,36 @@ Ziems, Caleb, William Held, Omar Shaikh, Jiaao Chen, Zhehao Zhang, and Diyi Yang
 
 [^18]: Page et al., “The PRISMA 2020 Statement”; Rethlefsen et al., “PRISMA-s.”
 
-[^19]: Fabrizio Gilardi, Meysam Alizadeh, and Maël Kubli, “ChatGPT Outperforms Crowd Workers for Text-Annotation Tasks,” *Proceedings of the National Academy of Sciences* 120, no. 30 (2023): e2305016120, <https://doi.org/10.1073/pnas.2305016120>; Nicholas Pangakis, Samuel Wolken, and Sergio Fasching, “Automated Annotation with Generative AI Requires Validation,” *arXiv*, 2023, <https://doi.org/10.48550/arXiv.2306.00176>; Caleb Ziems et al., “Can Large Language Models Transform Computational Social Science?” *Computational Linguistics* 50, no. 1 (2024): 237–91, <https://doi.org/10.1162/coli_a_00502>.
+[^19]: Grant and Booth, “A Typology of Reviews”; Littell, “Conceptual and Practical Classification of Research Reviews and Other Evidence Synthesis Products”; Snyder, “Literature Review as a Research Methodology.”
 
-[^20]: Hal Roberts et al., “Media Cloud: Massive Open Source Collection of Global News on the Open Web,” *Proceedings of the International AAAI Conference on Web and Social Media* 15, no. 1 (2021): 1034–45, <https://doi.org/10.1609/icwsm.v15i1.18127>.
+[^20]: Terri D. Pigott and Joshua R. Polanin, “Methodological Guidance Paper: High-Quality Meta-Analysis in a Systematic Review,” *Review of Educational Research* 90, no. 1 (2020): 24–46, <https://doi.org/10.3102/0034654319877153>.
 
-[^21]: Kaspar Beelen et al., “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan,” *Digital Scholarship in the Humanities* 38, no. 1 (2023): 1–22, <https://doi.org/10.1093/llc/fqac037>.
+[^21]: Larry V. Hedges, Elizabeth Tipton, and Matthew C. Johnson, “Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates,” *Research Synthesis Methods* 1, no. 1 (2010): 39–65, <https://doi.org/10.1002/jrsm.5>.
 
-[^22]: Erica Cai and Brendan O’Connor, “A Monte Carlo Language Model Pipeline for Zero-Shot Sociopolitical Event Extraction,” in *NeurIPS 2023 Workshop on Instruction Tuning and Instruction Following*, 2023, <https://doi.org/10.48550/arXiv.2305.15051>.
+[^22]: Zuzana Irsova et al., “Meta-Analysis of Social Science Research: A Practitioner’s Guide,” *Journal of Economic Surveys* 38, no. 5 (2024): 1547–66, <https://doi.org/10.1111/joes.12595>.
 
-[^23]: Patrick T. Brandt and Marcus Sianan, “Measurement of Event Data from Text,” *Frontiers in Political Science* 6 (2025): 1453640, <https://doi.org/10.3389/fpos.2024.1453640>.
+[^23]: David Moreau and Beau Gamble, “Conducting a Meta-Analysis in the Age of Open Science: Tools, Tips, and Practical Recommendations,” *Psychological Methods* 27, no. 3 (2022): 426–32, <https://doi.org/10.1037/met0000351>.
 
-[^24]: Tasha Fairfield and Andrew E. Charman, “Explicit Bayesian Analysis for Process Tracing: Guidelines, Opportunities, and Caveats,” *Political Analysis* 25, no. 3 (2017): 363–80, <https://doi.org/10.1017/pan.2017.14>; Sherry Zaks, “Updating Bayesian(s): A Critical Evaluation of Bayesian Process Tracing,” *Political Analysis* 29, no. 1 (2021): 58–74, <https://doi.org/10.1017/pan.2020.10>.
+[^24]: Joshua R. Polanin, Emily A. Hennessy, and Sho Tsuji, “Transparency and Reproducibility of Meta-Analyses in Psychology: A Meta-Review,” *Perspectives on Psychological Science* 15, no. 4 (2020): 1026–41, <https://doi.org/10.1177/1745691620906416>; Lesley Uttley, Yuliang Weng, and Louise Falzon, “What’s the Meta Now? More Updates on the Problems with Systematic Reviews,” *Journal of Clinical Epidemiology* 198 (2026): 112393, <https://doi.org/10.1016/j.jclinepi.2026.112393>.
 
-[^25]: Miao Xiong et al., “Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs,” in *The Twelfth International Conference on Learning Representations*, 2024, <https://openreview.net/forum?id=gjeQKFxFpZ>.
+[^25]: Julian H. Elliott et al., “Living Systematic Review: 1. Introduction, the Why, What, When, and How,” *Journal of Clinical Epidemiology* 91 (2017): 23–30, <https://doi.org/10.1016/j.jclinepi.2017.08.010>.
 
-[^26]: See Chloe Autio et al., “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile” (National Institute of Standards and Technology, 2024), <https://doi.org/10.6028/NIST.AI.600-1>.
+[^26]: Iain J. Marshall and Byron C. Wallace, “Toward Systematic Review Automation: A Practical Guide to Using Machine Learning Tools in Research Synthesis,” *Systematic Reviews* 8, no. 1 (2019): 163, <https://doi.org/10.1186/s13643-019-1074-9>.
+
+[^27]: Aymeric Blaizot et al., “Using Artificial Intelligence Methods for Systematic Review in Health Sciences: A Systematic Review,” *Research Synthesis Methods* 13, no. 3 (2022): 353–62, <https://doi.org/10.1002/jrsm.1553>; M. Sharmila A. Sousa et al., “The Landscape of Artificial Intelligence Tools and Platforms for Evidence Synthesis: A Scoping Review,” *Systematic Reviews* 15, no. 1 (2026): 82, <https://doi.org/10.1186/s13643-025-02842-y>.
+
+[^28]: Fabrizio Gilardi, Meysam Alizadeh, and Maël Kubli, “ChatGPT Outperforms Crowd Workers for Text-Annotation Tasks,” *Proceedings of the National Academy of Sciences* 120, no. 30 (2023): e2305016120, <https://doi.org/10.1073/pnas.2305016120>; Nicholas Pangakis, Samuel Wolken, and Sergio Fasching, “Automated Annotation with Generative AI Requires Validation,” *arXiv*, 2023, <https://doi.org/10.48550/arXiv.2306.00176>; Caleb Ziems et al., “Can Large Language Models Transform Computational Social Science?” *Computational Linguistics* 50, no. 1 (2024): 237–91, <https://doi.org/10.1162/coli_a_00502>.
+
+[^29]: Hal Roberts et al., “Media Cloud: Massive Open Source Collection of Global News on the Open Web,” *Proceedings of the International AAAI Conference on Web and Social Media* 15, no. 1 (2021): 1034–45, <https://doi.org/10.1609/icwsm.v15i1.18127>.
+
+[^30]: Kaspar Beelen et al., “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan,” *Digital Scholarship in the Humanities* 38, no. 1 (2023): 1–22, <https://doi.org/10.1093/llc/fqac037>.
+
+[^31]: Erica Cai and Brendan O’Connor, “A Monte Carlo Language Model Pipeline for Zero-Shot Sociopolitical Event Extraction,” in *NeurIPS 2023 Workshop on Instruction Tuning and Instruction Following*, 2023, <https://doi.org/10.48550/arXiv.2305.15051>.
+
+[^32]: Patrick T. Brandt and Marcus Sianan, “Measurement of Event Data from Text,” *Frontiers in Political Science* 6 (2025): 1453640, <https://doi.org/10.3389/fpos.2024.1453640>.
+
+[^33]: Tasha Fairfield and Andrew E. Charman, “Explicit Bayesian Analysis for Process Tracing: Guidelines, Opportunities, and Caveats,” *Political Analysis* 25, no. 3 (2017): 363–80, <https://doi.org/10.1017/pan.2017.14>; Sherry Zaks, “Updating Bayesian(s): A Critical Evaluation of Bayesian Process Tracing,” *Political Analysis* 29, no. 1 (2021): 58–74, <https://doi.org/10.1017/pan.2020.10>.
+
+[^34]: Miao Xiong et al., “Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs,” in *The Twelfth International Conference on Learning Representations*, 2024, <https://openreview.net/forum?id=gjeQKFxFpZ>.
+
+[^35]: See Chloe Autio et al., “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile” (National Institute of Standards and Technology, 2024), <https://doi.org/10.6028/NIST.AI.600-1>.

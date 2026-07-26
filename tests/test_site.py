@@ -96,6 +96,17 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("candidate record", event_chapter)
         self.assertIn("Bayesian evidence table", event_chapter)
 
+        review_chapter = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "content"
+            / "19-review-articles-and-meta-analysis.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn("Review Articles and Meta-Analysis in Transition", landing)
+        self.assertIn("dependent effect estimates", review_chapter)
+        self.assertIn("conditional future", review_chapter)
+
         book_home = (
             ROOT / "field-guide" / "book" / "index.html"
         ).read_text(encoding="utf-8")

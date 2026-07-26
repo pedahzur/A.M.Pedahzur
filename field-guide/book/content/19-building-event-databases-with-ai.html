@@ -11,7 +11,7 @@
 <meta name="dcterms.date" content="2026-07-26">
 <meta name="description" content="Accelerate source discovery, event extraction, dynamic coding, and causal updating without weakening provenance or validation.">
 
-<title>18&nbsp; Building Event Databases with AI – From Question to Evidence</title>
+<title>19&nbsp; Building Event Databases with AI – From Question to Evidence</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,7 +58,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../content/19-ai-research-integrity.html" rel="next">
-<link href="../content/18-synthesize-audit-stop.html" rel="prev">
+<link href="../content/19-review-articles-and-meta-analysis.html" rel="prev">
 <link href="../assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -140,7 +140,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/19-building-event-databases-with-ai.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/19-building-event-databases-with-ai.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -289,26 +289,32 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../content/19-review-articles-and-meta-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Review Articles and Meta-Analysis in Transition</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../content/19-building-event-databases-with-ai.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/19-ai-research-integrity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/20-next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -321,14 +327,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#orientation" id="toc-orientation" class="nav-link active" data-scroll-target="#orientation"><span class="header-section-number">18.1</span> Orientation</a></li>
-  <li><a href="#learn" id="toc-learn" class="nav-link" data-scroll-target="#learn"><span class="header-section-number">18.2</span> Learn</a></li>
-  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example"><span class="header-section-number">18.3</span> Worked Example</a></li>
-  <li><a href="#try-it" id="toc-try-it" class="nav-link" data-scroll-target="#try-it"><span class="header-section-number">18.4</span> Try It</a></li>
-  <li><a href="#guided-ai-workflow" id="toc-guided-ai-workflow" class="nav-link" data-scroll-target="#guided-ai-workflow"><span class="header-section-number">18.5</span> Guided AI Workflow</a></li>
-  <li><a href="#integrity-checkpoint" id="toc-integrity-checkpoint" class="nav-link" data-scroll-target="#integrity-checkpoint"><span class="header-section-number">18.6</span> Integrity Checkpoint</a></li>
-  <li><a href="#save-the-artifact" id="toc-save-the-artifact" class="nav-link" data-scroll-target="#save-the-artifact"><span class="header-section-number">18.7</span> Save the Artifact</a></li>
-  <li><a href="#advanced-practice" id="toc-advanced-practice" class="nav-link" data-scroll-target="#advanced-practice"><span class="header-section-number">18.8</span> Advanced Practice</a></li>
+  <li><a href="#orientation" id="toc-orientation" class="nav-link active" data-scroll-target="#orientation"><span class="header-section-number">19.1</span> Orientation</a></li>
+  <li><a href="#learn" id="toc-learn" class="nav-link" data-scroll-target="#learn"><span class="header-section-number">19.2</span> Learn</a></li>
+  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example"><span class="header-section-number">19.3</span> Worked Example</a></li>
+  <li><a href="#try-it" id="toc-try-it" class="nav-link" data-scroll-target="#try-it"><span class="header-section-number">19.4</span> Try It</a></li>
+  <li><a href="#guided-ai-workflow" id="toc-guided-ai-workflow" class="nav-link" data-scroll-target="#guided-ai-workflow"><span class="header-section-number">19.5</span> Guided AI Workflow</a></li>
+  <li><a href="#integrity-checkpoint" id="toc-integrity-checkpoint" class="nav-link" data-scroll-target="#integrity-checkpoint"><span class="header-section-number">19.6</span> Integrity Checkpoint</a></li>
+  <li><a href="#save-the-artifact" id="toc-save-the-artifact" class="nav-link" data-scroll-target="#save-the-artifact"><span class="header-section-number">19.7</span> Save the Artifact</a></li>
+  <li><a href="#advanced-practice" id="toc-advanced-practice" class="nav-link" data-scroll-target="#advanced-practice"><span class="header-section-number">19.8</span> Advanced Practice</a></li>
   </ul>
 </nav>
     </div>
@@ -337,7 +343,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Building Event Databases with AI</span></h1>
 </div>
 
 
@@ -367,54 +373,54 @@ window.Quarto = {
 </header>
 
 
-<section id="orientation" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="orientation"><span class="header-section-number">18.1</span> Orientation</h2>
+<section id="orientation" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="orientation"><span class="header-section-number">19.1</span> Orientation</h2>
 <p>Event databases convert dispersed accounts into comparable records. A researcher may begin with a question about protest, repression, political violence, institutional reform, migration, or disaster response. The relevant traces may appear across newspapers, archival catalogues, government reports, organizational records, and born-digital collections. Before generative AI, much of the work required repetitive searching, copying, normalization, and initial classification. These tasks consumed time that researchers needed for interpretation.</p>
 <p>AI changes the feasible scale of this work. A system can expand queries, search an authorized collection, extract candidate fields, compare reports, and flag records that may describe the same occurrence. It can apply a preliminary codebook to thousands of passages and identify dimensions the original codebook omitted. Studies of text annotation show that language models can perform some bounded classification tasks quickly and inexpensively. Performance, however, varies substantially across tasks and datasets, which makes local validation indispensable.<span class="citation" data-cites="gilardi2023chatgpt pangakis2023annotation ziems2024transform"><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></span></p>
 <p>The resulting speed creates a methodological danger. A fluent extraction can make an uncertain mention look like an observed event. Several articles can make one wire report look like independent confirmation. A model can produce a precise code for an ambiguous passage or a causal probability without defining the comparison that gives the number meaning. Faster processing does not remove these problems. It can reproduce them at scale.</p>
 <p>This chapter presents an auditable alternative. AI compresses clerical stages while the researcher preserves a visible chain from source to record, record to event, event to variable, and written evidence to causal inference. Every transition produces an artifact that can be reviewed, corrected, and versioned.</p>
 </section>
-<section id="learn" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="learn"><span class="header-section-number">18.2</span> Learn</h2>
-<section id="begin-with-the-unit-not-the-model" class="level3" data-number="18.2.1">
-<h3 data-number="18.2.1" class="anchored" data-anchor-id="begin-with-the-unit-not-the-model"><span class="header-section-number">18.2.1</span> Begin with the unit, not the model</h3>
+<section id="learn" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="learn"><span class="header-section-number">19.2</span> Learn</h2>
+<section id="begin-with-the-unit-not-the-model" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="begin-with-the-unit-not-the-model"><span class="header-section-number">19.2.1</span> Begin with the unit, not the model</h3>
 <p>An event database requires a declared unit of observation. The unit might be an attack, demonstration, arrest, policy decision, organizational founding, public statement, or interaction between named actors. Its boundary must state what counts as one event, when two reports refer to the same event, and when one report contains several events.</p>
 <p>Write the boundary before retrieval. Record inclusion and exclusion rules, temporal and geographic scope, actor and action definitions, and the minimum evidence required for a verified record. The first codebook should follow the research question and hypotheses. It should identify the variables needed to describe the event, evaluate rival explanations, and document the reporting process.</p>
 <p>This order matters because a model will readily propose whatever categories are easy to extract. Extractability is not theoretical importance. If the system defines the unit through its output, the database may record what the model recognizes instead of what the research design requires.</p>
 </section>
-<section id="build-a-source-frame" class="level3" data-number="18.2.2">
-<h3 data-number="18.2.2" class="anchored" data-anchor-id="build-a-source-frame"><span class="header-section-number">18.2.2</span> Build a source frame</h3>
+<section id="build-a-source-frame" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="build-a-source-frame"><span class="header-section-number">19.2.2</span> Build a source frame</h3>
 <p>Manual newspaper searching often proceeds title by title and query by query. A digital source frame allows the researcher to define a collection before searching it. The frame records each newspaper, archive, database, date range, language, access route, known gap, and relevant restriction. Open news infrastructures can support large-scale retrieval, while library archives can expose searchable historical newspapers and catalogue records.<span class="citation" data-cites="roberts2021mediacloud"><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></span> The frame should also include local and oppositional sources that a prominent aggregator may not index.</p>
 <p>Digitized collections are not transparent windows onto the past. Selection, survival, digitization, OCR quality, licensing, and search interfaces shape what becomes discoverable. Studies of newspaper digitization show why collection composition must be examined before researchers interpret search results as historical coverage.<span class="citation" data-cites="beelen2023bias"><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></span> A failed query may indicate absence, vocabulary mismatch, OCR error, unavailable dates, or a source omitted from the platform. Record which explanation remains plausible.</p>
 <p>AI can accelerate work inside the source frame. It can translate query concepts, generate historical names, adapt syntax across archives, and rank retrieved documents for review. A search-connected system may also query an approved interface directly. These operations remain collection procedures. The search log should preserve the source collection, query, date, filters, result count, model or script, and review decision. Access must comply with archive rules, licenses, privacy obligations, and research ethics.</p>
 </section>
-<section id="separate-discovery-from-verification" class="level3" data-number="18.2.3">
-<h3 data-number="18.2.3" class="anchored" data-anchor-id="separate-discovery-from-verification"><span class="header-section-number">18.2.3</span> Separate discovery from verification</h3>
+<section id="separate-discovery-from-verification" class="level3" data-number="19.2.3">
+<h3 data-number="19.2.3" class="anchored" data-anchor-id="separate-discovery-from-verification"><span class="header-section-number">19.2.3</span> Separate discovery from verification</h3>
 <p>The first extraction produces a <strong>candidate record</strong>, not an event. A candidate record reports that a particular source span may describe an event within scope. It should preserve the document identifier, publication date, page or URL, exact source span, retrieval route, proposed event date, actors, action, target, location, and model output. The preserved span allows a reviewer to return to the evidence without trusting the summary.</p>
 <p>A candidate becomes a <strong>verified record</strong> only after the relevant passage and metadata have been checked. Verification asks whether the source exists, whether the passage supports the proposed fields, whether uncertainty has been preserved, and whether the item satisfies the inclusion rule. The decision may be accepted, rejected, or marked unresolved. It must name the reviewer and date.</p>
 <p>This separation allows wide retrieval without lowering the evidentiary threshold. The system can favor recall during discovery because false positives remain outside the verified dataset. Reviewers can then favor precision when deciding what enters the database. A model should have an abstention route for passages that do not support a stable classification.</p>
 </section>
-<section id="resolve-reports-into-events" class="level3" data-number="18.2.4">
-<h3 data-number="18.2.4" class="anchored" data-anchor-id="resolve-reports-into-events"><span class="header-section-number">18.2.4</span> Resolve reports into events</h3>
+<section id="resolve-reports-into-events" class="level3" data-number="19.2.4">
+<h3 data-number="19.2.4" class="anchored" data-anchor-id="resolve-reports-into-events"><span class="header-section-number">19.2.4</span> Resolve reports into events</h3>
 <p>News collections rarely provide one document per event. The same account may be syndicated, translated, updated, quoted by another outlet, or repeated in a retrospective report. Conversely, one article may describe several occurrences. The database therefore needs an event-resolution stage between verified records and analytical events.</p>
 <p>AI can compare names, dates, places, actions, and source spans to generate possible matches. Event extraction research shows, however, that simple zero-shot prompting can perform poorly when reports contain ambiguity, hypothetical language, or several interacting actors.<span class="citation" data-cites="cai2023montecarlo"><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></span> A match score should therefore open a review task instead of merging records automatically.</p>
 <p>The <strong>event resolution log</strong> records every merge, split, and non-match. It links source-record identifiers to a stable event identifier and gives the rule, evidence, reviewer, and confidence category. It also records dependence. Five newspapers repeating one wire dispatch represent broad circulation, not five independent observations. Preserving that distinction prevents source abundance from becoming false corroboration.</p>
 </section>
-<section id="let-the-codebook-learn-without-moving-silently" class="level3" data-number="18.2.5">
-<h3 data-number="18.2.5" class="anchored" data-anchor-id="let-the-codebook-learn-without-moving-silently"><span class="header-section-number">18.2.5</span> Let the codebook learn without moving silently</h3>
+<section id="let-the-codebook-learn-without-moving-silently" class="level3" data-number="19.2.5">
+<h3 data-number="19.2.5" class="anchored" data-anchor-id="let-the-codebook-learn-without-moving-silently"><span class="header-section-number">19.2.5</span> Let the codebook learn without moving silently</h3>
 <p>An initial codebook should express the research hypotheses, but it should not be treated as complete. Early records may reveal unanticipated actors, mechanisms, event sequences, source effects, or confounders. AI can scan verified records and propose additional variables that distinguish rival explanations or capture recurrent variation.</p>
 <p>Dynamic coding requires controlled change. The codebook should contain a stable core and an experimental extension layer. Core variables remain fixed during a declared release. Proposed variables enter the extension layer with a definition, rationale, allowed values, inclusion and exclusion rules, supporting examples, and an account of the hypothesis or comparison they serve. The <strong>codebook version</strong> must accompany every coded record.</p>
 <p>A proposed variable should be tested on a validation sample before promotion. Reviewers ask whether it can be observed consistently, whether it duplicates an existing field, whether it encodes an inference as a fact, and whether it reflects reporting practice instead of the event itself. If promoted, the team either recodes earlier events or records that prior values are missing by design. Silent addition would make change over time indistinguishable from a change in measurement.</p>
 <p>This workflow turns AI into a critic of the original design. The model may notice a missing variable, but it does not decide that the variable belongs in the database. That decision remains theoretical, empirical, and comparative.</p>
 </section>
-<section id="validate-before-scaling" class="level3" data-number="18.2.6">
-<h3 data-number="18.2.6" class="anchored" data-anchor-id="validate-before-scaling"><span class="header-section-number">18.2.6</span> Validate before scaling</h3>
+<section id="validate-before-scaling" class="level3" data-number="19.2.6">
+<h3 data-number="19.2.6" class="anchored" data-anchor-id="validate-before-scaling"><span class="header-section-number">19.2.6</span> Validate before scaling</h3>
 <p>Automated coding should be evaluated against researcher-coded material drawn from the intended corpus. The validation sample should include different periods, sources, languages, common classes, rare classes, and difficult boundary cases. A temporal holdout helps expose drift. A source holdout tests whether the system has learned one outlet’s style instead of the event concept.</p>
 <p>Report performance by variable and class. Overall accuracy can conceal failure on rare but substantively important events. Precision, recall, and error types usually provide more useful guidance. Double-code a consequential or ambiguous subset, adjudicate disagreements, and record whether each error arose from retrieval, source quality, event resolution, the codebook, or the model. Contemporary event-data research treats this as a measurement problem, not merely a software benchmark.<span class="citation" data-cites="brandt2025measurement"><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></span></p>
 <p>Validation has a scope. A model that performs well on English national newspapers from one decade has not been validated for local-language archives or another period. Record the tested population, prompt, model, codebook version, and decision threshold. Revalidate after a material change to any of them.</p>
 </section>
-<section id="use-bayesian-updating-as-a-declared-argument" class="level3" data-number="18.2.7">
-<h3 data-number="18.2.7" class="anchored" data-anchor-id="use-bayesian-updating-as-a-declared-argument"><span class="header-section-number">18.2.7</span> Use Bayesian updating as a declared argument</h3>
+<section id="use-bayesian-updating-as-a-declared-argument" class="level3" data-number="19.2.7">
+<h3 data-number="19.2.7" class="anchored" data-anchor-id="use-bayesian-updating-as-a-declared-argument"><span class="header-section-number">19.2.7</span> Use Bayesian updating as a declared argument</h3>
 <p>Written evidence can change the relative plausibility of rival causal explanations. Bayesian reasoning makes this change explicit. Suppose (H_1) and (H_0) are rival explanations and (E) is a verified item of evidence. The update can be expressed as:</p>
 <p><span class="math display">\[
 \frac{P(H_1 \mid E)}{P(H_0 \mid E)}
@@ -429,23 +435,23 @@ window.Quarto = {
 <p>The Bayesian evidence table should therefore record the hypothesis pair, evidence identifier, provenance, predicted observation under each hypothesis, dependence group, likelihood range, rationale, reviewer, update, and sensitivity result. The model may draft alternatives for review. It may not convert fluent interpretation into causal probability.</p>
 </section>
 </section>
-<section id="worked-example" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="worked-example"><span class="header-section-number">18.3</span> Worked Example</h2>
+<section id="worked-example" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="worked-example"><span class="header-section-number">19.3</span> Worked Example</h2>
 <p>Consider a project examining whether a campaign of coordinated attacks followed a central directive or emerged from local imitation. The source frame includes national and local newspapers, organizational statements, judicial records, and a digitized archive. Retrieval returns 8,000 documents. An AI-assisted classifier identifies 730 candidate records, while human verification accepts 412 and leaves 28 unresolved.</p>
 <p>The event-resolution pass finds that many accepted records repeat the same wire stories. It also finds articles that combine several incidents in one retrospective account. Reviewers link the 412 verified records to 167 resolved events. The database retains every source relationship, but analytical counts operate on event identifiers instead of article counts.</p>
 <p>The original codebook records date, location, actor, target, tactic, casualties, and claimed responsibility. During a pilot, the model repeatedly proposes three additional fields: prior local confrontation, evidence of tactical imitation, and evidence of communication before the event. The first two can be coded from defined written traces. The third is too inferential as phrased. The team revises it into separate observable fields for a documented meeting, a message, and an attributed statement. After a stratified validation sample, the new fields enter codebook version 1.1 and earlier events are recoded.</p>
 <p>For causal analysis, similar tactics across several events initially appear to favor coordination. The evidence table reveals that newspapers copied descriptions from one source and that imitation predicts similarity as well. The likelihood ratio stays close to one. An authenticated message sent before several events would be more diagnostic if its content distinguishes a directive from general encouragement. The model helps compare these implications and calculate sensitivity across researcher-assigned ranges. It does not determine which mechanism caused the campaign.</p>
 <p>The final database is smaller than the first extraction and stronger than a manually assembled spreadsheet. AI shortened retrieval, comparison, and preliminary coding. The audit chain preserved the difference between speed and evidence.</p>
 </section>
-<section id="try-it" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="try-it"><span class="header-section-number">18.4</span> Try It</h2>
+<section id="try-it" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="try-it"><span class="header-section-number">19.4</span> Try It</h2>
 <p>Choose a research question that could be represented as events. Write one paragraph defining the unit, the event boundary, the source frame, and the minimum evidence required for a verified record. Then create ten candidate records from a small, rights-compliant sample. Preserve a source span for every proposed field.</p>
 <p>Resolve the ten records into events without using automatic merges. Record one merge, split, or non-match decision for each plausible pair. Identify shared wire copy, quotation, translation, or retrospective dependence.</p>
 <p>Draft codebook version 0.1 from the research hypotheses. Ask an AI system to propose up to five additional variables that might distinguish rival explanations. For each proposal, require an observable definition, exclusion rule, two positive examples, one difficult boundary case, and the decision it would support. Reject at least one proposal and record why.</p>
 <p>Finally, select two rival hypotheses and one verified item of written evidence. State what each hypothesis predicts, assign a transparent likelihood range, and calculate the posterior odds across that range. Repeat the calculation after treating two apparently separate reports as dependent. Explain why the answer changed or remained stable.</p>
 </section>
-<section id="guided-ai-workflow" class="level2" data-number="18.5">
-<h2 data-number="18.5" class="anchored" data-anchor-id="guided-ai-workflow"><span class="header-section-number">18.5</span> Guided AI Workflow</h2>
+<section id="guided-ai-workflow" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="guided-ai-workflow"><span class="header-section-number">19.5</span> Guided AI Workflow</h2>
 <p>Use three bounded passes. In the extraction pass, provide the event definition, codebook version, required output schema, and rights-cleared text. Require the model to return candidate records with exact source spans, uncertainty markers, and an abstention option. In the challenge pass, provide de-identified candidate records and ask for likely duplicates, boundary violations, missing variables, and rival interpretations. In the causal pass, provide only verified evidence identifiers, hypothesis predictions, and researcher-declared likelihood ranges. Ask for arithmetic and sensitivity checks, not a causal verdict.</p>
 <p>A usable codebook prompt is:</p>
 <blockquote class="blockquote">
@@ -457,21 +463,21 @@ window.Quarto = {
 <strong>Record:</strong> Save collection and query details, model and version, prompt, codebook version, candidate output, reviewer disposition, event resolution log, validation results, and accepted or rejected codebook changes.</p>
 <p>The model should return structured candidates, not silently edit the database. A human-controlled import step provides the boundary between proposal and record.</p>
 </section>
-<section id="integrity-checkpoint" class="level2" data-number="18.6">
-<h2 data-number="18.6" class="anchored" data-anchor-id="integrity-checkpoint"><span class="header-section-number">18.6</span> Integrity Checkpoint</h2>
+<section id="integrity-checkpoint" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="integrity-checkpoint"><span class="header-section-number">19.6</span> Integrity Checkpoint</h2>
 <p>Speed can redistribute visibility. Large searchable newspapers may dominate because they are technically accessible, while local publications, minority languages, ephemeral media, and undigitized collections disappear. Audit the source frame before interpreting the event distribution.</p>
 <p>Source reports can contain allegations, state narratives, strategic claims, and copied errors. Preserve attribution. Do not transform “officials alleged” into an event fact. Distinguish event variables from variables about the reporting process.</p>
 <p>An event database can expose people who never consented to systematic aggregation. Public availability does not remove privacy, security, or ethical risk. Minimize personal data, document the lawful and ethical basis for processing, and restrict or aggregate sensitive fields when release could cause harm.</p>
 <p>Dynamic coding can also produce retrospective confirmation. A variable proposed after seeing the outcome may be analytically useful, but its origin must be disclosed. Mark exploratory variables and test them against new material where possible.</p>
 </section>
-<section id="save-the-artifact" class="level2" data-number="18.7">
-<h2 data-number="18.7" class="anchored" data-anchor-id="save-the-artifact"><span class="header-section-number">18.7</span> Save the Artifact</h2>
+<section id="save-the-artifact" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="save-the-artifact"><span class="header-section-number">19.7</span> Save the Artifact</h2>
 <p>Save six linked artifacts: the source frame and search log; the candidate record table with source spans; the verification register; the event resolution log; the versioned codebook with its change log; and the validation report. For causal work, add a Bayesian evidence table that preserves hypothesis predictions, dependence, likelihood ranges, rationales, and sensitivity results.</p>
 <p>Each analytical export should name the source-frame version, codebook version, model-assisted workflow version, and validation report. Preserve stable identifiers so a correction to one source record can propagate to the resolved event and every downstream analysis.</p>
 <p>Release only what rights, privacy, security, and ethics permit. A public methodological register can describe restricted evidence without exposing it.</p>
 </section>
-<section id="advanced-practice" class="level2" data-number="18.8">
-<h2 data-number="18.8" class="anchored" data-anchor-id="advanced-practice"><span class="header-section-number">18.8</span> Advanced Practice</h2>
+<section id="advanced-practice" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="advanced-practice"><span class="header-section-number">19.8</span> Advanced Practice</h2>
 <p>A mature pipeline separates retrieval, extraction, verification, resolution, coding, and inference into distinct operations. Each operation can be rerun without silently overwriting the preceding layer. This structure supports multilingual retrieval, active learning, model comparison, and targeted human review.</p>
 <p>Consider a model cascade. A low-cost system can rank documents, a stronger system can extract difficult candidates, and a researcher can adjudicate the consequential cases. Route rare classes, low-confidence outputs, conflicting source spans, and causal evidence to expert review. Measure how the routing rule changes both error and labor.</p>
 <p>Test model and source drift. Recode a fixed benchmark after provider updates. Sample new records by period and outlet. Compare human disagreement with model error without treating one as a substitute for the other.</p>
@@ -943,13 +949,13 @@ Ziems, Caleb, William Held, Omar Shaikh, Jiaao Chen, Zhehao Zhang, and Diyi Yang
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/18-synthesize-audit-stop.html" class="pagination-link" aria-label="Stage 6: Synthesize, Audit, and Stop">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Stage 6: Synthesize, Audit, and Stop</span></span>
+      <a href="../content/19-review-articles-and-meta-analysis.html" class="pagination-link" aria-label="Review Articles and Meta-Analysis in Transition">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Review Articles and Meta-Analysis in Transition</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../content/19-ai-research-integrity.html" class="pagination-link" aria-label="AI and Research Integrity">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
