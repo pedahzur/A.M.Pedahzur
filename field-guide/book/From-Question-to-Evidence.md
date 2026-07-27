@@ -1636,7 +1636,7 @@ The book explains why a literature search requires a protocol, multiple discover
 
 Release **0.1.0** is a pilot. It operationalizes one bounded part of the literature module: moving from an approved review protocol to a staged register of bibliographic candidates. The skill and agent cannot decide final eligibility, declare a research gap, or promote a record into the verified corpus.
 
-[Download ZIP 0.1.0](../downloads/skills-and-agents-lab-v0.1.0.zip) [Verify checksum](../downloads/skills-and-agents-lab-v0.1.0.zip.sha256) [Inspect source](https://github.com/pedahzur/from-question-to-evidence/tree/main/lab)
+[Download ZIP 0.1.0](../downloads/skills-and-agents-lab-v0.1.0.zip) [Verify checksum](../downloads/skills-and-agents-lab-v0.1.0.zip.sha256) [Inspect source](https://github.com/pedahzur/from-question-to-evidence/tree/revise/referee-pass-2026-07-14/lab)
 
 ## 21.2 What the Release Contains
 
