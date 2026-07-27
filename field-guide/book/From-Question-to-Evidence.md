@@ -23,7 +23,7 @@ The book treats this record as a scholarly Second Brain. Its purpose is not to s
 
 The manuscript is written for two readers. The first is beginning a substantial qualitative project and needs a sequence that can be followed without assuming years of tacit experience. The second has conducted research for years but wants to reconsider established practices after the arrival of new search systems and generative AI. Both readers face the same decisions. They differ in how much explanation, contestation, and adaptation they require.
 
-The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new synthesis chapter examines how review articles and meta-analyses are becoming open, versioned research objects. It also shows how reusable skills, bounded agents, and versioned project context can support discovery, gap analysis, methodology, and collection without transferring scholarly authority to the system. A second bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
+The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new synthesis chapter examines how review articles and meta-analyses are becoming open, versioned research objects. It also shows how reusable skills, bounded agents, and versioned project context can support discovery, gap analysis, methodology, and collection without transferring scholarly authority to the system. The first [Skills and Agents Lab](content/skills-and-agents-lab.qmd) release turns that argument into an inspectable literature-discovery skill, a read-only scout agent, a context template, synthetic benchmarks, and a public revision route. A second bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
 
 The first worked example concerns competing accounts of terrorism. It suits the method because terrorism data do not arrive as neutral observations waiting to be counted. Definitions vary. Collection systems change. Sources disappear. Governments, news organizations, researchers, and database teams record different parts of the same event. The example is familiar to our own work. But the method must also survive evidence that researchers help produce. The revised book therefore adds a composite oral-history study of how tenants experienced and remembered municipal redevelopment. That case will carry interviews, consent records, field notes, administrative documents, researcher memos, silence, refusal, and unequal access through the same sequence of decisions.
 
@@ -111,7 +111,7 @@ The map therefore preserves versions. The question recorded on the first day doe
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: center;"><img src="media/rId22.png" style="width:5.83333in;height:2.5in" />
+<td style="text-align: center;"><img src="media/rId23.png" style="width:5.83333in;height:2.5in" />
 <p>Figure 3.1: The evidence map develops through seven ordered but revisable stages. Discoveries can reopen an earlier decision.</p></td>
 </tr>
 </tbody>
@@ -1409,6 +1409,8 @@ Create a release manifest. It should name the corpus version, protocol version, 
 
 Maintain a research-automation register. For every skill, save its manifest, instructions, scripts or schemas, benchmark set, evaluation results, permissions, owner, and version. For every agent, save its work-order template, permitted skills and tools, expected output, escalation rule, and tests. Archive each project context packet and its approved change log. Do not store credentials or protected source content in these public or reusable definitions.
 
+The accompanying [Skills and Agents Lab](skills-and-agents-lab.qmd) provides the first complete implementation of this architecture. Release 0.1.0 contains a literature-discovery skill, a read-only scout agent, a three-layer project-context packet, three synthetic benchmark cases, a candidate-register validator, an explicit failure report, and a versioned download. It is a pilot procedure to inspect and test, not evidence that autonomous discovery is reliable.
+
 The article, dataset, code, and review website should point to the same manifest. This shared reference prevents a current webpage from silently changing the evidence behind an older citation.
 
 ## 18.8 Advanced Practice
@@ -1626,9 +1628,97 @@ Preserve consequential outputs when terms permit. Record accepted and rejected s
 
 AI use is defensible when it makes judgment more visible. It fails when it hides judgment behind convenience.
 
-# 21. Building the Full Field Guide
+# 21. Skills and Agents Lab
 
-## 21.1 What the Current Modules Establish
+## 21.1 Method in the Book, Procedure in the Lab
+
+The book explains why a literature search requires a protocol, multiple discovery routes, verified bibliographic identities, a coverage argument, and a human stopping decision. The lab turns that method into inspectable working objects. It does not transfer scholarly authority to an automated system.
+
+Release **0.1.0** is a pilot. It operationalizes one bounded part of the literature module: moving from an approved review protocol to a staged register of bibliographic candidates. The skill and agent cannot decide final eligibility, declare a research gap, or promote a record into the verified corpus.
+
+[Download ZIP 0.1.0](../downloads/skills-and-agents-lab-v0.1.0.zip) [Verify checksum](../downloads/skills-and-agents-lab-v0.1.0.zip.sha256) [Inspect source](https://github.com/pedahzur/from-question-to-evidence/tree/main/lab)
+
+## 21.2 What the Release Contains
+
+### 21.2.1 Literature-discovery skill
+
+The skill receives an approved review protocol, a versioned project-context packet, and a list of permitted sources. It maps vocabulary, plans and records discovery routes, stages candidates, resolves bibliographic identities, tests known-item and route coverage, and returns the work to a researcher.
+
+Its outputs are:
+
+1.  a candidate register;
+2.  a query log;
+3.  a coverage memo;
+4.  an unresolved-leads file.
+
+A bundled validator checks that candidate registers contain provenance and verification fields and do not contain final-eligibility fields.
+
+### 21.2.2 Bounded literature-scout agent
+
+The scout is a read-only executor. It can read approved local artifacts and search public sources. It cannot write project files, change a protocol, access protected material, make a final inclusion decision, or modify a corpus. If the work requires one of those actions, it stops and returns a bounded question.
+
+This is a deliberate division of labor. The skill holds the reusable procedure. The agent executes one work order in a fresh context. The researcher controls the gates.
+
+### 21.2.3 Project-context packet
+
+The template separates context into three layers:
+
+- a **stable layer** for the question, scope, concepts, evidence standards, ethics, and decision authority;
+- a **current-state layer** for active artifact versions, accepted decisions, unresolved disputes, and coverage limits;
+- a **task layer** for one work order, its permitted sources, required output, and stopping rule.
+
+The packet points to authoritative artifacts. It is not itself evidence and should not contain an entire project archive.
+
+## 21.3 Three Synthetic Benchmarks
+
+The release includes small, inspectable cases rather than an opaque aggregate score. All names, records, identifiers, and source locations are synthetic.
+
+| Benchmark | What it tests | Failure condition |
+|----|----|----|
+| Known-item recovery | Recover known records, resolve an exact duplicate, and preserve both discovery routes | A route is erased or recovery is called comprehensive |
+| False-gap prevention | Expand vocabulary through a conceptual proxy and an approved Spanish term | A zero-result English query becomes a field-level gap claim |
+| Boundary and abstention | Preserve a temporal scope signal, refuse restricted material, and isolate an unsupported citation | Metadata is invented, a final exclusion is made, or protected material is accessed |
+
+These fixtures test the procedure’s boundaries. They do not establish performance on real databases. A later release should report recall, false-exclusion rates, bibliographic-resolution errors, labor, cost, and cross-language performance on an independently prepared corpus.
+
+## 21.4 What the AI Got Wrong
+
+The package contains an explicit failure report. The authoring run exposed five risks:
+
+- a plausible but unsupported citation entering the candidate register;
+- a zero-result query becoming a research-gap claim;
+- deduplication erasing the route by which a source was found;
+- a scope signal becoming a final eligibility decision;
+- broad context encouraging access to a restricted artifact.
+
+Each failure is connected to a control in the skill, agent, schema, template, or benchmark. Residual risks remain visible. The report also states what this pilot has not established.
+
+## 21.5 Use and Inspect the Package
+
+Unpack the ZIP and begin with `MANIFEST.yml`. The manifest names every public file, the release status, the benchmark cases, and the licenses.
+
+To install the skill in Codex, copy the complete `skills/literature-discovery/` directory into the local Codex skills directory. Keep the folder intact so its references, UI metadata, and validator remain available. The `agents/literature-scout.md` file can be installed in an agent host that supports Markdown agent definitions or used directly as a transparent work-order specification.
+
+Before using the workflow on a real review:
+
+1.  complete and approve the project-context packet;
+2.  adapt the source list and stopping rule to the review;
+3.  run the synthetic benchmarks;
+4.  test the skill on a researcher-coded sample;
+5.  inspect false exclusions, invented identities, and route loss;
+6.  keep all outputs in staging until a named researcher approves them.
+
+## 21.6 Feedback and Revision
+
+This lab is intended to improve through reported use rather than silent rewriting. Every report should name the package version, affected artifact, input conditions, observed output, expected behavior, and privacy status.
+
+[Report a problem](https://github.com/pedahzur/from-question-to-evidence/issues/new?template=lab-problem.yml) [Propose a revision](https://github.com/pedahzur/from-question-to-evidence/issues/new?template=lab-revision.yml)
+
+Do not attach participant data, credentials, restricted archives, confidential manuscripts, or copyrighted full text. Use a synthetic or redacted reproduction. Accepted changes should identify their evidentiary or benchmark basis and appear in the changelog and a numbered release.
+
+# 22. Building the Full Field Guide
+
+## 22.1 What the Current Modules Establish
 
 The evidence map connects an intellectual question to the practical work of finding material. *Literature as Evidence* carries that logic into discovery, reading, comparison, and synthesis. Together, they show that one page pattern can support distinct tasks while keeping method separate from volatile products, giving AI bounded roles, and leaving a record another researcher can inspect.
 
@@ -1647,7 +1737,7 @@ The evidence map devotes two stages to discovery where the review devotes one, b
 
 The modules also reveal what remains outside the draft. They do not collect an interview, preserve a website, prepare a full archival corpus, or write the final empirical analysis. The synthesis chapter extends the literature workflow into open, living, and quantitative reviews. The bridge chapter on event databases introduces document extraction, dynamic coding, validation, and explicit causal updating. Each still requires fuller treatment across source types and analytical traditions.
 
-## 21.2 The Full Field Guide
+## 22.2 The Full Field Guide
 
 The next module treats collection as evidence. It addresses documents, interviews, observations, images, audio, video, and web material. It connects capture to consent, metadata, storage, naming, backup, preservation, and chain of custody. A composite oral-history case will show where evidence co-produced with participants requires different decisions from retrieved documentary evidence.
 
@@ -1657,11 +1747,11 @@ An analysis module will resist a false division between qualitative and quantita
 
 A communication module will cover manuscripts, presentations, public data, visual explanation, repositories, and long-term access. Sharing is not the final act after research. Decisions made during collection determine what can later be verified, reused, or protected.
 
-## 21.3 A Hebrew Edition
+## 22.3 A Hebrew Edition
 
 English remains the canonical language during the pilot. A Hebrew edition should follow after the content model and navigation stabilize. Translation will require more than sentence substitution. Search terms, institutional examples, interfaces, and right-to-left design must be adapted. Stable page identifiers will keep the two editions connected without forcing them to change at the same pace.
 
-## 21.4 An Invitation
+## 22.4 An Invitation
 
 This draft is an argument and a test. It argues that researchers need a visible structure between question, corpus, analysis, and claim. It tests whether two different modules can carry novices and experienced scholars through the same page pattern at different depths.
 
@@ -1669,7 +1759,7 @@ The next step is both editorial and empirical. We will test the current modules 
 
 The old project began with abundance. The revived project begins with limits, artifacts, and reviewable decisions. This is progress.
 
-# 22. References
+# 23. References
 
 Autio, Chloe, Reva Schwartz, Jesse Dunietz, Shomik Jain, Martin Stanley, Elham Tabassi, Patrick Hall, and Kamie Roberts. “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile.” National Institute of Standards and Technology, 2024. <https://doi.org/10.6028/NIST.AI.600-1>.
 

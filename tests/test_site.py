@@ -1,4 +1,5 @@
 from html.parser import HTMLParser
+import hashlib
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 import unittest
@@ -109,6 +110,32 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("Literature-discovery skill", review_chapter)
         self.assertIn("project context packet", review_chapter)
         self.assertIn("least privilege", review_chapter)
+
+        lab_page = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "content"
+            / "skills-and-agents-lab.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn("Skills and Agents Lab", landing)
+        self.assertIn("literature-discovery skill", lab_page.lower())
+        self.assertIn("Three Synthetic Benchmarks", lab_page)
+        self.assertIn("What the AI Got Wrong", lab_page)
+
+        lab_archive = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "downloads"
+            / "skills-and-agents-lab-v0.1.0.zip"
+        )
+        lab_checksum = lab_archive.with_suffix(".zip.sha256")
+        digest, filename = lab_checksum.read_text(
+            encoding="utf-8"
+        ).strip().split("  ", 1)
+        self.assertEqual(lab_archive.name, filename)
+        self.assertEqual(hashlib.sha256(lab_archive.read_bytes()).hexdigest(), digest)
 
         book_home = (
             ROOT / "field-guide" / "book" / "index.html"

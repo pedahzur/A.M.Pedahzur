@@ -8,10 +8,10 @@
 
 <meta name="author" content="Ami Pedahzur">
 <meta name="author" content="Jonathan Grossman">
-<meta name="dcterms.date" content="2026-07-12">
-<meta name="description" content="Identify who could have recorded what matters.">
+<meta name="dcterms.date" content="2026-07-27">
+<meta name="description" content="Download, inspect, test, and improve the executable companion to the literature-review method.">
 
-<title>6&nbsp; Stage 3: Map Source Families – From Question to Evidence</title>
+<title>21&nbsp; Skills and Agents Lab – From Question to Evidence</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -27,27 +27,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -57,8 +37,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../content/06-search-iteratively.html" rel="next">
-<link href="../content/04-decompose.html" rel="prev">
+<link href="../content/20-next-steps.html" rel="next">
+<link href="../content/19-ai-research-integrity.html" rel="prev">
 <link href="../assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -111,7 +91,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/05-map-source-families.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Stage 3: Map Source Families</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/skills-and-agents-lab.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Skills and Agents Lab</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +168,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/05-map-source-families.html" class="sidebar-item-text sidebar-link active">
+  <a href="../content/05-map-source-families.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Stage 3: Map Source Families</span></span></a>
   </div>
 </li>
@@ -278,7 +258,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../content/skills-and-agents-lab.html" class="sidebar-item-text sidebar-link">
+  <a href="../content/skills-and-agents-lab.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Skills and Agents Lab</span></span></a>
   </div>
 </li>
@@ -304,14 +284,12 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#orientation" id="toc-orientation" class="nav-link active" data-scroll-target="#orientation"><span class="header-section-number">6.1</span> Orientation</a></li>
-  <li><a href="#learn" id="toc-learn" class="nav-link" data-scroll-target="#learn"><span class="header-section-number">6.2</span> Learn</a></li>
-  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example"><span class="header-section-number">6.3</span> Worked Example</a></li>
-  <li><a href="#try-it" id="toc-try-it" class="nav-link" data-scroll-target="#try-it"><span class="header-section-number">6.4</span> Try It</a></li>
-  <li><a href="#guided-ai-workflow" id="toc-guided-ai-workflow" class="nav-link" data-scroll-target="#guided-ai-workflow"><span class="header-section-number">6.5</span> Guided AI Workflow</a></li>
-  <li><a href="#integrity-checkpoint" id="toc-integrity-checkpoint" class="nav-link" data-scroll-target="#integrity-checkpoint"><span class="header-section-number">6.6</span> Integrity Checkpoint</a></li>
-  <li><a href="#save-the-artifact" id="toc-save-the-artifact" class="nav-link" data-scroll-target="#save-the-artifact"><span class="header-section-number">6.7</span> Save the Artifact</a></li>
-  <li><a href="#advanced-practice" id="toc-advanced-practice" class="nav-link" data-scroll-target="#advanced-practice"><span class="header-section-number">6.8</span> Advanced Practice</a></li>
+  <li><a href="#method-in-the-book-procedure-in-the-lab" id="toc-method-in-the-book-procedure-in-the-lab" class="nav-link active" data-scroll-target="#method-in-the-book-procedure-in-the-lab"><span class="header-section-number">21.1</span> Method in the Book, Procedure in the Lab</a></li>
+  <li><a href="#what-the-release-contains" id="toc-what-the-release-contains" class="nav-link" data-scroll-target="#what-the-release-contains"><span class="header-section-number">21.2</span> What the Release Contains</a></li>
+  <li><a href="#three-synthetic-benchmarks" id="toc-three-synthetic-benchmarks" class="nav-link" data-scroll-target="#three-synthetic-benchmarks"><span class="header-section-number">21.3</span> Three Synthetic Benchmarks</a></li>
+  <li><a href="#what-the-ai-got-wrong" id="toc-what-the-ai-got-wrong" class="nav-link" data-scroll-target="#what-the-ai-got-wrong"><span class="header-section-number">21.4</span> What the AI Got Wrong</a></li>
+  <li><a href="#use-and-inspect-the-package" id="toc-use-and-inspect-the-package" class="nav-link" data-scroll-target="#use-and-inspect-the-package"><span class="header-section-number">21.5</span> Use and Inspect the Package</a></li>
+  <li><a href="#feedback-and-revision" id="toc-feedback-and-revision" class="nav-link" data-scroll-target="#feedback-and-revision"><span class="header-section-number">21.6</span> Feedback and Revision</a></li>
   </ul>
 </nav>
     </div>
@@ -320,7 +298,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Stage 3: Map Source Families</span></h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Skills and Agents Lab</span></h1>
 </div>
 
 
@@ -338,7 +316,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 12, 2026</p>
+      <p class="date">July 27, 2026</p>
     </div>
   </div>
   
@@ -350,64 +328,117 @@ div.csl-indent {
 </header>
 
 
-<section id="orientation" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="orientation"><span class="header-section-number">6.1</span> Orientation</h2>
-<p>Researchers often begin with the source they know how to find. Political scientists search articles and datasets. Historians enter catalogues. Sociologists recruit participants. Journalists search news archives. Expertise creates access. It also creates blind spots.</p>
-<p>Source-family mapping asks a prior question: who could have observed, recorded, preserved, or later reconstructed each part of the inquiry?</p>
-</section>
-<section id="learn" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="learn"><span class="header-section-number">6.2</span> Learn</h2>
-<p>A source family is a group of records produced through a related institutional process. Cabinet minutes form one family. Local newspapers form another. Oral histories, police files, organizational newsletters, court records, satellite images, social media posts, and scholarly databases each carry a production logic.</p>
-<p>The family matters because records are not independent merely because they appear in different files. Ten articles may repeat one press release. Two databases may derive from the same news archive. A memoir and an oral-history interview may preserve the same retrospective narrative. Counting files can exaggerate corroboration.</p>
-<p>For each dimension in the concept grid, identify prospective source families and the institutions that created them. Record what each family was designed to do, who could enter it, what it tended to omit, where it may be held, and what conditions govern access.</p>
-<p>Mapping should include sources that challenge the project’s institutional center. Official records preserve the state well because the state creates records at scale. Marginalized actors may appear through legal proceedings, advocacy collections, private papers, community media, or testimony assembled after the event. Their relative scarcity is not evidence of lesser importance.</p>
-</section>
-<section id="worked-example" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="worked-example"><span class="header-section-number">6.3</span> Worked Example</h2>
-<p>An incident of political violence can leave several traces. Local reporters may describe the event. Police may open a file. Hospitals may record casualties. A government may classify the incident. An organization may claim or deny responsibility. A database team may later code the event from published accounts. Researchers may then download the record and reorganize it for a new analysis.</p>
-<p>Each trace answers a different question. A database can standardize events across time. It may be poorly suited to recovering local meaning. A court file may establish procedural facts while reflecting the categories of prosecution. A claim of responsibility may reveal strategic communication without proving operational control.</p>
-<p>The official GTD documentation makes its inclusion criteria and data collection rules available to users.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> That transparency permits a researcher to map the system as a source family rather than treat each row as an unmediated event.</p>
-</section>
-<section id="try-it" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="try-it"><span class="header-section-number">6.4</span> Try It</h2>
-<p>Take one row from the concept-and-context grid. Write the names of institutions and people who could have recorded it at the time. Then write who might have reconstructed it later. Separate contemporary from retrospective sources.</p>
-<p>For each family, record five judgments in prose: what it can observe, why it creates records, who is absent, how records survive, and how access could distort the sample. Repeat the exercise until every important row has more than one plausible evidentiary route or an explicit explanation for why only one exists.</p>
-</section>
-<section id="guided-ai-workflow" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="guided-ai-workflow"><span class="header-section-number">6.5</span> Guided AI Workflow</h2>
-<p>AI can generate candidate source families when the researcher supplies a concept, period, place, and actor set. Ask for institutional record types, vernacular sources, retrospective accounts, and material or visual traces. Require the model to state why each family might exist and why it might not. A usable prompt: “For this concept, period, and place, list candidate source families, including vernacular and retrospective ones. For each, state why it might exist, why it might not, and how to verify it.”</p>
-<p><strong>Permitted input:</strong> The concept, period, place, and actor set, with no sensitive source locations or participant identities.<br>
-<strong>Do not provide:</strong> Restricted collection details, protected repository locations, or participant-identifying material.<br>
-<strong>Verify:</strong> Confirm every named archive, collection, database, or repository through an official catalogue or institutional source. Fabricated repository names are a predictable failure.<br>
-<strong>Record:</strong> Log candidate families accepted and rejected, the verification source, and the model and date. Keep fabricated suggestions as rejected rather than deleting them from the audit trail.</p>
-</section>
-<section id="integrity-checkpoint" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="integrity-checkpoint"><span class="header-section-number">6.6</span> Integrity Checkpoint</h2>
-<p>Access conditions are part of the evidence map, but public disclosure can harm people and violate agreements. Confirm before saving:</p>
-<p><strong>No sensitive detail exposed:</strong> no source location, participant identity, or restricted collection detail entered an external model.<br>
-<strong>Abstraction where protected:</strong> protected operational detail appears only in abstract description.<br>
-<strong>Access recorded:</strong> each family’s access status and governing conditions are noted.</p>
-</section>
-<section id="save-the-artifact" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="save-the-artifact"><span class="header-section-number">6.7</span> Save the Artifact</h2>
-<p>Save <code>source-family-inventory-v0.1.xlsx</code> with one row per family and links to the concept identifiers it may serve. Required fields are family, producing institution, repository, access status, language, temporal coverage, likely dependence on other families, and known silences.</p>
-</section>
-<section id="advanced-practice" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="advanced-practice"><span class="header-section-number">6.8</span> Advanced Practice</h2>
-<p>Source families can change over time. A newspaper’s ownership, a ministry’s filing system, or a database’s collection vendor may shift within the study period. Treat a family as stable only after checking the institutions that produced it. Where the process changed, create separate records for each phase and mark the transition as part of the evidence.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-start2024codebook" class="csl-entry" role="listitem">
-National Consortium for the Study of Terrorism and Responses to Terrorism. <span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024. <a href="https://www.start.umd.edu/gtd/downloads/Codebook.pdf">https://www.start.umd.edu/gtd/downloads/Codebook.pdf</a>.
-</div>
+<section id="method-in-the-book-procedure-in-the-lab" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="method-in-the-book-procedure-in-the-lab"><span class="header-section-number">21.1</span> Method in the Book, Procedure in the Lab</h2>
+<p>The book explains why a literature search requires a protocol, multiple discovery routes, verified bibliographic identities, a coverage argument, and a human stopping decision. The lab turns that method into inspectable working objects. It does not transfer scholarly authority to an automated system.</p>
+<p>Release <strong>0.1.0</strong> is a pilot. It operationalizes one bounded part of the literature module: moving from an approved review protocol to a staged register of bibliographic candidates. The skill and agent cannot decide final eligibility, declare a research gap, or promote a record into the verified corpus.</p>
+<div class="lab-actions">
+<p><a href="../downloads/skills-and-agents-lab-v0.1.0.zip" class="btn btn-primary">Download ZIP 0.1.0</a> <a href="../downloads/skills-and-agents-lab-v0.1.0.zip.sha256" class="btn btn-outline-secondary">Verify checksum</a> <a href="https://github.com/pedahzur/from-question-to-evidence/tree/revise/referee-pass-2026-07-14/lab" class="btn btn-outline-secondary">Inspect source</a></p>
 </div>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>See <span class="citation" data-cites="start2024codebook">National Consortium for the Study of Terrorism and Responses to Terrorism, <a href="references.html#ref-start2024codebook" role="doc-biblioref"><span>“Global Terrorism Database Codebook: Methodology Inclusion Criteria and Variables,”</span> 2024, <span>https://www.start.umd.edu/gtd/downloads/Codebook.pdf</span></a></span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<section id="what-the-release-contains" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="what-the-release-contains"><span class="header-section-number">21.2</span> What the Release Contains</h2>
+<section id="literature-discovery-skill" class="level3" data-number="21.2.1">
+<h3 data-number="21.2.1" class="anchored" data-anchor-id="literature-discovery-skill"><span class="header-section-number">21.2.1</span> Literature-discovery skill</h3>
+<p>The skill receives an approved review protocol, a versioned project-context packet, and a list of permitted sources. It maps vocabulary, plans and records discovery routes, stages candidates, resolves bibliographic identities, tests known-item and route coverage, and returns the work to a researcher.</p>
+<p>Its outputs are:</p>
+<ol type="1">
+<li>a candidate register;</li>
+<li>a query log;</li>
+<li>a coverage memo;</li>
+<li>an unresolved-leads file.</li>
 </ol>
+<p>A bundled validator checks that candidate registers contain provenance and verification fields and do not contain final-eligibility fields.</p>
+</section>
+<section id="bounded-literature-scout-agent" class="level3" data-number="21.2.2">
+<h3 data-number="21.2.2" class="anchored" data-anchor-id="bounded-literature-scout-agent"><span class="header-section-number">21.2.2</span> Bounded literature-scout agent</h3>
+<p>The scout is a read-only executor. It can read approved local artifacts and search public sources. It cannot write project files, change a protocol, access protected material, make a final inclusion decision, or modify a corpus. If the work requires one of those actions, it stops and returns a bounded question.</p>
+<p>This is a deliberate division of labor. The skill holds the reusable procedure. The agent executes one work order in a fresh context. The researcher controls the gates.</p>
+</section>
+<section id="project-context-packet" class="level3" data-number="21.2.3">
+<h3 data-number="21.2.3" class="anchored" data-anchor-id="project-context-packet"><span class="header-section-number">21.2.3</span> Project-context packet</h3>
+<p>The template separates context into three layers:</p>
+<ul>
+<li>a <strong>stable layer</strong> for the question, scope, concepts, evidence standards, ethics, and decision authority;</li>
+<li>a <strong>current-state layer</strong> for active artifact versions, accepted decisions, unresolved disputes, and coverage limits;</li>
+<li>a <strong>task layer</strong> for one work order, its permitted sources, required output, and stopping rule.</li>
+</ul>
+<p>The packet points to authoritative artifacts. It is not itself evidence and should not contain an entire project archive.</p>
+</section>
+</section>
+<section id="three-synthetic-benchmarks" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="three-synthetic-benchmarks"><span class="header-section-number">21.3</span> Three Synthetic Benchmarks</h2>
+<p>The release includes small, inspectable cases rather than an opaque aggregate score. All names, records, identifiers, and source locations are synthetic.</p>
+<div class="lab-benchmarks">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Benchmark</th>
+<th>What it tests</th>
+<th>Failure condition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Known-item recovery</td>
+<td>Recover known records, resolve an exact duplicate, and preserve both discovery routes</td>
+<td>A route is erased or recovery is called comprehensive</td>
+</tr>
+<tr class="even">
+<td>False-gap prevention</td>
+<td>Expand vocabulary through a conceptual proxy and an approved Spanish term</td>
+<td>A zero-result English query becomes a field-level gap claim</td>
+</tr>
+<tr class="odd">
+<td>Boundary and abstention</td>
+<td>Preserve a temporal scope signal, refuse restricted material, and isolate an unsupported citation</td>
+<td>Metadata is invented, a final exclusion is made, or protected material is accessed</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These fixtures test the procedure’s boundaries. They do not establish performance on real databases. A later release should report recall, false-exclusion rates, bibliographic-resolution errors, labor, cost, and cross-language performance on an independently prepared corpus.</p>
+</section>
+<section id="what-the-ai-got-wrong" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="what-the-ai-got-wrong"><span class="header-section-number">21.4</span> What the AI Got Wrong</h2>
+<p>The package contains an explicit failure report. The authoring run exposed five risks:</p>
+<ul>
+<li>a plausible but unsupported citation entering the candidate register;</li>
+<li>a zero-result query becoming a research-gap claim;</li>
+<li>deduplication erasing the route by which a source was found;</li>
+<li>a scope signal becoming a final eligibility decision;</li>
+<li>broad context encouraging access to a restricted artifact.</li>
+</ul>
+<p>Each failure is connected to a control in the skill, agent, schema, template, or benchmark. Residual risks remain visible. The report also states what this pilot has not established.</p>
+</section>
+<section id="use-and-inspect-the-package" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="use-and-inspect-the-package"><span class="header-section-number">21.5</span> Use and Inspect the Package</h2>
+<p>Unpack the ZIP and begin with <code>MANIFEST.yml</code>. The manifest names every public file, the release status, the benchmark cases, and the licenses.</p>
+<p>To install the skill in Codex, copy the complete <code>skills/literature-discovery/</code> directory into the local Codex skills directory. Keep the folder intact so its references, UI metadata, and validator remain available. The <code>agents/literature-scout.md</code> file can be installed in an agent host that supports Markdown agent definitions or used directly as a transparent work-order specification.</p>
+<p>Before using the workflow on a real review:</p>
+<ol type="1">
+<li>complete and approve the project-context packet;</li>
+<li>adapt the source list and stopping rule to the review;</li>
+<li>run the synthetic benchmarks;</li>
+<li>test the skill on a researcher-coded sample;</li>
+<li>inspect false exclusions, invented identities, and route loss;</li>
+<li>keep all outputs in staging until a named researcher approves them.</li>
+</ol>
+</section>
+<section id="feedback-and-revision" class="level2" data-number="21.6">
+<h2 data-number="21.6" class="anchored" data-anchor-id="feedback-and-revision"><span class="header-section-number">21.6</span> Feedback and Revision</h2>
+<p>This lab is intended to improve through reported use rather than silent rewriting. Every report should name the package version, affected artifact, input conditions, observed output, expected behavior, and privacy status.</p>
+<div class="lab-actions">
+<p><a href="https://github.com/pedahzur/from-question-to-evidence/issues/new?template=lab-problem.yml" class="btn btn-outline-danger">Report a problem</a> <a href="https://github.com/pedahzur/from-question-to-evidence/issues/new?template=lab-revision.yml" class="btn btn-outline-primary">Propose a revision</a></p>
+</div>
+<p>Do not attach participant data, credentials, restricted archives, confidential manuscripts, or copyrighted full text. Use a synthetic or redacted reproduction. Accepted changes should identify their evidentiary or benchmark basis and appear in the changelog and a numbered release.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -828,13 +859,13 @@ National Consortium for the Study of Terrorism and Responses to Terrorism. <span
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/04-decompose.html" class="pagination-link" aria-label="Stage 2: Decompose the Question">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Stage 2: Decompose the Question</span></span>
+      <a href="../content/19-ai-research-integrity.html" class="pagination-link" aria-label="AI and Research Integrity">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">AI and Research Integrity</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../content/06-search-iteratively.html" class="pagination-link" aria-label="Stage 4: Search Iteratively">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Stage 4: Search Iteratively</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../content/20-next-steps.html" class="pagination-link" aria-label="Building the Full Field Guide">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
