@@ -137,6 +137,19 @@ class SiteContractTests(unittest.TestCase):
         self.assertEqual(lab_archive.name, filename)
         self.assertEqual(hashlib.sha256(lab_archive.read_bytes()).hexdigest(), digest)
 
+        pkm_ai_page = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "content"
+            / "20-pkm-and-ai-research-infrastructure.html"
+        )
+        self.assertTrue(pkm_ai_page.is_file())
+        pkm_ai_text = pkm_ai_page.read_text(encoding="utf-8").lower()
+        self.assertIn("from notes to research infrastructure", landing.lower())
+        self.assertIn("pkm-ai research loop", pkm_ai_text)
+        self.assertIn("what ai must not do", pkm_ai_text)
+
         book_home = (
             ROOT / "field-guide" / "book" / "index.html"
         ).read_text(encoding="utf-8")
