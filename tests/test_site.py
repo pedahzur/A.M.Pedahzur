@@ -208,6 +208,21 @@ class SiteContractTests(unittest.TestCase):
         self.assertNotIn("border-radius: 999px", styles)
         self.assertNotIn('class="guide-hero"', landing)
 
+    def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        cv_name = "Ami_Pedahzur_CV_July_2026.pdf"
+
+        self.assertTrue((ROOT / cv_name).is_file())
+        self.assertEqual(3, homepage.count(cv_name))
+        for retired_content in (
+            "Chaikin Institute for Geostrategy",
+            "Professor of Geostrategic Studies",
+            "Researching terrorism, political extremism",
+            'class="hero-portrait"',
+            "aleph-idle.webp",
+        ):
+            self.assertNotIn(retired_content, homepage)
+
     def test_public_pages_contain_no_private_paths(self) -> None:
         for page in ROOT.rglob("*.html"):
             text = page.read_text(encoding="utf-8")
