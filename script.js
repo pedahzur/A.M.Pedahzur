@@ -35,17 +35,6 @@ const books = [
     ]
   },
   {
-    title: "Root Causes of Suicide Terrorism: The Globalization of Martyrdom",
-    authors: "Ami Pedahzur",
-    publisher: "Routledge",
-    year: "2006",
-    description: "An edited volume bringing together leading scholars to examine the root causes of suicide terrorism — from individual motivations to organizational strategies and societal conditions.",
-    page: "book-root-causes.html",
-    links: [
-      { label: "Publisher", url: "https://www.routledge.com/Root-Causes-of-Suicide-Terrorism-The-Globalization-of-Martyrdom/Pedahzur/p/book/9780415770309" }
-    ]
-  },
-  {
     title: "The Triumph of Israel's Radical Right",
     authors: "Ami Pedahzur",
     publisher: "Oxford University Press",

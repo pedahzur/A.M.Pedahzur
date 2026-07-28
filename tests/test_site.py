@@ -235,6 +235,22 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertNotIn(retired_content, homepage)
 
+    def test_retired_method_feature_and_book_are_not_public(self) -> None:
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        scripts = (ROOT / "script.js").read_text(encoding="utf-8")
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+
+        high_volume_title = (
+            "Managing High-Volume Digital Sources in Political Research "
+            "with Emerging Technologies"
+        )
+        self.assertNotIn(high_volume_title, homepage)
+        self.assertIn(high_volume_title, scripts)
+
+        self.assertNotIn("Root Causes of Suicide Terrorism", scripts)
+        self.assertNotIn("book-root-causes.html", sitemap)
+        self.assertFalse((ROOT / "book-root-causes.html").exists())
+
     def test_public_pages_contain_no_private_paths(self) -> None:
         for page in ROOT.rglob("*.html"):
             text = page.read_text(encoding="utf-8")
