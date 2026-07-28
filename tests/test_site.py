@@ -210,14 +210,26 @@ class SiteContractTests(unittest.TestCase):
 
     def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
         cv_name = "Ami_Pedahzur_CV_July_2026.pdf"
 
         self.assertTrue((ROOT / cv_name).is_file())
         self.assertEqual(3, homepage.count(cv_name))
+        self.assertIn('class="hero-heading"', homepage)
+        self.assertIn(
+            "grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);",
+            styles,
+        )
+        self.assertIn(
+            "grid-template-columns: repeat(4, minmax(0, 1fr));",
+            styles,
+        )
+        self.assertIn("This work has taken me", homepage)
         for retired_content in (
             "Chaikin Institute for Geostrategy",
             "Professor of Geostrategic Studies",
             "Researching terrorism, political extremism",
+            "This work that has taken me",
             'class="hero-portrait"',
             "aleph-idle.webp",
         ):
