@@ -284,20 +284,26 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../content/21-writing-by-voice-revising-by-ear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Writing by Voice, Revising by Ear</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../content/skills-and-agents-lab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Skills and Agents Lab</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Skills and Agents Lab</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/20-next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Building the Full Field Guide</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../content/references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -488,13 +494,13 @@ div.csl-indent {
 <p>Language-model agents can interleave planning, retrieval, tool use, and revision.<span class="citation" data-cites="yao2023react"><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></span> Research prototypes have also combined observation, retrieval, reflection, and planning in persistent agent architectures.<span class="citation" data-cites="park2023generative"><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></span> These patterns make multi-step research assistance possible. They do not show that an agent can independently establish relevance, a scholarly gap, methodological validity, or causal interpretation.</p>
 <p>A research agent should therefore receive a work order. The order names one goal, the skill versions it may invoke, permitted collections and tools, project context version, expected artifacts, prohibited actions, stopping rule, and escalation conditions. The agent should return evidence-linked proposals and an execution log. It should not inherit an open-ended instruction to “finish the literature review.”</p>
 <p>The five skills above can support corresponding agents. A literature scout executes searches and updates the candidate register but cannot reject the final record. A gap analyst compares the verified corpus with the review protocol and produces candidate gap claims with counterevidence. A methodology critic tests alignment and assumptions without editing the protocol. A collection steward prepares and validates candidate data while leaving promotion to a reviewer. A context curator assembles the current project packet and proposes corrections without overwriting canonical project records.</p>
-<p>Agent specialization should reduce ambiguity, not imitate an academic department. Adding several agents that use the same model, sources, and instructions does not create independent corroboration. Their errors remain correlated. Agreement among them is not consensus, and disagreement is not automatically informative. Use multiple agents when tasks can be separated by evidence, method, or validation role. Do not create a panel merely to generate more text.</p>
+<p>Agent specialization should reduce ambiguity, not imitate an academic department. Adding several agents that use the same model, sources, and instructions does not create independent corroboration. Their errors remain correlated. Agreement among them is not consensus, and disagreement is not automatically informative. Even different model families may display distinct directional tendencies that happen to offset one another on a benchmark; averaging their outputs requires prior calibration and does not turn model votes into independent expert judgments.<span class="citation" data-cites="weidmann2026democracy"><a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></span> Use multiple agents when tasks can be separated by evidence, method, or validation role. Do not create a panel merely to generate more text.</p>
 <p>Apply least privilege. A discovery agent usually needs search and read access, not permission to change the corpus. A methodology critic needs the protocol and selected artifacts, not participant data. A context curator needs approved project records, but it should not publish, delete, or revise them. Rights, privacy, security, and cost boundaries belong in the work order rather than in an informal reminder.</p>
 <p>Consequential decisions require explicit human gates. These include approving inclusion and exclusion, declaring a research gap, changing the research question or protocol, promoting a candidate record, accepting a new variable, interpreting a causal relationship, and releasing a public claim. The gate should record who decided, which agent output was reviewed, what evidence supported the decision, and what changed downstream.</p>
 </section>
 <section id="preserve-broad-context-through-governed-retrieval" class="level4" data-number="18.2.9.3">
 <h4 data-number="18.2.9.3" class="anchored" data-anchor-id="preserve-broad-context-through-governed-retrieval"><span class="header-section-number">18.2.9.3</span> Preserve broad context through governed retrieval</h4>
-<p>The broad project context should live outside the conversation. A chat transcript mixes instructions, exploration, corrections, and obsolete claims. Treating all of it as memory makes current and superseded decisions difficult to distinguish. Supplying the entire project archive is not a solution either. Empirical work on long-context models shows that access to a long input does not ensure reliable use of information throughout that input.<span class="citation" data-cites="liu2024lost"><a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></span></p>
+<p>The broad project context should live outside the conversation. A chat transcript mixes instructions, exploration, corrections, and obsolete claims. Treating all of it as memory makes current and superseded decisions difficult to distinguish. Supplying the entire project archive is not a solution either. Empirical work on long-context models shows that access to a long input does not ensure reliable use of information throughout that input.<span class="citation" data-cites="liu2024lost"><a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></span></p>
 <p>Create a <strong>project context packet</strong> with three layers. The stable layer contains the research question, scope, central concepts, evidence standards, ethics and rights constraints, and authority for decisions. The current-state layer names the active stage, corpus and codebook versions, accepted claims, unresolved questions, recent decisions, and release status. The task layer contains only the materials, instructions, and stopping rule needed for the present work.</p>
 <p>Use progressive disclosure. Every agent receives a short project card and the task layer. It retrieves method, corpus, or source details only when the work requires them. Each retrieved item carries a stable identifier, version, date, and authority status. This design preserves the global argument while reducing irrelevant material and exposure of sensitive records.</p>
 <p>The project context packet is a map, not a substitute for evidence. It may say that a definition was adopted in decision <code>D-014</code>, that corpus <code>C-03</code> supports claim <code>CL-08</code>, and that a contrary memo remains unresolved. The agent must follow those identifiers to the relevant artifact before making a consequential recommendation. A compressed statement without provenance remains a lead.</p>
@@ -655,6 +661,9 @@ Sousa, M. Sharmila A., Sasha Peiris, Mabel F. Figueiró, Michelle M. Haby, Ana C
 <div id="ref-uttley2026meta" class="csl-entry" role="listitem">
 Uttley, Lesley, Yuliang Weng, and Louise Falzon. <span>“What’s the Meta Now? More Updates on the Problems with Systematic Reviews.”</span> <em>Journal of Clinical Epidemiology</em> 198 (2026): 112393. <a href="https://doi.org/10.1016/j.jclinepi.2026.112393">https://doi.org/10.1016/j.jclinepi.2026.112393</a>.
 </div>
+<div id="ref-weidmann2026democracy" class="csl-entry" role="listitem">
+Weidmann, Nils B., Mats Faulborn, and David García. <span>“Large Language Models Are Democracy Coders with Attitudes.”</span> <em>PS: Political Science &amp; Politics</em> 59, no. 1 (2026): 17–23. <a href="https://doi.org/10.1017/S1049096525101248">https://doi.org/10.1017/S1049096525101248</a>.
+</div>
 <div id="ref-yao2023react" class="csl-entry" role="listitem">
 Yao, Shunyu, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. <span>“<span>ReAct</span>: Synergizing Reasoning and Acting in Language Models.”</span> In <em>The Eleventh International Conference on Learning Representations</em>, 2023. <a href="https://openreview.net/forum?id=WE_vluYUL-X">https://openreview.net/forum?id=WE_vluYUL-X</a>.
 </div>
@@ -675,7 +684,8 @@ Yao, Shunyu, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, a
 <li id="fn9"><p><a href="#ref-blaizot2022ai" role="doc-biblioref">Aymeric Blaizot et al., <span>“Using Artificial Intelligence Methods for Systematic Review in Health Sciences: A Systematic Review,”</span> <em>Research Synthesis Methods</em> 13, no. 3 (2022): 353–62, <span>https://doi.org/10.1002/jrsm.1553</span></a>; <a href="#ref-sousa2026ai" role="doc-biblioref">M. Sharmila A. Sousa et al., <span>“The Landscape of Artificial Intelligence Tools and Platforms for Evidence Synthesis: A Scoping Review,”</span> <em>Systematic Reviews</em> 15, no. 1 (2026): 82, <span>https://doi.org/10.1186/s13643-025-02842-y</span></a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p><a href="#ref-yao2023react" role="doc-biblioref">Shunyu Yao et al., <span>“<span>ReAct</span>: Synergizing Reasoning and Acting in Language Models,”</span> in <em>The Eleventh International Conference on Learning Representations</em>, 2023, <span>https://openreview.net/forum?id=WE_vluYUL-X</span></a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn11"><p><a href="#ref-park2023generative" role="doc-biblioref">Joon Sung Park et al., <span>“Generative Agents: Interactive Simulacra of Human Behavior,”</span> in <em>Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology</em>, 2023, 1–22, <span>https://doi.org/10.1145/3586183.3606763</span></a>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12"><p><a href="#ref-liu2024lost" role="doc-biblioref">Nelson F. Liu et al., <span>“Lost in the Middle: How Language Models Use Long Contexts,”</span> <em>Transactions of the Association for Computational Linguistics</em> 12 (2024): 157–73, <span>https://doi.org/10.1162/tacl_a_00638</span></a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="#ref-weidmann2026democracy" role="doc-biblioref">Nils B. Weidmann, Mats Faulborn, and David García, <span>“Large Language Models Are Democracy Coders with Attitudes,”</span> <em>PS: Political Science &amp; Politics</em> 59, no. 1 (2026): 21–23, <span>https://doi.org/10.1017/S1049096525101248</span></a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p><a href="#ref-liu2024lost" role="doc-biblioref">Nelson F. Liu et al., <span>“Lost in the Middle: How Language Models Use Long Contexts,”</span> <em>Transactions of the Association for Computational Linguistics</em> 12 (2024): 157–73, <span>https://doi.org/10.1162/tacl_a_00638</span></a>.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

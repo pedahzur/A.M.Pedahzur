@@ -150,6 +150,29 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("pkm-ai research loop", pkm_ai_text)
         self.assertIn("what ai must not do", pkm_ai_text)
 
+        voice_page = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "content"
+            / "21-writing-by-voice-revising-by-ear.html"
+        )
+        self.assertTrue(voice_page.is_file())
+        voice_text = voice_page.read_text(encoding="utf-8").lower()
+        self.assertIn("writing by voice, revising by ear", landing.lower())
+        self.assertIn("round-trip method", voice_text)
+        self.assertIn("code-switched", voice_text)
+        self.assertIn("permitted input", voice_text)
+        self.assertTrue(
+            (
+                ROOT
+                / "field-guide"
+                / "book"
+                / "templates"
+                / "voice-round-trip-log.md"
+            ).is_file()
+        )
+
         book_home = (
             ROOT / "field-guide" / "book" / "index.html"
         ).read_text(encoding="utf-8")

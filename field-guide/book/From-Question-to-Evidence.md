@@ -6,7 +6,7 @@ date: 2026-07-12
 status: revision-draft
 subtitle: A Living Field Guide for Qualitative Research
 title: From Question to Evidence
-updated: 2026-07-27
+updated: 2026-08-01
 ---
 
 # 1. From Question to Evidence
@@ -23,7 +23,7 @@ The book treats this record as a scholarly Second Brain. Its purpose is not to s
 
 The manuscript is written for two readers. The first is beginning a substantial qualitative project and needs a sequence that can be followed without assuming years of tacit experience. The second has conducted research for years but wants to reconsider established practices after the arrival of new search systems and generative AI. Both readers face the same decisions. They differ in how much explanation, contestation, and adaptation they require.
 
-The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new synthesis chapter examines how review articles and meta-analyses are becoming open, versioned research objects. It also shows how reusable skills, bounded agents, and versioned project context can support discovery, gap analysis, methodology, and collection without transferring scholarly authority to the system. The first [Skills and Agents Lab](content/skills-and-agents-lab.qmd) release turns that argument into an inspectable literature-discovery skill, a read-only scout agent, a context template, synthetic benchmarks, and a public revision route. A second bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
+The full field guide follows a qualitative project from its first question to a documented corpus, an analysis, and a public claim. We are publishing it in reviewed modules so readers can use, test, and challenge each part before the first edition closes. The current revision contains two complete modules. The first follows the path from a question to an evidence map. The second carries the same logic into a literature review. A new synthesis chapter examines how review articles and meta-analyses are becoming open, versioned research objects. It also shows how reusable skills, bounded agents, and versioned project context can support discovery, gap analysis, methodology, and collection without transferring scholarly authority to the system. The first [Skills and Agents Lab](content/skills-and-agents-lab.qmd) release turns that argument into an inspectable literature-discovery skill, a read-only scout agent, a context template, synthetic benchmarks, and a public revision route. A second bridge chapter shows how AI can accelerate the construction of event databases while preserving provenance, validation, and causal discipline. [Writing by Voice, Revising by Ear](content/21-writing-by-voice-revising-by-ear.qmd) adds a round-trip method for capturing spoken drafts, verifying recognized text, listening to multilingual prose, and recording accepted revisions. A third complete module will connect the collection plan to a responsibly assembled research corpus. Later modules will address preparation, analysis, disconfirmation, writing, sharing, and maintenance.
 
 The first worked example concerns competing accounts of terrorism. It suits the method because terrorism data do not arrive as neutral observations waiting to be counted. Definitions vary. Collection systems change. Sources disappear. Governments, news organizations, researchers, and database teams record different parts of the same event. The example is familiar to our own work. But the method must also survive evidence that researchers help produce. The revised book therefore adds a composite oral-history study of how tenants experienced and remembered municipal redevelopment. That case will carry interviews, consent records, field notes, administrative documents, researcher memos, silence, refusal, and unequal access through the same sequence of decisions.
 
@@ -111,7 +111,7 @@ The map therefore preserves versions. The question recorded on the first day doe
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: center;"><img src="media/rId23.png" style="width:5.83333in;height:2.5in" />
+<td style="text-align: center;"><img src="media/rId24.png" style="width:5.83333in;height:2.5in" />
 <p>Figure 3.1: The evidence map develops through seven ordered but revisable stages. Discoveries can reopen an earlier decision.</p></td>
 </tr>
 </tbody>
@@ -1294,7 +1294,7 @@ A research agent should therefore receive a work order. The order names one goal
 
 The five skills above can support corresponding agents. A literature scout executes searches and updates the candidate register but cannot reject the final record. A gap analyst compares the verified corpus with the review protocol and produces candidate gap claims with counterevidence. A methodology critic tests alignment and assumptions without editing the protocol. A collection steward prepares and validates candidate data while leaving promotion to a reviewer. A context curator assembles the current project packet and proposes corrections without overwriting canonical project records.
 
-Agent specialization should reduce ambiguity, not imitate an academic department. Adding several agents that use the same model, sources, and instructions does not create independent corroboration. Their errors remain correlated. Agreement among them is not consensus, and disagreement is not automatically informative. Use multiple agents when tasks can be separated by evidence, method, or validation role. Do not create a panel merely to generate more text.
+Agent specialization should reduce ambiguity, not imitate an academic department. Adding several agents that use the same model, sources, and instructions does not create independent corroboration. Their errors remain correlated. Agreement among them is not consensus, and disagreement is not automatically informative. Even different model families may display distinct directional tendencies that happen to offset one another on a benchmark; averaging their outputs requires prior calibration and does not turn model votes into independent expert judgments.[^30] Use multiple agents when tasks can be separated by evidence, method, or validation role. Do not create a panel merely to generate more text.
 
 Apply least privilege. A discovery agent usually needs search and read access, not permission to change the corpus. A methodology critic needs the protocol and selected artifacts, not participant data. A context curator needs approved project records, but it should not publish, delete, or revise them. Rights, privacy, security, and cost boundaries belong in the work order rather than in an informal reminder.
 
@@ -1302,7 +1302,7 @@ Consequential decisions require explicit human gates. These include approving in
 
 #### 18.2.9.3 Preserve broad context through governed retrieval
 
-The broad project context should live outside the conversation. A chat transcript mixes instructions, exploration, corrections, and obsolete claims. Treating all of it as memory makes current and superseded decisions difficult to distinguish. Supplying the entire project archive is not a solution either. Empirical work on long-context models shows that access to a long input does not ensure reliable use of information throughout that input.[^30]
+The broad project context should live outside the conversation. A chat transcript mixes instructions, exploration, corrections, and obsolete claims. Treating all of it as memory makes current and superseded decisions difficult to distinguish. Supplying the entire project archive is not a solution either. Empirical work on long-context models shows that access to a long input does not ensure reliable use of information throughout that input.[^31]
 
 Create a **project context packet** with three layers. The stable layer contains the research question, scope, central concepts, evidence standards, ethics and rights constraints, and authority for decisions. The current-state layer names the active stage, corpus and codebook versions, accepted claims, unresolved questions, recent decisions, and release status. The task layer contains only the materials, instructions, and stopping rule needed for the present work.
 
@@ -1437,7 +1437,7 @@ The future review article is therefore neither a traditional essay with added li
 
 Event databases convert dispersed accounts into comparable records. A researcher may begin with a question about protest, repression, political violence, institutional reform, migration, or disaster response. The relevant traces may appear across newspapers, archival catalogues, government reports, organizational records, and born-digital collections. Before generative AI, much of the work required repetitive searching, copying, normalization, and initial classification. These tasks consumed time that researchers needed for interpretation.
 
-AI changes the feasible scale of this work. A system can expand queries, search an authorized collection, extract candidate fields, compare reports, and flag records that may describe the same occurrence. It can apply a preliminary codebook to thousands of passages and identify dimensions the original codebook omitted. Studies of text annotation show that language models can perform some bounded classification tasks quickly and inexpensively. Performance, however, varies substantially across tasks and datasets, which makes local validation indispensable.[^31]
+AI changes the feasible scale of this work. A system can expand queries, search an authorized collection, extract candidate fields, compare reports, and flag records that may describe the same occurrence. It can apply a preliminary codebook to thousands of passages and identify dimensions the original codebook omitted. Studies of text annotation show that language models can perform some bounded classification tasks quickly and inexpensively. Performance, however, varies substantially across tasks and datasets, which makes local validation indispensable.[^32] A useful distinction separates tasks by whether the coding material is supplied and by how much interpretation the coder must contribute. Extracting a date or place from a specified report is a different automation problem from rating a regime by drawing on unspecified material and tacit political knowledge.[^33]
 
 The resulting speed creates a methodological danger. A fluent extraction can make an uncertain mention look like an observed event. Several articles can make one wire report look like independent confirmation. A model can produce a precise code for an ambiguous passage or a causal probability without defining the comparison that gives the number meaning. Faster processing does not remove these problems. It can reproduce them at scale.
 
@@ -1455,9 +1455,9 @@ This order matters because a model will readily propose whatever categories are 
 
 ### 19.2.2 Build a source frame
 
-Manual newspaper searching often proceeds title by title and query by query. A digital source frame allows the researcher to define a collection before searching it. The frame records each newspaper, archive, database, date range, language, access route, known gap, and relevant restriction. Open news infrastructures can support large-scale retrieval, while library archives can expose searchable historical newspapers and catalogue records.[^32] The frame should also include local and oppositional sources that a prominent aggregator may not index.
+Manual newspaper searching often proceeds title by title and query by query. A digital source frame allows the researcher to define a collection before searching it. The frame records each newspaper, archive, database, date range, language, access route, known gap, and relevant restriction. Open news infrastructures can support large-scale retrieval, while library archives can expose searchable historical newspapers and catalogue records.[^34] The frame should also include local and oppositional sources that a prominent aggregator may not index.
 
-Digitized collections are not transparent windows onto the past. Selection, survival, digitization, OCR quality, licensing, and search interfaces shape what becomes discoverable. Studies of newspaper digitization show why collection composition must be examined before researchers interpret search results as historical coverage.[^33] A failed query may indicate absence, vocabulary mismatch, OCR error, unavailable dates, or a source omitted from the platform. Record which explanation remains plausible.
+Digitized collections are not transparent windows onto the past. Selection, survival, digitization, OCR quality, licensing, and search interfaces shape what becomes discoverable. Studies of newspaper digitization show why collection composition must be examined before researchers interpret search results as historical coverage.[^35] A failed query may indicate absence, vocabulary mismatch, OCR error, unavailable dates, or a source omitted from the platform. Record which explanation remains plausible.
 
 AI can accelerate work inside the source frame. It can translate query concepts, generate historical names, adapt syntax across archives, and rank retrieved documents for review. A search-connected system may also query an approved interface directly. These operations remain collection procedures. The search log should preserve the source collection, query, date, filters, result count, model or script, and review decision. Access must comply with archive rules, licenses, privacy obligations, and research ethics.
 
@@ -1473,7 +1473,7 @@ This separation allows wide retrieval without lowering the evidentiary threshold
 
 News collections rarely provide one document per event. The same account may be syndicated, translated, updated, quoted by another outlet, or repeated in a retrospective report. Conversely, one article may describe several occurrences. The database therefore needs an event-resolution stage between verified records and analytical events.
 
-AI can compare names, dates, places, actions, and source spans to generate possible matches. Event extraction research shows, however, that simple zero-shot prompting can perform poorly when reports contain ambiguity, hypothetical language, or several interacting actors.[^34] A match score should therefore open a review task instead of merging records automatically.
+AI can compare names, dates, places, actions, and source spans to generate possible matches. Event extraction research shows, however, that simple zero-shot prompting can perform poorly when reports contain ambiguity, hypothetical language, or several interacting actors.[^36] A match score should therefore open a review task instead of merging records automatically.
 
 The **event resolution log** records every merge, split, and non-match. It links source-record identifiers to a stable event identifier and gives the rule, evidence, reviewer, and confidence category. It also records dependence. Five newspapers repeating one wire dispatch represent broad circulation, not five independent observations. Preserving that distinction prevents source abundance from becoming false corroboration.
 
@@ -1491,7 +1491,9 @@ This workflow turns AI into a critic of the original design. The model may notic
 
 Automated coding should be evaluated against researcher-coded material drawn from the intended corpus. The validation sample should include different periods, sources, languages, common classes, rare classes, and difficult boundary cases. A temporal holdout helps expose drift. A source holdout tests whether the system has learned one outlet’s style instead of the event concept.
 
-Report performance by variable and class. Overall accuracy can conceal failure on rare but substantively important events. Precision, recall, and error types usually provide more useful guidance. Double-code a consequential or ambiguous subset, adjudicate disagreements, and record whether each error arose from retrieval, source quality, event resolution, the codebook, or the model. Contemporary event-data research treats this as a measurement problem, not merely a software benchmark.[^35]
+Validation must test absolute agreement, not only association. Weidmann, Faulborn, and García asked GPT-4o and Llama-3.1-70B to code 53 expert-rated V-Dem indicators for 171 countries in 2023. The zero-shot ratings correlated positively with the aggregated expert scores, but the models shifted the scales in opposite directions: GPT-4o was generally more pessimistic and Llama-3.1 more optimistic. Both diverged more as disagreement among human coders increased.[^37] The study calls these values *differences*, not errors, because the expert aggregate is not ground truth. Its design nevertheless demonstrates why a system can reproduce relative ordering while remaining unsuitable for absolute classification.
+
+Report performance by variable and class. Overall accuracy can conceal failure on rare but substantively important events. Precision, recall, and error types usually provide more useful guidance. Double-code a consequential or ambiguous subset, adjudicate disagreements, and record whether each error arose from retrieval, source quality, event resolution, the codebook, or the model. Contemporary event-data research treats this as a measurement problem, not merely a software benchmark.[^38]
 
 Validation has a scope. A model that performs well on English national newspapers from one decade has not been validated for local-language archives or another period. Record the tested population, prompt, model, codebook version, and decision threshold. Revalidate after a material change to any of them.
 
@@ -1503,11 +1505,11 @@ Written evidence can change the relative plausibility of rival causal explanatio
 \frac{P(H_{1} \mid E)}{P(H_{0} \mid E)} = \frac{P(H_{1})}{P(H_{0})} \times \frac{P(E \mid H_{1})}{P(E \mid H_{0})}
 ```
 
-The first ratio represents prior odds. The second is the **likelihood ratio**: how much more expected the evidence would be under one explanation than the other. Explicit Bayesian process tracing can discipline comparison among explanations, but priors and likelihoods are not mechanically supplied by a document.[^36]
+The first ratio represents prior odds. The second is the **likelihood ratio**: how much more expected the evidence would be under one explanation than the other. Explicit Bayesian process tracing can discipline comparison among explanations, but priors and likelihoods are not mechanically supplied by a document.[^39]
 
 AI can help prepare the reasoning. It can extract passages bearing on each hypothesis, identify temporal sequence, propose rival explanations, detect duplicated evidence, and ask what each hypothesis predicts. It can calculate posterior odds from declared inputs and run a sensitivity analysis across plausible likelihood ranges.
 
-The researcher assigns the prior and likelihood judgments. The researcher also decides whether a report is independent, authentic, contemporaneous, and diagnostic. A percentage generated from model confidence is not a likelihood ratio. Research on confidence elicitation shows that a language model’s stated certainty requires separate calibration and cannot substitute for a causal model.[^37]
+The researcher assigns the prior and likelihood judgments. The researcher also decides whether a report is independent, authentic, contemporaneous, and diagnostic. A percentage generated from model confidence is not a likelihood ratio. Research on confidence elicitation shows that a language model’s stated certainty requires separate calibration and cannot substitute for a causal model.[^40]
 
 The Bayesian evidence table should therefore record the hypothesis pair, evidence identifier, provenance, predicted observation under each hypothesis, dependence group, likelihood range, rationale, reviewer, update, and sensitivity result. The model may draft alternatives for review. It may not convert fluent interpretation into causal probability.
 
@@ -1574,6 +1576,8 @@ Consider a model cascade. A low-cost system can rank documents, a stronger syste
 
 Test model and source drift. Recode a fixed benchmark after provider updates. Sample new records by period and outlet. Compare human disagreement with model error without treating one as a substitute for the other.
 
+Multiple models can be informative, but averaging is not a substitute for calibration. In the V-Dem experiment, averaging a pessimistic and an optimistic model reduced the mean difference from expert coding. The authors still caution that the direction and strength of each model’s tendency must be measured beforehand and checked on difficult cases.[^41] A useful ensemble benchmark therefore preserves model-specific outputs, tests each against the same frozen human-coded sample, and records when apparent balance merely cancels opposing errors.
+
 For causal inference, compare several defensible prior and likelihood specifications. Run the analysis with and without dependent reports, contested documents, and exploratory variables. The aim is not to manufacture a precise posterior. It is to show which evidence changes the argument, which assumptions carry the result, and what new observation would alter the conclusion.
 
 AI improves an event database when it makes the pipeline faster and the transformations more visible. It weakens the database when convenience conceals where evidence ended and inference began.
@@ -1586,7 +1590,7 @@ Generative AI can accelerate parts of evidence mapping. It can propose synonyms,
 
 The researcher defines the purpose. The researcher controls the material supplied to the system. The researcher verifies claims and sources. The researcher decides what enters the corpus. The researcher accounts for the result.
 
-This division of labor is necessary because fluent output can contain fabricated references, unsupported inference, privacy disclosure, and bias inherited from training data or the prompt. Current risk guidance treats these as properties that require management across the system’s use, not as rare accidents.[^38]
+This division of labor is necessary because fluent output can contain fabricated references, unsupported inference, privacy disclosure, and bias inherited from training data or the prompt. Current risk guidance treats these as properties that require management across the system’s use, not as rare accidents.[^42]
 
 ## 20.2 Model-Neutral Workflows
 
@@ -1616,6 +1620,8 @@ The same rule applies to summaries. A model may produce an elegant account of a 
 
 Models can reproduce the visibility structure of their training material. Well-indexed English-language institutions may appear central because they are easier for the system to name. Local archives, non-English terms, and informal records may disappear from the response. This weakness makes AI useful as one critic among several, never as the sole designer of a source map.
 
+Bias can also appear as a stable direction of judgment rather than as an omitted perspective. In a zero-shot comparison with aggregated V-Dem expert ratings, GPT-4o tended to assign lower democracy scores while Llama-3.1-70B tended to assign higher ones; the differences grew for countries on which human coders disagreed most.[^43] The direction was model-specific and not known in advance. Do not assume that replacing one model with another removes bias. Benchmark the actual model and version on locally relevant, researcher-coded cases, inspect directional differences by subgroup and difficulty, and retain the individual results when models are combined.
+
 Ask what position the response assumes. Ask which actors it treats as authoritative. Ask which language and region dominate its suggestions. Then use domain expertise and human consultation to correct the map.
 
 ## 20.6 Reproducibility and Drift
@@ -1632,17 +1638,17 @@ AI use is defensible when it makes judgment more visible. It fails when it hides
 
 ## 21.1 A Library Begins to Remember
 
-At 9:20 on the morning of November 29, 2022, a cluster of items entered my Readwise library. One promised “networked thought.” Another explained how smart notes could turn reading into writing. Others addressed exports, associative links, and the Zettelkasten. Their shared premise was simple: the researcher needed an external memory that preserved ideas beyond the moment of reading.[^39]
+At 9:20 on the morning of November 29, 2022, a cluster of items entered my Readwise library. One promised “networked thought.” Another explained how smart notes could turn reading into writing. Others addressed exports, associative links, and the Zettelkasten. Their shared premise was simple: the researcher needed an external memory that preserved ideas beyond the moment of reading.[^44]
 
 The tools changed. The underlying problem did not. A social scientist may spend years gathering articles, archival records, interview transcripts, observations, code, and partial arguments. The problem is not only how to store these materials. It is how to recover the right piece at the right time, reconstruct why it mattered, connect it to a changing question, and preserve the line from source to claim.
 
-AI entered the same library within days. The early items treated it as a knowledge-aware writing assistant and an unusually productive partner for idea generation. The promise was speed and variation. The warning was already present: an output could be inventive and wrong at the same time.[^40]
+AI entered the same library within days. The early items treated it as a knowledge-aware writing assistant and an unusually productive partner for idea generation. The promise was speed and variation. The warning was already present: an output could be inventive and wrong at the same time.[^45]
 
 I argue that PKM and AI solve different research problems. Personal knowledge management supplies persistent context, provenance, and continuity. AI reduces the cost of searching, comparing, transforming, and testing that context. Each remains incomplete without the other. PKM without computation can become an orderly archive that rarely produces an argument. AI without a governed knowledge base can produce fluent answers that have no stable relation to the research record.
 
 Their integration creates something more useful than a better note-taking system or a more informed chatbot. It creates research infrastructure. The infrastructure remembers what the researcher has read. It records what the researcher decided. It lets machines perform bounded work across those records. It also preserves the human gates that separate a candidate from evidence and evidence from a claim.
 
-This chapter develops that argument from an audit of my Readwise library. On July 27, 2026, the library contained 567 entries tagged `📄Academic Article`, 499 tagged `🗃️PKM`, and 3,196 tagged `🤖AI`. These labels overlap, and the AI category contains news, product announcements, social-media threads, and duplicate records as well as scholarly material. The counts therefore describe attention, not evidence. I use the complete PKM set, the connector-accessible academic and AI samples, their overlaps, and sixteen inspected records to reconstruct the movement from capture to research infrastructure.[^41]
+This chapter develops that argument from an audit of my Readwise library. On July 27, 2026, the library contained 567 entries tagged `📄Academic Article`, 499 tagged `🗃️PKM`, and 3,196 tagged `🤖AI`. These labels overlap, and the AI category contains news, product announcements, social-media threads, and duplicate records as well as scholarly material. The counts therefore describe attention, not evidence. I use the complete PKM set, the connector-accessible academic and AI samples, their overlaps, and sixteen inspected records to reconstruct the movement from capture to research infrastructure.[^46]
 
 ## 21.2 From Capture to Connection
 
@@ -1650,7 +1656,7 @@ The first generation of PKM tools treated forgetting as the central constraint. 
 
 This was a major improvement over a hierarchy of project folders. A folder asks where a note belongs. A network asks what the note is related to. That difference matters in social research because the same source can perform several jobs. An interview may provide evidence about an event, reveal an actor’s vocabulary, expose a retrospective justification, and suggest a new comparison. A single folder cannot express all four relations.
 
-The early library also connected note-making to writing. The point was not to collect quotations. It was to leave one’s future self a usable intellectual object: a claim, a question, a disagreement, a definition, or an unresolved connection. One item from December 2022 defined PKM as a response to information abundance and unreliable memory. Its stronger implication was that thinking had to become visible outside the head before it could become cumulative.[^42]
+The early library also connected note-making to writing. The point was not to collect quotations. It was to leave one’s future self a usable intellectual object: a claim, a question, a disagreement, a definition, or an unresolved connection. One item from December 2022 defined PKM as a response to information abundance and unreliable memory. Its stronger implication was that thinking had to become visible outside the head before it could become cumulative.[^47]
 
 For academic work, this first phase contributed four capacities. It preserved memory across semesters and projects. It let concepts travel between literatures. It separated source material from the researcher’s interpretation. It made intellectual development observable through dated notes and links.
 
@@ -1662,23 +1668,23 @@ But connection did not solve selection. A graph could display thousands of notes
 
 The next phase reduced the cost of transforming source material. OCR converted scanned pages into text. Speech recognition converted interviews and lectures into transcripts. Translation brought sources in additional languages into a shared workspace. Summarization produced initial descriptions. Semantic search retrieved passages that did not share the researcher’s exact vocabulary.
 
-The library recorded both the gain and the danger. In December 2023, an item described using a multimodal model to transcribe a handwritten journal. The system outperformed conventional text recognition because it used context to infer unclear words. It also changed the date from 20 to 28. Context rescued words whose meaning could be inferred. Context corrupted a number that could not.[^43]
+The library recorded both the gain and the danger. In December 2023, an item described using a multimodal model to transcribe a handwritten journal. The system outperformed conventional text recognition because it used context to infer unclear words. It also changed the date from 20 to 28. Context rescued words whose meaning could be inferred. Context corrupted a number that could not.[^48]
 
 This is the central methodological problem of AI-assisted transformation. The same capacity that repairs incomplete text can invent plausible detail. A model may standardize an institutional name correctly in ninety-nine records and silently merge two different organizations in the hundredth. It may translate a political term fluently while erasing the ambiguity that made the term analytically important. It may summarize an interview and omit the hesitation that changes how the answer should be read.
 
 The solution is not to reject transformation. It is to preserve the original, the transformed object, the procedure, and the verification status as separate artifacts. The scan remains the source. The OCR text remains a derivative. A correction log records changes. A human validates fields whose error would alter the analysis.
 
-The same period changed scholarly reading. Entries in the library moved from global search and backlinks toward semantic readers, citation maps, paper explainers, and interfaces that connected articles to videos and related work. The PDF remained the publication object, but it no longer had to remain the research interface.[^44]
+The same period changed scholarly reading. Entries in the library moved from global search and backlinks toward semantic readers, citation maps, paper explainers, and interfaces that connected articles to videos and related work. The PDF remained the publication object, but it no longer had to remain the research interface.[^49]
 
-For social scientists, this shift expanded access to evidence whose form had once made it prohibitively expensive. A researcher can now search a large newspaper archive, transcribe oral histories, extract tables from reports, compare terminology across languages, and locate names in thousands of pages. A recent library entry describing the digitization of nearly twenty million historical census images shows the scale of this change. It also shows why the work remains a research design problem: models, prompts, schemas, validation samples, and error rates shape the resulting data.[^45]
+For social scientists, this shift expanded access to evidence whose form had once made it prohibitively expensive. A researcher can now search a large newspaper archive, transcribe oral histories, extract tables from reports, compare terminology across languages, and locate names in thousands of pages. A recent library entry describing the digitization of nearly twenty million historical census images shows the scale of this change. It also shows why the work remains a research design problem: models, prompts, schemas, validation samples, and error rates shape the resulting data.[^50]
 
 AI made more material computable. It did not make all computed material evidence.
 
 ## 21.4 From Retrieval to Workflow
 
-By 2025, the library’s focus had shifted from individual features to academic workflows. One entry paired a citation manager with a local Markdown vault. The citation manager held bibliographic authority and source files. The vault held reading notes, concepts, project memos, and draft arguments. The value came from the division of labor, not from forcing one application to perform every function.[^46]
+By 2025, the library’s focus had shifted from individual features to academic workflows. One entry paired a citation manager with a local Markdown vault. The citation manager held bibliographic authority and source files. The vault held reading notes, concepts, project memos, and draft arguments. The value came from the division of labor, not from forcing one application to perform every function.[^51]
 
-Another entry placed an AI agent inside a structured note environment and asked it to find weaknesses in arguments drawn from writing, meetings, and journals. This was a different relationship between researcher and machine. The model no longer responded only to a prompt. It operated over a body of prior material and returned an analytical artifact for inspection.[^47]
+Another entry placed an AI agent inside a structured note environment and asked it to find weaknesses in arguments drawn from writing, meetings, and journals. This was a different relationship between researcher and machine. The model no longer responded only to a prompt. It operated over a body of prior material and returned an analytical artifact for inspection.[^52]
 
 The change can be stated in three sentences. First, PKM externalized memory. Next, AI made that memory searchable and transformable. Then workflows connected repeated operations to named inputs, outputs, and checks.
 
@@ -1690,15 +1696,15 @@ The distinction also changes how researchers evaluate AI. The unit of analysis i
 
 The 2026 PKM records in the library differ sharply from the early collection. Among the 79 PKM entries saved that year, 48 also carry the AI tag, 56 refer to Obsidian, and 14 concern agents. The object of interest is no longer the isolated note. It is the relationship between a durable, local knowledge base and an agent that can act across it.
 
-Several records describe the vault as a permanent memory layer. A project file states the question, scope, standards, active decisions, and prohibited actions. Markdown notes preserve the source record. An agent reads the smallest set of files required for a task. Repeated procedures become skills. Scheduled workflows process an inbox, prepare a briefing, identify connections, or stage a research memo.[^48]
+Several records describe the vault as a permanent memory layer. A project file states the question, scope, standards, active decisions, and prohibited actions. Markdown notes preserve the source record. An agent reads the smallest set of files required for a task. Repeated procedures become skills. Scheduled workflows process an inbox, prepare a briefing, identify connections, or stage a research memo.[^53]
 
-One of the strongest entries in this group proposes a continuous system in which Readwise supplies captured material, Obsidian preserves it, an AI layer reasons across it, and an automation layer moves artifacts between stages. My note on that item identified the deeper claim: knowledge gains value over time when the cost of maintenance falls and new work can repeatedly encounter old material.[^49]
+One of the strongest entries in this group proposes a continuous system in which Readwise supplies captured material, Obsidian preserves it, an AI layer reasons across it, and an automation layer moves artifacts between stages. My note on that item identified the deeper claim: knowledge gains value over time when the cost of maintenance falls and new work can repeatedly encounter old material.[^54]
 
 The attractive phrase is “a second brain that thinks back.” The phrase is useful, but it can mislead. A vault does not become reliable because an agent can read it. Old notes may contain errors. Duplicates may look like corroboration. A summary may have lost the source’s qualification. A private record may be outside the agent’s authorized scope. Persistent context amplifies whatever the system contains.
 
-The operative design therefore requires three components. The first is a specification that defines acceptable work before execution. The second is a knowledge base that supplies bounded context and authoritative artifacts. The third is a verifier that tests the output against the specification. A recent library item formulated this pattern as “spec, verifier, knowledge base.” It also recorded a decisive warning: a verifier measures only what it was designed to measure.[^50]
+The operative design therefore requires three components. The first is a specification that defines acceptable work before execution. The second is a knowledge base that supplies bounded context and authoritative artifacts. The third is a verifier that tests the output against the specification. A recent library item formulated this pattern as “spec, verifier, knowledge base.” It also recorded a decisive warning: a verifier measures only what it was designed to measure.[^55]
 
-This pattern now appears in more ambitious claims about AI scientists. One saved item distinguishes retrieval, search within a fixed schema, and discovery that changes the schema itself. Its proposal remains provisional for the social sciences, but the distinction is productive. Retrieval finds a known object. Search explores a defined space. Discovery proposes that the space was defined incorrectly. Only the third requires the researcher to reconsider the concepts, boundaries, or variables that organized the project.[^51]
+This pattern now appears in more ambitious claims about AI scientists. One saved item distinguishes retrieval, search within a fixed schema, and discovery that changes the schema itself. Its proposal remains provisional for the social sciences, but the distinction is productive. Retrieval finds a known object. Search explores a defined space. Discovery proposes that the space was defined incorrectly. Only the third requires the researcher to reconsider the concepts, boundaries, or variables that organized the project.[^56]
 
 AI may propose such a revision. It may not ratify it.
 
@@ -1712,7 +1718,7 @@ PKM contributes provenance. A useful research note identifies its source, locato
 
 PKM contributes negative evidence. Researchers usually save what supports an argument. A governed system can also preserve failed searches, rejected explanations, excluded cases, unresolved contradictions, and missing records. This negative evidence protects against repeating work and against rewriting the research history after the conclusion becomes clear.
 
-The same principle applies at institutional scale. A retrospective account of a long-running conflict-research program attributes its achievements not to data volume alone but to the combination of social-scientific method, practitioner knowledge, flexible support, and contextual interpretation. Data became useful because an institutional memory connected collection to the circumstances that gave the records meaning.[^52]
+The same principle applies at institutional scale. A retrospective account of a long-running conflict-research program attributes its achievements not to data volume alone but to the combination of social-scientific method, practitioner knowledge, flexible support, and contextual interpretation. Data became useful because an institutional memory connected collection to the circumstances that gave the records meaning.[^57]
 
 PKM contributes cumulative comparison. A case memo can share fields with other case memos while retaining material that does not fit the common schema. This combination is important in qualitative and comparative work. Structure supports comparison. Free text preserves surprise.
 
@@ -1782,9 +1788,138 @@ This integration pushes social research forward by changing the feasible scale o
 
 The durable principle is simple. Build a knowledge base that another person can inspect. Give AI a bounded task within that base. Require it to return an artifact, not an answer. Verify the artifact against the source and the specification. Then write the next version without erasing the last.
 
-# 22. Skills and Agents Lab
+# 22. Writing by Voice, Revising by Ear
 
-## 22.1 Method in the Book, Procedure in the Lab
+## 22.1 Orientation
+
+Academic writing is often described as if it begins at a keyboard and ends on a page. This description excludes two valuable modes of work. A researcher can speak a draft before typing it, and can listen to a written draft before revising it. Current speech-recognition systems have reduced the effort required to turn spoken language into editable text. Current text-to-speech systems can read a draft aloud in several languages, at different speeds, while the writer follows the text on screen.
+
+These two directions perform different scholarly functions. Dictation reduces the friction of capture. It can preserve an argument that is easier to explain aloud than to type, support writers who think through speech, and make writing more accessible when a keyboard is difficult to use. Listening creates distance from a familiar draft. It can expose missing words, repetition, overloaded sentences, abrupt transitions, and translations that look acceptable on the page but sound unnatural.
+
+Neither operation is neutral. Speech recognition interprets sound and may alter names, numbers, quotations, punctuation, or specialized terms. Text-to-speech interprets written language through pronunciation, pacing, and emphasis. A fluent voice can make a weak argument sound finished. A mistaken pronunciation can make a correct term sound wrong. Both systems may send text or audio to an external service. The operative question is therefore not whether voice tools are fast. It is how to use their speed while preserving meaning, privacy, and a visible record of revision.
+
+This chapter develops a round-trip method. The researcher moves from a brief to a spoken draft, from the spoken draft to a verified text, from the verified text to a listening copy, and from listening notes to a revised canonical draft. The method does not depend on one application. Dated tool cards for [Wispr Flow](https://github.com/pedahzur/from-question-to-evidence/blob/revise/referee-pass-2026-07-14/docs/tool-cards/wispr-flow.md) and [Speechify](https://github.com/pedahzur/from-question-to-evidence/blob/revise/referee-pass-2026-07-14/docs/tool-cards/speechify.md) record current product details separately from the method.
+
+## 22.2 Learn
+
+### 22.2.1 Dictation is composition, not automatic transcription of thought
+
+Dictation is often treated as a faster keyboard. In practice, it changes the composition task. Spoken drafts tend to include repetition, unfinished syntax, late qualifications, and ideas that arrive in a different order from the final argument. Research on voice-based text authoring shows that the work extends well beyond word recognition. Writers must manage ambiguity, review what the system captured, and move between speaking and visible text.[^58] Recent work on LLM-assisted speech writing reaches a similar conclusion. Speech can produce useful material quickly, but the writer still needs control over selection, ordering, and revision.[^59]
+
+A productive session therefore begins with a small capture brief. The brief names the purpose of the passage, the claim under consideration, the evidence that may be used, the material that must not be supplied to the application, and the desired length. It does not script every sentence. Its purpose is to keep the spoken draft inside a defined scholarly task.
+
+The first transcript should remain a capture artifact. Correction at this stage is limited to fidelity: names, dates, technical terms, punctuation that changes meaning, and words that the system misheard. Structural revision belongs in a separate file or version. This separation prevents a polished paragraph from concealing what the researcher originally said and what the software or a later AI operation changed.
+
+### 22.2.2 Preserve the source and each transformation
+
+A voice-writing session can produce several related objects: a capture brief, an audio recording if retention is permitted, the raw recognized text, a corrected transcript, a structured draft, a listening copy, listening notes, and the revised manuscript. Not every project needs to retain audio. A writer may choose live dictation precisely to avoid storing a recording. The record should state that choice rather than imply that a source file exists.
+
+The raw transcript and the corrected transcript should not silently replace one another. A correction such as changing a misspelled author name is different from rewriting an uncertain sentence. The first restores fidelity. The second changes the prose. Version history, tracked changes, or a short correction log makes the difference visible.
+
+This rule becomes more important when an AI system cleans a transcript. Removal of fillers may be harmless in a personal writing draft, but harmful in an interview transcript where hesitation, repair, or code-switching carries meaning. The research function of the material determines which transformations are allowed. A dictated manuscript draft and a participant interview may both begin as audio, but they are not governed by the same evidentiary standard.
+
+### 22.2.3 Separate capture, correction, structure, and judgment
+
+The round-trip method assigns one main task to each pass. The capture pass records ideas without requiring finished prose. The correction pass checks the recognized text against what was said. The structure pass turns spoken material into an argument. The listening pass identifies audible problems. The judgment pass tests claims, evidence, qualifications, and citations.
+
+Combining the passes creates predictable errors. Editing while dictating can restore the keyboard bottleneck. Asking an AI system to correct and reorganize at the same time can make it impossible to tell whether it repaired recognition or changed the argument. Listening for grammar, causal logic, citation support, and translation accuracy in one pass divides attention. A staged procedure is slower than a single command but faster than reconstructing an undocumented change.
+
+### 22.2.4 Listen for a defined class of problems
+
+Text-to-speech is valuable because it reads the visible text rather than the sentence the writer remembers intending to write. An experimental study of 51 first-year college writers found that text-to-speech could support proofreading, but did not produce better local or global revision than the comparison condition.[^60] Listening should therefore be assigned a limited role. It is a diagnostic pass, not peer review and not an argument audit.
+
+Three listening passes serve different purposes. A slow proofing pass can expose omitted words, duplicate phrases, punctuation problems, and malformed citations. A normal-speed prose pass can reveal sentence length, rhythm, transitions, and paragraphs that carry too many claims. A faster argument pass can test whether the main line remains intelligible when the listener does not stop to repair it mentally. The writer records the location and type of each problem, then revises the canonical text after the listening session.
+
+The listening copy may remove footnote markers, long URLs, tables, and reference lists that interrupt playback. It is a disposable derivative. The canonical manuscript remains unchanged until the writer accepts a revision. This distinction also prevents an accessibility copy from becoming an undocumented new edition.
+
+### 22.2.5 Treat multilingual use as a benchmarked workflow
+
+Voice tools can help a multilingual scholar draft in the language in which an idea arrives and later inspect prose in the publication language. They can also read a translated passage aloud to reveal awkward syntax or a borrowed expression that does not travel well. They cannot establish that the translation preserves meaning. Source and target texts still require comparison, and consequential translations require a qualified human reader.
+
+Language switching deserves special caution. Current multilingual recognition systems may perform well in each supported language while failing when a speaker changes language within an utterance. Code-switched speech remains a distinct evaluation problem even for multilingual models.[^61] Names, transliterated terms, acronyms, and quotations create similar difficulties. A session that alternates among Hebrew, English, and Arabic should not be evaluated by the tool’s general claim to support all three.
+
+Before adopting a system, the researcher should prepare a small benchmark in each working language. It should contain the names, places, citations, dates, technical terms, and language switches that occur in the project. The same passage is dictated and played back after major application or model changes. Errors are recorded by type, not merely counted. A wrong comma and a wrong year do not carry the same research cost.
+
+Reading aloud also places different demands on multilingual writers. A recent study found that the value of oral revision differed with writers’ second-language proficiency and the attention required by the task.[^62] Listening tools should expand the available revision modes, not impose one supposedly universal way of hearing good prose.
+
+### 22.2.6 Choose the processing environment by the sensitivity of the text
+
+Convenience does not determine whether material may enter a service. Public prose and fictional practice text carry fewer constraints than unpublished coauthored work. Participant material, identifiable field notes, restricted archives, allegations, personnel information, and embargoed findings may be prohibited from consumer cloud systems by consent forms, ethics approval, contracts, law, or institutional policy.
+
+The decision should be made before dictation or upload. Low-risk material can use a commercial service after a current policy check. Unpublished or collaborative material requires an explicit agreement about processing and retention. Protected research material requires an institutionally approved or local environment, and may not be eligible for automated processing at all. Removing names is not enough when context can identify a person.
+
+Product settings and policies change more quickly than this method. The dated tool cards record current language support, storage, training, and privacy settings. The researcher records the policy and settings actually reviewed on the date of use.
+
+## 22.3 Worked Example
+
+A researcher is drafting a methods passage about how newspaper reports become candidate records in an event database. The capture brief states that the passage must distinguish a report from an event, explain duplicate reporting, and avoid making any accuracy claim not supported by the validation results. The researcher dictates for four minutes in English, speaking the core distinction before adding an example.
+
+The recognition system renders a project name incorrectly, turns “source report” into “source support,” and inserts a full stop that changes the qualification at the end of a sentence. The researcher preserves the raw capture, checks the three errors immediately, and saves a corrected transcript. An AI assistant is then asked to identify repeated propositions and propose two possible orders. It is not asked to rewrite the passage or add evidence. The researcher chooses one order and drafts the paragraph manually.
+
+During the slow listening pass, the synthetic voice exposes a repeated preposition and a sentence with two competing subjects. During the normal-speed pass, the paragraph sounds persuasive but moves directly from duplicate reports to a claim about causal sequence. The listening log marks this as an argument problem, not a sound problem. The researcher returns to the evidence register and discovers that the paragraph needs an explicit sentence separating event resolution from causal inference.
+
+The passage is then translated into Hebrew for discussion with a collaborator. Playback reveals that the chosen Hebrew term can mean either a news item or an event record. The two authors agree on a more precise term and add it to the project glossary. Listening did not validate the method. It made a conceptual ambiguity audible and sent the researcher back to the project record.
+
+## 22.4 Try It
+
+Select a passage of 250 to 400 words that does not contain protected material. The passage may be a new explanation, a section of a literature review, or a methods note. Use the downloadable [voice round-trip log](../templates/voice-round-trip-log.md) to complete four short passes.
+
+| Pass                 |      Time | Required result                           |
+|----------------------|----------:|-------------------------------------------|
+| Prepare and dictate  | 8 minutes | Capture brief and raw recognized text     |
+| Verify and structure | 8 minutes | Corrected transcript and structured draft |
+| Listen               | 6 minutes | Location-coded listening notes            |
+| Judge and revise     | 8 minutes | Revised passage and change summary        |
+
+At the end, classify every accepted change as recognition correction, prose revision, translation correction, or substantive argument revision. If a change cannot be classified, inspect the versions until its origin becomes clear.
+
+## 22.5 Guided AI Workflow
+
+An AI assistant can help organize a personal dictated draft, but its role must be narrower than “improve my writing.” Supply the corrected transcript, the capture brief, and the required output form. Do not supply audio or text that the chosen system is not authorized to process.
+
+**Permitted input:** a corrected personal dictation transcript, a passage purpose, a list of required claims, and a list of terms that must remain unchanged.
+
+**Do not provide:** participant speech, restricted records, unpublished coauthor text without permission, or references that have not been verified.
+
+Use this instruction:
+
+> Act as a structure analyst for a dictated academic draft. Do not add facts, citations, examples, or interpretations. Identify repeated propositions, unfinished claims, unclear referents, and places where the order obscures the argument. Return: (1) a proposition list using the transcript’s own words, (2) two possible orders, (3) a list of text that would be omitted in each order, and (4) questions that require the author’s judgment. Quote the source span for every observation. Do not produce polished replacement prose.
+
+**Verify:** compare every quoted span with the corrected transcript. Confirm that the proposed orders preserve qualifications and do not detach a claim from its evidence. Reject any new content.
+
+**Record:** application or model, date, input version, prompt version, accepted suggestions, rejected suggestions, and the researcher who approved the change.
+
+After the listening pass, a second bounded instruction may classify the writer’s own location-coded notes. It may group problems by type and prepare a checklist. It should not decide which substantive revisions to accept.
+
+## 22.6 Integrity Checkpoint
+
+Before the revised passage becomes canonical, confirm that the voice workflow did not change the evidentiary status of the text. Every name, number, quotation, and citation remains checked against its source. A fluent spoken rendering is not evidence that a sentence is true. A natural translation is not evidence that it is equivalent. A confident synthetic pronunciation is not evidence that a proper name is correct.
+
+Confirm also that all audio and text processing complied with the project’s consent, ethics, contractual, and institutional requirements. Record whether the service processed data locally or remotely, whether it retained inputs, and which settings governed model improvement or synchronization. If these facts cannot be established, do not use protected material.
+
+Finally, inspect authorship. Dictation preserves the researcher’s speech, but an AI restructuring pass may introduce substantial editorial intervention. The accepted text remains the authors’ responsibility. Project records should state where AI changed structure or wording when that information is relevant to the venue, collaborator agreement, or research audit.
+
+## 22.7 Save the Artifact
+
+Save the session as a small, linked package rather than as one repeatedly overwritten document. A compact record begins with `voice-session.yml`, which records the date, writer, language, tool, settings, and sensitivity class. `01-capture-brief.md` states the purpose, required claims, and exclusions. `02-raw-transcript.txt` preserves the uncorrected recognized text, while `03-corrected-transcript.md` records fidelity corrections and their reasons.
+
+The composition continues in `04-structured-draft.md`. A disposable `05-listening-copy.txt` prepares the text for playback without changing the manuscript. `06-listening-log.md` records locations, problem types, and proposed actions. The candidate manuscript passage appears in `07-revised-passage.md`. Finally, `08-change-summary.md` records accepted and rejected changes and the reasons for each decision.
+
+The folder belongs beside the project memo or manuscript section it supports. The canonical manuscript links to the accepted passage, not to the raw audio. Audio retention follows the sensitivity decision made before capture. When the audio is deleted, the session record states when and why.
+
+## 22.8 Advanced Practice
+
+A mature voice workflow can support more than convenience. Researchers can use dictation for post-interview memos, fieldwork reflections, rapid explanations of figures, and spoken comparison of competing interpretations. Listening can support accessibility review, translation workshops, collaborative editing, and preparation for talks. Each use should have its own brief, authorized input class, and output artifact.
+
+Teams can also maintain a voice benchmark for the project. The benchmark contains public or synthetic text representing the project’s languages, names, dates, specialized vocabulary, citations, and code-switching patterns. A tool change is accepted only after the team compares its errors with the prior version. The goal is not one universal accuracy score. It is to identify errors that would matter for this research.
+
+Future agents may coordinate the sequence by opening a capture file, preserving a version, preparing a listening copy, and staging a revision checklist. Their authority should stop before substantive acceptance. The agent may expose a change. It may not decide that a causal qualification, participant meaning, or translation distinction is expendable.
+
+Voice extends the research interface beyond the screen. Used carefully, it gives the scholar two productive forms of distance: enough distance from the blank page to speak an imperfect first draft, and enough distance from familiar prose to hear what the page actually says.
+
+# 23. Skills and Agents Lab
+
+## 23.1 Method in the Book, Procedure in the Lab
 
 The book explains why a literature search requires a protocol, multiple discovery routes, verified bibliographic identities, a coverage argument, and a human stopping decision. The lab turns that method into inspectable working objects. It does not transfer scholarly authority to an automated system.
 
@@ -1792,9 +1927,9 @@ Release **0.1.0** is a pilot. It operationalizes one bounded part of the literat
 
 [Download ZIP 0.1.0](../downloads/skills-and-agents-lab-v0.1.0.zip) [Verify checksum](../downloads/skills-and-agents-lab-v0.1.0.zip.sha256) [Inspect source](https://github.com/pedahzur/from-question-to-evidence/tree/revise/referee-pass-2026-07-14/lab)
 
-## 22.2 What the Release Contains
+## 23.2 What the Release Contains
 
-### 22.2.1 Literature-discovery skill
+### 23.2.1 Literature-discovery skill
 
 The skill receives an approved review protocol, a versioned project-context packet, and a list of permitted sources. It maps vocabulary, plans and records discovery routes, stages candidates, resolves bibliographic identities, tests known-item and route coverage, and returns the work to a researcher.
 
@@ -1807,13 +1942,13 @@ Its outputs are:
 
 A bundled validator checks that candidate registers contain provenance and verification fields and do not contain final-eligibility fields.
 
-### 22.2.2 Bounded literature-scout agent
+### 23.2.2 Bounded literature-scout agent
 
 The scout is a read-only executor. It can read approved local artifacts and search public sources. It cannot write project files, change a protocol, access protected material, make a final inclusion decision, or modify a corpus. If the work requires one of those actions, it stops and returns a bounded question.
 
 This is a deliberate division of labor. The skill holds the reusable procedure. The agent executes one work order in a fresh context. The researcher controls the gates.
 
-### 22.2.3 Project-context packet
+### 23.2.3 Project-context packet
 
 The template separates context into three layers:
 
@@ -1823,7 +1958,7 @@ The template separates context into three layers:
 
 The packet points to authoritative artifacts. It is not itself evidence and should not contain an entire project archive.
 
-## 22.3 Three Synthetic Benchmarks
+## 23.3 Three Synthetic Benchmarks
 
 The release includes small, inspectable cases rather than an opaque aggregate score. All names, records, identifiers, and source locations are synthetic.
 
@@ -1835,7 +1970,7 @@ The release includes small, inspectable cases rather than an opaque aggregate sc
 
 These fixtures test the procedure’s boundaries. They do not establish performance on real databases. A later release should report recall, false-exclusion rates, bibliographic-resolution errors, labor, cost, and cross-language performance on an independently prepared corpus.
 
-## 22.4 What the AI Got Wrong
+## 23.4 What the AI Got Wrong
 
 The package contains an explicit failure report. The authoring run exposed five risks:
 
@@ -1847,7 +1982,7 @@ The package contains an explicit failure report. The authoring run exposed five 
 
 Each failure is connected to a control in the skill, agent, schema, template, or benchmark. Residual risks remain visible. The report also states what this pilot has not established.
 
-## 22.5 Use and Inspect the Package
+## 23.5 Use and Inspect the Package
 
 Unpack the ZIP and begin with `MANIFEST.yml`. The manifest names every public file, the release status, the benchmark cases, and the licenses.
 
@@ -1862,7 +1997,7 @@ Before using the workflow on a real review:
 5.  inspect false exclusions, invented identities, and route loss;
 6.  keep all outputs in staging until a named researcher approves them.
 
-## 22.6 Feedback and Revision
+## 23.6 Feedback and Revision
 
 This lab is intended to improve through reported use rather than silent rewriting. Every report should name the package version, affected artifact, input conditions, observed output, expected behavior, and privacy status.
 
@@ -1870,9 +2005,9 @@ This lab is intended to improve through reported use rather than silent rewritin
 
 Do not attach participant data, credentials, restricted archives, confidential manuscripts, or copyrighted full text. Use a synthetic or redacted reproduction. Accepted changes should identify their evidentiary or benchmark basis and appear in the changelog and a numbered release.
 
-# 23. Building the Full Field Guide
+# 24. Building the Full Field Guide
 
-## 23.1 What the Current Modules Establish
+## 24.1 What the Current Modules Establish
 
 The evidence map connects an intellectual question to the practical work of finding material. *Literature as Evidence* carries that logic into discovery, reading, comparison, and synthesis. Together, they show that one page pattern can support distinct tasks while keeping method separate from volatile products, giving AI bounded roles, and leaving a record another researcher can inspect.
 
@@ -1891,7 +2026,7 @@ The evidence map devotes two stages to discovery where the review devotes one, b
 
 The modules also reveal what remains outside the draft. They do not collect an interview, preserve a website, prepare a full archival corpus, or write the final empirical analysis. The synthesis chapter extends the literature workflow into open, living, and quantitative reviews. The bridge chapter on event databases introduces document extraction, dynamic coding, validation, and explicit causal updating. Each still requires fuller treatment across source types and analytical traditions.
 
-## 23.2 The Full Field Guide
+## 24.2 The Full Field Guide
 
 The next module treats collection as evidence. It addresses documents, interviews, observations, images, audio, video, and web material. It connects capture to consent, metadata, storage, naming, backup, preservation, and chain of custody. A composite oral-history case will show where evidence co-produced with participants requires different decisions from retrieved documentary evidence.
 
@@ -1901,11 +2036,11 @@ An analysis module will resist a false division between qualitative and quantita
 
 A communication module will cover manuscripts, presentations, public data, visual explanation, repositories, and long-term access. Sharing is not the final act after research. Decisions made during collection determine what can later be verified, reused, or protected.
 
-## 23.3 A Hebrew Edition
+## 24.3 A Hebrew Edition
 
 English remains the canonical language during the pilot. A Hebrew edition should follow after the content model and navigation stabilize. Translation will require more than sentence substitution. Search terms, institutional examples, interfaces, and right-to-left design must be adapted. Stable page identifiers will keep the two editions connected without forcing them to change at the same pace.
 
-## 23.4 An Invitation
+## 24.4 An Invitation
 
 This draft is an argument and a test. It argues that researchers need a visible structure between question, corpus, analysis, and claim. It tests whether two different modules can carry novices and experienced scholars through the same page pattern at different depths.
 
@@ -1913,7 +2048,7 @@ The next step is both editorial and empirical. We will test the current modules 
 
 The old project began with abundance. The revived project begins with limits, artifacts, and reviewable decisions. This is progress.
 
-# 24. References
+# 25. References
 
 Autio, Chloe, Reva Schwartz, Jesse Dunietz, Shomik Jain, Martin Stanley, Elham Tabassi, Patrick Hall, and Kamie Roberts. “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile.” National Institute of Standards and Technology, 2024. <https://doi.org/10.6028/NIST.AI.600-1>.
 
@@ -1935,6 +2070,8 @@ Enders, Walter, Todd Sandler, and Khusrav Gaibulloev. “Domestic Versus Transna
 
 Fairfield, Tasha, and Andrew E. Charman. “Explicit Bayesian Analysis for Process Tracing: Guidelines, Opportunities, and Caveats.” *Political Analysis* 25, no. 3 (2017): 363–80. <https://doi.org/10.1017/pan.2017.14>.
 
+Garrison, Kevin. “An Empirical Analysis of Using Text-to-Speech Software to Revise First-Year College Students’ Essays.” *Computers and Composition* 26, no. 4 (2009): 288–301. <https://doi.org/10.1016/j.compcom.2009.09.002>.
+
 Gerring, John. *Social Science Methodology: A Unified Framework*. 2nd ed. Cambridge: Cambridge University Press, 2012.
 
 Gilardi, Fabrizio, Meysam Alizadeh, and Maël Kubli. “ChatGPT Outperforms Crowd Workers for Text-Annotation Tasks.” *Proceedings of the National Academy of Sciences* 120, no. 30 (2023): e2305016120. <https://doi.org/10.1073/pnas.2305016120>.
@@ -1948,9 +2085,15 @@ Hedges, Larry V., Elizabeth Tipton, and Matthew C. Johnson. “Robust Variance E
 
 Irsova, Zuzana, Hristos Doucouliagos, Tomas Havranek, and T. D. Stanley. “Meta-Analysis of Social Science Research: A Practitioner’s Guide.” *Journal of Economic Surveys* 38, no. 5 (2024): 1547–66. <https://doi.org/10.1111/joes.12595>.
 
+Kim, Soo Hyon. “The Myth of Revising by Ear: Does It Help Multilingual Writers?” *The Writing Center Journal* 43, no. 3 (2025). <https://doi.org/10.7771/2832-9414.2125>.
+
 Lebo, Timothy, Satya Sahoo, and Deborah McGuinness. “PROV-O: The PROV Ontology.” W3C Recommendation. World Wide Web Consortium, 2013. <https://www.w3.org/TR/prov-o/>.
 
+Lin, Susan, Jeremy Warner, J. D. Zamfirescu-Pereira, Matthew G. Lee, Sauhard Jain, Shanqing Cai, Piyawat Lertvittayakumjorn, et al. “Rambler: Supporting Writing with Speech via LLM-Assisted Gist Manipulation.” In *Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems*. Association for Computing Machinery, 2024. <https://doi.org/10.1145/3613904.3642217>.
+
 Littell, Julia H. “Conceptual and Practical Classification of Research Reviews and Other Evidence Synthesis Products.” *Campbell Systematic Reviews* 14, no. 1 (2018): 1–21. <https://doi.org/10.4073/cmdp.2018.1>.
+
+Liu, Can, Siying Hu, Li Feng, and Mingming Fan. “Typist Experiment: An Investigation of Human-to-Human Dictation via Role-Play to Inform Voice-Based Text Authoring.” *Proceedings of the ACM on Human-Computer Interaction* 6 (2022). <https://doi.org/10.1145/3555758>.
 
 Liu, Nelson F., Kevin Lin, John Hewitt, Ashwin Paranjape, Michele Bevilacqua, Fabio Petroni, and Percy Liang. “Lost in the Middle: How Language Models Use Long Contexts.” *Transactions of the Association for Computational Linguistics* 12 (2024): 157–73. <https://doi.org/10.1162/tacl_a_00638>.
 
@@ -1982,7 +2125,11 @@ Snyder, Hannah. “Literature Review as a Research Methodology: An Overview and 
 
 Sousa, M. Sharmila A., Sasha Peiris, Mabel F. Figueiró, Michelle M. Haby, Ana Cyntia Baraldi, Ludovic Reveiz, and João Paulo Souza. “The Landscape of Artificial Intelligence Tools and Platforms for Evidence Synthesis: A Scoping Review.” *Systematic Reviews* 15, no. 1 (2026): 82. <https://doi.org/10.1186/s13643-025-02842-y>.
 
+Ugan, Enes Yavuz, Ngoc-Quan Pham, and Alexander Waibel. “DECM: Evaluating Bilingual ASR Performance on a Code-Switching/Mixing Benchmark.” In *Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation*, 4468–75. Torino, Italy: ELRA; ICCL, 2024. <https://aclanthology.org/2024.lrec-main.400/>.
+
 Uttley, Lesley, Yuliang Weng, and Louise Falzon. “What’s the Meta Now? More Updates on the Problems with Systematic Reviews.” *Journal of Clinical Epidemiology* 198 (2026): 112393. <https://doi.org/10.1016/j.jclinepi.2026.112393>.
+
+Weidmann, Nils B., Mats Faulborn, and David García. “Large Language Models Are Democracy Coders with Attitudes.” *PS: Political Science & Politics* 59, no. 1 (2026): 17–23. <https://doi.org/10.1017/S1049096525101248>.
 
 Wohlin, Claes. “Guidelines for Snowballing in Systematic Literature Studies and a Replication in Software Engineering.” In *Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering*, 1–10. Association for Computing Machinery, 2014. <https://doi.org/10.1145/2601248.2601268>.
 
@@ -2053,48 +2200,68 @@ Ziems, Caleb, William Held, Omar Shaikh, Jiaao Chen, Zhehao Zhang, and Diyi Yang
 
 [^29]: Joon Sung Park et al., “Generative Agents: Interactive Simulacra of Human Behavior,” in *Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology*, 2023, 1–22, <https://doi.org/10.1145/3586183.3606763>.
 
-[^30]: Nelson F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics* 12 (2024): 157–73, <https://doi.org/10.1162/tacl_a_00638>.
+[^30]: Nils B. Weidmann, Mats Faulborn, and David García, “Large Language Models Are Democracy Coders with Attitudes,” *PS: Political Science & Politics* 59, no. 1 (2026): 21–23, <https://doi.org/10.1017/S1049096525101248>.
 
-[^31]: Fabrizio Gilardi, Meysam Alizadeh, and Maël Kubli, “ChatGPT Outperforms Crowd Workers for Text-Annotation Tasks,” *Proceedings of the National Academy of Sciences* 120, no. 30 (2023): e2305016120, <https://doi.org/10.1073/pnas.2305016120>; Nicholas Pangakis, Samuel Wolken, and Sergio Fasching, “Automated Annotation with Generative AI Requires Validation,” *arXiv*, 2023, <https://doi.org/10.48550/arXiv.2306.00176>; Caleb Ziems et al., “Can Large Language Models Transform Computational Social Science?” *Computational Linguistics* 50, no. 1 (2024): 237–91, <https://doi.org/10.1162/coli_a_00502>.
+[^31]: Nelson F. Liu et al., “Lost in the Middle: How Language Models Use Long Contexts,” *Transactions of the Association for Computational Linguistics* 12 (2024): 157–73, <https://doi.org/10.1162/tacl_a_00638>.
 
-[^32]: Hal Roberts et al., “Media Cloud: Massive Open Source Collection of Global News on the Open Web,” *Proceedings of the International AAAI Conference on Web and Social Media* 15, no. 1 (2021): 1034–45, <https://doi.org/10.1609/icwsm.v15i1.18127>.
+[^32]: Fabrizio Gilardi, Meysam Alizadeh, and Maël Kubli, “ChatGPT Outperforms Crowd Workers for Text-Annotation Tasks,” *Proceedings of the National Academy of Sciences* 120, no. 30 (2023): e2305016120, <https://doi.org/10.1073/pnas.2305016120>; Nicholas Pangakis, Samuel Wolken, and Sergio Fasching, “Automated Annotation with Generative AI Requires Validation,” *arXiv*, 2023, <https://doi.org/10.48550/arXiv.2306.00176>; Caleb Ziems et al., “Can Large Language Models Transform Computational Social Science?” *Computational Linguistics* 50, no. 1 (2024): 237–91, <https://doi.org/10.1162/coli_a_00502>.
 
-[^33]: Kaspar Beelen et al., “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan,” *Digital Scholarship in the Humanities* 38, no. 1 (2023): 1–22, <https://doi.org/10.1093/llc/fqac037>.
+[^33]: Weidmann, Faulborn, and García, “Large Language Models Are Democracy Coders with Attitudes,” 18–19.
 
-[^34]: Erica Cai and Brendan O’Connor, “A Monte Carlo Language Model Pipeline for Zero-Shot Sociopolitical Event Extraction,” in *NeurIPS 2023 Workshop on Instruction Tuning and Instruction Following*, 2023, <https://doi.org/10.48550/arXiv.2305.15051>.
+[^34]: Hal Roberts et al., “Media Cloud: Massive Open Source Collection of Global News on the Open Web,” *Proceedings of the International AAAI Conference on Web and Social Media* 15, no. 1 (2021): 1034–45, <https://doi.org/10.1609/icwsm.v15i1.18127>.
 
-[^35]: Patrick T. Brandt and Marcus Sianan, “Measurement of Event Data from Text,” *Frontiers in Political Science* 6 (2025): 1453640, <https://doi.org/10.3389/fpos.2024.1453640>.
+[^35]: Kaspar Beelen et al., “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan,” *Digital Scholarship in the Humanities* 38, no. 1 (2023): 1–22, <https://doi.org/10.1093/llc/fqac037>.
 
-[^36]: Tasha Fairfield and Andrew E. Charman, “Explicit Bayesian Analysis for Process Tracing: Guidelines, Opportunities, and Caveats,” *Political Analysis* 25, no. 3 (2017): 363–80, <https://doi.org/10.1017/pan.2017.14>; Sherry Zaks, “Updating Bayesian(s): A Critical Evaluation of Bayesian Process Tracing,” *Political Analysis* 29, no. 1 (2021): 58–74, <https://doi.org/10.1017/pan.2020.10>.
+[^36]: Erica Cai and Brendan O’Connor, “A Monte Carlo Language Model Pipeline for Zero-Shot Sociopolitical Event Extraction,” in *NeurIPS 2023 Workshop on Instruction Tuning and Instruction Following*, 2023, <https://doi.org/10.48550/arXiv.2305.15051>.
 
-[^37]: Miao Xiong et al., “Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs,” in *The Twelfth International Conference on Learning Representations*, 2024, <https://openreview.net/forum?id=gjeQKFxFpZ>.
+[^37]: Weidmann, Faulborn, and García, “Large Language Models Are Democracy Coders with Attitudes,” 19–21.
 
-[^38]: See Chloe Autio et al., “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile” (National Institute of Standards and Technology, 2024), <https://doi.org/10.6028/NIST.AI.600-1>.
+[^38]: Patrick T. Brandt and Marcus Sianan, “Measurement of Event Data from Text,” *Frontiers in Political Science* 6 (2025): 1453640, <https://doi.org/10.3389/fpos.2024.1453640>.
 
-[^39]: Roam Research, “A Note-Taking Tool for Networked Thought,” accessed July 27, 2026, <https://roamresearch.com>; Tiago Forte, “How To Take Smart Notes: 10 Principles to Revolutionize Your Note-Taking and Writing,” February 4, 2020, <https://fortelabs.co/blog/how-to-take-smart-notes/>.
+[^39]: Tasha Fairfield and Andrew E. Charman, “Explicit Bayesian Analysis for Process Tracing: Guidelines, Opportunities, and Caveats,” *Political Analysis* 25, no. 3 (2017): 363–80, <https://doi.org/10.1017/pan.2017.14>; Sherry Zaks, “Updating Bayesian(s): A Critical Evaluation of Bayesian Process Tracing,” *Political Analysis* 29, no. 1 (2021): 58–74, <https://doi.org/10.1017/pan.2020.10>.
 
-[^40]: Mem, “Introducing the World’s First Knowledge-Aware AI Assistant,” December 8, 2022, saved as a forwarded email in Readwise Reader; Ethan Mollick, “How to Use AI to Generate Ideas,” December 3, 2022, <https://oneusefulthing.substack.com/p/how-to-use-ai-to-generate-ideas>.
+[^40]: Miao Xiong et al., “Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs,” in *The Twelfth International Conference on Learning Representations*, 2024, <https://openreview.net/forum?id=gjeQKFxFpZ>.
 
-[^41]: Readwise Reader library audit conducted July 27, 2026. Reader reported 567 records tagged `📄Academic Article`, 499 tagged `🗃️PKM`, and 3,196 tagged `🤖AI`. Detailed metadata retrieval returned all 499 PKM records and connector-limited samples of 500 academic and 500 AI records. The audit treated tags as organizational labels rather than quality judgments, inspected sixteen representative full-text records, and made no changes to the library. See `editorial/readwise-pkm-ai-source-register.md`.
+[^41]: Weidmann, Faulborn, and García, “Large Language Models Are Democracy Coders with Attitudes,” 21–23.
 
-[^42]: Sébastien Dubois, “What Is Personal Knowledge Management (PKM)?,” December 16, 2022, <https://pkmjournal.com/why-is-personal-knowledge-management-pkm-useful-5f23405c2a2f>.
+[^42]: See Chloe Autio et al., “Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile” (National Institute of Standards and Technology, 2024), <https://doi.org/10.6028/NIST.AI.600-1>.
 
-[^43]: Tiago Forte, “Great Use Case for ChatGPT Vision: Transcribing Handwritten Journal Entries,” December 11, 2023, <https://x.com/fortelabs/status/1734284384537333813>.
+[^43]: Weidmann, Faulborn, and García, “Large Language Models Are Democracy Coders with Attitudes,” 20–22.
 
-[^44]: Andy Stapleton, “Is This the End of Traditional Academic Papers? See What Every Researcher Needs to Know!,” video, December 6, 2023, <https://www.youtube.com/watch?v=kQp7EbxHcKA>.
+[^44]: Roam Research, “A Note-Taking Tool for Networked Thought,” accessed July 27, 2026, <https://roamresearch.com>; Tiago Forte, “How To Take Smart Notes: 10 Principles to Revolutionize Your Note-Taking and Writing,” February 4, 2020, <https://fortelabs.co/blog/how-to-take-smart-notes/>.
 
-[^45]: Noah Dasanaike, “What I’ve Learned From Digitizing 20 Million Historical Documents,” February 4, 2026, <https://noahdasanaike.github.io/posts/digitizing-census.html>.
+[^45]: Mem, “Introducing the World’s First Knowledge-Aware AI Assistant,” December 8, 2022, saved as a forwarded email in Readwise Reader; Ethan Mollick, “How to Use AI to Generate Ideas,” December 3, 2022, <https://oneusefulthing.substack.com/p/how-to-use-ai-to-generate-ideas>.
 
-[^46]: Len_dde, “My Academic Workflow with Obsidian and Zotero,” April 5, 2025, <https://medium.com/%40lennart.dde/my-academic-workflow-with-obsidian-and-zotero-53ac44ebdc28>.
+[^46]: Readwise Reader library audit conducted July 27, 2026. Reader reported 567 records tagged `📄Academic Article`, 499 tagged `🗃️PKM`, and 3,196 tagged `🤖AI`. Detailed metadata retrieval returned all 499 PKM records and connector-limited samples of 500 academic and 500 AI records. The audit treated tags as organizational labels rather than quality judgments, inspected sixteen representative full-text records, and made no changes to the library. See `editorial/readwise-pkm-ai-source-register.md`.
 
-[^47]: Andrew Altshuler, “The Argument Analyst Tana Template Is Out,” March 7, 2025, <https://x.com/1eo/status/1898034427579531367/>.
+[^47]: Sébastien Dubois, “What Is Personal Knowledge Management (PKM)?,” December 16, 2022, <https://pkmjournal.com/why-is-personal-knowledge-management-pkm-useful-5f23405c2a2f>.
 
-[^48]: CyrilXBT, “Most People Use Obsidian as a Note-Taking App,” May 5, 2026, <https://x.com/cyrilXBT/status/2051589237880009026/>. The library note marks this item as a redundant, shorter version of a longer guide; the chapter uses it only to document the persistent-context argument.
+[^48]: Tiago Forte, “Great Use Case for ChatGPT Vision: Transcribing Handwritten Journal Entries,” December 11, 2023, <https://x.com/fortelabs/status/1734284384537333813>.
 
-[^49]: CyrilXBT, “Obsidian Plus Vellum: A Second Brain That Never Stops,” May 27, 2026, <https://x.com/cyrilxbt/status/2059486502401569047/>.
+[^49]: Andy Stapleton, “Is This the End of Traditional Academic Papers? See What Every Researcher Needs to Know!,” video, December 6, 2023, <https://www.youtube.com/watch?v=kQp7EbxHcKA>.
 
-[^50]: “Karpaty’s Second Brain,” shared Claude conversation saved July 18, 2026, <https://claude.ai/share/9263ec7c-827e-48da-8ddf-65375205f96b>. This is a derivative conversation about a video, not an independently verified account of the original presentation.
+[^50]: Noah Dasanaike, “What I’ve Learned From Digitizing 20 Million Historical Documents,” February 4, 2026, <https://noahdasanaike.github.io/posts/digitizing-census.html>.
 
-[^51]: Markus J. Buehler, “We’ve Made a Breakthrough in Self-Evolving AI Scientists,” June 5, 2026, <https://x.com/profbuehlermit/status/2062865983459475830/>. The saved item cites F. Y. Wang and M. J. Buehler, “Self-Revising Discovery Systems for Science: A Categorical Framework for Agentic Artificial Intelligence,” arXiv:2606.01444 (2026). The claim requires verification against the paper before scholarly citation.
+[^51]: Len_dde, “My Academic Workflow with Obsidian and Zotero,” April 5, 2025, <https://medium.com/%40lennart.dde/my-academic-workflow-with-obsidian-and-zotero-53ac44ebdc28>.
 
-[^52]: Eli Berman and Jacob N. Shapiro, “Big Data Seeks Context, for Long-Term Relationship: Reflections on the Empirical Studies of Conflict Project (ESOC),” August 17, 2023, <https://www.stimson.org/2023/reflections-on-the-empirical-studies-of-conflict-project-esoc/>. The byline and date were verified against the publisher page; the record has not yet been checked against Zotero.
+[^52]: Andrew Altshuler, “The Argument Analyst Tana Template Is Out,” March 7, 2025, <https://x.com/1eo/status/1898034427579531367/>.
+
+[^53]: CyrilXBT, “Most People Use Obsidian as a Note-Taking App,” May 5, 2026, <https://x.com/cyrilXBT/status/2051589237880009026/>. The library note marks this item as a redundant, shorter version of a longer guide; the chapter uses it only to document the persistent-context argument.
+
+[^54]: CyrilXBT, “Obsidian Plus Vellum: A Second Brain That Never Stops,” May 27, 2026, <https://x.com/cyrilxbt/status/2059486502401569047/>.
+
+[^55]: “Karpaty’s Second Brain,” shared Claude conversation saved July 18, 2026, <https://claude.ai/share/9263ec7c-827e-48da-8ddf-65375205f96b>. This is a derivative conversation about a video, not an independently verified account of the original presentation.
+
+[^56]: Markus J. Buehler, “We’ve Made a Breakthrough in Self-Evolving AI Scientists,” June 5, 2026, <https://x.com/profbuehlermit/status/2062865983459475830/>. The saved item cites F. Y. Wang and M. J. Buehler, “Self-Revising Discovery Systems for Science: A Categorical Framework for Agentic Artificial Intelligence,” arXiv:2606.01444 (2026). The claim requires verification against the paper before scholarly citation.
+
+[^57]: Eli Berman and Jacob N. Shapiro, “Big Data Seeks Context, for Long-Term Relationship: Reflections on the Empirical Studies of Conflict Project (ESOC),” August 17, 2023, <https://www.stimson.org/2023/reflections-on-the-empirical-studies-of-conflict-project-esoc/>. The byline and date were verified against the publisher page; the record has not yet been checked against Zotero.
+
+[^58]: Can Liu et al., “Typist Experiment: An Investigation of Human-to-Human Dictation via Role-Play to Inform Voice-Based Text Authoring,” *Proceedings of the ACM on Human-Computer Interaction* 6 (2022), <https://doi.org/10.1145/3555758>.
+
+[^59]: Susan Lin et al., “Rambler: Supporting Writing with Speech via LLM-Assisted Gist Manipulation,” in *Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems* (Association for Computing Machinery, 2024), <https://doi.org/10.1145/3613904.3642217>.
+
+[^60]: Kevin Garrison, “An Empirical Analysis of Using Text-to-Speech Software to Revise First-Year College Students’ Essays,” *Computers and Composition* 26, no. 4 (2009): 288–301, <https://doi.org/10.1016/j.compcom.2009.09.002>.
+
+[^61]: Enes Yavuz Ugan, Ngoc-Quan Pham, and Alexander Waibel, “DECM: Evaluating Bilingual ASR Performance on a Code-Switching/Mixing Benchmark,” in *Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation* (Torino, Italy: ELRA; ICCL, 2024), 4468–75, <https://aclanthology.org/2024.lrec-main.400/>.
+
+[^62]: Soo Hyon Kim, “The Myth of Revising by Ear: Does It Help Multilingual Writers?” *The Writing Center Journal* 43, no. 3 (2025), <https://doi.org/10.7771/2832-9414.2125>.
