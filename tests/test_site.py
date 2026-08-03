@@ -97,6 +97,30 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("candidate record", event_chapter)
         self.assertIn("Bayesian evidence table", event_chapter)
 
+        historical_page = (
+            ROOT
+            / "field-guide"
+            / "book"
+            / "content"
+            / "20-historical-sources-as-evidence.html"
+        )
+        self.assertTrue(historical_page.is_file())
+        historical_text = historical_page.read_text(encoding="utf-8")
+        self.assertIn("Historical Sources as Evidence", landing)
+        self.assertIn("historical evidence chain", historical_text.lower())
+        self.assertIn("source-stated", historical_text.lower())
+        self.assertIn("downstream claim audit", historical_text.lower())
+        self.assertIn("Eight numbered boxes", historical_text)
+        self.assertTrue(
+            (
+                ROOT
+                / "field-guide"
+                / "book"
+                / "templates"
+                / "historical-evidence-chain-register.md"
+            ).is_file()
+        )
+
         review_chapter = (
             ROOT
             / "field-guide"
