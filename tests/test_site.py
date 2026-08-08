@@ -70,8 +70,11 @@ class SiteContractTests(unittest.TestCase):
             landing,
         )
         self.assertIn('href="guide.css"', landing)
-        self.assertIn('href="field-guide/"', homepage)
-        self.assertIn("Explore the Field Guide", homepage)
+        self.assertNotIn('href="field-guide/"', homepage)
+        self.assertNotIn("Explore the Field Guide", homepage)
+        self.assertNotIn("AI-Assisted Research Methods", homepage)
+        self.assertNotIn("Conceptualization: defining", homepage)
+        self.assertNotIn("Historical Entity Tracker", homepage)
 
         sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
         self.assertIn(
