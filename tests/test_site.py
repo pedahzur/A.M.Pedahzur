@@ -449,6 +449,14 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn('<a href="../../">Home</a>', article)
         self.assertIn('<a href="../" aria-current="location">Blog</a>', article)
 
+    def test_primary_navigation_links_to_blog_on_all_root_pages(self) -> None:
+        root_pages = [ROOT / "index.html", *sorted(ROOT.glob("book-*.html"))]
+
+        for page in root_pages:
+            with self.subTest(page=page.name):
+                html = page.read_text(encoding="utf-8")
+                self.assertIn('<a href="blog/">Blog</a>', html)
+
     def test_academic_blog_post_preserves_article_contract(self) -> None:
         post_path = (
             ROOT
