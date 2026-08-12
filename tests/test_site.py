@@ -49,6 +49,35 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn('href="blog.css"', blog)
         self.assertIn("https://pedahzur.github.io/A.M.Pedahzur/blog/", sitemap)
 
+    def test_academic_blog_post_preserves_article_contract(self) -> None:
+        post_path = (
+            ROOT
+            / "blog"
+            / "academic-rigor-and-writing-for-a-wider-audience"
+            / "index.html"
+        )
+        self.assertTrue(post_path.is_file())
+        post = post_path.read_text(encoding="utf-8")
+
+        self.assertIn('"@type": "ScholarlyArticle"', post)
+        self.assertIn(
+            '<link rel="canonical" href="https://pedahzur.github.io/A.M.Pedahzur/blog/academic-rigor-and-writing-for-a-wider-audience/">',
+            post,
+        )
+        self.assertIn('href="../blog.css"', post)
+        self.assertIn('class="essay"', post)
+        self.assertIn('class="article-toc"', post)
+        self.assertIn('class="mobile-toc"', post)
+        self.assertIn('class="article-table"', post)
+        self.assertEqual(7, post.count('class="numbered-section"'))
+        self.assertEqual(20, post.count('role="doc-noteref"'))
+        self.assertEqual(16, post.count('role="doc-endnote"'))
+        self.assertEqual(20, post.count('class="footnote-back"'))
+        self.assertIn(
+            "It makes credibility interesting and interest worthy of trust.",
+            post,
+        )
+
     def test_internal_links_resolve(self) -> None:
         broken: list[str] = []
         for page in ROOT.rglob("*.html"):
