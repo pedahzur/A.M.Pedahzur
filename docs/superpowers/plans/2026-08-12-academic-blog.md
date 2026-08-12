@@ -4,7 +4,7 @@
 
 **Goal:** Add a discoverable academic-blog index and publish “Between Academic Rigor and Writing for a Wider Audience” as a polished, accessible long-form post on the existing GitHub Pages site.
 
-**Architecture:** Keep the site static and dependency-free at runtime. Add one blog index, one nested article page, and a blog-specific stylesheet; connect them from the existing homepage and sitemap. Convert the approved Markdown manuscript with Pandoc, then wrap and refine the generated semantic HTML without changing the article or its sixteen notes.
+**Architecture:** Keep the site static and dependency-free at runtime. Add one blog index, one nested article page, and a blog-specific stylesheet; connect them from the existing homepage and sitemap. Convert the approved Markdown manuscript with Pandoc, then wrap and refine the generated semantic HTML without changing the article or its sixteen note definitions.
 
 **Tech Stack:** Static HTML5, CSS3, Python `unittest`, Pandoc 3.10, GitHub Pages Actions.
 
@@ -13,7 +13,7 @@
 - Reuse Literata for article prose and display headings and IBM Plex Sans for navigation, metadata, labels, and controls.
 - Reuse the site's paper, ink, muted, rule, and accent colors.
 - Keep the article measure near `68ch`; use a sticky table of contents at widths of at least `1100px` and an inline disclosure below that width.
-- Preserve seven numbered sections, fifteen subsections, the diagnostic table, practical lists, all sixteen note calls, and all sixteen note definitions.
+- Preserve seven numbered sections, fifteen subsections, the diagnostic table, practical lists, all twenty note calls, sixteen note definitions, and twenty backlinks.
 - Add no illustrations, stock images, comments, search, RSS, CMS, or runtime dependency.
 - Expose no local filesystem path and change no book, field-guide, CV, or unrelated homepage content.
 - Publish from `agent/add-academic-blog` through a pull request to `main`; merge only after checks pass.
@@ -112,6 +112,7 @@ Start `blog/blog.css` with the exact shared tokens used by both blog pages:
   --accent-warm: #a66a2c;
   --rule: #d6d3ca;
   --reading-measure: 68ch;
+  --article-font-size: clamp(1.05rem, .45vw + .95rem, 1.22rem);
   --font-serif: 'Literata', Georgia, serif;
   --font-sans: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
 }
@@ -150,7 +151,7 @@ git commit -m "feat(site): add academic blog index"
 **Files:**
 - Create: `blog/academic-rigor-and-writing-for-a-wider-audience/index.html`
 - Modify: `tests/test_site.py`
-- Source artifact: `/Users/amipedahzur/Documents/Codex/2026-08-09/new-chat/academic-book-writing-chapter-en.md`
+- Source artifact: `${APPROVED_ARTICLE_SOURCE}`
 
 **Interfaces:**
 - Consumes: `blog/blog.css`, the `/blog/` route, and the exact approved English Markdown manuscript.
@@ -182,9 +183,9 @@ def test_academic_blog_post_preserves_article_contract(self) -> None:
     self.assertIn('class="mobile-toc"', post)
     self.assertIn('class="article-table"', post)
     self.assertEqual(7, post.count('class="numbered-section"'))
-    self.assertEqual(16, post.count('role="doc-noteref"'))
+    self.assertEqual(20, post.count('role="doc-noteref"'))
     self.assertEqual(16, post.count('role="doc-endnote"'))
-    self.assertEqual(16, post.count('class="footnote-back"'))
+    self.assertEqual(20, post.count('class="footnote-back"'))
     self.assertIn(
         "It makes credibility interesting and interest worthy of trust.",
         post,
@@ -203,12 +204,12 @@ Expected: FAIL because the nested article page does not exist.
 
 - [ ] **Step 3: Convert the approved Markdown to semantic HTML**
 
-Generate an HTML5 conversion in a temporary directory:
+Set `APPROVED_ARTICLE_SOURCE` to the approved local Markdown artifact, then generate an HTML5 conversion in a temporary directory:
 
 ```bash
 blog_build_dir="$(mktemp -d)"
 pandoc \
-  /Users/amipedahzur/Documents/Codex/2026-08-09/new-chat/academic-book-writing-chapter-en.md \
+  "${APPROVED_ARTICLE_SOURCE}" \
   --from=markdown+footnotes \
   --to=html5 \
   --section-divs \
@@ -234,7 +235,7 @@ Use a visible deck reading:
 An academic book should meet two full demands: persuasive research and writing that leads readers through it with clarity, momentum, and respect.
 ```
 
-Add a desktop `<aside class="article-toc">` and mobile `<details class="mobile-toc">` with links to all seven numbered section IDs and `notes-and-sources`. Wrap each numbered section in a class of `numbered-section`, add `class="article-table"` to the diagnostic table, retain Pandoc's `role="doc-noteref"` and `role="doc-endnote"`, and normalize all sixteen return anchors to `class="footnote-back"`.
+Add a desktop `<aside class="article-toc">` and mobile `<details class="mobile-toc">` with links to all seven numbered section IDs and `notes-and-sources`. Wrap each numbered section in a class of `numbered-section`, add `class="article-table"` to the diagnostic table, retain all twenty Pandoc `role="doc-noteref"` calls and sixteen `role="doc-endnote"` definitions, and normalize all twenty return anchors to `class="footnote-back"`. Make the table scroller a keyboard-focusable labeled region and give every table header `scope="col"`.
 
 - [ ] **Step 4: Verify content parity before styling**
 
@@ -310,15 +311,22 @@ Expand `blog/blog.css` using these binding rules:
 ```css
 .article-layout {
   display: grid;
-  grid-template-columns: minmax(0, 68ch) minmax(13rem, 17rem);
+  font-family: var(--font-serif);
+  font-size: var(--article-font-size);
+  grid-template-columns: var(--reading-measure) minmax(13rem, 17rem);
   gap: clamp(3rem, 7vw, 7rem);
   align-items: start;
 }
 
 .essay-body {
-  font-family: var(--font-serif);
-  font-size: clamp(1.05rem, .45vw + .95rem, 1.22rem);
+  font-family: inherit;
+  font-size: inherit;
   line-height: 1.78;
+}
+
+.article-toc,
+.mobile-toc {
+  font-family: var(--font-sans);
 }
 
 .article-toc {
@@ -328,6 +336,11 @@ Expand `blog/blog.css` using these binding rules:
 
 .article-table-wrap {
   overflow-x: auto;
+}
+
+.article-table-wrap:focus-visible {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 4px;
 }
 
 :focus-visible {
@@ -401,6 +414,8 @@ Ask the code-reviewer to inspect `origin/main...HEAD` for correctness, security,
 
 - [ ] **Step 3: Push the branch and open a draft pull request**
 
+Set `PR_BODY_FILE` to a writable Markdown path for the draft PR body, then run:
+
 ```bash
 git push -u origin agent/add-academic-blog
 gh pr create \
@@ -408,7 +423,7 @@ gh pr create \
   --base main \
   --head agent/add-academic-blog \
   --title "feat(site): add academic blog" \
-  --body-file "/Users/amipedahzur/Documents/Codex/2026-08-09/new-chat/temp/academic-blog-pr.md"
+  --body-file "${PR_BODY_FILE}"
 ```
 
 Create the PR body at that exact path with `apply_patch`. It must state what changed, why, public impact, and the exact test and viewport matrix. Keep the PR in draft while checks run.
@@ -436,4 +451,4 @@ https://pedahzur.github.io/A.M.Pedahzur/blog/
 https://pedahzur.github.io/A.M.Pedahzur/blog/academic-rigor-and-writing-for-a-wider-audience/
 ```
 
-Verify that the live homepage links to the blog, the blog links to the post, the post title and sixteen notes render, and no private path appears in public HTML.
+Verify that the live homepage links to the blog, the blog links to the post, the post title, sixteen note definitions, and twenty backlinks render, and no private path appears in public HTML.

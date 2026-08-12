@@ -1,11 +1,170 @@
 from html.parser import HTMLParser
 import hashlib
+import json
 from pathlib import Path
+import re
+import subprocess
 from urllib.parse import unquote, urlparse
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+ARTICLE_PATH = (
+    ROOT
+    / "blog"
+    / "academic-rigor-and-writing-for-a-wider-audience"
+    / "index.html"
+)
+
+
+def css_declarations(
+    styles: str, selector: str, required_property: str | None = None
+) -> dict[str, str]:
+    """Return declarations for one exact selector outside or inside media rules."""
+    matches: list[dict[str, str]] = []
+    for selector_group, body in re.findall(r"([^{}@]+)\{([^{}]*)\}", styles):
+        selectors = [" ".join(item.split()) for item in selector_group.split(",")]
+        if selector not in selectors:
+            continue
+        declarations: dict[str, str] = {}
+        for declaration in body.split(";"):
+            if ":" not in declaration:
+                continue
+            name, value = declaration.split(":", 1)
+            declarations[name.strip()] = " ".join(value.split())
+        if required_property is None or required_property in declarations:
+            matches.append(declarations)
+    if len(matches) != 1:
+        raise AssertionError(
+            f"Expected one CSS rule for {selector!r}, found {len(matches)}"
+        )
+    return matches[0]
+
+
+class MetadataCollector(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.values: dict[str, list[str]] = {}
+        self.json_ld: list[str] = []
+        self._json_ld_parts: list[str] | None = None
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        values = dict(attrs)
+        if tag == "meta":
+            key = values.get("property") or values.get("name")
+            content = values.get("content")
+            if key and content is not None:
+                self.values.setdefault(key, []).append(content)
+        if tag == "script" and values.get("type") == "application/ld+json":
+            self._json_ld_parts = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "script" and self._json_ld_parts is not None:
+            self.json_ld.append("".join(self._json_ld_parts))
+            self._json_ld_parts = None
+
+    def handle_data(self, data: str) -> None:
+        if self._json_ld_parts is not None:
+            self._json_ld_parts.append(data)
+
+
+class ArticleProseCollector(HTMLParser):
+    """Canonicalize approved scholarly content, not presentation markup.
+
+    The boundary includes the article title and deck plus every h2, h3,
+    paragraph, list item, table header/cell, and each of the 16 endnote bodies
+    in source order. It excludes dates/read-time labels, desktop/mobile TOCs,
+    note-call numbers, backlink glyphs, aria-hidden separators, navigation,
+    wrappers, IDs, classes, links, and other presentation-only attributes.
+    Whitespace runs are normalized so harmless formatting changes do not alter
+    the digest; changing any source-visible scholarly text does.
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.records: list[tuple[str, str]] = []
+        self._article_depth = 0
+        self._header_depth = 0
+        self._body_depth = 0
+        self._excluded_depth = 0
+        self._current_kind: str | None = None
+        self._current_tag: str | None = None
+        self._parts: list[str] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        values = dict(attrs)
+        classes = set((values.get("class") or "").split())
+        if tag == "article" and "essay" in classes:
+            self._article_depth = 1
+        elif self._article_depth:
+            self._article_depth += 1
+        if not self._article_depth:
+            return
+
+        if tag == "header" and "article-header" in classes:
+            self._header_depth = 1
+        elif self._header_depth:
+            self._header_depth += 1
+        if "essay-body" in classes:
+            self._body_depth = 1
+        elif self._body_depth:
+            self._body_depth += 1
+
+        presentation_only = (
+            values.get("role") in {"doc-noteref", "doc-backlink"}
+            or values.get("aria-hidden") == "true"
+            or "footnote-back" in classes
+        )
+        if presentation_only or self._excluded_depth:
+            self._excluded_depth += 1
+            return
+        if self._current_kind is not None:
+            return
+
+        kind: str | None = None
+        if self._header_depth and (
+            tag == "h1" or (tag == "p" and "article-deck" in classes)
+        ):
+            kind = tag
+        elif self._body_depth:
+            if tag == "li" and values.get("role") == "doc-endnote":
+                kind = "note"
+            elif tag in {"h2", "h3", "p", "li", "th", "td"}:
+                kind = tag
+        if kind is not None:
+            self._current_kind = kind
+            self._current_tag = tag
+            self._parts = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if self._excluded_depth:
+            self._excluded_depth -= 1
+        elif self._current_kind is not None and tag == self._current_tag:
+            text = " ".join("".join(self._parts).split())
+            self.records.append((self._current_kind, text))
+            self._current_kind = None
+            self._current_tag = None
+            self._parts = []
+        if self._body_depth:
+            self._body_depth -= 1
+        if self._header_depth:
+            self._header_depth -= 1
+        if self._article_depth:
+            self._article_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if self._current_kind is not None and not self._excluded_depth:
+            self._parts.append(data)
+
+    def digest(self) -> str:
+        payload = "\n".join(
+            f"{kind}\t{text}" for kind, text in self.records
+        ).encode("utf-8")
+        return hashlib.sha256(payload).hexdigest()
 
 
 class LinkCollector(HTMLParser):
@@ -36,8 +195,12 @@ class ArticleContractCollector(HTMLParser):
         self.endnote_ids: set[str] = set()
         self.footnote_back_hrefs: list[str] = []
         self.tables: list[tuple[set[str], list[list[str]]]] = []
+        self.table_wraps: list[dict[str, str | None]] = []
+        self.table_header_scopes: list[str | None] = []
+        self.heading_ids: dict[str, str] = {}
         self.unordered_lists: list[list[str]] = []
         self._heading_parts: list[str] | None = None
+        self._heading_id: str | None = None
         self._unordered_list_stack: list[tuple[list[str], list[str] | None]] = []
         self._table_classes: set[str] | None = None
         self._table_rows: list[list[str]] = []
@@ -54,6 +217,11 @@ class ArticleContractCollector(HTMLParser):
         classes = set((values.get("class") or "").split())
         if tag == "h3":
             self._heading_parts = []
+            self._heading_id = element_id
+        if tag == "div" and "article-table-wrap" in classes:
+            self.table_wraps.append(values)
+        if tag == "th" and self._table_row is not None:
+            self.table_header_scopes.append(values.get("scope"))
         if tag == "table":
             self._table_classes = classes
             self._table_rows = []
@@ -78,8 +246,12 @@ class ArticleContractCollector(HTMLParser):
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "h3" and self._heading_parts is not None:
-            self.subsection_titles.append("".join(self._heading_parts).strip())
+            title = "".join(self._heading_parts).strip()
+            self.subsection_titles.append(title)
+            if self._heading_id:
+                self.heading_ids[title] = self._heading_id
             self._heading_parts = None
+            self._heading_id = None
         if tag in {"th", "td"} and self._table_cell_parts is not None:
             self._table_row.append("".join(self._table_cell_parts).strip())
             self._table_cell_parts = None
@@ -114,16 +286,10 @@ class ArticleContractCollector(HTMLParser):
 class SiteContractTests(unittest.TestCase):
     def test_academic_blog_uses_accessible_editorial_design(self) -> None:
         styles = (ROOT / "blog" / "blog.css").read_text(encoding="utf-8")
-        post = (
-            ROOT
-            / "blog"
-            / "academic-rigor-and-writing-for-a-wider-audience"
-            / "index.html"
-        ).read_text(encoding="utf-8")
+        post = ARTICLE_PATH.read_text(encoding="utf-8")
 
         for token in (
             "--reading-measure: 68ch;",
-            "grid-template-columns: minmax(0, 68ch) minmax(13rem, 17rem);",
             "position: sticky;",
             "line-height: 1.78;",
             "overflow-x: auto;",
@@ -133,13 +299,6 @@ class SiteContractTests(unittest.TestCase):
             self.assertIn(token, styles)
         self.assertIn('href="#main-content"', post)
         self.assertIn('id="main-content"', post)
-        self.assertIn(
-            ".essay-body {\n"
-            "  font-family: var(--font-serif);\n"
-            "  inline-size: 100%;\n"
-            "  max-inline-size: var(--reading-measure);",
-            styles,
-        )
         self.assertIn(
             ".footnote-ref { color: var(--accent);",
             styles,
@@ -156,6 +315,67 @@ class SiteContractTests(unittest.TestCase):
             'role="doc-endnotes" aria-labelledby="notes-and-sources"',
             post,
         )
+
+    def test_academic_blog_measure_uses_literata_grid_context(self) -> None:
+        styles = (ROOT / "blog" / "blog.css").read_text(encoding="utf-8")
+        root_rule = css_declarations(styles, ":root")
+        layout_rule = css_declarations(
+            styles, ".article-layout", required_property="font-family"
+        )
+        body_rule = css_declarations(
+            styles, ".essay-body", required_property="font-family"
+        )
+        desktop_toc_rule = css_declarations(
+            styles, ".article-toc", required_property="font-family"
+        )
+        mobile_toc_rule = css_declarations(
+            styles, ".mobile-toc", required_property="font-family"
+        )
+
+        self.assertEqual("68ch", root_rule["--reading-measure"])
+        self.assertEqual(
+            "clamp(1.05rem, .45vw + .95rem, 1.22rem)",
+            root_rule["--article-font-size"],
+        )
+        self.assertEqual("var(--font-serif)", layout_rule["font-family"])
+        self.assertEqual("var(--article-font-size)", layout_rule["font-size"])
+        self.assertEqual(
+            "var(--reading-measure) minmax(13rem, 17rem)",
+            layout_rule["grid-template-columns"],
+        )
+        self.assertEqual("inherit", body_rule["font-family"])
+        self.assertEqual("inherit", body_rule["font-size"])
+        self.assertEqual("var(--font-sans)", desktop_toc_rule["font-family"])
+        self.assertEqual("var(--font-sans)", mobile_toc_rule["font-family"])
+        self.assertIn("@media (min-width: 1100px)", styles)
+        self.assertIn("@media (max-width: 1099px)", styles)
+
+        for page in (ROOT / "blog" / "index.html", ARTICLE_PATH):
+            html = page.read_text(encoding="utf-8")
+            self.assertIn("family=Literata:wght@400;500;600;700", html)
+
+    def test_academic_blog_table_region_is_keyboard_accessible(self) -> None:
+        collector = ArticleContractCollector()
+        collector.feed(ARTICLE_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual("a-diagnostic-tool-heading", collector.heading_ids.get(
+            "A Diagnostic Tool"
+        ))
+        self.assertEqual(1, len(collector.table_wraps))
+        table_wrap = collector.table_wraps[0]
+        self.assertEqual("0", table_wrap.get("tabindex"))
+        self.assertEqual("region", table_wrap.get("role"))
+        self.assertEqual(
+            "a-diagnostic-tool-heading", table_wrap.get("aria-labelledby")
+        )
+        self.assertEqual(["col"] * 5, collector.table_header_scopes)
+
+        focus_rule = css_declarations(
+            (ROOT / "blog" / "blog.css").read_text(encoding="utf-8"),
+            ".article-table-wrap:focus-visible",
+        )
+        self.assertEqual("3px solid var(--accent-warm)", focus_rule["outline"])
+        self.assertEqual("4px", focus_rule["outline-offset"])
 
     def test_academic_blog_is_discoverable(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -177,6 +397,57 @@ class SiteContractTests(unittest.TestCase):
         )
         self.assertIn('href="blog.css"', blog)
         self.assertIn("https://pedahzur.github.io/A.M.Pedahzur/blog/", sitemap)
+        self.assertIn(
+            "<loc>https://pedahzur.github.io/A.M.Pedahzur/</loc>\n"
+            "    <lastmod>2026-08-12</lastmod>",
+            sitemap,
+        )
+
+    def test_academic_blog_discovery_metadata_is_complete(self) -> None:
+        blog_collector = MetadataCollector()
+        blog_collector.feed((ROOT / "blog" / "index.html").read_text(
+            encoding="utf-8"
+        ))
+        expected_blog_metadata = {
+            "og:type": "website",
+            "og:site_name": "Ami Pedahzur",
+            "og:title": "Writing Research for Readers | Ami Pedahzur",
+            "og:description": (
+                "Essays on research, evidence, and academic craft by Ami Pedahzur."
+            ),
+            "og:url": "https://pedahzur.github.io/A.M.Pedahzur/blog/",
+            "twitter:card": "summary",
+            "twitter:title": "Writing Research for Readers | Ami Pedahzur",
+            "twitter:description": (
+                "Essays on research, evidence, and academic craft by Ami Pedahzur."
+            ),
+        }
+        for key, value in expected_blog_metadata.items():
+            self.assertEqual([value], blog_collector.values.get(key), key)
+
+        article_collector = MetadataCollector()
+        article_collector.feed(ARTICLE_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(1, len(article_collector.json_ld))
+        article_data = json.loads(article_collector.json_ld[0])
+        self.assertEqual(
+            "An academic book should meet two full demands: persuasive research "
+            "and writing that leads readers through it with clarity, momentum, "
+            "and respect.",
+            article_data.get("description"),
+        )
+        self.assertEqual(
+            "academic books, academic writing, research methods, public scholarship",
+            article_data.get("keywords"),
+        )
+
+    def test_academic_blog_navigation_has_visible_home_links(self) -> None:
+        blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
+        article = ARTICLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('<a href="../">Home</a>', blog)
+        self.assertIn('<a href="./" aria-current="page">Blog</a>', blog)
+        self.assertIn('<a href="../../">Home</a>', article)
+        self.assertIn('<a href="../" aria-current="location">Blog</a>', article)
 
     def test_academic_blog_post_preserves_article_contract(self) -> None:
         post_path = (
@@ -208,14 +479,8 @@ class SiteContractTests(unittest.TestCase):
         )
 
     def test_academic_blog_post_preserves_source_structure_and_note_graph(self) -> None:
-        post_path = (
-            ROOT
-            / "blog"
-            / "academic-rigor-and-writing-for-a-wider-audience"
-            / "index.html"
-        )
         collector = ArticleContractCollector()
-        collector.feed(post_path.read_text(encoding="utf-8"))
+        collector.feed(ARTICLE_PATH.read_text(encoding="utf-8"))
 
         self.assertEqual(
             [
@@ -289,6 +554,19 @@ class SiteContractTests(unittest.TestCase):
                 "Exit point: what has changed in the reader’s understanding and what draws the reader into the next chapter.",
             ],
             collector.unordered_lists,
+        )
+
+    def test_academic_blog_preserves_all_source_visible_scholarly_content(self) -> None:
+        collector = ArticleProseCollector()
+        collector.feed(ARTICLE_PATH.read_text(encoding="utf-8"))
+
+        note_bodies = [text for kind, text in collector.records if kind == "note"]
+        self.assertEqual(194, len(collector.records))
+        self.assertEqual(16, len(note_bodies))
+        self.assertEqual(16, len(set(note_bodies)))
+        self.assertEqual(
+            "e6976fe8ae6f2a754ef6d04780602d3e840369d260ff68261f72c57afe4400e9",
+            collector.digest(),
         )
 
     def test_internal_links_resolve(self) -> None:
@@ -564,11 +842,37 @@ class SiteContractTests(unittest.TestCase):
         self.assertNotIn("book-root-causes.html", sitemap)
         self.assertFalse((ROOT / "book-root-causes.html").exists())
 
-    def test_public_pages_contain_no_private_paths(self) -> None:
-        for page in ROOT.rglob("*.html"):
+    def test_tracked_public_text_contains_no_private_paths(self) -> None:
+        result = subprocess.run(
+            [
+                "git",
+                "ls-files",
+                "-z",
+                "--",
+                "*.html",
+                "*.css",
+                "*.xml",
+                "*.md",
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
+        tracked_paths = [
+            ROOT / path
+            for path in result.stdout.decode("utf-8").split("\0")
+            if path
+        ]
+        self.assertTrue(tracked_paths)
+        forbidden_markers = (
+            "/Users/",
+            "file" + "://",
+            "/Users/" + "amipedahzur" + "/",
+        )
+        for page in tracked_paths:
             text = page.read_text(encoding="utf-8")
-            self.assertNotIn("/Users/", text, str(page.relative_to(ROOT)))
-            self.assertNotIn("Second-Brain", text, str(page.relative_to(ROOT)))
+            for marker in forbidden_markers:
+                self.assertNotIn(marker, text, str(page.relative_to(ROOT)))
 
 
 if __name__ == "__main__":
