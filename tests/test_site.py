@@ -27,6 +27,90 @@ class LinkCollector(HTMLParser):
             self.links.append(target)
 
 
+class ArticleContractCollector(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.ids: list[str] = []
+        self.subsection_titles: list[str] = []
+        self.noterefs: list[tuple[str, str]] = []
+        self.endnote_ids: set[str] = set()
+        self.footnote_back_hrefs: list[str] = []
+        self.tables: list[tuple[set[str], list[list[str]]]] = []
+        self.unordered_lists: list[list[str]] = []
+        self._heading_parts: list[str] | None = None
+        self._unordered_list_stack: list[tuple[list[str], list[str] | None]] = []
+        self._table_classes: set[str] | None = None
+        self._table_rows: list[list[str]] = []
+        self._table_row: list[str] | None = None
+        self._table_cell_parts: list[str] | None = None
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        values = dict(attrs)
+        element_id = values.get("id")
+        if element_id is not None:
+            self.ids.append(element_id)
+        classes = set((values.get("class") or "").split())
+        if tag == "h3":
+            self._heading_parts = []
+        if tag == "table":
+            self._table_classes = classes
+            self._table_rows = []
+        if tag == "tr" and self._table_classes is not None:
+            self._table_row = []
+        if tag in {"th", "td"} and self._table_row is not None:
+            self._table_cell_parts = []
+        if tag == "ul":
+            self._unordered_list_stack.append(([], None))
+        if tag == "li" and self._unordered_list_stack:
+            items, _ = self._unordered_list_stack[-1]
+            self._unordered_list_stack[-1] = (items, [])
+        if values.get("role") == "doc-endnote" and element_id:
+            self.endnote_ids.add(element_id)
+        if tag != "a":
+            return
+        href = values.get("href")
+        if values.get("role") == "doc-noteref":
+            self.noterefs.append((element_id or "", href or ""))
+        if "footnote-back" in classes and href:
+            self.footnote_back_hrefs.append(href)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "h3" and self._heading_parts is not None:
+            self.subsection_titles.append("".join(self._heading_parts).strip())
+            self._heading_parts = None
+        if tag in {"th", "td"} and self._table_cell_parts is not None:
+            self._table_row.append("".join(self._table_cell_parts).strip())
+            self._table_cell_parts = None
+        if tag == "tr" and self._table_row is not None:
+            self._table_rows.append(self._table_row)
+            self._table_row = None
+        if tag == "table" and self._table_classes is not None:
+            self.tables.append((self._table_classes, self._table_rows))
+            self._table_classes = None
+            self._table_rows = []
+        if tag == "li" and self._unordered_list_stack:
+            items, item_parts = self._unordered_list_stack[-1]
+            if item_parts is not None:
+                items.append("".join(item_parts).strip())
+                self._unordered_list_stack[-1] = (items, None)
+        if tag == "ul" and self._unordered_list_stack:
+            items, _ = self._unordered_list_stack.pop()
+            self.unordered_lists.append(items)
+
+    def handle_data(self, data: str) -> None:
+        if self._heading_parts is not None:
+            self._heading_parts.append(data)
+        if self._table_cell_parts is not None:
+            self._table_cell_parts.append(data)
+        if self._unordered_list_stack:
+            items, item_parts = self._unordered_list_stack[-1]
+            if item_parts is not None:
+                item_parts.append(data)
+                self._unordered_list_stack[-1] = (items, item_parts)
+
+
 class SiteContractTests(unittest.TestCase):
     def test_academic_blog_is_discoverable(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -76,6 +160,90 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn(
             "It makes credibility interesting and interest worthy of trust.",
             post,
+        )
+
+    def test_academic_blog_post_preserves_source_structure_and_note_graph(self) -> None:
+        post_path = (
+            ROOT
+            / "blog"
+            / "academic-rigor-and-writing-for-a-wider-audience"
+            / "index.html"
+        )
+        collector = ArticleContractCollector()
+        collector.feed(post_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            [
+                "The Claim and the Promise",
+                "The Three Maps",
+                "From a Table of Contents to Chapter Cards",
+                "Writing That Continues the Research",
+                "Opening the Chapter and Writing the Introduction",
+                "Revision, Removal, and Test Readers",
+                "When the Desire to Engage Harms the Research",
+                "When the Desire for Protection Harms the Book",
+                "The Promise a Book Cannot Make",
+                "A Diagnostic Tool",
+                "A Portable Idea That Connects Worlds: Seeing Like a State",
+                "A Layered Journey of Proof: Making Democracy Work",
+                "From General Pattern to Mechanism: Why Civil Resistance Works",
+                "Academic Expertise in a Public-Facing Book: How Democracies Die",
+                "What the Four Books Teach",
+            ],
+            collector.subsection_titles,
+        )
+        self.assertEqual(len(collector.ids), len(set(collector.ids)))
+        self.assertTrue(all(collector.ids))
+
+        call_ids = [call_id for call_id, _ in collector.noterefs]
+        self.assertEqual(20, len(call_ids))
+        self.assertEqual(20, len(set(call_ids)))
+        self.assertEqual(16, len(collector.endnote_ids))
+        endnote_targets = {href.removeprefix("#") for _, href in collector.noterefs}
+        for call_id, href in collector.noterefs:
+            self.assertTrue(call_id)
+            self.assertTrue(href.startswith("#"))
+            self.assertIn(href.removeprefix("#"), collector.endnote_ids)
+        self.assertEqual(collector.endnote_ids, endnote_targets)
+
+        for href in collector.footnote_back_hrefs:
+            self.assertTrue(href.startswith("#"))
+        backlink_targets = [href.removeprefix("#") for href in collector.footnote_back_hrefs]
+        self.assertEqual(20, len(backlink_targets))
+        self.assertEqual(20, len(set(backlink_targets)))
+        self.assertEqual(set(call_ids), set(backlink_targets))
+
+        diagnostic_table_rows = [
+                    [
+                        "Danger",
+                        "Temptation",
+                        "Scholarly cost",
+                        "Reader’s experience",
+                        "Repair",
+                    ],
+                    [
+                        "Sensationalism",
+                        "Magnify the book’s importance",
+                        "Claim exceeds the evidence",
+                        "The promise goes unfulfilled",
+                        "Calibrate title and opening to the actual contribution",
+                    ],
+                ]
+        self.assertTrue(
+            any(
+                "article-table" in classes and rows[:2] == diagnostic_table_rows
+                for classes, rows in collector.tables
+            )
+        )
+        self.assertIn(
+            [
+                "Role in the whole: why the book needs this chapter.",
+                "Work of the chapter: the claim, theme, comparison, or process it develops.",
+                "Central evidence: the materials that support that work.",
+                "Entry point: what the reader already knows and still seeks to understand.",
+                "Exit point: what has changed in the reader’s understanding and what draws the reader into the next chapter.",
+            ],
+            collector.unordered_lists,
         )
 
     def test_internal_links_resolve(self) -> None:
