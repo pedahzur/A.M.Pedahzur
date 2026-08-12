@@ -133,6 +133,29 @@ class SiteContractTests(unittest.TestCase):
             self.assertIn(token, styles)
         self.assertIn('href="#main-content"', post)
         self.assertIn('id="main-content"', post)
+        self.assertIn(
+            ".essay-body {\n"
+            "  font-family: var(--font-serif);\n"
+            "  inline-size: 100%;\n"
+            "  max-inline-size: var(--reading-measure);",
+            styles,
+        )
+        self.assertIn(
+            ".footnote-ref { color: var(--accent);",
+            styles,
+        )
+        self.assertIn(
+            '<h2 id="notes-and-sources">Notes and Sources</h2>',
+            post,
+        )
+        self.assertNotIn(
+            '<section id="notes-and-sources" class="level2">',
+            post,
+        )
+        self.assertIn(
+            'role="doc-endnotes" aria-labelledby="notes-and-sources"',
+            post,
+        )
 
     def test_academic_blog_is_discoverable(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
