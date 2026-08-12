@@ -28,6 +28,27 @@ class LinkCollector(HTMLParser):
 
 
 class SiteContractTests(unittest.TestCase):
+    def test_academic_blog_is_discoverable(self) -> None:
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        blog_path = ROOT / "blog" / "index.html"
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+
+        self.assertTrue(blog_path.is_file())
+        blog = blog_path.read_text(encoding="utf-8")
+        self.assertIn('href="blog/"', homepage)
+        self.assertIn('id="academic-blog"', homepage)
+        self.assertIn("Between Academic Rigor and Writing for a Wider Audience", homepage)
+        self.assertIn(
+            'href="academic-rigor-and-writing-for-a-wider-audience/"',
+            blog,
+        )
+        self.assertIn(
+            '<link rel="canonical" href="https://pedahzur.github.io/A.M.Pedahzur/blog/">',
+            blog,
+        )
+        self.assertIn('href="blog.css"', blog)
+        self.assertIn("https://pedahzur.github.io/A.M.Pedahzur/blog/", sitemap)
+
     def test_internal_links_resolve(self) -> None:
         broken: list[str] = []
         for page in ROOT.rglob("*.html"):
