@@ -61,7 +61,7 @@ a { color: inherit; }
 
 nav { display: flex; flex-wrap: wrap; gap: 1rem; }
 nav a { color: var(--muted); text-decoration: none; }
-nav a:hover, nav a:focus, .read-link:hover, .read-link:focus { color: var(--accent-warm); }
+nav a:hover, nav a:focus, .read-link:hover, .read-link:focus { color: var(--accent); }
 
 .masthead { padding: 5rem 0 3rem; max-width: var(--reading-measure); }
 .eyebrow, .essay-meta { color: var(--muted); font-size: .875rem; letter-spacing: .06em; text-transform: uppercase; }
