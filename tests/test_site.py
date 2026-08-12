@@ -112,6 +112,28 @@ class ArticleContractCollector(HTMLParser):
 
 
 class SiteContractTests(unittest.TestCase):
+    def test_academic_blog_uses_accessible_editorial_design(self) -> None:
+        styles = (ROOT / "blog" / "blog.css").read_text(encoding="utf-8")
+        post = (
+            ROOT
+            / "blog"
+            / "academic-rigor-and-writing-for-a-wider-audience"
+            / "index.html"
+        ).read_text(encoding="utf-8")
+
+        for token in (
+            "--reading-measure: 68ch;",
+            "grid-template-columns: minmax(0, 68ch) minmax(13rem, 17rem);",
+            "position: sticky;",
+            "line-height: 1.78;",
+            "overflow-x: auto;",
+            "@media (prefers-reduced-motion: reduce)",
+            ":focus-visible",
+        ):
+            self.assertIn(token, styles)
+        self.assertIn('href="#main-content"', post)
+        self.assertIn('id="main-content"', post)
+
     def test_academic_blog_is_discoverable(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         blog_path = ROOT / "blog" / "index.html"
