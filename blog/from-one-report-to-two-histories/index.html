@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From One Report to Two Histories: Building an Agent for Historical Newspaper Research | Ami Pedahzur</title>
+  <meta name="description" content="A reproducible method for finding, verifying, and comparing multilingual newspaper evidence without letting AI replace the historian’s judgment.">
+  <link rel="canonical" href="https://pedahzur.github.io/A.M.Pedahzur/blog/from-one-report-to-two-histories/">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ami Pedahzur">
+  <meta property="og:title" content="From One Report to Two Histories: Building an Agent for Historical Newspaper Research">
+  <meta property="og:description" content="A reproducible workflow for finding, verifying, and comparing multilingual newspaper evidence without allowing AI to replace the historian’s judgment.">
+  <meta property="og:url" content="https://pedahzur.github.io/A.M.Pedahzur/blog/from-one-report-to-two-histories/">
+  <meta property="article:published_time" content="2026-08-13">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="From One Report to Two Histories: Building an Agent for Historical Newspaper Research">
+  <meta name="twitter:description" content="A reproducible workflow for finding, verifying, and comparing multilingual newspaper evidence without allowing AI to replace the historian’s judgment.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "From One Report to Two Histories: Building an Agent for Historical Newspaper Research",
+    "description": "A reproducible workflow for finding, verifying, and comparing multilingual newspaper evidence without allowing AI to replace the historian’s judgment.",
+    "keywords": "historical newspapers, digital history, AI-assisted research, source criticism, multilingual archives",
+    "author": {"@type": "Person", "name": "Ami Pedahzur"},
+    "datePublished": "2026-08-13",
+    "url": "https://pedahzur.github.io/A.M.Pedahzur/blog/from-one-report-to-two-histories/"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Literata:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="wordmark" href="../../">A. Pedahzur</a>
+    <nav aria-label="Primary">
+      <a href="../../">Home</a>
+      <a href="../../#about">About</a>
+      <a href="../../#books">Books</a>
+      <a href="../../#articles">Articles</a>
+      <a href="../" aria-current="location">Blog</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <article class="essay" aria-labelledby="article-title">
+      <header class="article-header">
+        <p class="eyebrow">Academic Blog</p>
+        <h1 id="article-title">From One Report to Two Histories: Building an Agent for Historical Newspaper Research</h1>
+        <p class="article-deck">A reproducible workflow for finding, verifying, and comparing multilingual newspaper evidence without allowing AI to replace the historian’s judgment.</p>
+        <p class="essay-meta"><time datetime="2026-08-13">August 13, 2026</time> <span aria-hidden="true">·</span> 13 min read</p>
+      </header>
+      <details class="mobile-toc">
+        <summary>Contents</summary>
+        <nav aria-label="Article contents">
+          <ol>
+            <li><a href="#from-scarce-access-to-too-much-information">From Scarce Access to Too Much Information</a></li>
+            <li><a href="#from-five-questions-to-an-event-reconstruction">From Five Questions to an Event Reconstruction</a></li>
+            <li><a href="#between-the-page-and-the-claim">Between the Page and the Claim</a></li>
+            <li><a href="#from-pilot-to-skill">From Pilot to Skill</a></li>
+            <li><a href="#what-the-method-adds">What the Method Adds</a></li>
+            <li><a href="#notes-and-sources">Notes and Sources</a></li>
+          </ol>
+        </nav>
+      </details>
+      <div class="article-layout">
+        <aside class="article-toc">
+          <nav aria-label="Article contents">
+            <p>Contents</p>
+            <ol>
+              <li><a href="#from-scarce-access-to-too-much-information">From Scarce Access to Too Much Information</a></li>
+              <li><a href="#from-five-questions-to-an-event-reconstruction">From Five Questions to an Event Reconstruction</a></li>
+              <li><a href="#between-the-page-and-the-claim">Between the Page and the Claim</a></li>
+              <li><a href="#from-pilot-to-skill">From Pilot to Skill</a></li>
+              <li><a href="#what-the-method-adds">What the Method Adds</a></li>
+              <li><a href="#notes-and-sources">Notes and Sources</a></li>
+            </ol>
+          </nav>
+        </aside>
+        <div class="article-body essay-body">
+          <p>On July 11, 1938, near the village of Dabburiya, a force of British soldiers and Jewish auxiliary policemen encountered an armed Arab group. The battle appeared the next day in Hebrew and Arabic newspapers. Several basic details recurred: at least three members of the armed group were killed, one Jewish auxiliary policeman was killed, and Captain Orde Wingate and several soldiers and policemen were wounded. The readers did not, however, receive the same story.</p>
+          <p><em>Haaretz</em> placed the report on its front page within a cluster titled “A Wave of Terror throughout the Country.” <em>Davar</em> published a short item on the same page under the heading “Battle with a Large Gang,” alongside a report on the funeral of auxiliary policeman Yosef Ben-Moshe, and expanded its account in the evening supplement. The Arabic newspaper <em>Filasṭīn</em> included a “Description of the Battle of Dabburiya” under a broad headline about casualties and violence. Its report continued from the battle to what followed: a large force entered the village, surrounded it, and searched the houses. Three newspapers reported one event. Each selected a different point of observation.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+
+          <figure class="source-figure">
+            <div class="article-table-wrap" tabindex="0" role="region" aria-labelledby="source-cards-caption">
+              <table class="article-table">
+                <colgroup>
+                  <col style="width: 13%">
+                  <col style="width: 19%">
+                  <col style="width: 25%">
+                  <col style="width: 27%">
+                  <col style="width: 16%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">Publication</th>
+                    <th scope="col">Date and location</th>
+                    <th scope="col">Verified title or description</th>
+                    <th scope="col">Information source</th>
+                    <th scope="col">Verification status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><em>Haaretz</em></td>
+                    <td>July 12, 1938, p. 1</td>
+                    <td>“A Wave of Terror throughout the Country”</td>
+                    <td>Government Information Office</td>
+                    <td>Scan inspected</td>
+                  </tr>
+                  <tr>
+                    <td><em>Davar</em></td>
+                    <td>July 12, 1938, p. 1 and evening supplement</td>
+                    <td>“Battle with a Large Gang”</td>
+                    <td>A shared official source is plausible, not proved</td>
+                    <td>Scans inspected</td>
+                  </tr>
+                  <tr>
+                    <td><em>Filasṭīn</em></td>
+                    <td>July 12, 1938, items <a href="https://www.nli.org.il/he/newspapers/?a=d&amp;d=falastin19380712-01.2.5">5</a> and <a href="https://www.nli.org.il/he/newspapers/?a=d&amp;d=falastin19380712-01.2.19">19</a></td>
+                    <td>“Description of the Battle of Dabburiya” and continuation</td>
+                    <td>Newspaper reporting and an official communiqué</td>
+                    <td>Scans and records inspected</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <figcaption id="source-cards-caption"><strong>Figure 1.</strong> Three source cards for one event. Titles, information origins, and verification states remain separate because three newspapers do not necessarily provide three independent accounts. This public rendering replaces the newspaper scans, which are not redistributed without a rights review.</figcaption>
+          </figure>
+
+          <p>When I began searching for the Arabic-press counterpart to the Haganah Field Companies and the Special Night Squads, I first searched for the names of the units. It was a logical starting point, and it produced almost nothing. The equivalent Arabic phrases did not appear in the relevant results. Wingate’s name appeared only after I tried several spellings. The search changed when I stopped asking what the unit was called and began asking what had happened: where the event took place, when it occurred, who participated, who was hurt, and what the force did after the battle. A search for Dabburiya returned eighteen results for 1938. Two led to this event.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+          <p>This is where the agent emerged. I did not ask it to write history for me. I asked it to remember every query, suggest alternatives across Hebrew and Arabic, separate OCR from what appears on the page, and link reports only when the date, place, and at least two additional details matched. Dabburiya became more than a search term. It became a test of method. The question was no longer only what each newspaper had reported. It was also how the route from archive to historical claim could be reconstructed, inspected, and corrected.</p>
+
+          <section id="from-scarce-access-to-too-much-information" class="numbered-section">
+            <h2>1. From Scarce Access to Too Much Information</h2>
+            <p>Before the information revolution, scarcity began before the reading did. A researcher had to know where a newspaper was held, travel to a library or archive, request bound volumes or scroll through microfilm, photograph or scan the relevant issues, and find a way to return to them later. Even when microfilm removed the need to visit the original archive, the work remained sequential: page after page. OCR databases and digital photography changed that order. Researchers can now search centuries of newspapers and thousands of pages within minutes. They can sometimes find information without knowing in advance which collection contains it.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+            <p>Access became easier, but the bottleneck moved. Careful research still requires many hours. The abundance of sources requires the researcher to choose queries, distinguish accidental matches from relevant reports, check OCR against the page, preserve context, and determine whether two accounts rely on the same communiqué. A digital newspaper archive is not a transparent copy of the press. It is a selective database shaped by title selection, scan quality, search design, and errors in character recognition. Studies of digital newspaper collections show that these errors can cause a substantial share of relevant mentions to disappear from search results.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+            <p>This is where artificial intelligence can help keep us from drowning in information. An agent can already propose multilingual variants, locate sources, search within them, sort candidates, import files at the highest quality the archive permits, preserve metadata and links, compare accounts, and identify agreements and contradictions. In time, it may read multilingual pages more accurately and connect distant versions of the same event. It does not determine scan quality or grant permission to reuse an image. Those decisions remain with the archive and the rights holders. Nor does it replace reading. Its contribution is to narrow the space in which human reading must be exact.</p>
+          </section>
+
+          <section id="from-five-questions-to-an-event-reconstruction" class="numbered-section">
+            <h2>2. From Five Questions to an Event Reconstruction</h2>
+            <p>I did not try to scan the entire archive. I began with a Hebrew-language pilot organized around five questions. The first asked how the press described Wingate at the time. The second examined the Hebrew names used for the Special Night Squads. The third concerned the relationship between Wingate and Yitzhak Sadeh. The final two asked when the terms <em>Nodedot</em> and <em>Fosh</em> appeared, and how the transition from passive defense to offensive action was described. The boundaries made it possible to test which query families worked, where the OCR misled, and what documentation another researcher would need to reconstruct the route.</p>
+            <p>In the Arabic-press pilot, I again began by translating unit names. The queries <code lang="ar" dir="rtl">الفرق الليلية</code> and <code lang="ar" dir="rtl">فصائل الميدان</code> returned no matches. Three other spellings of Wingate’s name also produced nothing. The search log preserved these failures. I then expanded the matrix to include names and alternate spellings, places such as Hanita and Dabburiya, infrastructure such as the oil pipeline, and actions and outcomes such as patrol, ambush, shooting, casualties, encirclement, and search. The spelling <code lang="ar" dir="rtl">ونجيت</code> produced two results. The phrase <code lang="ar" dir="rtl">الكابتن ونجيت</code> led directly to the Dabburiya report.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+            <p>Once the reports had been found, I did not connect them because they shared a word. Two sources were defined as describing the same event only when the date and place overlapped and at least two further features matched. In Dabburiya, these were the mixed British-Jewish force, Wingate’s injury, the casualty balance, and the operation in the village after the battle. The same rule left other links at “probable” when one decisive detail remained missing. The event became the unit of comparison. The keyword remained a navigational aid.</p>
+          </section>
+
+          <section id="between-the-page-and-the-claim" class="numbered-section">
+            <h2>3. Between the Page and the Claim</h2>
+            <p>The search produced candidates, not evidence. For every record, I preserved a chain of six layers. The first is the metadata supplied by the archive: newspaper, date, and link. The second is the raw OCR produced by the machine. The third is a transcription I read from the scan. The fourth is a cautious normalization of a misspelled title or historical spelling. The fifth is translation. Only the sixth layer contains research inference. These are not six competing versions of one text. They are separate stations along the route from page to claim. The distinction shows what the archive supplied, what the machine guessed, what the researcher read, and what the researcher concluded.</p>
+            <p>The archive itself requires the same transparency. A digital collection is a selection from the newspapers that survived, and a result list is a further selection produced by the query and the quality of the OCR. Research on collection bias, interdisciplinary workflows, and the impresso interface converges on one requirement: expose the collection’s composition, the provenance of the data, the stages of processing, and the quality of each stage.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+            <p>Dabburiya exposed another problem. <em>Haaretz</em> attributed the battle details to the Government Information Office. Similar details and casualty figures in <em>Davar</em> make a shared official source plausible, although not fully proved. <em>Filasṭīn</em> combined the core of an official announcement with additional information about the encirclement of the village and the house searches. The three publications therefore produced three frames, but not necessarily three independent accounts. I counted publications, information origins, and points of view separately. The same communiqué is not a third confirmation of the facts. It is evidence of how each newsroom chose to position, expand, and frame them.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+          </section>
+
+          <section id="from-pilot-to-skill" class="numbered-section">
+            <h2>4. From Pilot to Skill</h2>
+            <p>After the pilot, I turned the sequence into a skill: a reusable package of instructions and templates that can be applied to a different question. The input is limited to a focused question, a date range, languages, and perspectives. The agent then constructs a search matrix, runs variants, and records every query in a log, including zero-result searches. Each candidate receives an identifier and enters a source manifest, a documented inventory of articles, links, verification states, and rights limitations. An event crosswalk tests which reports describe the same case and how dependent they are on one another. Only then does a candidate reach the human approval gate.</p>
+
+            <figure class="workflow-figure">
+              <div class="workflow-scroll" tabindex="0" role="region" aria-labelledby="workflow-caption">
+                <ol class="evidence-flow">
+                  <li><strong>Focused question</strong><span>Define the claim, date range, languages, and perspectives.</span></li>
+                  <li><strong>Multilingual search matrix</strong><span>Combine names, spellings, places, actions, and outcomes.</span></li>
+                  <li><strong>Candidate discovery</strong><span>Record every query, including failed searches.</span></li>
+                  <li><strong>Source manifest</strong><span>Preserve identifiers, metadata, links, status, and rights.</span></li>
+                  <li><strong>Raw OCR</strong><span>Keep machine text separate from proposed corrections.</span></li>
+                  <li><strong>Visual verification</strong><span>Inspect the scan before accepting wording or details.</span></li>
+                  <li><strong>Event matching</strong><span>Require date, place, and at least two further features.</span></li>
+                  <li><strong>Source assessment</strong><span>Test independence, contradictions, and framing.</span></li>
+                  <li><strong>Human approval gate</strong><span>Accept, reject, or return the candidate for more work.</span></li>
+                  <li><strong>Evidence package</strong><span>Produce citations, a crosswalk, and a qualified synthesis.</span></li>
+                </ol>
+              </div>
+              <p class="workflow-return">A candidate that fails the approval gate returns to the search log. It remains part of the audit trail instead of disappearing from the record.</p>
+              <figcaption id="workflow-caption"><strong>Figure 2.</strong> From a focused question to an auditable evidence package. The human gate is a research decision, not a decorative final check.</figcaption>
+            </figure>
+
+            <p>The language model enters this process as an assistant, not as an authoritative copy of the newspaper. It can propose OCR corrections, but it must not erase the raw output or replace the scan. The reason is empirical, not merely theoretical. In a study of nineteenth-century Latin American Spanish newspapers, about 78 percent of the changes proposed by the model were classified as hallucinations, while only about 12 percent were actual OCR corrections. The finding belongs to the setting tested in that study, but the wider warning travels well: a machine correction is a hypothesis that must be checked.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+            <p>The same rule applies to coding. The model can suggest whether a report relies on a communiqué, a local correspondent, or editorial synthesis, and can help rank candidates by relevance. The researcher must define the categories and test them against a human-coded sample. Recent work on qualitative coding illustrates this order. ASReview, a tool that uses active learning to screen scholarly literature, offers a complementary analogy: the algorithm prioritizes records, while the researcher decides what to include and when to stop. The skill does not fully implement either method. It adopts their division of labor. The machine shortens the queue and preserves the trail of decisions. The researcher verifies, interprets, and cites.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+          </section>
+
+          <section id="what-the-method-adds" class="numbered-section">
+            <h2>5. What the Method Adds</h2>
+            <p>The contribution is not a new algorithm. It is a lightweight and accessible connection, designed for an individual researcher, among practices already familiar to several research communities: multilingual search, criticism of collection boundaries, candidate prioritization, model-assisted coding, and source verification. The connection is organized around a historical event and produces an evidence package that can be inspected, transferred to another researcher, and corrected. It is especially useful when opposing groups described the same action in different terms.</p>
+            <p>The method has limits. The digital archive is not the entire press. OCR may conceal a relevant report. Knowledge of Arabic and Hebrew remains essential for checking names, context, and meaning. A source that has been found and verified may still be dependent on other reports. Access and rights restrictions determine what can be retained and what can be published. For these reasons, the skill does not claim exhaustiveness. It leaves gaps visible and records which next check might reduce them.</p>
+            <p>In the Dabburiya case, the agent did not resolve the historical question. It made the path to the answer visible, open to inspection, and open to correction.</p>
+          </section>
+
+          <h2 id="notes-and-sources">Notes and Sources</h2>
+          <section class="footnotes" id="footnotes" role="doc-endnotes" aria-labelledby="notes-and-sources">
+            <ol>
+              <li id="fn1" role="doc-endnote"><p>“Nehshol ha-teror be-khol helkei ha-arets” [A Wave of Terror throughout the Country], <em>Haaretz</em>, July 12, 1938, 1 [in Hebrew]; “Krav im knufya gedola” [Battle with a Large Gang], <em>Davar</em>, July 12, 1938, 1, and expanded report in the evening supplement, 2 [in Hebrew]; “Waṣf maʿrakat Dabbūriyya” [Description of the Battle of Dabburiya], in “Qatl yahūdiyyayn . . .” [Two Jews Killed . . .], <em>Filasṭīn</em>, July 12, 1938, <a href="https://www.nli.org.il/he/newspapers/?a=d&amp;d=falastin19380712-01.2.5">item 5</a>; continuation at <a href="https://www.nli.org.il/he/newspapers/?a=d&amp;d=falastin19380712-01.2.19">item 19</a> [in Arabic]. The reports combine local information and official reporting, so the three publications should not be treated as three independent accounts. <a href="#fnref1" class="footnote-back" role="doc-backlink" aria-label="Back to reference 1">↩</a></p></li>
+              <li id="fn2" role="doc-endnote"><p>Arabic-press pilot search log, July 31, 2026, queries <span lang="ar" dir="rtl">“الفرق الليلية”</span>, <span lang="ar" dir="rtl">“فصائل الميدان”</span>, <span lang="ar" dir="rtl">ونجيت</span>, <span lang="ar" dir="rtl">“الكابتن ونجيت”</span>, and <span lang="ar" dir="rtl">“دبورية”</span>. Search results were preserved in the research package. A zero-result query records that the search was run; it does not establish that the term was absent from the entire press. <a href="#fnref2" class="footnote-back" role="doc-backlink" aria-label="Back to reference 2">↩</a></p></li>
+              <li id="fn3" role="doc-endnote"><p>Ian Milligan, <em>The Transformation of Historical Research in the Digital Age</em> (Cambridge: Cambridge University Press, 2022), 14–15, <a href="https://doi.org/10.1017/9781009026055">https://doi.org/10.1017/9781009026055</a>; Lara Putnam, “The Transnational and the Text-Searchable: Digitized Sources and the Shadows They Cast,” <em>American Historical Review</em> 121, no. 2 (April 2016): 377–78, <a href="https://doi.org/10.1093/ahr/121.2.377">https://doi.org/10.1093/ahr/121.2.377</a>. <a href="#fnref3" class="footnote-back" role="doc-backlink" aria-label="Back to reference 3">↩</a></p></li>
+              <li id="fn4" role="doc-endnote"><p>Bob Nicholson, “The Digital Turn: Exploring the Methodological Possibilities of Digital Newspaper Archives,” <em>Media History</em> 19, no. 1 (2013): 59–61, <a href="https://doi.org/10.1080/13688804.2012.752963">https://doi.org/10.1080/13688804.2012.752963</a>; Jørgen Burchardt, “Are Searches in OCR-Generated Archives Trustworthy? An Analysis of Digital Newspaper Archives,” <em>Jahrbuch für Wirtschaftsgeschichte / Economic History Yearbook</em> 64, no. 1 (2023): 31–32, <a href="https://doi.org/10.1515/jbwg-2023-0003">https://doi.org/10.1515/jbwg-2023-0003</a>. <a href="#fnref4" class="footnote-back" role="doc-backlink" aria-label="Back to reference 4">↩</a></p></li>
+              <li id="fn5" role="doc-endnote"><p>Search logs from the Hebrew-language pilot and the Arabic-press counterpart pilot, July 31, 2026; accompanying source manifest and event crosswalk. The records remain in the research package. A negative search result records the query within the collection and date range examined; it does not prove that the term or event was absent from the press. <a href="#fnref5" class="footnote-back" role="doc-backlink" aria-label="Back to reference 5">↩</a></p></li>
+              <li id="fn6" role="doc-endnote"><p>Kaspar Beelen et al., “Bias and Representativeness in Digitized Newspaper Collections: Introducing the Environmental Scan,” <em>Digital Scholarship in the Humanities</em> 38, no. 1 (April 2023): 1–5, <a href="https://doi.org/10.1093/llc/fqac037">https://doi.org/10.1093/llc/fqac037</a>; Sarah Oberbichler et al., “Integrated Interdisciplinary Workflows for Research on Historical Newspapers: Perspectives from Humanities Scholars, Computer Scientists, and Librarians,” <em>Journal of the Association for Information Science and Technology</em> 73, no. 2 (February 2022): 225–39, <a href="https://doi.org/10.1002/asi.24565">https://doi.org/10.1002/asi.24565</a>; Marten Düring, Estelle Bunout, and Daniele Guido, “Transparent Generosity: Introducing the Impresso Interface for the Exploration of Semantically Enriched Historical Newspapers,” <em>Historical Methods</em> 57, no. 1 (2024): 20–24, <a href="https://doi.org/10.1080/01615440.2024.2344004">https://doi.org/10.1080/01615440.2024.2344004</a>. <a href="#fnref6" class="footnote-back" role="doc-backlink" aria-label="Back to reference 6">↩</a></p></li>
+              <li id="fn7" role="doc-endnote"><p>“Nehshol ha-teror be-khol helkei ha-arets,” 1; “Krav im knufya gedola,” 1; “Waṣf maʿrakat Dabbūriyya.” The assessment of dependence rests on explicit attribution in <em>Haaretz</em>, similarity between the Hebrew reports, and the classification of the information origin in <em>Filasṭīn</em> as mixed. It is not a finding that identical text was copied in all three newspapers. <a href="#fnref7" class="footnote-back" role="doc-backlink" aria-label="Back to reference 7">↩</a></p></li>
+              <li id="fn8" role="doc-endnote"><p>Laura Manrique-Gomez et al., “Historical Ink: 19th Century Latin American Spanish Newspaper Corpus with LLM OCR Correction,” in <em>Proceedings of the 4th International Conference on Natural Language Processing for Digital Humanities</em> (Miami: Association for Computational Linguistics, 2024), 134–36, <a href="https://doi.org/10.18653/v1/2024.nlp4dh-1.13">https://doi.org/10.18653/v1/2024.nlp4dh-1.13</a>. <a href="#fnref8" class="footnote-back" role="doc-backlink" aria-label="Back to reference 8">↩</a></p></li>
+              <li id="fn9" role="doc-endnote"><p>Zackary Okun Dunivin, “Scaling Hermeneutics: A Guide to Qualitative Coding with LLMs for Reflexive Content Analysis,” <em>EPJ Data Science</em> 14 (2025): article 28, secs. 1.3–4, <a href="https://doi.org/10.1140/epjds/s13688-025-00548-8">https://doi.org/10.1140/epjds/s13688-025-00548-8</a>; Rens van de Schoot et al., “An Open Source Machine Learning Framework for Efficient and Transparent Systematic Reviews,” <em>Nature Machine Intelligence</em> 3 (2021): 125–27, <a href="https://doi.org/10.1038/s42256-020-00287-7">https://doi.org/10.1038/s42256-020-00287-7</a>. <a href="#fnref9" class="footnote-back" role="doc-backlink" aria-label="Back to reference 9">↩</a></p></li>
+            </ol>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 Ami Pedahzur. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -15,6 +15,12 @@ ARTICLE_PATH = (
     / "academic-rigor-and-writing-for-a-wider-audience"
     / "index.html"
 )
+NEWSPAPER_ARTICLE_PATH = (
+    ROOT
+    / "blog"
+    / "from-one-report-to-two-histories"
+    / "index.html"
+)
 
 
 def css_declarations(
@@ -399,7 +405,23 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("https://pedahzur.github.io/A.M.Pedahzur/blog/", sitemap)
         self.assertIn(
             "<loc>https://pedahzur.github.io/A.M.Pedahzur/</loc>\n"
-            "    <lastmod>2026-08-12</lastmod>",
+            "    <lastmod>2026-08-13</lastmod>",
+            sitemap,
+        )
+
+    def test_newspaper_agent_post_is_discoverable(self) -> None:
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        title = "From One Report to Two Histories"
+        slug = "from-one-report-to-two-histories/"
+
+        self.assertTrue(NEWSPAPER_ARTICLE_PATH.is_file())
+        self.assertIn(title, homepage)
+        self.assertIn(title, blog)
+        self.assertIn(f'href="{slug}"', blog)
+        self.assertIn(
+            "https://pedahzur.github.io/A.M.Pedahzur/blog/" + slug,
             sitemap,
         )
 
@@ -438,6 +460,22 @@ class SiteContractTests(unittest.TestCase):
         self.assertEqual(
             "academic books, academic writing, research methods, public scholarship",
             article_data.get("keywords"),
+        )
+
+        newspaper_collector = MetadataCollector()
+        newspaper_collector.feed(
+            NEWSPAPER_ARTICLE_PATH.read_text(encoding="utf-8")
+        )
+        self.assertEqual(1, len(newspaper_collector.json_ld))
+        newspaper_data = json.loads(newspaper_collector.json_ld[0])
+        self.assertEqual(
+            "From One Report to Two Histories: Building an Agent for Historical Newspaper Research",
+            newspaper_data.get("headline"),
+        )
+        self.assertEqual("2026-08-13", newspaper_data.get("datePublished"))
+        self.assertEqual(
+            "historical newspapers, digital history, AI-assisted research, source criticism, multilingual archives",
+            newspaper_data.get("keywords"),
         )
 
     def test_academic_blog_navigation_has_visible_home_links(self) -> None:
@@ -485,6 +523,42 @@ class SiteContractTests(unittest.TestCase):
             "It makes credibility interesting and interest worthy of trust.",
             post,
         )
+
+    def test_newspaper_agent_post_preserves_article_contract(self) -> None:
+        post = NEWSPAPER_ARTICLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('"@type": "ScholarlyArticle"', post)
+        self.assertIn(
+            '<link rel="canonical" href="https://pedahzur.github.io/A.M.Pedahzur/blog/from-one-report-to-two-histories/">',
+            post,
+        )
+        self.assertIn('href="../blog.css"', post)
+        self.assertIn('class="essay"', post)
+        self.assertIn('class="article-toc"', post)
+        self.assertIn('class="mobile-toc"', post)
+        self.assertIn('class="article-table"', post)
+        self.assertIn('class="evidence-flow"', post)
+        self.assertEqual(5, post.count('class="numbered-section"'))
+        self.assertEqual(9, post.count('role="doc-noteref"'))
+        self.assertEqual(9, post.count('role="doc-endnote"'))
+        self.assertEqual(9, post.count('class="footnote-back"'))
+        self.assertIn(
+            "It made the path to the answer visible, open to inspection, and open to correction.",
+            post,
+        )
+        self.assertNotIn("<img", post)
+        self.assertNotIn(".pdf", post.lower())
+
+        collector = LinkCollector()
+        collector.feed(post)
+        self.assertEqual(len(collector.ids), len(set(collector.ids)))
+
+        contract = ArticleContractCollector()
+        contract.feed(post)
+        self.assertEqual(["col"] * 5, contract.table_header_scopes)
+        self.assertEqual(1, len(contract.table_wraps))
+        self.assertEqual("0", contract.table_wraps[0].get("tabindex"))
+        self.assertEqual("region", contract.table_wraps[0].get("role"))
 
     def test_academic_blog_post_preserves_source_structure_and_note_graph(self) -> None:
         collector = ArticleContractCollector()
