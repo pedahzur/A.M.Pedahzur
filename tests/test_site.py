@@ -1038,6 +1038,8 @@ class SiteContractTests(unittest.TestCase):
         )
         contract = FullNewspaperContractCollector()
         contract.feed(rendered)
+        rendered_structure = ArticleContractCollector()
+        rendered_structure.feed(rendered)
 
         english_contract = FullNewspaperContractCollector()
         english_contract.feed(
@@ -1195,14 +1197,36 @@ class SiteContractTests(unittest.TestCase):
             second = contract.prose_paragraphs[1]
             self.assertIn("שלושה עיתונים ובשלוש דרכי מסגור", second)
             self.assertIn("לא בהכרח בשלושה דיווחים עצמאיים", second)
-            self.assertIn("לשכת המידע הממשלתית", rendered)
             result_claim = paragraph_with("החיפוש אחר דבוריה בשנת 1938")
             self.assertIn("שמונה עשרה תוצאות", result_claim)
             self.assertIn("שתיים מהן עסקו באירוע", result_claim)
             matching_claim = contract.prose_paragraphs[3]
             self.assertIn("התאריך והמקום תואמים", matching_claim)
             self.assertIn("לפחות שני פרטים נוספים מתאימים", matching_claim)
+        with self.subTest(contract="Haaretz source-card origin stays in its row"):
+            source_tables = [
+                rows
+                for classes, rows in rendered_structure.tables
+                if "article-table" in classes
+            ]
+            self.assertEqual(1, len(source_tables))
+            haaretz_rows = [
+                row
+                for row in source_tables[0][1:]
+                if row and row[0] == "הארץ"
+            ]
+            self.assertEqual(1, len(haaretz_rows))
+            self.assertEqual("לשכת המידע הממשלתית", haaretz_rows[0][3])
         with self.subTest(contract="failed search does not establish absence"):
+            failed_search_claim = paragraph_with("הפיילוט בעיתונות הערבית החל")
+            self.assertIn(
+                "תוצאת אפס מעידה רק על החיפוש במאגר ובטווח התאריכים שנבדקו",
+                failed_search_claim,
+            )
+            self.assertIn(
+                "ולא על היעדר המונח מן העיתונות",
+                failed_search_claim,
+            )
             failed_search_note = contract.endnote_paragraphs[1]
             self.assertIn("תוצאת אפס מתעדת את ביצוע השאילתה", failed_search_note)
             self.assertIn("לא את היעדר המונח מן העיתונות כולה", failed_search_note)
