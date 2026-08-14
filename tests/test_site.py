@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import subprocess
 from tempfile import TemporaryDirectory
+import unicodedata
 from urllib.parse import unquote, urlparse
 import unittest
 from unittest.mock import patch
@@ -25,6 +26,24 @@ NEWSPAPER_ARTICLE_PATH = (
     / "from-one-report-to-two-histories"
     / "index.html"
 )
+HTML_VOID_ELEMENTS = {
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+}
+
+
 def css_declarations(
     styles: str, selector: str, required_property: str | None = None
 ) -> dict[str, str]:
@@ -82,12 +101,12 @@ class ArticleProseCollector(HTMLParser):
     """Canonicalize approved scholarly content, not presentation markup.
 
     The boundary includes the article title and deck plus every h2, h3,
-    paragraph, list item, table header/cell, and each of the 16 endnote bodies
-    in source order. It excludes dates/read-time labels, desktop/mobile TOCs,
-    note-call numbers, backlink glyphs, aria-hidden separators, navigation,
+    paragraph, list item, table header/cell, figure caption, and endnote body in
+    source order. It excludes dates/read-time labels, desktop/mobile TOCs,
+    note-call numbers, backlink glyphs, inaccessible subtrees, navigation,
     wrappers, IDs, classes, links, and other presentation-only attributes.
     Whitespace runs are normalized so harmless formatting changes do not alter
-    the digest; changing any source-visible scholarly text does.
+    the digest; changing any reader-visible scholarly text does.
     """
 
     def __init__(self) -> None:
@@ -108,27 +127,30 @@ class ArticleProseCollector(HTMLParser):
         classes = set((values.get("class") or "").split())
         if tag == "article" and "essay" in classes:
             self._article_depth = 1
-        elif self._article_depth:
+        elif self._article_depth and tag not in HTML_VOID_ELEMENTS:
             self._article_depth += 1
         if not self._article_depth:
             return
 
         if tag == "header" and "article-header" in classes:
             self._header_depth = 1
-        elif self._header_depth:
+        elif self._header_depth and tag not in HTML_VOID_ELEMENTS:
             self._header_depth += 1
         if "essay-body" in classes:
             self._body_depth = 1
-        elif self._body_depth:
+        elif self._body_depth and tag not in HTML_VOID_ELEMENTS:
             self._body_depth += 1
 
         presentation_only = (
-            values.get("role") in {"doc-noteref", "doc-backlink"}
-            or values.get("aria-hidden") == "true"
+            tag in {"script", "style", "template"}
+            or "hidden" in values
+            or values.get("role") in {"doc-noteref", "doc-backlink"}
+            or (values.get("aria-hidden") or "").lower() == "true"
             or "footnote-back" in classes
         )
         if presentation_only or self._excluded_depth:
-            self._excluded_depth += 1
+            if tag not in HTML_VOID_ELEMENTS:
+                self._excluded_depth += 1
             return
         if self._current_kind is not None:
             return
@@ -141,7 +163,15 @@ class ArticleProseCollector(HTMLParser):
         elif self._body_depth:
             if tag == "li" and values.get("role") == "doc-endnote":
                 kind = "note"
-            elif tag in {"h2", "h3", "p", "li", "th", "td"}:
+            elif tag in {
+                "h2",
+                "h3",
+                "p",
+                "li",
+                "th",
+                "td",
+                "figcaption",
+            }:
                 kind = tag
         if kind is not None:
             self._current_kind = kind
@@ -149,6 +179,8 @@ class ArticleProseCollector(HTMLParser):
             self._parts = []
 
     def handle_endtag(self, tag: str) -> None:
+        if tag in HTML_VOID_ELEMENTS:
+            return
         if self._excluded_depth:
             self._excluded_depth -= 1
         elif self._current_kind is not None and tag == self._current_tag:
@@ -164,13 +196,22 @@ class ArticleProseCollector(HTMLParser):
         if self._article_depth:
             self._article_depth -= 1
 
+    def handle_startendtag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in HTML_VOID_ELEMENTS:
+            self.handle_endtag(tag)
+
     def handle_data(self, data: str) -> None:
         if self._current_kind is not None and not self._excluded_depth:
             self._parts.append(data)
 
     def digest(self) -> str:
         payload = "\n".join(
-            f"{kind}\t{text}" for kind, text in self.records
+            f"{unicodedata.normalize('NFC', kind)}\t"
+            f"{' '.join(unicodedata.normalize('NFC', text).split())}"
+            for kind, text in self.records
         ).encode("utf-8")
         return hashlib.sha256(payload).hexdigest()
 
@@ -179,19 +220,251 @@ class LinkCollector(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.links: list[str] = []
-        self.ids: set[str] = set()
+        self.ids: list[str] = []
 
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
         values = dict(attrs)
-        if values.get("id"):
-            self.ids.add(values["id"] or "")
+        if "id" in values:
+            self.ids.append(values.get("id") or "")
         if tag not in {"a", "link", "script"}:
             return
         target = values.get("href") or values.get("src")
         if target:
             self.links.append(target)
+
+
+class ArabicCodeCollector(HTMLParser):
+    """Collect rendered Arabic code spans and their language metadata."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.code_spans: list[tuple[str, dict[str, str | None]]] = []
+        self._attrs: dict[str, str | None] | None = None
+        self._parts: list[str] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        if tag == "code":
+            self._attrs = dict(attrs)
+            self._parts = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag != "code" or self._attrs is None:
+            return
+        text = "".join(self._parts)
+        if re.search(r"[\u0600-\u06ff]", text):
+            self.code_spans.append((text, self._attrs))
+        self._attrs = None
+        self._parts = []
+
+    def handle_data(self, data: str) -> None:
+        if self._attrs is not None:
+            self._parts.append(data)
+
+
+class FullNewspaperContractCollector(HTMLParser):
+    """Collect the reader-visible contract of the rendered Hebrew article."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.section_ids: list[str] = []
+        self.prose_paragraphs: list[str] = []
+        self.prose_noteref_targets: list[list[str]] = []
+        self.endnote_paragraphs: list[str] = []
+        self.title = ""
+        self.deck = ""
+        self.figure_count = 0
+        self.table_count = 0
+        self.noteref_count = 0
+        self.endnote_count = 0
+        self.workflow_stage_count = 0
+        self.workflow_stages: list[tuple[str, str]] = []
+        self.workflow_return = ""
+        self.workflow_caption = ""
+        self.external_hrefs: set[str] = set()
+        self.visible_parts: list[str] = []
+        self._essay_body_depth = 0
+        self._figure_depth = 0
+        self._footnotes_depth = 0
+        self._workflow_depth = 0
+        self._capture_kind: str | None = None
+        self._capture_tag: str | None = None
+        self._capture_parts: list[str] = []
+        self._capture_noteref_targets: list[str] = []
+        self._workflow_label_parts: list[str] | None = None
+        self._workflow_function_parts: list[str] | None = None
+        self._workflow_field: str | None = None
+        self._inaccessible_depth = 0
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        values = dict(attrs)
+        classes = set((values.get("class") or "").split())
+        starts_inaccessible_subtree = (
+            tag in {"script", "style", "template"}
+            or "hidden" in values
+            or (values.get("aria-hidden") or "").lower() == "true"
+        )
+        if self._inaccessible_depth:
+            if tag not in HTML_VOID_ELEMENTS:
+                self._inaccessible_depth += 1
+        elif starts_inaccessible_subtree and tag not in HTML_VOID_ELEMENTS:
+            self._inaccessible_depth = 1
+        if tag == "div" and "essay-body" in classes:
+            self._essay_body_depth = 1
+        elif self._essay_body_depth and tag not in HTML_VOID_ELEMENTS:
+            self._essay_body_depth += 1
+        if tag == "figure":
+            self._figure_depth = 1
+        elif self._figure_depth and tag not in HTML_VOID_ELEMENTS:
+            self._figure_depth += 1
+        if tag == "section" and values.get("id") == "footnotes":
+            self._footnotes_depth = 1
+        elif self._footnotes_depth and tag not in HTML_VOID_ELEMENTS:
+            self._footnotes_depth += 1
+        if tag == "ol" and "evidence-flow" in classes:
+            self._workflow_depth = 1
+        elif self._workflow_depth and tag not in HTML_VOID_ELEMENTS:
+            self._workflow_depth += 1
+        if self._inaccessible_depth:
+            return
+        if tag == "figure":
+            self.figure_count += 1
+
+        if (
+            tag == "section"
+            and "numbered-section" in classes
+            and values.get("id")
+        ):
+            self.section_ids.append(values["id"] or "")
+        if tag == "table" and self._essay_body_depth:
+            self.table_count += 1
+        if values.get("role") == "doc-noteref":
+            self.noteref_count += 1
+            if self._capture_kind == "prose":
+                self._capture_noteref_targets.append(values.get("href") or "")
+        if values.get("role") == "doc-endnote":
+            self.endnote_count += 1
+        if tag == "li" and self._workflow_depth:
+            self.workflow_stage_count += 1
+            self._workflow_label_parts = []
+            self._workflow_function_parts = []
+        if tag == "strong" and self._workflow_label_parts is not None:
+            self._workflow_field = "label"
+        if tag == "span" and self._workflow_function_parts is not None:
+            self._workflow_field = "function"
+        if tag == "a":
+            href = values.get("href") or ""
+            if href.startswith(("https://", "http://")):
+                self.external_hrefs.add(href)
+
+        capture_kind: str | None = None
+        if tag == "h1":
+            capture_kind = "title"
+        elif tag == "p" and "article-deck" in classes:
+            capture_kind = "deck"
+        elif (
+            tag == "p"
+            and self._essay_body_depth
+            and not self._figure_depth
+            and not self._footnotes_depth
+        ):
+            capture_kind = "prose"
+        elif tag == "p" and self._footnotes_depth:
+            capture_kind = "endnote"
+        elif tag == "p" and "workflow-return" in classes:
+            capture_kind = "return"
+        elif tag == "figcaption" and values.get("id") == "workflow-caption":
+            capture_kind = "caption"
+        if capture_kind is not None:
+            self._capture_kind = capture_kind
+            self._capture_tag = tag
+            self._capture_parts = []
+            if capture_kind == "prose":
+                self._capture_noteref_targets = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in HTML_VOID_ELEMENTS:
+            return
+        if self._inaccessible_depth:
+            self._inaccessible_depth -= 1
+            if self._workflow_depth:
+                self._workflow_depth -= 1
+            if self._footnotes_depth:
+                self._footnotes_depth -= 1
+            if self._figure_depth:
+                self._figure_depth -= 1
+            if self._essay_body_depth:
+                self._essay_body_depth -= 1
+            return
+        if tag == "li" and self._workflow_label_parts is not None:
+            self.workflow_stages.append(
+                (
+                    " ".join("".join(self._workflow_label_parts).split()),
+                    " ".join("".join(self._workflow_function_parts or []).split()),
+                )
+            )
+            self._workflow_label_parts = None
+            self._workflow_function_parts = None
+            self._workflow_field = None
+        elif tag in {"strong", "span"} and self._workflow_field is not None:
+            self._workflow_field = None
+        if self._capture_kind is not None and tag == self._capture_tag:
+            captured = " ".join("".join(self._capture_parts).split())
+            if self._capture_kind == "prose":
+                self.prose_paragraphs.append(captured)
+                self.prose_noteref_targets.append(self._capture_noteref_targets)
+            elif self._capture_kind == "endnote":
+                self.endnote_paragraphs.append(captured)
+            elif self._capture_kind == "title":
+                self.title = captured
+            elif self._capture_kind == "deck":
+                self.deck = captured
+            elif self._capture_kind == "return":
+                self.workflow_return = captured
+            else:
+                self.workflow_caption = captured
+            self._capture_kind = None
+            self._capture_tag = None
+            self._capture_parts = []
+            self._capture_noteref_targets = []
+        if self._workflow_depth:
+            self._workflow_depth -= 1
+        if self._footnotes_depth:
+            self._footnotes_depth -= 1
+        if self._figure_depth:
+            self._figure_depth -= 1
+        if self._essay_body_depth:
+            self._essay_body_depth -= 1
+
+    def handle_startendtag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in HTML_VOID_ELEMENTS:
+            self.handle_endtag(tag)
+
+    def handle_data(self, data: str) -> None:
+        if self._inaccessible_depth:
+            return
+        self.visible_parts.append(data)
+        if self._capture_kind is not None:
+            self._capture_parts.append(data)
+        if self._workflow_field == "label" and self._workflow_label_parts is not None:
+            self._workflow_label_parts.append(data)
+        if (
+            self._workflow_field == "function"
+            and self._workflow_function_parts is not None
+        ):
+            self._workflow_function_parts.append(data)
+
+    @property
+    def visible_text(self) -> str:
+        return " ".join("".join(self.visible_parts).split())
 
 
 class TranslationRenderingCollector(HTMLParser):
@@ -253,7 +526,10 @@ class ArticleContractCollector(HTMLParser):
         self.subsection_titles: list[str] = []
         self.noterefs: list[tuple[str, str]] = []
         self.endnote_ids: set[str] = set()
+        self.endnote_id_sequence: list[str] = []
         self.footnote_back_hrefs: list[str] = []
+        self.endnote_backlinks: dict[str, list[str]] = {}
+        self.endnote_external_hrefs: dict[str, list[str]] = {}
         self.tables: list[tuple[set[str], list[list[str]]]] = []
         self.table_wraps: list[dict[str, str | None]] = []
         self.table_header_scopes: list[str | None] = []
@@ -266,11 +542,32 @@ class ArticleContractCollector(HTMLParser):
         self._table_rows: list[list[str]] = []
         self._table_row: list[str] | None = None
         self._table_cell_parts: list[str] | None = None
+        self._active_endnote_id: str | None = None
+        self._active_endnote_depth = 0
+        self._inaccessible_depth = 0
 
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
         values = dict(attrs)
+        starts_inaccessible_subtree = (
+            tag in {"script", "style", "template"}
+            or "hidden" in values
+            or (values.get("aria-hidden") or "").lower() == "true"
+        )
+        if self._inaccessible_depth:
+            if tag not in HTML_VOID_ELEMENTS:
+                self._inaccessible_depth += 1
+            return
+        if starts_inaccessible_subtree:
+            if tag not in HTML_VOID_ELEMENTS:
+                self._inaccessible_depth = 1
+            return
+        if (
+            self._active_endnote_id is not None
+            and tag not in HTML_VOID_ELEMENTS
+        ):
+            self._active_endnote_depth += 1
         element_id = values.get("id")
         if element_id is not None:
             self.ids.append(element_id)
@@ -296,6 +593,11 @@ class ArticleContractCollector(HTMLParser):
             self._unordered_list_stack[-1] = (items, [])
         if values.get("role") == "doc-endnote" and element_id:
             self.endnote_ids.add(element_id)
+            self.endnote_id_sequence.append(element_id)
+            self.endnote_backlinks[element_id] = []
+            self.endnote_external_hrefs[element_id] = []
+            self._active_endnote_id = element_id
+            self._active_endnote_depth = 1
         if tag != "a":
             return
         href = values.get("href")
@@ -303,8 +605,28 @@ class ArticleContractCollector(HTMLParser):
             self.noterefs.append((element_id or "", href or ""))
         if "footnote-back" in classes and href:
             self.footnote_back_hrefs.append(href)
+            if self._active_endnote_id is not None:
+                self.endnote_backlinks[self._active_endnote_id].append(href)
+        if (
+            self._active_endnote_id is not None
+            and href
+            and href.startswith(("https://", "http://"))
+        ):
+            self.endnote_external_hrefs[self._active_endnote_id].append(href)
+
+    def handle_startendtag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in HTML_VOID_ELEMENTS:
+            self.handle_endtag(tag)
 
     def handle_endtag(self, tag: str) -> None:
+        if tag in HTML_VOID_ELEMENTS:
+            return
+        if self._inaccessible_depth:
+            self._inaccessible_depth -= 1
+            return
         if tag == "h3" and self._heading_parts is not None:
             title = "".join(self._heading_parts).strip()
             self.subsection_titles.append(title)
@@ -330,8 +652,14 @@ class ArticleContractCollector(HTMLParser):
         if tag == "ul" and self._unordered_list_stack:
             items, _ = self._unordered_list_stack.pop()
             self.unordered_lists.append(items)
+        if self._active_endnote_id is not None:
+            self._active_endnote_depth -= 1
+            if self._active_endnote_depth == 0:
+                self._active_endnote_id = None
 
     def handle_data(self, data: str) -> None:
+        if self._inaccessible_depth:
+            return
         if self._heading_parts is not None:
             self._heading_parts.append(data)
         if self._table_cell_parts is not None:
@@ -1262,6 +1590,645 @@ class SiteContractTests(unittest.TestCase):
             text = page.read_text(encoding="utf-8")
             for marker in forbidden_markers:
                 self.assertNotIn(marker, text, str(page.relative_to(ROOT)))
+
+
+class HebrewNewspaperContractTests(unittest.TestCase):
+    """Lock the deployable, reader-visible Hebrew historical article."""
+
+    SLUG = "from-one-report-to-two-histories"
+    SOURCE_PATH = ROOT / "blog" / "sources" / "he" / f"{SLUG}.md"
+    CHECKED_IN_PATH = ROOT / "blog" / SLUG / "he" / "index.html"
+    EXPECTED_TITLE = (
+        "מידיעה אחת לשתי היסטוריות: בניית סוכן למחקר בעיתונות היסטורית"
+    )
+    EXPECTED_DECK = (
+        "שיטת עבודה לאיתור, לאימות ולהשוואה של ראיות מן העיתונות בכמה "
+        "שפות. את התהליך אפשר לשחזר, אך הבינה המלאכותית אינה מחליפה "
+        "בו את שיקול דעתו של ההיסטוריון."
+    )
+    EXPECTED_SECTIONS = [
+        "ממחסור-בגישה-לעודף-מידע",
+        "מחמש-שאלות-לשחזור-אירוע",
+        "בין-העמוד-לטענה",
+        "מן-הפיילוט-לסקיל",
+        "מה-השיטה-מוסיפה",
+    ]
+    EXPECTED_WORKFLOW_STAGES = [
+        (
+            "שאלה ממוקדת",
+            "הגדירו את הטענה, טווח התאריכים, השפות ונקודות המבט.",
+        ),
+        (
+            "מטריצת חיפוש רב־לשונית",
+            "שלבו שמות, כתיבים, מקומות, פעולות ותוצאות.",
+        ),
+        (
+            "איתור מקורות אפשריים לבדיקה",
+            "תעדו כל שאילתה, לרבות חיפושים שלא הניבו תוצאות.",
+        ),
+        (
+            "רשימת מקורות מתועדת",
+            "שמרו מזהים, מטא־דאטה, קישורים, מצב אימות ומגבלות זכויות.",
+        ),
+        (
+            "פלט OCR גולמי",
+            "הפרידו בין פלט המכונה לבין התיקונים המוצעים.",
+        ),
+        (
+            "אימות חזותי",
+            "בדקו את הסריקה לפני אישור נוסח או פרט.",
+        ),
+        (
+            "התאמה בין דיווחים",
+            "דרשו התאמה בתאריך, במקום ולפחות בשני מאפיינים נוספים.",
+        ),
+        (
+            "הערכת מקורות",
+            "בחנו עצמאות, סתירות ומסגור.",
+        ),
+        (
+            "נקודת בקרה אנושית",
+            "אשרו, דחו או החזירו את המקור לבדיקה נוספת.",
+        ),
+        (
+            "חבילת ראיות מתועדת",
+            "הפיקו מראי מקום, טבלת התאמה וסיכום מסויג.",
+        ),
+    ]
+    HOST_NOTE_TARGETS = [
+        ("שלושת העיתונים הציגו את אותו אירוע בדרכים שונות", "#fn1"),
+        ("בתחילת החיפוש בעיתונות הערבית", "#fn2"),
+        ("לפני מהפכת המידע", "#fn3"),
+        ("הגישה נעשתה קלה יותר", "#fn4"),
+        ("הפיילוט בעיתונות הערבית החל", "#fn5"),
+        ("גם המאגר עצמו מחייב שקיפות", "#fn6"),
+        ("ההשוואה בדבוריה ממחישה", "#fn7"),
+        ("מודל השפה משתתף בתהליך", "#fn8"),
+        ("גם בקידוד בסיוע מודל חלוקת העבודה נשארת ברורה", "#fn9"),
+    ]
+    EXPECTED_ENDNOTE_EXTERNAL_HREFS = {
+        "fn1": [
+            "https://www.nli.org.il/he/newspapers/"
+            "?a=d&d=falastin19380712-01.2.5",
+            "https://www.nli.org.il/he/newspapers/"
+            "?a=d&d=falastin19380712-01.2.19",
+        ],
+        "fn2": [],
+        "fn3": [
+            "https://doi.org/10.1017/9781009026055",
+            "https://doi.org/10.1093/ahr/121.2.377",
+        ],
+        "fn4": [
+            "https://doi.org/10.1080/13688804.2012.752963",
+            "https://doi.org/10.1515/jbwg-2023-0003",
+        ],
+        "fn5": [],
+        "fn6": [
+            "https://doi.org/10.1093/llc/fqac037",
+            "https://doi.org/10.1002/asi.24565",
+            "https://doi.org/10.1080/01615440.2024.2344004",
+        ],
+        "fn7": [],
+        "fn8": ["https://doi.org/10.18653/v1/2024.nlp4dh-1.13"],
+        "fn9": [
+            "https://doi.org/10.1140/epjds/s13688-025-00548-8",
+            "https://doi.org/10.1038/s42256-020-00287-7",
+        ],
+    }
+    EXPECTED_ARABIC_CODE_TEXTS = [
+        "الفرق الليلية",
+        "فصائل الميدان",
+        "ونجيت",
+        "الكابتن ونجيت",
+        '"الفرق الليلية"',
+        '"فصائل الميدان"',
+        "ونجيت",
+        '"الكابتن ونجيت"',
+        '"دبورية"',
+    ]
+    EXPECTED_CONTENT_DIGEST = (
+        "2244fd9b14d1b7568c8f323daed67d35d03e21cec0a3529a5273b48b41c2e3f4"
+    )
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.source = cls.SOURCE_PATH.read_text(encoding="utf-8")
+        cls.status = build_hebrew_blog.read_translation_status(cls.SLUG)
+        cls.generated_render = build_hebrew_blog.page(
+            cls.SLUG,
+            build_hebrew_blog.newspaper_body(),
+            cls.status,
+        )
+        cls.checked_in_render = cls.CHECKED_IN_PATH.read_text(encoding="utf-8")
+
+        cls.contract = FullNewspaperContractCollector()
+        cls.contract.feed(cls.checked_in_render)
+        cls.rendered_structure = ArticleContractCollector()
+        cls.rendered_structure.feed(cls.checked_in_render)
+        cls.content_collector = ArticleProseCollector()
+        cls.content_collector.feed(cls.checked_in_render)
+        cls.arabic_code_collector = ArabicCodeCollector()
+        cls.arabic_code_collector.feed(cls.checked_in_render)
+        cls.english_contract = FullNewspaperContractCollector()
+        cls.english_contract.feed(
+            NEWSPAPER_ARTICLE_PATH.read_text(encoding="utf-8")
+        )
+        cls.visible_prose_text = " ".join(cls.contract.prose_paragraphs)
+
+        mermaid_match = re.search(
+            r"```mermaid\n(?P<workflow>.*?)\n```",
+            cls.source,
+            re.DOTALL,
+        )
+        if mermaid_match is None:
+            raise AssertionError("Missing Mermaid workflow in Hebrew source")
+        cls.mermaid = mermaid_match.group("workflow")
+        cls.source_workflow_stages = [
+            (label, function)
+            for _, label, function in re.findall(
+                r'^\s*([A-J])\["([^"\n]+)<br/>([^"\n]+)"\]\s*$',
+                cls.mermaid,
+                re.MULTILINE,
+            )
+        ]
+
+    def paragraph_with(self, anchor: str) -> str:
+        matches = [
+            paragraph
+            for paragraph in self.contract.prose_paragraphs
+            if anchor in paragraph
+        ]
+        self.assertEqual(1, len(matches), anchor)
+        return matches[0]
+
+    def paragraph_note_targets(self, anchor: str) -> list[str]:
+        matches = [
+            targets
+            for paragraph, targets in zip(
+                self.contract.prose_paragraphs,
+                self.contract.prose_noteref_targets,
+                strict=True,
+            )
+            if anchor in paragraph
+        ]
+        self.assertEqual(1, len(matches), anchor)
+        return matches[0]
+
+    def endnote_with(self, anchor: str) -> str:
+        matches = [
+            note
+            for note in self.contract.endnote_paragraphs
+            if anchor in note
+        ]
+        self.assertEqual(1, len(matches), anchor)
+        return matches[0]
+
+    def test_checked_in_artifact_matches_builder_and_reviewed_state(self) -> None:
+        self.assertMultiLineEqual(self.generated_render, self.checked_in_render)
+        self.assertEqual("editor-reviewed", self.status)
+        self.assertIn(
+            'data-translation-status="editor-reviewed"',
+            self.checked_in_render,
+        )
+        self.assertNotIn(
+            'data-translation-status="author-approved"',
+            self.checked_in_render,
+        )
+        self.assertEqual(self.EXPECTED_TITLE, self.contract.title)
+        self.assertEqual(self.EXPECTED_DECK, self.contract.deck)
+
+    def test_complete_structure_and_accessible_table(self) -> None:
+        self.assertEqual(self.EXPECTED_SECTIONS, self.contract.section_ids)
+        self.assertEqual(19, len(self.contract.prose_paragraphs))
+        self.assertEqual((2, 1), (self.contract.figure_count, self.contract.table_count))
+        self.assertEqual((9, 9), (self.contract.noteref_count, self.contract.endnote_count))
+        self.assertTrue(all(self.rendered_structure.ids))
+        self.assertEqual(
+            len(self.rendered_structure.ids),
+            len(set(self.rendered_structure.ids)),
+        )
+        self.assertEqual(["col"] * 5, self.rendered_structure.table_header_scopes)
+        self.assertEqual(1, len(self.rendered_structure.table_wraps))
+        table_wrap = self.rendered_structure.table_wraps[0]
+        self.assertEqual("0", table_wrap.get("tabindex"))
+        self.assertEqual("region", table_wrap.get("role"))
+
+    def test_workflow_source_and_rendered_semantics_correspond(self) -> None:
+        self.assertEqual(10, self.contract.workflow_stage_count)
+        self.assertEqual(
+            self.EXPECTED_WORKFLOW_STAGES,
+            self.contract.workflow_stages,
+        )
+        self.assertEqual(
+            self.EXPECTED_WORKFLOW_STAGES,
+            self.source_workflow_stages,
+        )
+        for start, end in zip("ABCDEFGHI", "BCDEFGHIJ"):
+            self.assertRegex(self.mermaid, rf"(?m)^\s*{start} --> {end}\s*$")
+        self.assertRegex(
+            self.mermaid,
+            r'(?m)^\s*I -\. "נדחה או טעון בדיקה" \.-> C\s*$',
+        )
+        self.assertEqual(
+            "אשרו, דחו או החזירו את המקור לבדיקה נוספת.",
+            self.contract.workflow_stages[8][1],
+        )
+        self.assertIn("חוזר ליומן החיפוש", self.contract.workflow_return)
+        self.assertIn("תיעוד ההחלטות", self.contract.workflow_return)
+        self.assertIn("נשאר בתיעוד ההחלטות", self.source)
+        self.assertIn("החלטה מחקרית", self.contract.workflow_caption)
+        self.assertIn(
+            "לא בדיקה סופית למראית עין",
+            self.contract.workflow_caption,
+        )
+
+    def test_calibrated_opening_and_source_cards(self) -> None:
+        opening = self.paragraph_with("ב־11 ביולי 1938 כוח")
+        self.assertIn("לפחות שלושה מאנשי הקבוצה החמושה נהרגו", opening)
+        self.assertIn("נוטר יהודי אחד נהרג", opening)
+        self.assertIn("קפטן אורד וינגייט", opening)
+        framing = self.paragraph_with(
+            "שלושת העיתונים הציגו את אותו אירוע בדרכים שונות"
+        )
+        self.assertIn("שלושה עיתונים ובשלוש דרכי מסגור", framing)
+        self.assertIn("לא בהכרח בשלושה דיווחים עצמאיים", framing)
+        result_claim = self.paragraph_with("החיפוש אחר דבוריה בשנת 1938")
+        self.assertIn("שמונה עשרה תוצאות", result_claim)
+        self.assertIn("שתיים מהן עסקו באירוע", result_claim)
+        matching_claim = self.paragraph_with("כך התגבש תפקידו של הסוכן")
+        self.assertIn("התאריך והמקום תואמים", matching_claim)
+        self.assertIn("לפחות שני פרטים נוספים מתאימים", matching_claim)
+
+        source_tables = [
+            rows
+            for classes, rows in self.rendered_structure.tables
+            if "article-table" in classes
+        ]
+        self.assertEqual(1, len(source_tables))
+        haaretz_rows = [
+            row for row in source_tables[0][1:] if row and row[0] == "הארץ"
+        ]
+        self.assertEqual(1, len(haaretz_rows))
+        self.assertEqual("לשכת המידע הממשלתית", haaretz_rows[0][3])
+
+    def test_search_matching_and_evidence_chain_qualifications(self) -> None:
+        failed_search = self.paragraph_with("הפיילוט בעיתונות הערבית החל")
+        self.assertIn(
+            "תוצאת אפס מעידה רק על החיפוש במאגר ובטווח התאריכים שנבדקו",
+            failed_search,
+        )
+        self.assertIn("ולא על היעדר המונח מן העיתונות", failed_search)
+        failed_search_note = self.endnote_with("יומן החיפוש של פיילוט")
+        self.assertIn(
+            "תוצאת אפס מתעדת את ביצוע השאילתה",
+            failed_search_note,
+        )
+        self.assertIn(
+            "לא את היעדר המונח מן העיתונות כולה",
+            failed_search_note,
+        )
+
+        matching_rule = self.paragraph_with("מילה משותפת לבדה")
+        self.assertIn("חפיפה בתאריך ובמקום", matching_rule)
+        self.assertIn("ועוד שני מאפיינים תואמים לפחות", matching_rule)
+        self.assertIn(
+            "כאשר פרט מכריע היה חסר, סיווגתי את ההתאמה "
+            "כ„סבירה” ולא כמאומתת",
+            matching_rule,
+        )
+        self.assertIn("האירוע ליחידת ההשוואה", matching_rule)
+        self.assertIn("מילת המפתח נותרה אמצעי ניווט בלבד", matching_rule)
+
+        evidence_chain = self.paragraph_with("תוצאה שעלתה בחיפוש")
+        self.assertIn("בכל רשומה שמרתי שש שכבות", evidence_chain)
+        ordered_layers = [
+            "בשכבה הראשונה שמרתי את נתוני הארכיון: "
+            "העיתון, התאריך והקישור",
+            "בשנייה שמרתי פלט OCR גולמי שהפיקה המכונה",
+            "בשכבה השלישית מופיע התמלול שקראתי מן הסריקה",
+            "ברביעית, האחדת כתיב זהירה",
+            "בחמישית, התרגום",
+            "ורק בשישית, המסקנה המחקרית",
+        ]
+        for layer in ordered_layers:
+            self.assertIn(layer, evidence_chain)
+        layer_positions = [evidence_chain.index(layer) for layer in ordered_layers]
+        self.assertEqual(sorted(layer_positions), layer_positions)
+        self.assertIn("כל אחת מתעדת פעולה אחרת", evidence_chain)
+        self.assertIn("אלה אינן גרסאות מתחרות", evidence_chain)
+        self.assertIn(
+            "מה סיפק הארכיון, מה ניחשה המכונה, מה קרא החוקר ומה הסיק",
+            evidence_chain,
+        )
+        self.assertNotIn("—", self.visible_prose_text)
+
+    def test_transparency_dependence_and_model_claims(self) -> None:
+        transparency = self.paragraph_with("גם המאגר עצמו מחייב שקיפות")
+        self.assertIn("כולל רק חלק מן העיתונים ששרדו", transparency)
+        self.assertIn(
+            "השאילתה ואיכות ה־OCR מצמצמות שוב את החומר",
+            transparency,
+        )
+        for research_strand in (
+            "מחקרים על הטיות באוספים",
+            "על תהליכי עבודה בין־תחומיים",
+            "ועל ממשק impresso",
+        ):
+            self.assertIn(research_strand, transparency)
+        self.assertIn("מצביעים כולם על דרישה אחת", transparency)
+        for requirement in (
+            "הרכב האוסף",
+            "מקור הנתונים",
+            "שרשרת העיבוד",
+            "שלבי העיבוד",
+            "האיכות של כל שלב",
+        ):
+            self.assertIn(requirement, transparency)
+        self.assertIn(
+            "אינם עותק מלא ושקוף של העיתונות ההיסטורית",
+            transparency,
+        )
+
+        dependence = self.paragraph_with("ההשוואה בדבוריה ממחישה")
+        self.assertIn(
+            "מקור רשמי משותף לאפשרות סבירה, אך לא מוכחת במלואה",
+            dependence,
+        )
+        self.assertIn("לא בהכרח שלושה דיווחים עצמאיים", dependence)
+        self.assertIn("אינה אישור נוסף לעובדות", dependence)
+
+        ocr_claim = self.paragraph_with("מודל השפה משתתף בתהליך")
+        self.assertIn(
+            "במחקר על עיתונים בספרדית מאמריקה הלטינית במאה התשע־עשרה",
+            ocr_claim,
+        )
+        self.assertIn("כ־78%", ocr_claim)
+        self.assertIn("כ־12%", ocr_claim)
+        self.assertIn("שייכים לקורפוס ולתנאים שנבדקו", ocr_claim)
+        self.assertIn("אינם שיעור שגיאה אוניברסלי", ocr_claim)
+
+        assisted_coding = self.paragraph_with("גם בקידוד בסיוע מודל")
+        self.assertIn(
+            "ASReview הוא כלי לסינון ספרות מחקרית באמצעות למידה "
+            "פעילה (active learning)",
+            assisted_coding,
+        )
+        self.assertIn("האלגוריתם מתעדף רשומות", assisted_coding)
+        self.assertIn("החוקר מחליט מה לכלול ומתי לעצור", assisted_coding)
+        self.assertIn(
+            "אינה מיישמת במלואה את שיטת הקידוד או את ASReview",
+            assisted_coding,
+        )
+        self.assertIn(
+            "מאמצת רק את חלוקת העבודה שהדוגמאות האלה ממחישות",
+            assisted_coding,
+        )
+        self.assertNotIn("אינה מיישמת במלואן לא", assisted_coding)
+
+    def test_contribution_limits_and_terminology(self) -> None:
+        contribution = self.paragraph_with("התרומה אינה אלגוריתם חדש")
+        self.assertIn("וגם לא טענה לחידוש בכל אחד מן המרכיבים", contribution)
+        self.assertIn(
+            "לחוקר יחיד דרך פשוטה ונגישה לחבר בין דרכי עבודה "
+            "שכבר מוכרות בכמה קהילות מחקר",
+            contribution,
+        )
+        for established_practice in (
+            "חיפוש בכמה שפות",
+            "ביקורת על גבולות האוסף",
+            "תעדוף מקורות אפשריים לבדיקה",
+            "קידוד בסיוע מודל",
+            "בדיקת מקורות",
+        ):
+            self.assertIn(established_practice, contribution)
+        self.assertIn(
+            "האירוע ההיסטורי מארגן את הפעולות האלה סביב שאלה אחת",
+            contribution,
+        )
+        self.assertIn(
+            "חבילת ראיות מתועדת שאפשר לבדוק, לתקן ולהעביר לחוקר אחר",
+            contribution,
+        )
+        self.assertIn(
+            "הדבר מועיל במיוחד כאשר קבוצות יריבות מתארות אותה "
+            "פעולה במונחים שונים",
+            contribution,
+        )
+        self.assertNotIn("חיבור קל", contribution)
+
+        limits = self.paragraph_with("לשיטה יש גבולות מפורשים")
+        for required_limit in (
+            "אינה טוענת לכיסוי מלא",
+            "הארכיון הדיגיטלי אינו העיתונות כולה",
+            "פלט ה־OCR עלול להסתיר ידיעה רלוונטית",
+            "ידיעת ערבית ועברית עדיין חיונית",
+            "מקור שאותר ואומת עשוי להישען על דיווחים אחרים",
+            "מגבלות גישה וזכויות",
+            "מה מותר לשמור ומה מותר לפרסם",
+            "גישה אינה היתר שמירה",
+            "שמירה אינה היתר פרסום",
+            "הפערים נשארים גלויים",
+            "הבדיקה הבאה שעשויה לצמצם אותם",
+        ):
+            self.assertIn(required_limit, limits)
+
+        heading = "מן הפיילוט ליחידת עבודה לשימוש חוזר"
+        self.assertIn(
+            f'<a href="#מן-הפיילוט-לסקיל">{heading}</a>',
+            self.checked_in_render,
+        )
+        self.assertIn(
+            f"## 4. {heading} {{#מן-הפיילוט-לסקיל}}",
+            self.source,
+        )
+        self.assertNotIn("סקיל", self.contract.visible_text)
+        explained = "יחידת עבודה לשימוש חוזר (skill)"
+        first_skill = self.contract.visible_text.index("skill")
+        self.assertEqual(
+            self.contract.visible_text.index(explained) + explained.index("skill"),
+            first_skill,
+        )
+        for legacy_form in (
+            "פלוגות הלילה המיוחדות",
+            "קומוניקט",
+            "מועמד למקור",
+            "מניפסט מקורות",
+            "שער אישור אנושי",
+            "נתיב ביקורת",
+            "קידוד מודל",
+            "תמונת ראי",
+        ):
+            with self.subTest(term=legacy_form):
+                self.assertNotIn(legacy_form, self.checked_in_render)
+
+    def test_complete_reciprocal_citation_graph_and_source_mapping(self) -> None:
+        for anchor, target in self.HOST_NOTE_TARGETS:
+            with self.subTest(host=anchor, target=target):
+                self.assertEqual([target], self.paragraph_note_targets(anchor))
+
+        expected_calls = [
+            (f"fnref{number}", f"#fn{number}") for number in range(1, 10)
+        ]
+        self.assertEqual(expected_calls, self.rendered_structure.noterefs)
+        call_ids = [
+            call_id for call_id, _ in self.rendered_structure.noterefs
+        ]
+        targets = [target for _, target in self.rendered_structure.noterefs]
+        self.assertEqual(9, len(set(call_ids)))
+        self.assertEqual(9, len(set(targets)))
+
+        expected_endnote_ids = [f"fn{number}" for number in range(1, 10)]
+        self.assertEqual(
+            expected_endnote_ids,
+            self.rendered_structure.endnote_id_sequence,
+        )
+        self.assertEqual(
+            set(expected_endnote_ids),
+            self.rendered_structure.endnote_ids,
+        )
+        expected_backlinks = [
+            f"#fnref{number}" for number in range(1, 10)
+        ]
+        self.assertEqual(
+            expected_backlinks,
+            self.rendered_structure.footnote_back_hrefs,
+        )
+        self.assertEqual(
+            {
+                f"fn{number}": [f"#fnref{number}"]
+                for number in range(1, 10)
+            },
+            self.rendered_structure.endnote_backlinks,
+        )
+        self.assertEqual(
+            self.EXPECTED_ENDNOTE_EXTERNAL_HREFS,
+            self.rendered_structure.endnote_external_hrefs,
+        )
+        self.assertEqual(
+            self.english_contract.external_hrefs,
+            self.contract.external_hrefs,
+        )
+
+    def test_normalized_visible_content_digest(self) -> None:
+        records = self.content_collector.records
+        kind_counts = {
+            kind: sum(record_kind == kind for record_kind, _ in records)
+            for kind in {record_kind for record_kind, _ in records}
+        }
+        self.assertEqual(1, kind_counts["h1"])
+        self.assertEqual(6, kind_counts["h2"])
+        self.assertEqual(21, kind_counts["p"])
+        self.assertEqual(10, kind_counts["li"])
+        self.assertEqual(5, kind_counts["th"])
+        self.assertEqual(15, kind_counts["td"])
+        self.assertEqual(2, kind_counts["figcaption"])
+        self.assertEqual(9, kind_counts["note"])
+        self.assertIn(("h1", self.EXPECTED_TITLE), records)
+        self.assertIn(("p", self.EXPECTED_DECK), records)
+        self.assertEqual(
+            self.EXPECTED_CONTENT_DIGEST,
+            self.content_collector.digest(),
+        )
+
+    def test_arabic_queries_have_language_and_direction_metadata(self) -> None:
+        code_spans = self.arabic_code_collector.code_spans
+        self.assertEqual(
+            self.EXPECTED_ARABIC_CODE_TEXTS,
+            [text for text, _ in code_spans],
+        )
+        self.assertEqual(
+            [("ar", "rtl")] * len(self.EXPECTED_ARABIC_CODE_TEXTS),
+            [(attrs.get("lang"), attrs.get("dir")) for _, attrs in code_spans],
+        )
+
+    def test_visible_collectors_exclude_inaccessible_subtrees(self) -> None:
+        fixture = """
+<article class="essay">
+  <div class="essay-body">
+    <p>טקסט גלוי <span>ומקונן</span>.</p>
+    <div hidden><img src="hidden.png" /><p>פסקה מוסתרת אחרי void</p></div>
+    <figure><img src="visible.png"><figcaption>כיתוב גלוי.</figcaption></figure>
+    <figure hidden><img src="hidden-figure.png"><figcaption>כיתוב מוסתר</figcaption></figure>
+    <script><p>תסריט מוסתר</p></script>
+    <style><p>סגנון מוסתר</p></style>
+    <template><p>תבנית מוסתרת</p><figcaption>כיתוב תבנית</figcaption></template>
+    <section aria-hidden="TRUE"><br /><p>ARIA מוסתר אחרי void</p></section>
+    <img hidden src="ignored.png">
+    <p>טקסט גלוי נוסף.</p>
+    <br><img src="body-void.png">
+  </div>
+</article>
+<p>טקסט גלוי מחוץ למאמר.</p>
+"""
+        visible_collector = FullNewspaperContractCollector()
+        visible_collector.feed(fixture)
+        self.assertEqual(
+            ["טקסט גלוי ומקונן.", "טקסט גלוי נוסף."],
+            visible_collector.prose_paragraphs,
+        )
+        self.assertEqual(
+            "טקסט גלוי ומקונן. כיתוב גלוי. טקסט גלוי נוסף. "
+            "טקסט גלוי מחוץ למאמר.",
+            visible_collector.visible_text,
+        )
+        self.assertEqual(1, visible_collector.figure_count)
+        content_collector = ArticleProseCollector()
+        content_collector.feed(fixture)
+        self.assertEqual(
+            [
+                ("p", "טקסט גלוי ומקונן."),
+                ("figcaption", "כיתוב גלוי."),
+                ("p", "טקסט גלוי נוסף."),
+            ],
+            content_collector.records,
+        )
+
+        endnote_fixtures = {
+            "self-closing void": """
+<li id="fn-probe" role="doc-endnote">
+  <br />
+  <a href="https://visible.example/source">source</a>
+  <a class="footnote-back" href="#fnref-probe">back</a>
+</li>
+""",
+            "bare voids": """
+<li id="fn-probe" role="doc-endnote">
+  <p>
+    <br><br>
+    <a href="https://visible.example/source">source</a>
+    <a class="footnote-back" href="#fnref-probe">back</a>
+  </p>
+</li>
+""",
+            "inaccessible links": """
+<li id="fn-probe" role="doc-endnote">
+  <a hidden href="https://hidden.example/direct">hidden direct</a>
+  <span hidden>
+    <a href="https://hidden.example/subtree">hidden subtree</a>
+    <a class="footnote-back" href="#hidden-ref">hidden back</a>
+  </span>
+  <span aria-hidden="TRUE">
+    <img src="hidden.png" />
+    <a href="https://hidden.example/aria">aria hidden</a>
+  </span>
+  <a href="https://visible.example/source">source</a>
+  <a class="footnote-back" href="#fnref-probe">back</a>
+</li>
+""",
+        }
+        for label, endnote_fixture in endnote_fixtures.items():
+            with self.subTest(endnote_fixture=label):
+                citation_collector = ArticleContractCollector()
+                citation_collector.feed(endnote_fixture)
+                self.assertEqual(
+                    {"fn-probe": ["https://visible.example/source"]},
+                    citation_collector.endnote_external_hrefs,
+                )
+                self.assertEqual(
+                    {"fn-probe": ["#fnref-probe"]},
+                    citation_collector.endnote_backlinks,
+                )
 
 
 if __name__ == "__main__":
