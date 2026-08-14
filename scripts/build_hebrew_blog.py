@@ -243,22 +243,31 @@ def toc_html(items: tuple[tuple[str, str], ...]) -> str:
 
 def read_translation_status(slug: str) -> str:
     source = BLOG / "sources" / "he" / f"{slug}.md"
-    match = re.search(
-        r"^translation_status:\s*(draft|editor-reviewed|author-approved)\s*$",
-        source.read_text(encoding="utf-8"),
+    document = source.read_text(encoding="utf-8")
+    frontmatter_match = re.match(
+        r"\A---[ \t]*\r?\n(?P<metadata>.*?)\r?\n---[ \t]*(?:\r?\n|\Z)",
+        document,
+        re.DOTALL,
+    )
+    if frontmatter_match is None:
+        raise RuntimeError(f"Missing translation_status in {source}")
+    statuses = re.findall(
+        r"^translation_status[ \t]*:[ \t]*(.*?)[ \t]*$",
+        frontmatter_match.group("metadata"),
         re.MULTILINE,
     )
-    if match is None:
+    if not statuses:
         raise RuntimeError(f"Missing translation_status in {source}")
-    status = match.group(1)
+    if len(statuses) != 1:
+        raise RuntimeError(f"Duplicate translation_status in {source}")
+    status = statuses[0]
     if status not in TRANSLATION_STATUSES:
         raise RuntimeError(f"Unsupported translation_status {status!r} in {source}")
     return status
 
 
-def page(slug: str, body: str) -> str:
+def page(slug: str, body: str, status: str) -> str:
     data = POSTS[slug]
-    status = read_translation_status(slug)
     title = data["title"]
     description = data["description"]
     english_url = f"https://pedahzur.github.io/A.M.Pedahzur/blog/{slug}/"
@@ -373,15 +382,80 @@ def page(slug: str, body: str) -> str:
 """
 
 
-def main() -> None:
-    rendered = {
-        "academic-rigor-and-writing-for-a-wider-audience": academic_body(),
-        "from-one-report-to-two-histories": newspaper_body(),
+def translation_link_labels(status: str) -> tuple[str, str]:
+    if status == "author-approved":
+        return "עברית", "עברית"
+    return "עברית (טיוטה בעריכה)", "עברית, טיוטה בעריכה"
+
+
+def render_index_translation_link(
+    document: str, href: str, status: str, source: Path
+) -> str:
+    visible_label, aria_label = translation_link_labels(status)
+    pattern = re.compile(
+        r'(<a\b(?=[^>]*\bhref="' + re.escape(href) + r'")'
+        r'(?=[^>]*\blang="he")[^>]*\baria-label=")[^"]*'
+        r'("[^>]*>).*?(</a>)',
+        re.DOTALL,
+    )
+    rendered, count = pattern.subn(
+        lambda match: (
+            f"{match.group(1)}{aria_label}{match.group(2)}"
+            f"{visible_label}{match.group(3)}"
+        ),
+        document,
+        count=1,
+    )
+    if count != 1:
+        raise RuntimeError(
+            f"Could not locate Hebrew edition link {href!r} in {source}"
+        )
+    return rendered
+
+
+def render_translation_indexes(statuses: dict[str, str]) -> dict[Path, str]:
+    indexes = (
+        (BLOG / "index.html", "{slug}/he/"),
+        (ROOT / "index.html", "blog/{slug}/he/"),
+    )
+    rendered_indexes: dict[Path, str] = {}
+    for index_path, href_template in indexes:
+        document = index_path.read_text(encoding="utf-8")
+        for slug, status in statuses.items():
+            document = render_index_translation_link(
+                document,
+                href_template.format(slug=slug),
+                status,
+                index_path,
+            )
+        rendered_indexes[index_path] = document
+    return rendered_indexes
+
+
+def write_site(rendered_bodies: dict[str, str]) -> None:
+    statuses = {slug: read_translation_status(slug) for slug in POSTS}
+    rendered_articles = {
+        BLOG / slug / "he" / "index.html": page(
+            slug, rendered_bodies[slug], statuses[slug]
+        )
+        for slug in POSTS
     }
-    for slug, body in rendered.items():
-        destination = BLOG / slug / "he" / "index.html"
+    rendered_indexes = render_translation_indexes(statuses)
+
+    for destination, document in rendered_articles.items():
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(page(slug, body), encoding="utf-8")
+        destination.write_text(document, encoding="utf-8")
+    for destination, document in rendered_indexes.items():
+        destination.write_text(document, encoding="utf-8")
+
+
+def main() -> None:
+    write_site(
+        {
+            "academic-rigor-and-writing-for-a-wider-audience": academic_body(),
+            "from-one-report-to-two-histories": newspaper_body(),
+        }
+    )
 
 
 if __name__ == "__main__":
