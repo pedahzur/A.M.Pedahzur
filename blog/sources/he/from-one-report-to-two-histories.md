@@ -6,6 +6,7 @@ created: 2026-08-13
 updated: 2026-08-14
 status: published
 translation_of: from-one-report-to-two-histories
+translation_status: draft
 ---
 
 # מאותה ידיעה לשתי היסטוריות: בניית סוכן לחקר עיתונות היסטורית

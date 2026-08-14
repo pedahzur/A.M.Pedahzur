@@ -12,6 +12,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 BLOG = ROOT / "blog"
+TRANSLATION_STATUSES = {"draft", "editor-reviewed", "author-approved"}
 
 
 POSTS = {
@@ -240,8 +241,24 @@ def toc_html(items: tuple[tuple[str, str], ...]) -> str:
     )
 
 
+def read_translation_status(slug: str) -> str:
+    source = BLOG / "sources" / "he" / f"{slug}.md"
+    match = re.search(
+        r"^translation_status:\s*(draft|editor-reviewed|author-approved)\s*$",
+        source.read_text(encoding="utf-8"),
+        re.MULTILINE,
+    )
+    if match is None:
+        raise RuntimeError(f"Missing translation_status in {source}")
+    status = match.group(1)
+    if status not in TRANSLATION_STATUSES:
+        raise RuntimeError(f"Unsupported translation_status {status!r} in {source}")
+    return status
+
+
 def page(slug: str, body: str) -> str:
     data = POSTS[slug]
+    status = read_translation_status(slug)
     title = data["title"]
     description = data["description"]
     english_url = f"https://pedahzur.github.io/A.M.Pedahzur/blog/{slug}/"
@@ -263,6 +280,13 @@ def page(slug: str, body: str) -> str:
         },
     }
     contents = toc_html(data["toc"])
+    status_notice = ""
+    if status != "author-approved":
+        status_notice = """      <aside class="translation-status" role="note" aria-labelledby="translation-status-title">
+        <p id="translation-status-title"><strong>טיוטת תרגום בעריכה</strong></p>
+        <p>המהדורה העברית עוברת כעת עריכה לשונית. המהדורה האנגלית היא הגרסה המאושרת בשלב זה.</p>
+      </aside>
+"""
     return f"""<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -308,7 +332,7 @@ def page(slug: str, body: str) -> str:
     </nav>
   </header>
   <main id="main-content">
-    <article class="essay" aria-labelledby="article-title">
+    <article class="essay" data-translation-status="{status}" aria-labelledby="article-title">
       <header class="article-header">
         <div class="article-utility">
           <p class="eyebrow">הבלוג האקדמי</p>
@@ -318,7 +342,7 @@ def page(slug: str, body: str) -> str:
         <p class="article-deck">{html.escape(description)}</p>
         <p class="essay-meta"><time datetime="{data['date']}">{data['date_label']}</time> <span aria-hidden="true">·</span> {data['read_time']}</p>
       </header>
-      <details class="mobile-toc">
+{status_notice}      <details class="mobile-toc">
         <summary>תוכן המאמר</summary>
         <nav aria-label="תוכן המאמר">
           <ol>

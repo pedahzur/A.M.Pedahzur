@@ -2,6 +2,7 @@
 title: "בין קפדנות אקדמית לכתיבה לקהל רחב"
 lang: he
 translation_of: academic-rigor-and-writing-for-a-wider-audience
+translation_status: draft
 status: published
 updated: 2026-08-14
 ---

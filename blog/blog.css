@@ -103,6 +103,20 @@ h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); margin: .25rem 0 1rem; }
 .article-header { margin-bottom: 2.5rem; }
 .article-header h1 { font-size: clamp(2.4rem, 5vw, 4.35rem); }
 
+.translation-status {
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 2.5rem;
+  max-width: var(--reading-measure);
+  padding: 1rem 1.25rem;
+}
+
+.translation-status p { margin: 0; }
+.translation-status p + p { margin-top: .5rem; }
+
 .article-utility {
   align-items: baseline;
   display: flex;
