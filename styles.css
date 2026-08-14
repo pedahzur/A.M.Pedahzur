@@ -677,6 +677,14 @@ h3 {
   box-shadow: 0 14px 38px rgba(31, 41, 51, .075);
 }
 
+.blog-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin-top: .8rem;
+}
+
 .pub-item h3 {
   font-size: 1rem;
 }
