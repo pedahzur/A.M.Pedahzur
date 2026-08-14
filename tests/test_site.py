@@ -288,6 +288,38 @@ class ArticleContractCollector(HTMLParser):
 
 
 class SiteContractTests(unittest.TestCase):
+    def test_hebrew_translation_status_is_visible_and_enforced(self) -> None:
+        allowed = {"draft", "editor-reviewed", "author-approved"}
+        sources = tuple(sorted((ROOT / "blog" / "sources" / "he").glob("*.md")))
+        self.assertGreaterEqual(len(sources), 2)
+
+        for source in sources:
+            text = source.read_text(encoding="utf-8")
+            match = re.search(
+                r"^translation_status:\s*(draft|editor-reviewed|author-approved)\s*$",
+                text,
+                re.MULTILINE,
+            )
+            self.assertIsNotNone(match, source.name)
+            status = match.group(1)
+            self.assertIn(status, allowed)
+
+            slug = source.stem
+            page = (ROOT / "blog" / slug / "he" / "index.html").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn(f'data-translation-status="{status}"', page)
+            if status == "author-approved":
+                self.assertNotIn("טיוטת תרגום בעריכה", page)
+            else:
+                self.assertIn('class="translation-status"', page)
+                self.assertIn("טיוטת תרגום בעריכה", page)
+
+        blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertEqual(2, blog.count("עברית, טיוטה בעריכה"))
+        self.assertEqual(2, homepage.count("עברית, טיוטה בעריכה"))
+
     def test_every_blog_post_has_a_complete_linked_hebrew_edition(self) -> None:
         blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
