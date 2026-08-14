@@ -1230,6 +1230,124 @@ class SiteContractTests(unittest.TestCase):
             failed_search_note = contract.endnote_paragraphs[1]
             self.assertIn("תוצאת אפס מתעדת את ביצוע השאילתה", failed_search_note)
             self.assertIn("לא את היעדר המונח מן העיתונות כולה", failed_search_note)
+        with self.subTest(contract="S2.3 probable match is not verified"):
+            matching_rule = contract.prose_paragraphs[9]
+            self.assertIn("חפיפה בתאריך ובמקום", matching_rule)
+            self.assertIn("ועוד שני מאפיינים תואמים לפחות", matching_rule)
+            self.assertIn(
+                "כאשר פרט מכריע היה חסר, סיווגתי את ההתאמה "
+                "כ„סבירה” ולא כמאומתת",
+                matching_rule,
+            )
+            self.assertIn("האירוע ליחידת ההשוואה", matching_rule)
+            self.assertIn("מילת המפתח נותרה אמצעי ניווט בלבד", matching_rule)
+        with self.subTest(contract="S3.1 six separate layers in every record"):
+            evidence_chain = contract.prose_paragraphs[10]
+            self.assertIn("בכל רשומה שמרתי שש שכבות", evidence_chain)
+            ordered_layers = [
+                "בשכבה הראשונה שמרתי את נתוני הארכיון: "
+                "העיתון, התאריך והקישור",
+                "בשנייה שמרתי פלט OCR גולמי שהפיקה המכונה",
+                "בשכבה השלישית מופיע התמלול שקראתי מן הסריקה",
+                "ברביעית, האחדת כתיב זהירה",
+                "בחמישית, התרגום",
+                "ורק בשישית, המסקנה המחקרית",
+            ]
+            for layer in ordered_layers:
+                self.assertIn(layer, evidence_chain)
+            layer_positions = [
+                evidence_chain.index(layer) for layer in ordered_layers
+            ]
+            self.assertEqual(sorted(layer_positions), layer_positions)
+            self.assertIn("כל אחת מתעדת פעולה אחרת", evidence_chain)
+            self.assertIn("אלה אינן גרסאות מתחרות", evidence_chain)
+            self.assertIn(
+                "מה סיפק הארכיון, מה ניחשה המכונה, מה קרא החוקר ומה הסיק",
+                evidence_chain,
+            )
+        with self.subTest(contract="article prose avoids em dash"):
+            self.assertNotIn("—", visible_text)
+        with self.subTest(contract="S3.2 research strands converge on transparency"):
+            transparency = contract.prose_paragraphs[11]
+            self.assertIn("כולל רק חלק מן העיתונים ששרדו", transparency)
+            self.assertIn(
+                "השאילתה ואיכות ה־OCR מצמצמות שוב את החומר",
+                transparency,
+            )
+            for research_strand in (
+                "מחקרים על הטיות באוספים",
+                "על תהליכי עבודה בין־תחומיים",
+                "ועל ממשק impresso",
+            ):
+                self.assertIn(research_strand, transparency)
+            self.assertIn("מצביעים כולם על דרישה אחת", transparency)
+            for transparency_requirement in (
+                "הרכב האוסף",
+                "מקור הנתונים",
+                "שרשרת העיבוד",
+                "שלבי העיבוד",
+                "האיכות של כל שלב",
+            ):
+                self.assertIn(transparency_requirement, transparency)
+            self.assertIn(
+                "אינם עותק מלא ושקוף של העיתונות ההיסטורית",
+                transparency,
+            )
+        with self.subTest(contract="S4.3 defines ASReview without double negative"):
+            assisted_coding = contract.prose_paragraphs[15]
+            self.assertIn(
+                "ASReview הוא כלי לסינון ספרות מחקרית באמצעות למידה "
+                "פעילה (active learning)",
+                assisted_coding,
+            )
+            self.assertIn("האלגוריתם מתעדף רשומות", assisted_coding)
+            self.assertIn(
+                "החוקר מחליט מה לכלול ומתי לעצור",
+                assisted_coding,
+            )
+            self.assertIn(
+                "אינה מיישמת במלואה את שיטת הקידוד או את ASReview",
+                assisted_coding,
+            )
+            self.assertIn(
+                "מאמצת רק את חלוקת העבודה שהדוגמאות האלה ממחישות",
+                assisted_coding,
+            )
+            self.assertNotIn("אינה מיישמת במלואן לא", assisted_coding)
+        with self.subTest(contract="S5.1 connects established practices"):
+            contribution = contract.prose_paragraphs[16]
+            self.assertIn("התרומה אינה אלגוריתם חדש", contribution)
+            self.assertIn(
+                "וגם לא טענה לחידוש בכל אחד מן המרכיבים",
+                contribution,
+            )
+            self.assertIn(
+                "לחוקר יחיד דרך פשוטה ונגישה לחבר בין דרכי עבודה "
+                "שכבר מוכרות בכמה קהילות מחקר",
+                contribution,
+            )
+            for established_practice in (
+                "חיפוש בכמה שפות",
+                "ביקורת על גבולות האוסף",
+                "תעדוף מקורות אפשריים לבדיקה",
+                "קידוד בסיוע מודל",
+                "בדיקת מקורות",
+            ):
+                self.assertIn(established_practice, contribution)
+            self.assertIn(
+                "האירוע ההיסטורי מארגן את הפעולות האלה סביב שאלה אחת",
+                contribution,
+            )
+            self.assertIn(
+                "חבילת ראיות מתועדת שאפשר לבדוק, לתקן ולהעביר לחוקר אחר",
+                contribution,
+            )
+            self.assertIn(
+                "הדבר מועיל במיוחד כאשר קבוצות יריבות מתארות אותה "
+                "פעולה במונחים שונים",
+                contribution,
+            )
+            self.assertNotIn("חיבור קל", contribution)
         with self.subTest(contract="shared official origin remains qualified"):
             dependence_claim = paragraph_with("ההשוואה בדבוריה ממחישה")
             self.assertIn(
