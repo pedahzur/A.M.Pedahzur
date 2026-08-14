@@ -4,8 +4,12 @@ import json
 from pathlib import Path
 import re
 import subprocess
+from tempfile import TemporaryDirectory
 from urllib.parse import unquote, urlparse
 import unittest
+from unittest.mock import patch
+
+import scripts.build_hebrew_blog as build_hebrew_blog
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -190,6 +194,58 @@ class LinkCollector(HTMLParser):
             self.links.append(target)
 
 
+class TranslationRenderingCollector(HTMLParser):
+    """Collect user-visible and accessible translation-status rendering."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.article_status: str | None = None
+        self.notice_parts: list[str] = []
+        self.hebrew_links: dict[str, tuple[str | None, str]] = {}
+        self._notice_depth = 0
+        self._link_href: str | None = None
+        self._link_aria_label: str | None = None
+        self._link_parts: list[str] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        values = dict(attrs)
+        classes = set((values.get("class") or "").split())
+        if tag == "article" and values.get("data-translation-status"):
+            self.article_status = values["data-translation-status"]
+        if tag == "aside" and "translation-status" in classes:
+            self._notice_depth = 1
+        elif self._notice_depth:
+            self._notice_depth += 1
+        if tag == "a" and values.get("lang") == "he":
+            self._link_href = values.get("href")
+            self._link_aria_label = values.get("aria-label")
+            self._link_parts = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self._link_href is not None:
+            self.hebrew_links[self._link_href] = (
+                self._link_aria_label,
+                " ".join("".join(self._link_parts).split()),
+            )
+            self._link_href = None
+            self._link_aria_label = None
+            self._link_parts = []
+        if self._notice_depth:
+            self._notice_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if self._notice_depth:
+            self.notice_parts.append(data)
+        if self._link_href is not None:
+            self._link_parts.append(data)
+
+    @property
+    def notice_text(self) -> str:
+        return " ".join("".join(self.notice_parts).split())
+
+
 class ArticleContractCollector(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
@@ -287,38 +343,189 @@ class ArticleContractCollector(HTMLParser):
                 self._unordered_list_stack[-1] = (items, item_parts)
 
 
+class TranslationStatusBuildTests(unittest.TestCase):
+    SLUGS = tuple(build_hebrew_blog.POSTS)
+    TARGET_SLUG = "academic-rigor-and-writing-for-a-wider-audience"
+
+    @staticmethod
+    def _write_source(
+        blog: Path, slug: str, metadata: str, body: str = "Body"
+    ) -> None:
+        source = blog / "sources" / "he" / f"{slug}.md"
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text(
+            f"---\ntitle: probe\n{metadata}---\n\n{body}\n",
+            encoding="utf-8",
+        )
+
+    def _write_index_fixtures(self, root: Path) -> None:
+        blog_links = "\n".join(
+            f'<a class="hebrew-edition-link" href="{slug}/he/" '
+            'hreflang="he" lang="he" aria-label="stale">stale</a>'
+            for slug in self.SLUGS
+        )
+        homepage_links = "\n".join(
+            f'<a class="btn btn-outline" href="blog/{slug}/he/" '
+            'hreflang="he" lang="he" aria-label="stale">stale</a>'
+            for slug in self.SLUGS
+        )
+        (root / "blog").mkdir(parents=True, exist_ok=True)
+        (root / "blog" / "index.html").write_text(
+            f"<main>{blog_links}</main>\n", encoding="utf-8"
+        )
+        (root / "index.html").write_text(
+            f"<main>{homepage_links}</main>\n", encoding="utf-8"
+        )
+
+    def test_translation_status_accepts_only_one_supported_frontmatter_value(
+        self,
+    ) -> None:
+        for status in ("draft", "editor-reviewed", "author-approved"):
+            with self.subTest(status=status), TemporaryDirectory() as directory:
+                blog = Path(directory) / "blog"
+                self._write_source(
+                    blog,
+                    self.TARGET_SLUG,
+                    f"translation_status: {status}\n",
+                )
+                with patch.object(build_hebrew_blog, "BLOG", blog):
+                    self.assertEqual(
+                        status,
+                        build_hebrew_blog.read_translation_status(self.TARGET_SLUG),
+                    )
+
+    def test_translation_status_rejects_invalid_frontmatter_states(self) -> None:
+        cases = (
+            ("missing", "", "Body", "Missing translation_status"),
+            (
+                "duplicate",
+                "translation_status: draft\ntranslation_status: author-approved\n",
+                "Body",
+                "Duplicate translation_status",
+            ),
+            (
+                "unsupported",
+                "translation_status: machine-approved\n",
+                "Body",
+                "Unsupported translation_status 'machine-approved'",
+            ),
+            (
+                "body-only",
+                "",
+                "translation_status: draft",
+                "Missing translation_status",
+            ),
+        )
+        for name, metadata, body, message in cases:
+            with self.subTest(case=name), TemporaryDirectory() as directory:
+                blog = Path(directory) / "blog"
+                self._write_source(blog, self.TARGET_SLUG, metadata, body)
+                with patch.object(build_hebrew_blog, "BLOG", blog):
+                    with self.assertRaisesRegex(RuntimeError, message):
+                        build_hebrew_blog.read_translation_status(self.TARGET_SLUG)
+
+    def test_each_status_drives_article_notice_and_both_index_labels(self) -> None:
+        cases = (
+            (
+                "draft",
+                True,
+                "עברית (טיוטה בעריכה)",
+                "עברית, טיוטה בעריכה",
+            ),
+            (
+                "editor-reviewed",
+                True,
+                "עברית (טיוטה בעריכה)",
+                "עברית, טיוטה בעריכה",
+            ),
+            ("author-approved", False, "עברית", "עברית"),
+        )
+        for status, notice_expected, visible_label, aria_label in cases:
+            with self.subTest(status=status), TemporaryDirectory() as directory:
+                root = Path(directory)
+                blog = root / "blog"
+                self._write_index_fixtures(root)
+                for slug in self.SLUGS:
+                    source_status = status if slug == self.TARGET_SLUG else "draft"
+                    self._write_source(
+                        blog,
+                        slug,
+                        f"translation_status: {source_status}\n",
+                    )
+
+                rendered = {slug: "<p>Rendered body</p>" for slug in self.SLUGS}
+                with (
+                    patch.object(build_hebrew_blog, "ROOT", root),
+                    patch.object(build_hebrew_blog, "BLOG", blog),
+                ):
+                    build_hebrew_blog.write_site(rendered)
+
+                article_collector = TranslationRenderingCollector()
+                article_collector.feed(
+                    (
+                        blog / self.TARGET_SLUG / "he" / "index.html"
+                    ).read_text(encoding="utf-8")
+                )
+                self.assertEqual(status, article_collector.article_status)
+                self.assertEqual(
+                    notice_expected,
+                    "טיוטת תרגום בעריכה" in article_collector.notice_text,
+                )
+
+                expected_links = (
+                    (blog / "index.html", f"{self.TARGET_SLUG}/he/"),
+                    (root / "index.html", f"blog/{self.TARGET_SLUG}/he/"),
+                )
+                for index_path, href in expected_links:
+                    with self.subTest(status=status, index=index_path.name):
+                        index_collector = TranslationRenderingCollector()
+                        index_collector.feed(index_path.read_text(encoding="utf-8"))
+                        self.assertEqual(
+                            (aria_label, visible_label),
+                            index_collector.hebrew_links[href],
+                        )
+
+
 class SiteContractTests(unittest.TestCase):
     def test_hebrew_translation_status_is_visible_and_enforced(self) -> None:
-        allowed = {"draft", "editor-reviewed", "author-approved"}
         sources = tuple(sorted((ROOT / "blog" / "sources" / "he").glob("*.md")))
         self.assertGreaterEqual(len(sources), 2)
+        index_collectors = {}
+        for index_path in (ROOT / "blog" / "index.html", ROOT / "index.html"):
+            collector = TranslationRenderingCollector()
+            collector.feed(index_path.read_text(encoding="utf-8"))
+            index_collectors[index_path] = collector
 
         for source in sources:
-            text = source.read_text(encoding="utf-8")
-            match = re.search(
-                r"^translation_status:\s*(draft|editor-reviewed|author-approved)\s*$",
-                text,
-                re.MULTILINE,
-            )
-            self.assertIsNotNone(match, source.name)
-            status = match.group(1)
-            self.assertIn(status, allowed)
-
             slug = source.stem
-            page = (ROOT / "blog" / slug / "he" / "index.html").read_text(
-                encoding="utf-8"
+            status = build_hebrew_blog.read_translation_status(slug)
+            article_collector = TranslationRenderingCollector()
+            article_collector.feed(
+                (ROOT / "blog" / slug / "he" / "index.html").read_text(
+                    encoding="utf-8"
+                )
             )
-            self.assertIn(f'data-translation-status="{status}"', page)
-            if status == "author-approved":
-                self.assertNotIn("טיוטת תרגום בעריכה", page)
-            else:
-                self.assertIn('class="translation-status"', page)
-                self.assertIn("טיוטת תרגום בעריכה", page)
-
-        blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
-        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertEqual(2, blog.count("עברית, טיוטה בעריכה"))
-        self.assertEqual(2, homepage.count("עברית, טיוטה בעריכה"))
+            self.assertEqual(status, article_collector.article_status)
+            draft_expected = status != "author-approved"
+            self.assertEqual(
+                draft_expected,
+                "טיוטת תרגום בעריכה" in article_collector.notice_text,
+            )
+            expected_label = (
+                ("עברית, טיוטה בעריכה", "עברית (טיוטה בעריכה)")
+                if draft_expected
+                else ("עברית", "עברית")
+            )
+            expected_links = (
+                (ROOT / "blog" / "index.html", f"{slug}/he/"),
+                (ROOT / "index.html", f"blog/{slug}/he/"),
+            )
+            for index_path, href in expected_links:
+                with self.subTest(post=slug, index=index_path.name):
+                    self.assertEqual(
+                        expected_label,
+                        index_collectors[index_path].hebrew_links[href],
+                    )
 
     def test_every_blog_post_has_a_complete_linked_hebrew_edition(self) -> None:
         blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
