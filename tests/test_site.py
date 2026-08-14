@@ -544,11 +544,25 @@ class ArticleContractCollector(HTMLParser):
         self._table_cell_parts: list[str] | None = None
         self._active_endnote_id: str | None = None
         self._active_endnote_depth = 0
+        self._inaccessible_depth = 0
 
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
         values = dict(attrs)
+        starts_inaccessible_subtree = (
+            tag in {"script", "style", "template"}
+            or "hidden" in values
+            or (values.get("aria-hidden") or "").lower() == "true"
+        )
+        if self._inaccessible_depth:
+            if tag not in HTML_VOID_ELEMENTS:
+                self._inaccessible_depth += 1
+            return
+        if starts_inaccessible_subtree:
+            if tag not in HTML_VOID_ELEMENTS:
+                self._inaccessible_depth = 1
+            return
         if (
             self._active_endnote_id is not None
             and tag not in HTML_VOID_ELEMENTS
@@ -600,7 +614,19 @@ class ArticleContractCollector(HTMLParser):
         ):
             self.endnote_external_hrefs[self._active_endnote_id].append(href)
 
+    def handle_startendtag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in HTML_VOID_ELEMENTS:
+            self.handle_endtag(tag)
+
     def handle_endtag(self, tag: str) -> None:
+        if tag in HTML_VOID_ELEMENTS:
+            return
+        if self._inaccessible_depth:
+            self._inaccessible_depth -= 1
+            return
         if tag == "h3" and self._heading_parts is not None:
             title = "".join(self._heading_parts).strip()
             self.subsection_titles.append(title)
@@ -632,6 +658,8 @@ class ArticleContractCollector(HTMLParser):
                 self._active_endnote_id = None
 
     def handle_data(self, data: str) -> None:
+        if self._inaccessible_depth:
+            return
         if self._heading_parts is not None:
             self._heading_parts.append(data)
         if self._table_cell_parts is not None:
@@ -2155,6 +2183,52 @@ class HebrewNewspaperContractTests(unittest.TestCase):
             ],
             content_collector.records,
         )
+
+        endnote_fixtures = {
+            "self-closing void": """
+<li id="fn-probe" role="doc-endnote">
+  <br />
+  <a href="https://visible.example/source">source</a>
+  <a class="footnote-back" href="#fnref-probe">back</a>
+</li>
+""",
+            "bare voids": """
+<li id="fn-probe" role="doc-endnote">
+  <p>
+    <br><br>
+    <a href="https://visible.example/source">source</a>
+    <a class="footnote-back" href="#fnref-probe">back</a>
+  </p>
+</li>
+""",
+            "inaccessible links": """
+<li id="fn-probe" role="doc-endnote">
+  <a hidden href="https://hidden.example/direct">hidden direct</a>
+  <span hidden>
+    <a href="https://hidden.example/subtree">hidden subtree</a>
+    <a class="footnote-back" href="#hidden-ref">hidden back</a>
+  </span>
+  <span aria-hidden="TRUE">
+    <img src="hidden.png" />
+    <a href="https://hidden.example/aria">aria hidden</a>
+  </span>
+  <a href="https://visible.example/source">source</a>
+  <a class="footnote-back" href="#fnref-probe">back</a>
+</li>
+""",
+        }
+        for label, endnote_fixture in endnote_fixtures.items():
+            with self.subTest(endnote_fixture=label):
+                citation_collector = ArticleContractCollector()
+                citation_collector.feed(endnote_fixture)
+                self.assertEqual(
+                    {"fn-probe": ["https://visible.example/source"]},
+                    citation_collector.endnote_external_hrefs,
+                )
+                self.assertEqual(
+                    {"fn-probe": ["#fnref-probe"]},
+                    citation_collector.endnote_backlinks,
+                )
 
 
 if __name__ == "__main__":
