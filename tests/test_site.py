@@ -201,14 +201,19 @@ class FullNewspaperContractCollector(HTMLParser):
         super().__init__()
         self.section_ids: list[str] = []
         self.prose_paragraphs: list[str] = []
+        self.endnote_paragraphs: list[str] = []
+        self.title = ""
+        self.deck = ""
         self.figure_count = 0
         self.table_count = 0
         self.noteref_count = 0
         self.endnote_count = 0
         self.workflow_stage_count = 0
+        self.workflow_stages: list[tuple[str, str]] = []
         self.workflow_return = ""
         self.workflow_caption = ""
         self.external_hrefs: set[str] = set()
+        self.visible_parts: list[str] = []
         self._essay_body_depth = 0
         self._figure_depth = 0
         self._footnotes_depth = 0
@@ -216,6 +221,9 @@ class FullNewspaperContractCollector(HTMLParser):
         self._capture_kind: str | None = None
         self._capture_tag: str | None = None
         self._capture_parts: list[str] = []
+        self._workflow_label_parts: list[str] | None = None
+        self._workflow_function_parts: list[str] | None = None
+        self._workflow_field: str | None = None
 
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
@@ -254,19 +262,31 @@ class FullNewspaperContractCollector(HTMLParser):
             self.endnote_count += 1
         if tag == "li" and self._workflow_depth:
             self.workflow_stage_count += 1
+            self._workflow_label_parts = []
+            self._workflow_function_parts = []
+        if tag == "strong" and self._workflow_label_parts is not None:
+            self._workflow_field = "label"
+        if tag == "span" and self._workflow_function_parts is not None:
+            self._workflow_field = "function"
         if tag == "a":
             href = values.get("href") or ""
             if href.startswith(("https://", "http://")):
                 self.external_hrefs.add(href)
 
         capture_kind: str | None = None
-        if (
+        if tag == "h1":
+            capture_kind = "title"
+        elif tag == "p" and "article-deck" in classes:
+            capture_kind = "deck"
+        elif (
             tag == "p"
             and self._essay_body_depth
             and not self._figure_depth
             and not self._footnotes_depth
         ):
             capture_kind = "prose"
+        elif tag == "p" and self._footnotes_depth:
+            capture_kind = "endnote"
         elif tag == "p" and "workflow-return" in classes:
             capture_kind = "return"
         elif tag == "figcaption" and values.get("id") == "workflow-caption":
@@ -277,10 +297,28 @@ class FullNewspaperContractCollector(HTMLParser):
             self._capture_parts = []
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "li" and self._workflow_label_parts is not None:
+            self.workflow_stages.append(
+                (
+                    " ".join("".join(self._workflow_label_parts).split()),
+                    " ".join("".join(self._workflow_function_parts or []).split()),
+                )
+            )
+            self._workflow_label_parts = None
+            self._workflow_function_parts = None
+            self._workflow_field = None
+        elif tag in {"strong", "span"} and self._workflow_field is not None:
+            self._workflow_field = None
         if self._capture_kind is not None and tag == self._capture_tag:
             captured = " ".join("".join(self._capture_parts).split())
             if self._capture_kind == "prose":
                 self.prose_paragraphs.append(captured)
+            elif self._capture_kind == "endnote":
+                self.endnote_paragraphs.append(captured)
+            elif self._capture_kind == "title":
+                self.title = captured
+            elif self._capture_kind == "deck":
+                self.deck = captured
             elif self._capture_kind == "return":
                 self.workflow_return = captured
             else:
@@ -298,8 +336,20 @@ class FullNewspaperContractCollector(HTMLParser):
             self._essay_body_depth -= 1
 
     def handle_data(self, data: str) -> None:
+        self.visible_parts.append(data)
         if self._capture_kind is not None:
             self._capture_parts.append(data)
+        if self._workflow_field == "label" and self._workflow_label_parts is not None:
+            self._workflow_label_parts.append(data)
+        if (
+            self._workflow_field == "function"
+            and self._workflow_function_parts is not None
+        ):
+            self._workflow_function_parts.append(data)
+
+    @property
+    def visible_text(self) -> str:
+        return " ".join("".join(self.visible_parts).split())
 
 
 class TranslationRenderingCollector(HTMLParser):
@@ -978,6 +1028,8 @@ class SiteContractTests(unittest.TestCase):
     def test_hebrew_newspaper_post_is_complete_and_editor_reviewed(self) -> None:
         """Catch a partial rewrite, weakened claim, or source/link drift."""
         slug = "from-one-report-to-two-histories"
+        source_path = ROOT / "blog" / "sources" / "he" / f"{slug}.md"
+        source = source_path.read_text(encoding="utf-8")
         status = build_hebrew_blog.read_translation_status(slug)
         rendered = build_hebrew_blog.page(
             slug,
@@ -992,6 +1044,14 @@ class SiteContractTests(unittest.TestCase):
             NEWSPAPER_ARTICLE_PATH.read_text(encoding="utf-8")
         )
         visible_text = " ".join(contract.prose_paragraphs)
+        expected_title = (
+            "מידיעה אחת לשתי היסטוריות: בניית סוכן למחקר בעיתונות היסטורית"
+        )
+        expected_deck = (
+            "שיטת עבודה לאיתור, לאימות ולהשוואה של ראיות מן העיתונות בכמה "
+            "שפות. את התהליך אפשר לשחזר, אך הבינה המלאכותית אינה מחליפה "
+            "בו את שיקול דעתו של ההיסטוריון."
+        )
         expected_sections = [
             "ממחסור-בגישה-לעודף-מידע",
             "מחמש-שאלות-לשחזור-אירוע",
@@ -999,9 +1059,78 @@ class SiteContractTests(unittest.TestCase):
             "מן-הפיילוט-לסקיל",
             "מה-השיטה-מוסיפה",
         ]
+        expected_workflow_stages = [
+            (
+                "שאלה ממוקדת",
+                "הגדירו את הטענה, טווח התאריכים, השפות ונקודות המבט.",
+            ),
+            (
+                "מטריצת חיפוש רב־לשונית",
+                "שלבו שמות, כתיבים, מקומות, פעולות ותוצאות.",
+            ),
+            (
+                "איתור מקורות אפשריים לבדיקה",
+                "תעדו כל שאילתה, לרבות חיפושים שלא הניבו תוצאות.",
+            ),
+            (
+                "רשימת מקורות מתועדת",
+                "שמרו מזהים, מטא־דאטה, קישורים, מצב אימות ומגבלות זכויות.",
+            ),
+            (
+                "פלט OCR גולמי",
+                "הפרידו בין פלט המכונה לבין התיקונים המוצעים.",
+            ),
+            (
+                "אימות חזותי",
+                "בדקו את הסריקה לפני אישור נוסח או פרט.",
+            ),
+            (
+                "התאמה בין דיווחים",
+                "דרשו התאמה בתאריך, במקום ולפחות בשני מאפיינים נוספים.",
+            ),
+            (
+                "הערכת מקורות",
+                "בחנו עצמאות, סתירות ומסגור.",
+            ),
+            (
+                "נקודת בקרה אנושית",
+                "אשרו, דחו או החזירו את המקור לבדיקה נוספת.",
+            ),
+            (
+                "חבילת ראיות מתועדת",
+                "הפיקו מראי מקום, טבלת התאמה וסיכום מסויג.",
+            ),
+        ]
+        mermaid_match = re.search(
+            r"```mermaid\n(?P<workflow>.*?)\n```",
+            source,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(mermaid_match)
+        mermaid = mermaid_match.group("workflow") if mermaid_match else ""
+        source_workflow_stages = [
+            (label, function)
+            for _, label, function in re.findall(
+                r'^\s*([A-J])\["([^"\n]+)<br/>([^"\n]+)"\]\s*$',
+                mermaid,
+                re.MULTILINE,
+            )
+        ]
+
+        def paragraph_with(anchor: str) -> str:
+            matches = [
+                paragraph
+                for paragraph in contract.prose_paragraphs
+                if anchor in paragraph
+            ]
+            self.assertEqual(1, len(matches), anchor)
+            return matches[0]
 
         with self.subTest(contract="editor-reviewed state"):
             self.assertEqual("editor-reviewed", status)
+        with self.subTest(contract="approved title and deck"):
+            self.assertEqual(expected_title, contract.title)
+            self.assertEqual(expected_deck, contract.deck)
         with self.subTest(contract="five numbered sections"):
             self.assertEqual(expected_sections, contract.section_ids)
         with self.subTest(contract="nineteen prose paragraphs"):
@@ -1010,34 +1139,107 @@ class SiteContractTests(unittest.TestCase):
             self.assertEqual((2, 1), (contract.figure_count, contract.table_count))
         with self.subTest(contract="nine calls and definitions"):
             self.assertEqual((9, 9), (contract.noteref_count, contract.endnote_count))
-        with self.subTest(contract="ten workflow stages"):
+        with self.subTest(contract="ordered rendered workflow semantics"):
             self.assertEqual(10, contract.workflow_stage_count)
-        with self.subTest(contract="visible workflow return loop"):
+            self.assertEqual(expected_workflow_stages, contract.workflow_stages)
+        with self.subTest(contract="ordered Mermaid workflow semantics"):
+            self.assertEqual(expected_workflow_stages, source_workflow_stages)
+            for start, end in zip("ABCDEFGHI", "BCDEFGHIJ"):
+                self.assertRegex(
+                    mermaid,
+                    rf"(?m)^\s*{start} --> {end}\s*$",
+                )
+            self.assertRegex(
+                mermaid,
+                r'(?m)^\s*I -\. "נדחה או טעון בדיקה" \.-> C\s*$',
+            )
+        with self.subTest(contract="Mermaid and rendered workflow correspond"):
+            self.assertEqual(source_workflow_stages, contract.workflow_stages)
+        with self.subTest(contract="accept reject return and persistent record"):
+            self.assertEqual(
+                "אשרו, דחו או החזירו את המקור לבדיקה נוספת.",
+                contract.workflow_stages[8][1],
+            )
             self.assertIn("חוזר ליומן החיפוש", contract.workflow_return)
             self.assertIn("תיעוד ההחלטות", contract.workflow_return)
+            self.assertIn("נשאר בתיעוד ההחלטות", source)
         with self.subTest(contract="human gate is a research decision"):
             self.assertIn("החלטה מחקרית", contract.workflow_caption)
-            self.assertIn("לא בדיקה סופית לקישוט", contract.workflow_caption)
+            self.assertIn("לא בדיקה סופית למראית עין", contract.workflow_caption)
+        with self.subTest(contract="first visible skill occurrence is explained"):
+            heading = "מן הפיילוט ליחידת עבודה לשימוש חוזר"
+            self.assertIn(
+                f'<a href="#מן-הפיילוט-לסקיל">{heading}</a>',
+                rendered,
+            )
+            self.assertIn(
+                f"## 4. {heading} {{#מן-הפיילוט-לסקיל}}",
+                source,
+            )
+            self.assertNotIn("סקיל", contract.visible_text)
+            explained = "יחידת עבודה לשימוש חוזר (skill)"
+            first_skill = contract.visible_text.index("skill")
+            self.assertEqual(
+                contract.visible_text.index(explained) + explained.index("skill"),
+                first_skill,
+            )
         with self.subTest(contract="protected Arabic searches"):
             self.assertIn("ونجيت", visible_text)
             self.assertIn("الكابتن ونجيت", visible_text)
-        with self.subTest(contract="bounded result counts"):
-            self.assertTrue(
-                any(
-                    re.search(r"18 תוצאות.*2 מהן", paragraph)
-                    for paragraph in contract.prose_paragraphs
-                )
+        with self.subTest(contract="calibrated opening factual anchors"):
+            first = contract.prose_paragraphs[0]
+            self.assertIn("ב־11 ביולי 1938", first)
+            self.assertIn("לפחות שלושה מאנשי הקבוצה החמושה נהרגו", first)
+            self.assertIn("נוטר יהודי אחד נהרג", first)
+            self.assertIn("קפטן אורד וינגייט", first)
+            second = contract.prose_paragraphs[1]
+            self.assertIn("שלושה עיתונים ובשלוש דרכי מסגור", second)
+            self.assertIn("לא בהכרח בשלושה דיווחים עצמאיים", second)
+            self.assertIn("לשכת המידע הממשלתית", rendered)
+            result_claim = paragraph_with("החיפוש אחר דבוריה בשנת 1938")
+            self.assertIn("שמונה עשרה תוצאות", result_claim)
+            self.assertIn("שתיים מהן עסקו באירוע", result_claim)
+            matching_claim = contract.prose_paragraphs[3]
+            self.assertIn("התאריך והמקום תואמים", matching_claim)
+            self.assertIn("לפחות שני פרטים נוספים מתאימים", matching_claim)
+        with self.subTest(contract="failed search does not establish absence"):
+            failed_search_note = contract.endnote_paragraphs[1]
+            self.assertIn("תוצאת אפס מתעדת את ביצוע השאילתה", failed_search_note)
+            self.assertIn("לא את היעדר המונח מן העיתונות כולה", failed_search_note)
+        with self.subTest(contract="shared official origin remains qualified"):
+            dependence_claim = paragraph_with("ההשוואה בדבוריה ממחישה")
+            self.assertIn(
+                "מקור רשמי משותף לאפשרות סבירה, אך לא מוכחת במלואה",
+                dependence_claim,
             )
-        with self.subTest(contract="bounded OCR study percentages"):
-            self.assertTrue(
-                any(
-                    re.search(
-                        r"במחקר על עיתונים.*כ־78%.*כ־12%.*שייכים לקורפוס",
-                        paragraph,
-                    )
-                    for paragraph in contract.prose_paragraphs
-                )
+            self.assertIn("לא בהכרח שלושה דיווחים עצמאיים", dependence_claim)
+            self.assertIn("אינה אישור נוסף לעובדות", dependence_claim)
+        with self.subTest(contract="OCR percentages remain corpus bounded"):
+            ocr_claim = paragraph_with("מודל השפה משתתף בתהליך")
+            self.assertIn(
+                "במחקר על עיתונים בספרדית מאמריקה הלטינית במאה התשע־עשרה",
+                ocr_claim,
             )
+            self.assertIn("כ־78%", ocr_claim)
+            self.assertIn("כ־12%", ocr_claim)
+            self.assertIn("שייכים לקורפוס ולתנאים שנבדקו", ocr_claim)
+            self.assertIn("אינם שיעור שגיאה אוניברסלי", ocr_claim)
+        with self.subTest(contract="full access and rights limits"):
+            limits = paragraph_with("לשיטה יש גבולות מפורשים")
+            for required_limit in (
+                "אינה טוענת לכיסוי מלא",
+                "הארכיון הדיגיטלי אינו העיתונות כולה",
+                "פלט ה־OCR עלול להסתיר ידיעה רלוונטית",
+                "ידיעת ערבית ועברית עדיין חיונית",
+                "מקור שאותר ואומת עשוי להישען על דיווחים אחרים",
+                "מגבלות גישה וזכויות",
+                "מה מותר לשמור ומה מותר לפרסם",
+                "גישה אינה היתר שמירה",
+                "שמירה אינה היתר פרסום",
+                "הפערים נשארים גלויים",
+                "הבדיקה הבאה שעשויה לצמצם אותם",
+            ):
+                self.assertIn(required_limit, limits)
         with self.subTest(contract="external destination parity"):
             self.assertEqual(
                 english_contract.external_hrefs,
