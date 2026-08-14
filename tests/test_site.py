@@ -194,6 +194,114 @@ class LinkCollector(HTMLParser):
             self.links.append(target)
 
 
+class FullNewspaperContractCollector(HTMLParser):
+    """Collect the reader-visible contract of the rendered Hebrew article."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.section_ids: list[str] = []
+        self.prose_paragraphs: list[str] = []
+        self.figure_count = 0
+        self.table_count = 0
+        self.noteref_count = 0
+        self.endnote_count = 0
+        self.workflow_stage_count = 0
+        self.workflow_return = ""
+        self.workflow_caption = ""
+        self.external_hrefs: set[str] = set()
+        self._essay_body_depth = 0
+        self._figure_depth = 0
+        self._footnotes_depth = 0
+        self._workflow_depth = 0
+        self._capture_kind: str | None = None
+        self._capture_tag: str | None = None
+        self._capture_parts: list[str] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        values = dict(attrs)
+        classes = set((values.get("class") or "").split())
+        if tag == "div" and "essay-body" in classes:
+            self._essay_body_depth = 1
+        elif self._essay_body_depth:
+            self._essay_body_depth += 1
+        if tag == "figure":
+            self.figure_count += 1
+            self._figure_depth = 1
+        elif self._figure_depth:
+            self._figure_depth += 1
+        if tag == "section" and values.get("id") == "footnotes":
+            self._footnotes_depth = 1
+        elif self._footnotes_depth:
+            self._footnotes_depth += 1
+        if tag == "ol" and "evidence-flow" in classes:
+            self._workflow_depth = 1
+        elif self._workflow_depth:
+            self._workflow_depth += 1
+
+        if (
+            tag == "section"
+            and "numbered-section" in classes
+            and values.get("id")
+        ):
+            self.section_ids.append(values["id"] or "")
+        if tag == "table" and self._essay_body_depth:
+            self.table_count += 1
+        if values.get("role") == "doc-noteref":
+            self.noteref_count += 1
+        if values.get("role") == "doc-endnote":
+            self.endnote_count += 1
+        if tag == "li" and self._workflow_depth:
+            self.workflow_stage_count += 1
+        if tag == "a":
+            href = values.get("href") or ""
+            if href.startswith(("https://", "http://")):
+                self.external_hrefs.add(href)
+
+        capture_kind: str | None = None
+        if (
+            tag == "p"
+            and self._essay_body_depth
+            and not self._figure_depth
+            and not self._footnotes_depth
+        ):
+            capture_kind = "prose"
+        elif tag == "p" and "workflow-return" in classes:
+            capture_kind = "return"
+        elif tag == "figcaption" and values.get("id") == "workflow-caption":
+            capture_kind = "caption"
+        if capture_kind is not None:
+            self._capture_kind = capture_kind
+            self._capture_tag = tag
+            self._capture_parts = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if self._capture_kind is not None and tag == self._capture_tag:
+            captured = " ".join("".join(self._capture_parts).split())
+            if self._capture_kind == "prose":
+                self.prose_paragraphs.append(captured)
+            elif self._capture_kind == "return":
+                self.workflow_return = captured
+            else:
+                self.workflow_caption = captured
+            self._capture_kind = None
+            self._capture_tag = None
+            self._capture_parts = []
+        if self._workflow_depth:
+            self._workflow_depth -= 1
+        if self._footnotes_depth:
+            self._footnotes_depth -= 1
+        if self._figure_depth:
+            self._figure_depth -= 1
+        if self._essay_body_depth:
+            self._essay_body_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if self._capture_kind is not None:
+            self._capture_parts.append(data)
+
+
 class TranslationRenderingCollector(HTMLParser):
     """Collect user-visible and accessible translation-status rendering."""
 
@@ -866,6 +974,87 @@ class SiteContractTests(unittest.TestCase):
         self.assertEqual(1, len(contract.table_wraps))
         self.assertEqual("0", contract.table_wraps[0].get("tabindex"))
         self.assertEqual("region", contract.table_wraps[0].get("role"))
+
+    def test_hebrew_newspaper_post_is_complete_and_editor_reviewed(self) -> None:
+        """Catch a partial rewrite, weakened claim, or source/link drift."""
+        slug = "from-one-report-to-two-histories"
+        status = build_hebrew_blog.read_translation_status(slug)
+        rendered = build_hebrew_blog.page(
+            slug,
+            build_hebrew_blog.newspaper_body(),
+            status,
+        )
+        contract = FullNewspaperContractCollector()
+        contract.feed(rendered)
+
+        english_contract = FullNewspaperContractCollector()
+        english_contract.feed(
+            NEWSPAPER_ARTICLE_PATH.read_text(encoding="utf-8")
+        )
+        visible_text = " ".join(contract.prose_paragraphs)
+        expected_sections = [
+            "ממחסור-בגישה-לעודף-מידע",
+            "מחמש-שאלות-לשחזור-אירוע",
+            "בין-העמוד-לטענה",
+            "מן-הפיילוט-לסקיל",
+            "מה-השיטה-מוסיפה",
+        ]
+
+        with self.subTest(contract="editor-reviewed state"):
+            self.assertEqual("editor-reviewed", status)
+        with self.subTest(contract="five numbered sections"):
+            self.assertEqual(expected_sections, contract.section_ids)
+        with self.subTest(contract="nineteen prose paragraphs"):
+            self.assertEqual(19, len(contract.prose_paragraphs))
+        with self.subTest(contract="two figures and one source-card table"):
+            self.assertEqual((2, 1), (contract.figure_count, contract.table_count))
+        with self.subTest(contract="nine calls and definitions"):
+            self.assertEqual((9, 9), (contract.noteref_count, contract.endnote_count))
+        with self.subTest(contract="ten workflow stages"):
+            self.assertEqual(10, contract.workflow_stage_count)
+        with self.subTest(contract="visible workflow return loop"):
+            self.assertIn("חוזר ליומן החיפוש", contract.workflow_return)
+            self.assertIn("תיעוד ההחלטות", contract.workflow_return)
+        with self.subTest(contract="human gate is a research decision"):
+            self.assertIn("החלטה מחקרית", contract.workflow_caption)
+            self.assertIn("לא בדיקה סופית לקישוט", contract.workflow_caption)
+        with self.subTest(contract="protected Arabic searches"):
+            self.assertIn("ونجيت", visible_text)
+            self.assertIn("الكابتن ونجيت", visible_text)
+        with self.subTest(contract="bounded result counts"):
+            self.assertTrue(
+                any(
+                    re.search(r"18 תוצאות.*2 מהן", paragraph)
+                    for paragraph in contract.prose_paragraphs
+                )
+            )
+        with self.subTest(contract="bounded OCR study percentages"):
+            self.assertTrue(
+                any(
+                    re.search(
+                        r"במחקר על עיתונים.*כ־78%.*כ־12%.*שייכים לקורפוס",
+                        paragraph,
+                    )
+                    for paragraph in contract.prose_paragraphs
+                )
+            )
+        with self.subTest(contract="external destination parity"):
+            self.assertEqual(
+                english_contract.external_hrefs,
+                contract.external_hrefs,
+            )
+        for legacy_form in (
+            "פלוגות הלילה המיוחדות",
+            "קומוניקט",
+            "מועמד למקור",
+            "מניפסט מקורות",
+            "שער אישור אנושי",
+            "נתיב ביקורת",
+            "קידוד מודל",
+            "תמונת ראי",
+        ):
+            with self.subTest(contract="legacy terminology", term=legacy_form):
+                self.assertNotIn(legacy_form, rendered)
 
     def test_academic_blog_post_preserves_source_structure_and_note_graph(self) -> None:
         collector = ArticleContractCollector()
