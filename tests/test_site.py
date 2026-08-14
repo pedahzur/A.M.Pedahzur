@@ -201,6 +201,7 @@ class FullNewspaperContractCollector(HTMLParser):
         super().__init__()
         self.section_ids: list[str] = []
         self.prose_paragraphs: list[str] = []
+        self.prose_noteref_targets: list[list[str]] = []
         self.endnote_paragraphs: list[str] = []
         self.title = ""
         self.deck = ""
@@ -221,6 +222,7 @@ class FullNewspaperContractCollector(HTMLParser):
         self._capture_kind: str | None = None
         self._capture_tag: str | None = None
         self._capture_parts: list[str] = []
+        self._capture_noteref_targets: list[str] = []
         self._workflow_label_parts: list[str] | None = None
         self._workflow_function_parts: list[str] | None = None
         self._workflow_field: str | None = None
@@ -258,6 +260,8 @@ class FullNewspaperContractCollector(HTMLParser):
             self.table_count += 1
         if values.get("role") == "doc-noteref":
             self.noteref_count += 1
+            if self._capture_kind == "prose":
+                self._capture_noteref_targets.append(values.get("href") or "")
         if values.get("role") == "doc-endnote":
             self.endnote_count += 1
         if tag == "li" and self._workflow_depth:
@@ -295,6 +299,8 @@ class FullNewspaperContractCollector(HTMLParser):
             self._capture_kind = capture_kind
             self._capture_tag = tag
             self._capture_parts = []
+            if capture_kind == "prose":
+                self._capture_noteref_targets = []
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "li" and self._workflow_label_parts is not None:
@@ -313,6 +319,7 @@ class FullNewspaperContractCollector(HTMLParser):
             captured = " ".join("".join(self._capture_parts).split())
             if self._capture_kind == "prose":
                 self.prose_paragraphs.append(captured)
+                self.prose_noteref_targets.append(self._capture_noteref_targets)
             elif self._capture_kind == "endnote":
                 self.endnote_paragraphs.append(captured)
             elif self._capture_kind == "title":
@@ -326,6 +333,7 @@ class FullNewspaperContractCollector(HTMLParser):
             self._capture_kind = None
             self._capture_tag = None
             self._capture_parts = []
+            self._capture_noteref_targets = []
         if self._workflow_depth:
             self._workflow_depth -= 1
         if self._footnotes_depth:
@@ -1128,6 +1136,19 @@ class SiteContractTests(unittest.TestCase):
             self.assertEqual(1, len(matches), anchor)
             return matches[0]
 
+        def paragraph_note_targets(anchor: str) -> list[str]:
+            matches = [
+                targets
+                for paragraph, targets in zip(
+                    contract.prose_paragraphs,
+                    contract.prose_noteref_targets,
+                    strict=True,
+                )
+                if anchor in paragraph
+            ]
+            self.assertEqual(1, len(matches), anchor)
+            return matches[0]
+
         with self.subTest(contract="editor-reviewed state"):
             self.assertEqual("editor-reviewed", status)
         with self.subTest(contract="approved title and deck"):
@@ -1293,6 +1314,10 @@ class SiteContractTests(unittest.TestCase):
                 "אינם עותק מלא ושקוף של העיתונות ההיסטורית",
                 transparency,
             )
+            self.assertEqual(
+                ["#fn6"],
+                paragraph_note_targets("גם המאגר עצמו מחייב שקיפות"),
+            )
         with self.subTest(contract="S4.3 defines ASReview without double negative"):
             assisted_coding = contract.prose_paragraphs[15]
             self.assertIn(
@@ -1314,6 +1339,12 @@ class SiteContractTests(unittest.TestCase):
                 assisted_coding,
             )
             self.assertNotIn("אינה מיישמת במלואן לא", assisted_coding)
+            self.assertEqual(
+                ["#fn9"],
+                paragraph_note_targets(
+                    "גם בקידוד בסיוע מודל חלוקת העבודה נשארת ברורה"
+                ),
+            )
         with self.subTest(contract="S5.1 connects established practices"):
             contribution = contract.prose_paragraphs[16]
             self.assertIn("התרומה אינה אלגוריתם חדש", contribution)
