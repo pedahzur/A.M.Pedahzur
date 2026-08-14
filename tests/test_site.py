@@ -21,8 +21,6 @@ NEWSPAPER_ARTICLE_PATH = (
     / "from-one-report-to-two-histories"
     / "index.html"
 )
-
-
 def css_declarations(
     styles: str, selector: str, required_property: str | None = None
 ) -> dict[str, str]:
@@ -290,6 +288,76 @@ class ArticleContractCollector(HTMLParser):
 
 
 class SiteContractTests(unittest.TestCase):
+    def test_every_blog_post_has_a_complete_linked_hebrew_edition(self) -> None:
+        blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        english_posts = tuple(sorted((ROOT / "blog").glob("*/index.html")))
+        pairs = tuple(
+            (english_path, english_path.parent / "he" / "index.html")
+            for english_path in english_posts
+        )
+        self.assertGreaterEqual(len(pairs), 2)
+
+        for english_path, hebrew_path in pairs:
+            with self.subTest(post=english_path.parent.name):
+                self.assertTrue(hebrew_path.is_file())
+                english = english_path.read_text(encoding="utf-8")
+                hebrew = hebrew_path.read_text(encoding="utf-8")
+                english_url = (
+                    "https://pedahzur.github.io/A.M.Pedahzur/"
+                    + english_path.relative_to(ROOT).parent.as_posix()
+                    + "/"
+                )
+                hebrew_url = english_url + "he/"
+
+                self.assertIn('<html lang="he" dir="rtl">', hebrew)
+                self.assertIn(
+                    f'<link rel="alternate" hreflang="he" href="{hebrew_url}">',
+                    english,
+                )
+                self.assertIn(
+                    f'<link rel="alternate" hreflang="en" href="{english_url}">',
+                    hebrew,
+                )
+                self.assertIn(
+                    f'<link rel="canonical" href="{hebrew_url}">',
+                    hebrew,
+                )
+                self.assertIn('class="language-switch"', english)
+                self.assertIn('class="language-switch"', hebrew)
+                self.assertIn('hreflang="he" lang="he"', english)
+                self.assertIn('hreflang="en" lang="en"', hebrew)
+                self.assertEqual(
+                    english.count('role="doc-noteref"'),
+                    hebrew.count('role="doc-noteref"'),
+                )
+                self.assertEqual(
+                    english.count('role="doc-endnote"'),
+                    hebrew.count('role="doc-endnote"'),
+                )
+                self.assertEqual(english.count("<h2"), hebrew.count("<h2"))
+                self.assertEqual(english.count("<h3"), hebrew.count("<h3"))
+                self.assertEqual(
+                    english.count('class="article-table"'),
+                    hebrew.count('class="article-table"'),
+                )
+                self.assertEqual(
+                    english.count('class="evidence-flow"'),
+                    hebrew.count('class="evidence-flow"'),
+                )
+                self.assertIn(hebrew_url, sitemap)
+                self.assertIn(
+                    'href="'
+                    + hebrew_path.relative_to(ROOT).parent.as_posix()
+                    + '/"',
+                    homepage,
+                )
+
+        self.assertEqual(
+            len(pairs), blog.count('class="hebrew-edition-link"')
+        )
+
     def test_academic_blog_uses_accessible_editorial_design(self) -> None:
         styles = (ROOT / "blog" / "blog.css").read_text(encoding="utf-8")
         post = ARTICLE_PATH.read_text(encoding="utf-8")
@@ -405,7 +473,7 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("https://pedahzur.github.io/A.M.Pedahzur/blog/", sitemap)
         self.assertIn(
             "<loc>https://pedahzur.github.io/A.M.Pedahzur/</loc>\n"
-            "    <lastmod>2026-08-13</lastmod>",
+            "    <lastmod>2026-08-14</lastmod>",
             sitemap,
         )
 
