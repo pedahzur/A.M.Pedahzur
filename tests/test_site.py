@@ -1519,7 +1519,7 @@ class SiteContractTests(unittest.TestCase):
     def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")
-        cv_name = "Ami_Pedahzur_CV_July_2026.pdf"
+        cv_name = "Ami_Pedahzur_CV_August_2026.pdf"
 
         self.assertTrue((ROOT / cv_name).is_file())
         self.assertEqual(3, homepage.count(cv_name))
@@ -1590,6 +1590,47 @@ class SiteContractTests(unittest.TestCase):
             text = page.read_text(encoding="utf-8")
             for marker in forbidden_markers:
                 self.assertNotIn(marker, text, str(page.relative_to(ROOT)))
+
+    def test_deployed_text_contains_no_retired_center_name(self) -> None:
+        result = subprocess.run(
+            [
+                "git",
+                "ls-files",
+                "-z",
+                "--",
+                "*.html",
+                "*.css",
+                "*.js",
+                "*.json",
+                "*.md",
+                "*.py",
+                "*.xml",
+                "*.yaml",
+                "*.yml",
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
+        tracked_paths = [
+            ROOT / path
+            for path in result.stdout.decode("utf-8").split("\0")
+            if path
+        ]
+        self.assertTrue(tracked_paths)
+        forbidden_reference_hashes = {
+            "64cd1d87da084917928dfc612daa1c14588e0082df814d18ec71c4902e36e3a5",
+            "ecf8a7fa137c29d4323eeb9e37054de9eb7d6e96a868e5ebd1b0cf2e06190908",
+        }
+        for page in tracked_paths:
+            text = page.read_text(encoding="utf-8")
+            for token in re.findall(r"[A-Za-z]+|[\u0590-\u05FF]+", text):
+                token_hash = hashlib.sha256(token.casefold().encode()).hexdigest()
+                self.assertNotIn(
+                    token_hash,
+                    forbidden_reference_hashes,
+                    str(page.relative_to(ROOT)),
+                )
 
 
 class HebrewNewspaperContractTests(unittest.TestCase):
