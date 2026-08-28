@@ -1546,6 +1546,28 @@ class SiteContractTests(unittest.TestCase):
             css_declarations(styles, ".book-card .cite-buttons").get("flex-wrap"),
         )
 
+    def test_homepage_publications_default_to_five_and_filters_stay_complete(self) -> None:
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        scripts = (ROOT / "script.js").read_text(encoding="utf-8")
+
+        self.assertIn('id="publication-toggle"', homepage)
+        self.assertIn('hidden aria-controls="article-list"', homepage)
+        self.assertIn('aria-controls="article-list"', homepage)
+        self.assertIn('aria-expanded="false"', homepage)
+        self.assertIn("Show all publications", homepage)
+        for token in (
+            "const DEFAULT_PUBLICATION_LIMIT = 5;",
+            'activeFilter: "all"',
+            "expanded: false",
+            "function publicationMatches(pub, filter)",
+            "function updatePublicationView()",
+            "function setupPublicationToggle()",
+            'toggle.hidden = publicationView.activeFilter !== "all"',
+            "publicationView.expanded = false;",
+            '`${visibleCount} of ${publications.length} entries shown`',
+        ):
+            self.assertIn(token, scripts)
+
     def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")

@@ -1165,6 +1165,17 @@ blockquote .bq-source {
   align-self: stretch;
 }
 
+/* Publication Disclosure */
+.publication-disclosure {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.publication-toggle[hidden] {
+  display: none;
+}
+
 /* Scholar Link */
 .scholar-link {
   text-align: center;

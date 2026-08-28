@@ -152,6 +152,9 @@ const publications = [
   }
 ];
 
+const DEFAULT_PUBLICATION_LIMIT = 5;
+const publicationView = { activeFilter: "all", expanded: false };
+
 /* ── Render Books ── */
 function renderBooks() {
   const container = document.getElementById("book-list");
@@ -216,10 +219,53 @@ function renderArticles() {
 }
 
 /* ── Filters ── */
+function publicationMatches(pub, filter) {
+  if (filter === "all") return true;
+  if (filter.startsWith("topic-")) {
+    return (pub.topics || []).includes(filter.replace("topic-", ""));
+  }
+  return pub.type === filter;
+}
+
+function updatePublicationView() {
+  const items = [...document.querySelectorAll("#article-list .pub-item")];
+  const toggle = document.getElementById("publication-toggle");
+  let visibleCount = 0;
+
+  items.forEach((item, index) => {
+    const pub = publications[index];
+    const matches = publicationMatches(pub, publicationView.activeFilter);
+    const withinLimit = publicationView.activeFilter !== "all"
+      || publicationView.expanded
+      || index < DEFAULT_PUBLICATION_LIMIT;
+    item.hidden = !(matches && withinLimit);
+    if (!item.hidden) visibleCount += 1;
+  });
+
+  const count = document.getElementById("article-count");
+  if (count) count.textContent = `${visibleCount} of ${publications.length} entries shown`;
+  if (!toggle) return;
+  toggle.hidden = publicationView.activeFilter !== "all"
+    || publications.length <= DEFAULT_PUBLICATION_LIMIT;
+  toggle.setAttribute("aria-expanded", String(publicationView.expanded));
+  toggle.textContent = publicationView.expanded
+    ? "Show fewer publications"
+    : "Show all publications";
+}
+
+function setupPublicationToggle() {
+  const toggle = document.getElementById("publication-toggle");
+  if (!toggle) return;
+  toggle.addEventListener("click", () => {
+    publicationView.expanded = !publicationView.expanded;
+    updatePublicationView();
+    toggle.focus({ preventScroll: true });
+  });
+}
+
 function setupFilters() {
   const buttons = document.querySelectorAll(".filter-btn");
-  const container = document.getElementById("article-list");
-  if (!buttons.length || !container) return;
+  if (!buttons.length) return;
 
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -229,17 +275,9 @@ function setupFilters() {
       });
       btn.classList.add("active");
       btn.setAttribute("aria-pressed", "true");
-      const filter = btn.getAttribute("data-filter");
-      container.querySelectorAll(".pub-item").forEach(article => {
-        if (filter === "all") {
-          article.hidden = false;
-        } else if (filter.startsWith("topic-")) {
-          const topic = filter.replace("topic-", "");
-          article.hidden = !(article.dataset.topics && article.dataset.topics.split(" ").includes(topic));
-        } else {
-          article.hidden = article.dataset.type !== filter;
-        }
-      });
+      publicationView.activeFilter = btn.getAttribute("data-filter");
+      publicationView.expanded = false;
+      updatePublicationView();
     });
   });
 }
@@ -432,6 +470,8 @@ function activateReveal() {
 renderBooks();
 renderArticles();
 setupFilters();
+setupPublicationToggle();
+updatePublicationView();
 setupCitationButtons();
 setupModalTabs();
 setupModalOverlay();
