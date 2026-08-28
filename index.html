@@ -47,20 +47,22 @@
 <body>
 
 <header class="site-header">
-  <a class="wordmark" href="#top">A. Pedahzur</a>
-  <nav aria-label="Primary">
-    <a href="#top">Home</a>
-    <a href="#about">About</a>
-    <a href="#books">Books</a>
-    <a href="#articles">Articles</a>
-    <a href="blog/">Blog</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <div class="header-inner">
+    <a class="wordmark" href="#top">A. Pedahzur</a>
+    <nav aria-label="Primary">
+      <a class="nav-link nav-home" data-nav-target="top" href="#top">Home</a>
+      <a class="nav-link" data-nav-target="about" href="#about">About</a>
+      <a class="nav-link" data-nav-target="books" href="#books">Books</a>
+      <a class="nav-link" data-nav-target="articles" href="#articles">Articles</a>
+      <a href="blog/">Blog</a>
+      <a class="nav-link" data-nav-target="contact" href="#contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <main id="top">
 
-  <section class="hero">
+  <section class="hero" data-nav-section="top">
     <div class="hero-content">
       <div class="hero-heading">
         <p class="hero-label">University of Haifa</p>
@@ -76,7 +78,7 @@
     </div>
   </section>
 
-  <section id="about" class="section">
+  <section id="about" class="section" data-nav-section="about">
     <div class="section-header"><h2>About</h2></div>
     <div class="about-grid">
       <div class="about-text">
@@ -97,7 +99,7 @@
     </div>
   </section>
 
-  <section id="books" class="section section-alt">
+  <section id="books" class="section section-alt" data-nav-section="books">
     <div class="section-header">
       <h2>Books</h2>
       <p class="section-sub">Monographs and edited volumes</p>
@@ -105,7 +107,7 @@
     <div id="book-list" class="pub-grid"></div>
   </section>
 
-  <section id="articles" class="section">
+  <section id="articles" class="section" data-nav-section="articles">
     <div class="section-header">
       <h2>Articles and Chapters</h2>
       <p class="section-sub">Sourced from Google Scholar</p>
@@ -156,7 +158,7 @@
     </article>
   </section>
 
-  <section id="contact" class="section">
+  <section id="contact" class="section" data-nav-section="contact">
     <div class="section-header"><h2>Contact</h2></div>
     <div class="contact-grid">
       <a class="contact-item" href="mailto:apedahzur@univ.haifa.ac.il"><strong>Email</strong><span>apedahzur@univ.haifa.ac.il</span></a>

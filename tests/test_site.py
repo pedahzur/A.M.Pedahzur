@@ -1543,6 +1543,28 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertNotIn(retired_content, homepage)
 
+    def test_homepage_header_navigation_is_aligned_and_accessible(self) -> None:
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+
+        self.assertIn('class="header-inner"', homepage)
+        self.assertIn('class="nav-link nav-home"', homepage)
+        self.assertEqual(5, homepage.count('data-nav-target="'))
+        self.assertIn('data-nav-section="top"', homepage)
+        for target in ("about", "books", "articles", "contact"):
+            self.assertIn(f'data-nav-section="{target}"', homepage)
+        for token in (
+            ".header-inner {",
+            "max-width: 1100px;",
+            "scroll-margin-top:",
+            "min-height: 44px;",
+            "min-width: 44px;",
+            ":focus-visible",
+            ".nav-home {",
+            "display: none;",
+        ):
+            self.assertIn(token, styles)
+
     def test_retired_method_feature_and_book_are_not_public(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         scripts = (ROOT / "script.js").read_text(encoding="utf-8")
