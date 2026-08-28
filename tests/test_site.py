@@ -1328,7 +1328,6 @@ class SiteContractTests(unittest.TestCase):
             landing,
         )
         self.assertIn('href="guide.css"', landing)
-        self.assertNotIn('href="field-guide/"', homepage)
         self.assertNotIn("Explore the Field Guide", homepage)
         self.assertNotIn("AI-Assisted Research Methods", homepage)
         self.assertNotIn("Conceptualization: defining", homepage)
@@ -1528,10 +1527,6 @@ class SiteContractTests(unittest.TestCase):
             "grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);",
             styles,
         )
-        self.assertIn(
-            "grid-template-columns: repeat(4, minmax(0, 1fr));",
-            styles,
-        )
         self.assertIn("This work has taken me", homepage)
         for retired_content in (
             "Chaikin Institute for Geostrategy",
@@ -1542,6 +1537,32 @@ class SiteContractTests(unittest.TestCase):
             "aleph-idle.webp",
         ):
             self.assertNotIn(retired_content, homepage)
+
+    def test_homepage_prioritizes_primary_actions_and_current_work(self) -> None:
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+
+        self.assertIn('class="hero-primary-actions"', homepage)
+        self.assertIn('class="hero-secondary-actions"', homepage)
+        self.assertLess(
+            homepage.index("Curriculum Vitae"),
+            homepage.index("University Profile"),
+        )
+        self.assertIn('id="current-work"', homepage)
+        self.assertEqual(3, homepage.count('class="current-work-card"'))
+        for destination in (
+            "field-guide/",
+            "blog/from-one-report-to-two-histories/",
+            "https://doi.org/10.1080/1057610X.2025.2528333",
+        ):
+            self.assertIn(f'href="{destination}"', homepage)
+        for token in (
+            ".hero-primary-actions {",
+            ".hero-secondary-actions {",
+            ".current-work-grid {",
+            "grid-template-columns: repeat(3, minmax(0, 1fr));",
+        ):
+            self.assertIn(token, styles)
 
     def test_homepage_header_navigation_is_aligned_and_accessible(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
