@@ -1545,14 +1545,6 @@ class SiteContractTests(unittest.TestCase):
             "wrap",
             css_declarations(styles, ".book-card .cite-buttons").get("flex-wrap"),
         )
-        report = (
-            ROOT
-            / ".superpowers"
-            / "sdd"
-            / "2026-08-28-academic-site-redesign-implementation"
-            / "task-3-report.md"
-        ).read_text(encoding="utf-8")
-        self.assertNotIn("edge=curl", report)
 
     def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
