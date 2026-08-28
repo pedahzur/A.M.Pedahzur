@@ -1589,6 +1589,23 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertIn(token, styles)
 
+    def test_homepage_active_navigation_states_override_default_links(self) -> None:
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+
+        self.assertEqual(
+            "var(--text-dim)",
+            css_declarations(styles, ".nav-home", "color").get("color"),
+        )
+        for selector in (
+            '.nav-link[aria-current="location"]',
+            '.wordmark[aria-current="location"]',
+        ):
+            declarations = css_declarations(styles, selector)
+            self.assertEqual("underline", declarations.get("text-decoration-line"))
+            self.assertEqual("var(--accent)", declarations.get("text-decoration-color"))
+            self.assertEqual("2px", declarations.get("text-decoration-thickness"))
+            self.assertEqual(".35rem", declarations.get("text-underline-offset"))
+
     def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")

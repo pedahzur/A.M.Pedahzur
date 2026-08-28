@@ -79,7 +79,7 @@ main#top,
 }
 
 .nav-home {
-  color: var(--accent);
+  color: var(--text-dim);
 }
 
 .wordmark {
@@ -111,6 +111,7 @@ nav a:hover {
 .nav-link[aria-current="location"],
 .wordmark[aria-current="location"] {
   color: var(--accent-dark);
+  text-decoration-line: underline;
   text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: .35rem;
