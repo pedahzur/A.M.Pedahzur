@@ -1589,6 +1589,72 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertIn(token, styles)
 
+    def test_homepage_active_navigation_syncs_contact_at_document_bottom(self) -> None:
+        scripts = (ROOT / "script.js").read_text(encoding="utf-8")
+
+        for token in (
+            "const DOCUMENT_BOTTOM_TOLERANCE = 2;",
+            "function syncActiveNavigationAtDocumentBottom()",
+            "window.scrollY + window.innerHeight",
+            "document.documentElement.scrollHeight",
+            "document.body.scrollHeight",
+            'setActiveNavigation("contact");',
+            'window.location.hash === "#contact"',
+            'window.addEventListener("hashchange"',
+            'window.addEventListener("scroll", '
+            "syncActiveNavigationAtDocumentBottom, { passive: true });",
+        ):
+            self.assertIn(token, scripts)
+
+        observer_callback = scripts.split(
+            "const observer = new IntersectionObserver(entries => {", 1
+        )[1].split("}, { rootMargin:", 1)[0]
+        self.assertIn("syncActiveNavigationAtDocumentBottom()", observer_callback)
+
+    def test_homepage_mobile_wordmark_and_modal_targets_are_44_pixels(self) -> None:
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+        match = re.search(
+            r"@media \(max-width: 600px\) \{(.*?)(?=@media|\Z)",
+            styles,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(match, "Missing 600px media query")
+        mobile = match.group(1)  # type: ignore[union-attr]
+
+        def mobile_declarations(selector: str) -> dict[str, str]:
+            matches: list[dict[str, str]] = []
+            for selector_group, body in re.findall(r"([^{}]+)\{([^{}]*)\}", mobile):
+                selectors = [
+                    " ".join(item.split()) for item in selector_group.split(",")
+                ]
+                if selector not in selectors:
+                    continue
+                matches.append(
+                    {
+                        name.strip(): value.strip()
+                        for name, value in re.findall(
+                            r"([\w-]+)\s*:\s*([^;]+);", body
+                        )
+                    }
+                )
+            self.assertEqual(
+                1,
+                len(matches),
+                f"Expected one mobile rule for {selector}, found {len(matches)}",
+            )
+            return matches[0]
+
+        for selector in (".wordmark", ".modal-close", ".modal-tab"):
+            with self.subTest(selector=selector):
+                declarations = mobile_declarations(selector)
+                self.assertEqual("44px", declarations.get("min-width"))
+                self.assertEqual("44px", declarations.get("min-height"))
+
+        wordmark = mobile_declarations(".wordmark")
+        self.assertEqual("flex", wordmark.get("display"))
+        self.assertEqual("center", wordmark.get("align-items"))
+        self.assertEqual("center", wordmark.get("justify-content"))
+
     def test_homepage_active_navigation_states_override_default_links(self) -> None:
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")
 

@@ -153,6 +153,7 @@ const publications = [
 ];
 
 const DEFAULT_PUBLICATION_LIMIT = 5;
+const DOCUMENT_BOTTOM_TOLERANCE = 2;
 const publicationView = { activeFilter: "all", expanded: false };
 let activeNavigationSection = "top";
 
@@ -460,11 +461,33 @@ function setActiveNavigation(sectionId) {
   if (current) current.setAttribute("aria-current", "location");
 }
 
+function syncActiveNavigationAtDocumentBottom() {
+  const documentHeight = Math.max(
+    document.documentElement.scrollHeight,
+    document.body.scrollHeight
+  );
+  const atDocumentBottom = window.scrollY + window.innerHeight
+    >= documentHeight - DOCUMENT_BOTTOM_TOLERANCE;
+  if (atDocumentBottom) setActiveNavigation("contact");
+  return atDocumentBottom;
+}
+
 function setupActiveNavigation() {
   setActiveNavigation("top");
+  window.addEventListener("scroll", syncActiveNavigationAtDocumentBottom, { passive: true });
+  window.addEventListener("resize", syncActiveNavigationAtDocumentBottom);
+  window.addEventListener("hashchange", () => {
+    if (window.location.hash === "#contact") setActiveNavigation("contact");
+  });
+  if (window.location.hash === "#contact") {
+    setActiveNavigation("contact");
+  } else {
+    syncActiveNavigationAtDocumentBottom();
+  }
   if (!("IntersectionObserver" in window)) return;
   const sections = [...document.querySelectorAll("[data-nav-section]")];
   const observer = new IntersectionObserver(entries => {
+    if (syncActiveNavigationAtDocumentBottom()) return;
     const visible = entries
       .filter(entry => entry.isIntersecting)
       .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
