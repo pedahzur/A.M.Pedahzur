@@ -1568,6 +1568,27 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertIn(token, scripts)
 
+    def test_homepage_tracks_active_sections_and_respects_reduced_motion(self) -> None:
+        scripts = (ROOT / "script.js").read_text(encoding="utf-8")
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+
+        for token in (
+            "function setActiveNavigation(sectionId)",
+            "function setupActiveNavigation()",
+            'if (!("IntersectionObserver" in window)) return;',
+            'aria-current", "location"',
+            'window.matchMedia("(max-width: 600px)")',
+            "setupActiveNavigation();",
+        ):
+            self.assertIn(token, scripts)
+        for token in (
+            '.nav-link[aria-current="location"]',
+            '.wordmark[aria-current="location"]',
+            "@media (prefers-reduced-motion: reduce)",
+            "transition-duration: .01ms !important;",
+        ):
+            self.assertIn(token, styles)
+
     def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")

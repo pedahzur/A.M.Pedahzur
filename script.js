@@ -154,6 +154,7 @@ const publications = [
 
 const DEFAULT_PUBLICATION_LIMIT = 5;
 const publicationView = { activeFilter: "all", expanded: false };
+let activeNavigationSection = "top";
 
 /* ── Render Books ── */
 function renderBooks() {
@@ -445,6 +446,36 @@ function setYear() {
   if (el) el.textContent = new Date().getFullYear();
 }
 
+/* ── Active Navigation ── */
+function setActiveNavigation(sectionId) {
+  activeNavigationSection = sectionId;
+  const wordmark = document.querySelector(".wordmark");
+  const links = [...document.querySelectorAll(".nav-link[data-nav-target]")];
+  [wordmark, ...links].filter(Boolean).forEach(link => link.removeAttribute("aria-current"));
+  const useWordmark = sectionId === "top"
+    && window.matchMedia("(max-width: 600px)").matches;
+  const current = useWordmark
+    ? wordmark
+    : links.find(link => link.dataset.navTarget === sectionId);
+  if (current) current.setAttribute("aria-current", "location");
+}
+
+function setupActiveNavigation() {
+  setActiveNavigation("top");
+  if (!("IntersectionObserver" in window)) return;
+  const sections = [...document.querySelectorAll("[data-nav-section]")];
+  const observer = new IntersectionObserver(entries => {
+    const visible = entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if (visible[0]) setActiveNavigation(visible[0].target.dataset.navSection);
+  }, { rootMargin: "-90px 0px -65% 0px", threshold: 0 });
+  sections.forEach(section => observer.observe(section));
+  window.matchMedia("(max-width: 600px)").addEventListener("change", () => {
+    setActiveNavigation(activeNavigationSection);
+  });
+}
+
 /* ── Scroll Reveal ── */
 function activateReveal() {
   const items = document.querySelectorAll(".reveal");
@@ -478,4 +509,5 @@ setupModalOverlay();
 setupEscapeToClose();
 closeCiteModal();
 setYear();
+setupActiveNavigation();
 activateReveal();
