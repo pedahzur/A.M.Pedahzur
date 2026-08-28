@@ -1564,11 +1564,15 @@ class SiteContractTests(unittest.TestCase):
             "min-height: 44px;",
             "min-width: 44px;",
             ":focus-visible",
-            "outline: 3px solid var(--accent-light);",
             ".nav-home {",
             "display: none;",
         ):
             self.assertIn(token, styles)
+        self.assertRegex(
+            styles,
+            r":where\(a, button\):focus-visible\s*\{[^}]*"
+            r"outline:\s*3px solid var\(--accent-light\);",
+        )
 
     def test_retired_method_feature_and_book_are_not_public(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
