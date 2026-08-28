@@ -1700,11 +1700,21 @@ scrollspy.callback([entry(hero, true)]);
 const initialHero = currentTarget();
 scrollspy.callback([entry(about, true)]);
 const aboutEntered = currentTarget();
+scrollspy.callback([entry(hero, false)]);
+const heroExited = currentTarget();
+scrollspy.callback([entry(hero, true)]);
+const heroReentered = currentTarget();
 window.scrollY = 4;
 sectionTops.top = -4;
 sectionTops.about = 700;
 scrollspy.callback([entry(about, false)]);
-process.stdout.write(JSON.stringify([initialHero, aboutEntered, currentTarget()]));
+process.stdout.write(JSON.stringify([
+  initialHero,
+  aboutEntered,
+  heroExited,
+  heroReentered,
+  currentTarget()
+]));
 """
         result = subprocess.run(
             ["node", "-e", harness, str(ROOT / "script.js")],
@@ -1714,7 +1724,10 @@ process.stdout.write(JSON.stringify([initialHero, aboutEntered, currentTarget()]
             text=True,
         )
 
-        self.assertEqual(["top", "about", "top"], json.loads(result.stdout))
+        self.assertEqual(
+            ["top", "about", "about", "about", "top"],
+            json.loads(result.stdout),
+        )
 
     def test_homepage_mobile_home_stays_hidden_after_target_size_rules(self) -> None:
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")
