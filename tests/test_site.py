@@ -1611,7 +1611,7 @@ class SiteContractTests(unittest.TestCase):
         )[1].split("}, { rootMargin:", 1)[0]
         self.assertIn("syncActiveNavigationAtDocumentBottom()", observer_callback)
 
-    def test_homepage_scrollspy_prefers_lower_overlapping_section(self) -> None:
+    def test_homepage_scrollspy_tracks_intersections_across_callbacks(self) -> None:
         harness = r"""
 const fs = require("fs");
 const vm = require("vm");
@@ -1627,8 +1627,12 @@ function makeLink(navTarget) {
 
 const wordmark = makeLink(null);
 const links = ["top", "about", "books", "articles", "contact"].map(makeLink);
+const sectionTops = { top: -20, about: 80, books: 600, articles: 900, contact: 1200 };
 const sections = ["top", "about", "books", "articles", "contact"].map(
-  navSection => ({ dataset: { navSection } })
+  navSection => ({
+    dataset: { navSection },
+    getBoundingClientRect() { return { top: sectionTops[navSection] }; }
+  })
 );
 const observers = [];
 
@@ -1680,10 +1684,10 @@ const scrollspy = observers.find(
 if (!scrollspy) throw new Error("Active-navigation observer was not registered");
 const hero = sections.find(section => section.dataset.navSection === "top");
 const about = sections.find(section => section.dataset.navSection === "about");
-const entries = [
-  { isIntersecting: true, boundingClientRect: { top: -20 }, target: hero },
-  { isIntersecting: true, boundingClientRect: { top: 80 }, target: about }
-];
+
+function entry(target, isIntersecting) {
+  return { isIntersecting, boundingClientRect: target.getBoundingClientRect(), target };
+}
 
 function currentTarget() {
   if (wordmark.attributes["aria-current"] === "location") return "top";
@@ -1692,10 +1696,15 @@ function currentTarget() {
   )?.dataset.navTarget;
 }
 
-scrollspy.callback(entries);
-const forwardOrder = currentTarget();
-scrollspy.callback([...entries].reverse());
-process.stdout.write(JSON.stringify([forwardOrder, currentTarget()]));
+scrollspy.callback([entry(hero, true)]);
+const initialHero = currentTarget();
+scrollspy.callback([entry(about, true)]);
+const aboutEntered = currentTarget();
+window.scrollY = 4;
+sectionTops.top = -4;
+sectionTops.about = 700;
+scrollspy.callback([entry(about, false)]);
+process.stdout.write(JSON.stringify([initialHero, aboutEntered, currentTarget()]));
 """
         result = subprocess.run(
             ["node", "-e", harness, str(ROOT / "script.js")],
@@ -1705,7 +1714,7 @@ process.stdout.write(JSON.stringify([forwardOrder, currentTarget()]));
             text=True,
         )
 
-        self.assertEqual(["about", "about"], json.loads(result.stdout))
+        self.assertEqual(["top", "about", "top"], json.loads(result.stdout))
 
     def test_homepage_mobile_home_stays_hidden_after_target_size_rules(self) -> None:
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")

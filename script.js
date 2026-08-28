@@ -486,12 +486,16 @@ function setupActiveNavigation() {
   }
   if (!("IntersectionObserver" in window)) return;
   const sections = [...document.querySelectorAll("[data-nav-section]")];
+  const intersectingSections = new Set();
   const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) intersectingSections.add(entry.target);
+      else intersectingSections.delete(entry.target);
+    });
     if (syncActiveNavigationAtDocumentBottom()) return;
-    const visible = entries
-      .filter(entry => entry.isIntersecting)
-      .sort((a, b) => b.boundingClientRect.top - a.boundingClientRect.top);
-    if (visible[0]) setActiveNavigation(visible[0].target.dataset.navSection);
+    const visible = [...intersectingSections]
+      .sort((a, b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top);
+    if (visible[0]) setActiveNavigation(visible[0].dataset.navSection);
   }, { rootMargin: "-90px 0px -65% 0px", threshold: 0 });
   sections.forEach(section => observer.observe(section));
   window.matchMedia("(max-width: 600px)").addEventListener("change", () => {
