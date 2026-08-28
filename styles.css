@@ -682,6 +682,7 @@ h3 {
 
 .book-card .cite-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: .4rem;
   margin-top: .75rem;
 }
