@@ -73,7 +73,7 @@ main#top,
 }
 
 :where(a, button):focus-visible {
-  outline: 3px solid rgba(184, 92, 56, .55);
+  outline: 3px solid var(--accent-light);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }

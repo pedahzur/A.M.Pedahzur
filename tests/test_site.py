@@ -1128,7 +1128,7 @@ class SiteContractTests(unittest.TestCase):
         for page in root_pages:
             with self.subTest(page=page.name):
                 html = page.read_text(encoding="utf-8")
-                self.assertIn('<a href="blog/">Blog</a>', html)
+                self.assertIn('href="blog/">Blog</a>', html)
 
     def test_academic_blog_post_preserves_article_contract(self) -> None:
         post_path = (
@@ -1550,6 +1550,10 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn('class="header-inner"', homepage)
         self.assertIn('class="nav-link nav-home"', homepage)
         self.assertEqual(5, homepage.count('data-nav-target="'))
+        primary_nav = homepage.split('<nav aria-label="Primary">', 1)[1].split(
+            "</nav>", 1
+        )[0]
+        self.assertEqual(6, primary_nav.count('class="nav-link'))
         self.assertIn('data-nav-section="top"', homepage)
         for target in ("about", "books", "articles", "contact"):
             self.assertIn(f'data-nav-section="{target}"', homepage)
@@ -1560,6 +1564,7 @@ class SiteContractTests(unittest.TestCase):
             "min-height: 44px;",
             "min-width: 44px;",
             ":focus-visible",
+            "outline: 3px solid var(--accent-light);",
             ".nav-home {",
             "display: none;",
         ):
