@@ -1515,6 +1515,33 @@ class SiteContractTests(unittest.TestCase):
         self.assertNotIn("border-radius: 999px", styles)
         self.assertNotIn('class="guide-hero"', landing)
 
+    def test_homepage_books_use_local_accessible_covers(self) -> None:
+        scripts = (ROOT / "script.js").read_text(encoding="utf-8")
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+        filenames = (
+            "suicide-terrorism.jpg",
+            "israeli-secret-services.jpg",
+            "jewish-terrorism-in-israel.jpg",
+            "triumph-israels-radical-right.jpg",
+        )
+
+        for filename in filenames:
+            path = ROOT / "assets" / "book-covers" / filename
+            self.assertTrue(path.is_file(), filename)
+            self.assertGreater(path.stat().st_size, 10_000, filename)
+            self.assertIn(f"assets/book-covers/{filename}", scripts)
+        self.assertEqual(4, scripts.count("coverAlt:"))
+        for token in (
+            'class="book-cover"',
+            "book-cover-placeholder",
+            'loading="lazy"',
+            'width="180"',
+            'height="270"',
+        ):
+            self.assertIn(token, scripts)
+        self.assertIn(".book-card-body {", styles)
+        self.assertIn("object-fit: contain;", styles)
+
     def test_homepage_uses_current_cv_and_minimal_hero(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")

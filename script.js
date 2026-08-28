@@ -8,6 +8,8 @@ const books = [
     year: "2005",
     description: "A comprehensive cross-cultural analysis of suicide terrorism, tracing its emergence in Lebanon, Israel, Sri Lanka, Turkey, Chechnya, Iraq, and Al-Qaeda's global jihad.",
     page: "book-suicide-terrorism.html",
+    cover: "assets/book-covers/suicide-terrorism.jpg",
+    coverAlt: "Cover of Suicide Terrorism",
     links: [
       { label: "Publisher", url: "https://politybooks.com/bookdetail/?isbn=9780745633824" }
     ]
@@ -19,6 +21,8 @@ const books = [
     year: "2009",
     description: "Examines Israel's counterterrorism strategies from 1948 onward, arguing that defensive measures have proven more effective than offensive operations and targeted killings.",
     page: "book-israeli-secret-services.html",
+    cover: "assets/book-covers/israeli-secret-services.jpg",
+    coverAlt: "Cover of The Israeli Secret Services and the Struggle Against Terrorism",
     links: [
       { label: "Publisher", url: "https://cup.columbia.edu/book/the-israeli-secret-services-and-the-struggle-against-terrorism/9780231140430" }
     ]
@@ -30,6 +34,8 @@ const books = [
     year: "2009",
     description: "Explores how religious terrorism emerges from totalistic communities, spanning from the ancient sicarii to the assassination of Prime Minister Yitzhak Rabin.",
     page: "book-jewish-terrorism.html",
+    cover: "assets/book-covers/jewish-terrorism-in-israel.jpg",
+    coverAlt: "Cover of Jewish Terrorism in Israel",
     links: [
       { label: "Publisher", url: "https://cup.columbia.edu/book/jewish-terrorism-in-israel/9780231154468" }
     ]
@@ -41,6 +47,8 @@ const books = [
     year: "2012",
     description: "Documents the radical right's ascendance in Israeli politics and its institutional networks, tracing the movement from fringe ideology to mainstream governance.",
     page: "book-triumph-radical-right.html",
+    cover: "assets/book-covers/triumph-israels-radical-right.jpg",
+    coverAlt: "Cover of The Triumph of Israel's Radical Right",
     links: [
       { label: "Publisher", url: "https://global.oup.com/academic/product/the-triumph-of-israels-radical-right-9780199744701" }
     ]
@@ -148,18 +156,26 @@ const publications = [
 function renderBooks() {
   const container = document.getElementById("book-list");
   if (!container) return;
-  container.innerHTML = books.map((b, index) => `
+  container.innerHTML = books.map((b, index) => {
+    const coverHtml = b.cover
+      ? `<img class="book-cover" src="${b.cover}" alt="${b.coverAlt}" width="180" height="270" loading="lazy">`
+      : `<div class="book-cover book-cover-placeholder" role="img" aria-label="${b.coverAlt}"><span>${b.title}</span></div>`;
+    return `
     <div class="book-card">
-      <h3>${b.title}</h3>
-      <p class="book-meta">${b.authors} &middot; ${b.publisher}, ${b.year}</p>
-      <p>${b.description}</p>
-      <div class="cite-buttons">
-        <a class="cite-btn" href="${b.page}">Read More</a>
-        <button class="cite-btn" type="button" data-cite-kind="book" data-cite-index="${index}">Cite</button>
-        ${b.links.map(l => `<a class="cite-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join("")}
+      ${coverHtml}
+      <div class="book-card-body">
+        <h3>${b.title}</h3>
+        <p class="book-meta">${b.authors} &middot; ${b.publisher}, ${b.year}</p>
+        <p>${b.description}</p>
+        <div class="cite-buttons">
+          <a class="cite-btn" href="${b.page}">Read More</a>
+          <button class="cite-btn" type="button" data-cite-kind="book" data-cite-index="${index}">Cite</button>
+          ${b.links.map(l => `<a class="cite-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join("")}
+        </div>
       </div>
     </div>
-  `).join("");
+  `;
+  }).join("");
 }
 
 /* ── Render Articles ── */
