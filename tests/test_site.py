@@ -1611,6 +1611,159 @@ class SiteContractTests(unittest.TestCase):
         )[1].split("}, { rootMargin:", 1)[0]
         self.assertIn("syncActiveNavigationAtDocumentBottom()", observer_callback)
 
+    def test_homepage_scrollspy_prefers_lower_overlapping_section(self) -> None:
+        harness = r"""
+const fs = require("fs");
+const vm = require("vm");
+
+function makeLink(navTarget) {
+  return {
+    dataset: navTarget ? { navTarget } : {},
+    attributes: {},
+    removeAttribute(name) { delete this.attributes[name]; },
+    setAttribute(name, value) { this.attributes[name] = value; }
+  };
+}
+
+const wordmark = makeLink(null);
+const links = ["top", "about", "books", "articles", "contact"].map(makeLink);
+const sections = ["top", "about", "books", "articles", "contact"].map(
+  navSection => ({ dataset: { navSection } })
+);
+const observers = [];
+
+class FakeIntersectionObserver {
+  constructor(callback, options) {
+    this.callback = callback;
+    this.options = options;
+    observers.push(this);
+  }
+  observe() {}
+  unobserve() {}
+}
+
+const document = {
+  activeElement: null,
+  body: { scrollHeight: 2000 },
+  documentElement: { scrollHeight: 2000 },
+  addEventListener() {},
+  getElementById() { return null; },
+  querySelector(selector) {
+    return selector === ".wordmark" ? wordmark : null;
+  },
+  querySelectorAll(selector) {
+    if (selector === ".nav-link[data-nav-target]") return links;
+    if (selector === "[data-nav-section]") return sections;
+    return [];
+  }
+};
+const window = {
+  IntersectionObserver: FakeIntersectionObserver,
+  innerHeight: 800,
+  location: { hash: "#about" },
+  scrollY: 0,
+  addEventListener() {},
+  matchMedia() { return { matches: true, addEventListener() {} }; }
+};
+const context = {
+  console,
+  document,
+  IntersectionObserver: FakeIntersectionObserver,
+  window
+};
+vm.createContext(context);
+vm.runInContext(fs.readFileSync(process.argv[1], "utf8"), context);
+
+const scrollspy = observers.find(
+  observer => observer.options.rootMargin === "-90px 0px -65% 0px"
+);
+if (!scrollspy) throw new Error("Active-navigation observer was not registered");
+const hero = sections.find(section => section.dataset.navSection === "top");
+const about = sections.find(section => section.dataset.navSection === "about");
+const entries = [
+  { isIntersecting: true, boundingClientRect: { top: -20 }, target: hero },
+  { isIntersecting: true, boundingClientRect: { top: 80 }, target: about }
+];
+
+function currentTarget() {
+  if (wordmark.attributes["aria-current"] === "location") return "top";
+  return links.find(
+    link => link.attributes["aria-current"] === "location"
+  )?.dataset.navTarget;
+}
+
+scrollspy.callback(entries);
+const forwardOrder = currentTarget();
+scrollspy.callback([...entries].reverse());
+process.stdout.write(JSON.stringify([forwardOrder, currentTarget()]));
+"""
+        result = subprocess.run(
+            ["node", "-e", harness, str(ROOT / "script.js")],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(["about", "about"], json.loads(result.stdout))
+
+    def test_homepage_mobile_home_stays_hidden_after_target_size_rules(self) -> None:
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+        match = re.search(
+            r"@media \(max-width: 600px\) \{(.*?)(?=@media|\Z)",
+            styles,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(match, "Missing 600px media query")
+        mobile = match.group(1)  # type: ignore[union-attr]
+
+        def cascade_value(element_classes: set[str], property_name: str) -> str:
+            candidates: list[tuple[int, int, int, str]] = []
+            for source_order, (selector_group, body) in enumerate(
+                re.findall(r"([^{}]+)\{([^{}]*)\}", mobile)
+            ):
+                declarations = {
+                    name.strip(): value.strip()
+                    for name, value in re.findall(
+                        r"([\w-]+)\s*:\s*([^;]+);", body
+                    )
+                }
+                if property_name not in declarations:
+                    continue
+                for selector in selector_group.split(","):
+                    selector = " ".join(selector.split())
+                    selector_classes = re.findall(r"\.([\w-]+)", selector)
+                    if re.sub(r"\.[\w-]+", "", selector).strip():
+                        continue
+                    if not set(selector_classes).issubset(element_classes):
+                        continue
+                    value = declarations[property_name]
+                    important = int(value.endswith("!important"))
+                    value = value.removesuffix("!important").strip()
+                    candidates.append(
+                        (important, len(selector_classes), source_order, value)
+                    )
+            self.assertTrue(
+                candidates,
+                f"No {property_name} declaration matched {element_classes}",
+            )
+            return max(candidates)[3]
+
+        self.assertEqual(
+            "none",
+            cascade_value({"nav-link", "nav-home"}, "display"),
+        )
+        for property_name, expected in (
+            ("display", "inline-flex"),
+            ("min-width", "44px"),
+            ("min-height", "44px"),
+        ):
+            with self.subTest(property_name=property_name):
+                self.assertEqual(
+                    expected,
+                    cascade_value({"nav-link"}, property_name),
+                )
+
     def test_homepage_mobile_wordmark_and_modal_targets_are_44_pixels(self) -> None:
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")
         match = re.search(

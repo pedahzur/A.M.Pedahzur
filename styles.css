@@ -1255,7 +1255,7 @@ blockquote .bq-source {
     scroll-margin-top: 7.5rem;
   }
 
-  .nav-home {
+  .nav-link.nav-home {
     display: none;
   }
 

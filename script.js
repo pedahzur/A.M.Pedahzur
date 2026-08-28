@@ -490,7 +490,7 @@ function setupActiveNavigation() {
     if (syncActiveNavigationAtDocumentBottom()) return;
     const visible = entries
       .filter(entry => entry.isIntersecting)
-      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      .sort((a, b) => b.boundingClientRect.top - a.boundingClientRect.top);
     if (visible[0]) setActiveNavigation(visible[0].target.dataset.navSection);
   }, { rootMargin: "-90px 0px -65% 0px", threshold: 0 });
   sections.forEach(section => observer.observe(section));
