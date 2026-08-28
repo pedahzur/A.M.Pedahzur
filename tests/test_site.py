@@ -1564,6 +1564,49 @@ class SiteContractTests(unittest.TestCase):
         ):
             self.assertIn(token, styles)
 
+        def media_block(max_width: int) -> str:
+            match = re.search(
+                rf"@media \(max-width: {max_width}px\) \{{(.*?)(?=@media|\Z)",
+                styles,
+                re.DOTALL,
+            )
+            self.assertIsNotNone(match, f"Missing {max_width}px media query")
+            return match.group(1)  # type: ignore[union-attr]
+
+        def declarations(block: str, selector: str) -> str:
+            match = re.search(
+                rf"{re.escape(selector)}\s*\{{([^}}]*)\}}",
+                block,
+                re.DOTALL,
+            )
+            self.assertIsNotNone(match, f"Missing {selector} in media query")
+            return match.group(1)  # type: ignore[union-attr]
+
+        current_work_tablet = declarations(
+            media_block(900), ".current-work-grid"
+        )
+        self.assertIn(
+            "grid-template-columns: repeat(2, minmax(0, 1fr));",
+            current_work_tablet,
+        )
+
+        mobile = media_block(600)
+        current_work_mobile = declarations(mobile, ".current-work-grid")
+        self.assertIn("grid-template-columns: 1fr;", current_work_mobile)
+        secondary_links = declarations(mobile, ".hero-secondary-actions a")
+        for declaration in (
+            "display: inline-flex;",
+            "align-items: center;",
+            "min-width: 44px;",
+            "min-height: 44px;",
+        ):
+            self.assertIn(declaration, secondary_links)
+
+        primary_actions_narrow = declarations(
+            media_block(420), ".hero-primary-actions"
+        )
+        self.assertIn("grid-template-columns: 1fr;", primary_actions_narrow)
+
     def test_homepage_header_navigation_is_aligned_and_accessible(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")

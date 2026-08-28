@@ -1253,6 +1253,13 @@ blockquote .bq-source {
     justify-content: center;
   }
 
+  .hero-secondary-actions a {
+    display: inline-flex;
+    align-items: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
   .current-work-grid {
     grid-template-columns: 1fr;
   }
