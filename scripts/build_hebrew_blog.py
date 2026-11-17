@@ -322,9 +322,8 @@ def page(slug: str, body: str, status: str) -> str:
   <script type="application/ld+json">
 {json.dumps(structured, ensure_ascii=False, indent=2)}
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600;700&amp;family=Noto+Serif+Hebrew:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="preload" href="../../../assets/fonts/noto-serif-hebrew/v30-k3k5o9MMPvpLmixYH7euCwmkS9DohjX1-kRyiqyBqIxnoLbD-VBM2jVkL3Lr.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../../assets/fonts/noto-sans-hebrew/v50-or30Q7v33eiDljA1IufXTtVf7V6RvEEdhQlk0LlGxCyaePiWTNzWNf72cWk.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../blog.css">
 </head>
 <body>
