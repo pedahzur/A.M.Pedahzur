@@ -1,224 +1,31 @@
-/* ── Data ── */
+/* ── Data ──
+   Books and articles are pre-rendered into index.html by
+   scripts/build_publications.py from data/publications.json.
+   The same data is embedded as JSON for filters and citations. */
 
-const books = [
-  {
-    title: "Suicide Terrorism",
-    authors: "Ami Pedahzur",
-    publisher: "Polity Press",
-    year: "2005",
-    description: "A comprehensive cross-cultural analysis of suicide terrorism, tracing its emergence in Lebanon, Israel, Sri Lanka, Turkey, Chechnya, Iraq, and Al-Qaeda's global jihad.",
-    page: "book-suicide-terrorism.html",
-    cover: "assets/book-covers/suicide-terrorism.jpg",
-    coverAlt: "Cover of Suicide Terrorism",
-    links: [
-      { label: "Publisher", url: "https://politybooks.com/bookdetail/?isbn=9780745633824" }
-    ]
-  },
-  {
-    title: "The Israeli Secret Services and the Struggle Against Terrorism",
-    authors: "Ami Pedahzur",
-    publisher: "Columbia University Press",
-    year: "2009",
-    description: "Examines Israel's counterterrorism strategies from 1948 onward, arguing that defensive measures have proven more effective than offensive operations and targeted killings.",
-    page: "book-israeli-secret-services.html",
-    cover: "assets/book-covers/israeli-secret-services.jpg",
-    coverAlt: "Cover of The Israeli Secret Services and the Struggle Against Terrorism",
-    links: [
-      { label: "Publisher", url: "https://cup.columbia.edu/book/the-israeli-secret-services-and-the-struggle-against-terrorism/9780231140430" }
-    ]
-  },
-  {
-    title: "Jewish Terrorism in Israel",
-    authors: "Ami Pedahzur and Arie Perliger",
-    publisher: "Columbia University Press",
-    year: "2009",
-    description: "Explores how religious terrorism emerges from totalistic communities, spanning from the ancient sicarii to the assassination of Prime Minister Yitzhak Rabin.",
-    page: "book-jewish-terrorism.html",
-    cover: "assets/book-covers/jewish-terrorism-in-israel.jpg",
-    coverAlt: "Cover of Jewish Terrorism in Israel",
-    links: [
-      { label: "Publisher", url: "https://cup.columbia.edu/book/jewish-terrorism-in-israel/9780231154468" }
-    ]
-  },
-  {
-    title: "The Triumph of Israel's Radical Right",
-    authors: "Ami Pedahzur",
-    publisher: "Oxford University Press",
-    year: "2012",
-    description: "Documents the radical right's ascendance in Israeli politics and its institutional networks, tracing the movement from fringe ideology to mainstream governance.",
-    page: "book-triumph-radical-right.html",
-    cover: "assets/book-covers/triumph-israels-radical-right.jpg",
-    coverAlt: "Cover of The Triumph of Israel's Radical Right",
-    links: [
-      { label: "Publisher", url: "https://global.oup.com/academic/product/the-triumph-of-israels-radical-right-9780199744701" }
-    ]
+function readPublicationData() {
+  const el = document.getElementById("publication-data");
+  if (!el) return { books: [], publications: [] };
+  try {
+    return JSON.parse(el.textContent);
+  } catch (error) {
+    console.error("Could not read publication data", error);
+    return { books: [], publications: [] };
   }
-];
+}
 
-const publications = [
-  {
-    title: "Territorial Control and the Militarization of Violent Non-State Actors: Transformation, Opportunities, and Vulnerabilities",
-    authors: "Ofir Dayan and Ami Pedahzur",
-    venue: "Studies in Conflict & Terrorism",
-    year: "2025",
-    type: "journal",
-    topics: ["terrorism"],
-    featured: true,
-    summary: "Examines how territorial control changes the structure, capabilities, and weaknesses of violent non-state actors.",
-    links: [{ label: "DOI", url: "https://doi.org/10.1080/1057610X.2025.2528333" }]
-  },
-  {
-    title: "The Munich Massacre and the Proliferation of Counter-Terrorism Special Operation Forces",
-    authors: "Ronit Berger and Ami Pedahzur",
-    venue: "Israel Affairs",
-    year: "2022",
-    type: "journal",
-    topics: ["terrorism", "sof"],
-    summary: "Connects the Munich massacre to the international spread of specialized counter-terrorism units and doctrine.",
-    links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=The+Munich+Massacre+and+the+Proliferation+of+Counter-Terrorism+Special+Operation+Forces+Pedahzur" }]
-  },
-  {
-    title: "Managing High-Volume Digital Sources in Political Research with Emerging Technologies",
-    authors: "Jonathan Grossman, Orel B. Amano, and Ami Pedahzur",
-    venue: "Working Paper, SSRN",
-    year: "2022",
-    type: "methods",
-    label: "Unpublished Working Paper",
-    topics: [],
-    bibtexType: "unpublished",
-    risType: "UNPB",
-    summary: "A pre-ChatGPT working paper on using personal knowledge management systems to organize high-volume digital sources without losing context, source criticism, or human interpretation.",
-    links: [{ label: "SSRN", url: "https://ssrn.com/abstract=4012684" }]
-  },
-  {
-    title: "Reconstructing the Theater of Terror",
-    authors: "Matthew Sweeney, Arie Perliger, and Ami Pedahzur",
-    venue: "Small Wars & Insurgencies",
-    year: "2021",
-    type: "journal",
-    topics: ["terrorism"],
-    summary: "Investigates the operational theater of terrorism and how spatial and organizational factors shape violent campaigns.",
-    links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Reconstructing+the+Theater+of+Terror+Sweeney+Perliger+Pedahzur" }]
-  },
-  {
-    title: "Can We Do Better? Replication and Online Appendices in Political Science",
-    authors: "Jonathan Grossman and Ami Pedahzur",
-    venue: "Perspectives on Politics",
-    year: "2021",
-    type: "methods",
-    topics: [],
-    summary: "Assesses replication practices and the quality of online appendices in political science research.",
-    links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Can+We+Do+Better+Replication+Online+Appendices+Political+Science+Grossman+Pedahzur" }]
-  },
-  {
-    title: "Political Science and Big Data: Why We Need Unstructured Big Data and How to Use It",
-    authors: "Jonathan Grossman and Ami Pedahzur",
-    venue: "Political Science Quarterly",
-    year: "2020",
-    type: "methods",
-    topics: [],
-    summary: "Argues for the use of unstructured big data in political science and outlines practical strategies for analysis.",
-    links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Political+Science+Big+Data+Unstructured+Grossman+Pedahzur" }]
-  },
-  {
-    title: "Counter-Cultures, Group Dynamics and Religious Terrorism",
-    authors: "Arie Perliger and Ami Pedahzur",
-    venue: "Political Studies",
-    year: "2016",
-    type: "journal",
-    topics: ["terrorism", "extremism"],
-    summary: "Explores the interaction between group dynamics, counter-cultures, and the emergence of religious terrorism.",
-    links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Counter-Cultures+Group+Dynamics+Religious+Terrorism+Perliger+Pedahzur" }]
-  },
-  {
-    title: "Social Network Analysis in the Study of Terrorism and Political Violence",
-    authors: "Arie Perliger and Ami Pedahzur",
-    venue: "PS: Political Science and Politics",
-    year: "2011",
-    type: "methods",
-    topics: ["terrorism"],
-    summary: "Shows how social network analysis can reveal structure, diffusion, and hierarchy in violent organizations.",
-    links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=Social+Network+Analysis+Study+Terrorism+Political+Violence+Perliger+Pedahzur" }]
-  },
-  {
-    title: "The Changing Nature of Suicide Attacks: A Social Network Perspective",
-    authors: "Ami Pedahzur and Arie Perliger",
-    venue: "Social Forces",
-    year: "2006",
-    type: "journal",
-    topics: ["terrorism"],
-    summary: "Uses a social network perspective to explain changes in suicide attack organization and execution.",
-    links: [{ label: "Google Scholar", url: "https://scholar.google.com/scholar?q=The+Changing+Nature+of+Suicide+Attacks+Social+Network+Perspective+Pedahzur+Perliger" }]
-  }
-];
+const { books, publications } = readPublicationData();
 
 const DEFAULT_PUBLICATION_LIMIT = 5;
 const DOCUMENT_BOTTOM_TOLERANCE = 2;
 const publicationView = { activeFilter: "all", expanded: false };
 let activeNavigationSection = "top";
 
-/* ── Render Books ── */
-function renderBooks() {
-  const container = document.getElementById("book-list");
-  if (!container) return;
-  container.innerHTML = books.map((b, index) => {
-    const coverHtml = b.cover
-      ? `<img class="book-cover" src="${b.cover}" alt="${b.coverAlt}" width="180" height="270" loading="lazy">`
-      : `<div class="book-cover book-cover-placeholder" role="img" aria-label="${b.coverAlt}"><span>${b.title}</span></div>`;
-    return `
-    <div class="book-card">
-      ${coverHtml}
-      <div class="book-card-body">
-        <h3>${b.title}</h3>
-        <p class="book-meta">${b.authors} &middot; ${b.publisher}, ${b.year}</p>
-        <p>${b.description}</p>
-        <div class="cite-buttons">
-          <a class="cite-btn" href="${b.page}">Read More</a>
-          <button class="cite-btn" type="button" data-cite-kind="book" data-cite-index="${index}">Cite</button>
-          ${b.links.map(l => `<a class="cite-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join("")}
-        </div>
-      </div>
-    </div>
-  `;
-  }).join("");
-}
-
-/* ── Render Articles ── */
-const TYPE_LABELS = { journal: "Journal Article", methods: "Methods", chapter: "Book Chapter" };
-
-function renderArticles() {
-  const container = document.getElementById("article-list");
-  if (!container) return;
-  container.innerHTML = publications.map((pub, citationIndex) => {
-    const linksHtml = pub.links.map(l =>
-      `<a class="cite-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`
-    ).join("");
-    const featuredClass = pub.featured ? " pub-item-featured" : "";
-    const eyebrow = pub.featured ? `<p class="pub-eyebrow">Featured Work</p>` : "";
-    const topicsAttr = (pub.topics || []).join(" ");
-    const badgeLabel = pub.label || TYPE_LABELS[pub.type] || pub.type;
-    return `
-      <article class="pub-item${featuredClass}" data-type="${pub.type}" data-topics="${topicsAttr}">
-        ${eyebrow}
-        <h3>${pub.title}</h3>
-        <p class="pub-meta">${pub.authors} &middot; ${pub.venue}</p>
-        <div class="pub-badges">
-          <span class="pub-badge">${badgeLabel}</span>
-          <span class="pub-badge">${pub.year}</span>
-        </div>
-        ${pub.summary ? `<p class="pub-summary">${pub.summary}</p>` : ""}
-        <div class="cite-buttons">
-          <button class="cite-btn" type="button" data-cite-kind="article" data-cite-index="${citationIndex}">Cite</button>
-          ${linksHtml}
-        </div>
-      </article>
-    `;
-  }).join("");
-  const count = document.getElementById("article-count");
-  if (count) {
-    count.textContent = `${publications.length} ${publications.length === 1 ? "entry" : "entries"} shown`;
-  }
-}
+// hidden="until-found" keeps collapsed entries searchable with Find in page.
+// Browsers without it (Safari) treat the value as plain `hidden`, and the
+// "Show all publications" button still reveals them.
+const SUPPORTS_HIDDEN_UNTIL_FOUND = typeof HTMLElement !== "undefined"
+  && "onbeforematch" in HTMLElement.prototype;
 
 /* ── Filters ── */
 function publicationMatches(pub, filter) {
@@ -240,9 +47,15 @@ function updatePublicationView() {
     const withinLimit = publicationView.activeFilter !== "all"
       || publicationView.expanded
       || index < DEFAULT_PUBLICATION_LIMIT;
-    item.hidden = !(matches && withinLimit);
-    if (!item.hidden) visibleCount += 1;
+    item.hidden = !matches;
+    if (matches && withinLimit) visibleCount += 1;
   });
+
+  const more = document.getElementById("more-publications");
+  if (more) {
+    const collapsed = publicationView.activeFilter === "all" && !publicationView.expanded;
+    more.hidden = collapsed ? (SUPPORTS_HIDDEN_UNTIL_FOUND ? "until-found" : true) : false;
+  }
 
   const count = document.getElementById("article-count");
   if (count) count.textContent = `${visibleCount} of ${publications.length} entries shown`;
@@ -257,6 +70,15 @@ function updatePublicationView() {
 
 function setupPublicationToggle() {
   const toggle = document.getElementById("publication-toggle");
+  const more = document.getElementById("more-publications");
+  if (more) {
+    // Find in page or a text-fragment link matched a collapsed entry: expand
+    // the list so the button, count and remaining entries stay consistent.
+    more.addEventListener("beforematch", () => {
+      publicationView.expanded = true;
+      updatePublicationView();
+    });
+  }
   if (!toggle) return;
   toggle.addEventListener("click", () => {
     publicationView.expanded = !publicationView.expanded;
@@ -525,8 +347,6 @@ function activateReveal() {
 }
 
 /* ── Init ── */
-renderBooks();
-renderArticles();
 setupFilters();
 setupPublicationToggle();
 updatePublicationView();
