@@ -313,12 +313,19 @@ def page(slug: str, body: str, status: str) -> str:
   <meta property="og:title" content="{html.escape(title)}">
   <meta property="og:description" content="{html.escape(description)}">
   <meta property="og:url" content="{hebrew_url}">
+  <meta property="og:image" content="https://pedahzur.github.io/A.M.Pedahzur/assets/social/share-card.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ami Pedahzur, University of Haifa: Political Violence, Warfare &amp; Strategy">
   <meta property="article:published_time" content="{data['date']}">
   <meta property="og:locale" content="he_IL">
   <meta property="og:locale:alternate" content="en_US">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{html.escape(title)}">
   <meta name="twitter:description" content="{html.escape(description)}">
+  <meta name="twitter:image" content="https://pedahzur.github.io/A.M.Pedahzur/assets/social/share-card.jpg">
+  <meta name="twitter:image:alt" content="Ami Pedahzur, University of Haifa: Political Violence, Warfare &amp; Strategy">
   <script type="application/ld+json">
 {json.dumps(structured, ensure_ascii=False, indent=2)}
   </script>

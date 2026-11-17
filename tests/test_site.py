@@ -16,6 +16,20 @@ import scripts.build_hebrew_blog as build_hebrew_blog
 ROOT = Path(__file__).resolve().parents[1]
 
 
+
+def jpeg_size(path: Path) -> tuple[int, int]:
+    """Read width and height from a JPEG's start-of-frame marker."""
+    data = path.read_bytes()
+    index = 2
+    while index < len(data):
+        marker, length = data[index + 1], int.from_bytes(data[index + 2:index + 4], "big")
+        if marker in (0xC0, 0xC1, 0xC2):
+            height = int.from_bytes(data[index + 5:index + 7], "big")
+            width = int.from_bytes(data[index + 7:index + 9], "big")
+            return width, height
+        index += 2 + length
+    raise AssertionError(f"No JPEG frame header in {path}")
+
 def html_text(value: str) -> str:
     """Escape text the way scripts/build_publications.py writes text nodes."""
     from html import escape
@@ -1086,7 +1100,8 @@ class SiteContractTests(unittest.TestCase):
                 "Essays on research, evidence, and academic craft by Ami Pedahzur."
             ),
             "og:url": "https://pedahzur.github.io/A.M.Pedahzur/blog/",
-            "twitter:card": "summary",
+            "og:image": "https://pedahzur.github.io/A.M.Pedahzur/assets/social/share-card.jpg",
+            "twitter:card": "summary_large_image",
             "twitter:title": "Writing Research for Readers | Ami Pedahzur",
             "twitter:description": (
                 "Essays on research, evidence, and academic craft by Ami Pedahzur."
@@ -1739,6 +1754,49 @@ class SiteContractTests(unittest.TestCase):
         for family in ("ibm-plex-sans", "literata", "noto-sans-hebrew", "noto-serif-hebrew"):
             license_text = (ROOT / "assets" / "fonts" / family / "OFL.txt").read_text(encoding="utf-8")
             self.assertIn("SIL OPEN FONT LICENSE", license_text.upper())
+
+    def test_pages_share_a_large_card_and_homepage_shows_portrait(self) -> None:
+        card_url = "https://pedahzur.github.io/A.M.Pedahzur/assets/social/share-card.jpg"
+        card = ROOT / "assets" / "social" / "share-card.jpg"
+        self.assertEqual((1200, 630), jpeg_size(card))
+        self.assertLess(card.stat().st_size, 300_000)
+
+        pages = [
+            "index.html",
+            "blog/index.html",
+            "field-guide/index.html",
+            "blog/from-one-report-to-two-histories/index.html",
+            "blog/from-one-report-to-two-histories/he/index.html",
+            "blog/academic-rigor-and-writing-for-a-wider-audience/index.html",
+            "blog/academic-rigor-and-writing-for-a-wider-audience/he/index.html",
+        ]
+        for page in pages:
+            collector = MetadataCollector()
+            collector.feed((ROOT / page).read_text(encoding="utf-8"))
+            self.assertEqual([card_url], collector.values.get("og:image"), page)
+            self.assertEqual(["1200"], collector.values.get("og:image:width"), page)
+            self.assertEqual(["630"], collector.values.get("og:image:height"), page)
+            self.assertTrue(collector.values.get("og:image:alt"), page)
+            self.assertEqual(["summary_large_image"], collector.values.get("twitter:card"), page)
+            self.assertEqual([card_url], collector.values.get("twitter:image"), page)
+        generator = (ROOT / "scripts" / "build_hebrew_blog.py").read_text(encoding="utf-8")
+        self.assertIn(card_url, generator)
+        self.assertIn('content="summary_large_image"', generator)
+
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        about = homepage.split('id="about"', 1)[1].split("</section>", 1)[0]
+        self.assertIn('<picture class="about-portrait">', about)
+        self.assertIn('type="image/avif"', about)
+        self.assertIn('type="image/webp"', about)
+        self.assertIn('width="160" height="160" alt="Portrait of Ami Pedahzur"', about)
+        for size in (160, 320):
+            for extension in ("avif", "webp", "jpg"):
+                path = ROOT / "assets" / "portrait" / f"ami-pedahzur-{size}.{extension}"
+                self.assertTrue(path.is_file(), path)
+                self.assertIn(f"assets/portrait/ami-pedahzur-{size}.{extension}", about)
+        hero = homepage.split('class="hero"', 1)[1].split("</section>", 1)[0]
+        self.assertNotIn("<img", hero)
+        self.assertNotIn("<picture", hero)
 
     def test_homepage_scrollspy_tracks_intersections_across_callbacks(self) -> None:
         harness = r"""
