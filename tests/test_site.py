@@ -998,9 +998,15 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("@media (min-width: 1100px)", styles)
         self.assertIn("@media (max-width: 1099px)", styles)
 
+        # Literata is self-hosted with weights 400-700 for the blog.
+        self.assertIn(
+            "family=IBM+Plex+Sans:wght@400;500;600;700&family=Literata:wght@400;500;600;700",
+            (ROOT / "scripts" / "vendor_fonts.py").read_text(encoding="utf-8"),
+        )
         for page in (ROOT / "blog" / "index.html", ARTICLE_PATH):
             html = page.read_text(encoding="utf-8")
-            self.assertIn("family=Literata:wght@400;500;600;700", html)
+            self.assertIn('assets/fonts/literata/', html)
+            self.assertNotIn("fonts.googleapis.com", html)
 
     def test_academic_blog_table_region_is_keyboard_accessible(self) -> None:
         collector = ArticleContractCollector()
@@ -1676,7 +1682,7 @@ class SiteContractTests(unittest.TestCase):
         blocks = {name: pattern.search(text) for name, text in sheets.items()}
         for name, match in blocks.items():
             self.assertIsNotNone(match, name)
-            self.assertTrue(sheets[name].startswith(match.group(0)), name)
+            self.assertLess(match.start(), sheets[name].index(":root"), name)
         self.assertEqual(1, len({match.group(0) for match in blocks.values()}))
 
         block = blocks["styles.css"].group(0)
@@ -1691,6 +1697,48 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn('--serif: "Literata", "Literata Fallback", serif;', sheets["field-guide/guide.css"])
         # ch depends on the rendering font; the blog index widths use em instead.
         self.assertIn(".masthead { padding: 5rem 0 3rem; max-width: 40.8em; }", sheets["blog/blog.css"])
+
+    def test_web_fonts_are_self_hosted_and_preloaded(self) -> None:
+        pages = [
+            path for path in ROOT.rglob("*.html")
+            if "field-guide/book" not in path.relative_to(ROOT).as_posix()
+            and ".worktrees" not in path.relative_to(ROOT).parts
+        ]
+        self.assertGreaterEqual(len(pages), 11)
+        for page in pages:
+            html = page.read_text(encoding="utf-8")
+            self.assertNotIn("fonts.googleapis.com", html, page)
+            self.assertNotIn("fonts.gstatic.com", html, page)
+        self.assertNotIn(
+            "fonts.googleapis.com",
+            (ROOT / "scripts" / "build_hebrew_blog.py").read_text(encoding="utf-8"),
+        )
+
+        referenced: set[Path] = set()
+        for name in ("styles.css", "blog/blog.css", "field-guide/guide.css"):
+            sheet = ROOT / name
+            css = sheet.read_text(encoding="utf-8")
+            self.assertTrue(css.startswith("/* ── Self-hosted web fonts"), name)
+            self.assertNotIn("fonts.gstatic.com", css)
+            urls = re.findall(r"url\(([^)]+\.woff2)\)", css)
+            self.assertGreater(len(urls), 0, name)
+            for url in urls:
+                target = (sheet.parent / url).resolve()
+                self.assertTrue(target.is_file(), f"{name}: {url}")
+                referenced.add(target)
+            self.assertEqual(css.count("@font-face"), css.count("font-display:") + 8)
+
+        for page in pages:
+            html = page.read_text(encoding="utf-8")
+            preloads = re.findall(r'<link rel="preload" href="([^"]+)" as="font" type="font/woff2" crossorigin>', html)
+            self.assertLessEqual(len(preloads), 2, page)
+            for href in preloads:
+                self.assertIn((page.parent / href).resolve(), referenced, f"{page}: {href}")
+        self.assertEqual(2, len(re.findall(r'rel="preload"[^>]+as="font"', (ROOT / "index.html").read_text(encoding="utf-8"))))
+
+        for family in ("ibm-plex-sans", "literata", "noto-sans-hebrew", "noto-serif-hebrew"):
+            license_text = (ROOT / "assets" / "fonts" / family / "OFL.txt").read_text(encoding="utf-8")
+            self.assertIn("SIL OPEN FONT LICENSE", license_text.upper())
 
     def test_homepage_scrollspy_tracks_intersections_across_callbacks(self) -> None:
         harness = r"""
