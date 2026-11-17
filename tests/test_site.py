@@ -55,6 +55,7 @@ def css_declarations(
 ) -> dict[str, str]:
     """Return declarations for one exact selector outside or inside media rules."""
     matches: list[dict[str, str]] = []
+    styles = re.sub(r"/\*.*?\*/", "", styles, flags=re.S)  # comments are not selectors
     for selector_group, body in re.findall(r"([^{}@]+)\{([^{}]*)\}", styles):
         selectors = [" ".join(item.split()) for item in selector_group.split(",")]
         if selector not in selectors:
@@ -1663,6 +1664,33 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn('"beforematch"', scripts)
         workflow = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
         self.assertIn("python3 scripts/build_publications.py", workflow)
+
+    def test_web_fonts_have_identical_metric_matched_fallbacks(self) -> None:
+        pattern = re.compile(
+            r"/\* ── Metric-matched fallback fonts ──.*?/\* ── end fallback fonts ── \*/", re.S
+        )
+        sheets = {
+            name: (ROOT / name).read_text(encoding="utf-8")
+            for name in ("styles.css", "blog/blog.css", "field-guide/guide.css")
+        }
+        blocks = {name: pattern.search(text) for name, text in sheets.items()}
+        for name, match in blocks.items():
+            self.assertIsNotNone(match, name)
+            self.assertTrue(sheets[name].startswith(match.group(0)), name)
+        self.assertEqual(1, len({match.group(0) for match in blocks.values()}))
+
+        block = blocks["styles.css"].group(0)
+        self.assertEqual(8, block.count("@font-face"))
+        self.assertEqual(8, block.count("unicode-range: U+0000-00FF"))
+        for token in ('local("Georgia")', 'local("Georgia Bold")', 'local("Arial")', 'local("Arial Bold")'):
+            self.assertIn(token, block)
+
+        self.assertIn("--font-serif: 'Literata', 'Literata Fallback', Georgia, serif;", sheets["styles.css"])
+        self.assertIn("--font-sans: 'IBM Plex Sans', 'IBM Plex Sans Fallback',", sheets["styles.css"])
+        self.assertIn("--font-serif: 'Literata', 'Literata Fallback', Georgia, serif;", sheets["blog/blog.css"])
+        self.assertIn('--serif: "Literata", "Literata Fallback", serif;', sheets["field-guide/guide.css"])
+        # ch depends on the rendering font; the blog index widths use em instead.
+        self.assertIn(".masthead { padding: 5rem 0 3rem; max-width: 40.8em; }", sheets["blog/blog.css"])
 
     def test_homepage_scrollspy_tracks_intersections_across_callbacks(self) -> None:
         harness = r"""
