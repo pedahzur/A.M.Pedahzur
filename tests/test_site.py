@@ -14,6 +14,12 @@ import scripts.build_hebrew_blog as build_hebrew_blog
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def html_text(value: str) -> str:
+    """Escape text the way scripts/build_publications.py writes text nodes."""
+    from html import escape
+    return escape(value, quote=False)
 ARTICLE_PATH = (
     ROOT
     / "blog"
@@ -1516,7 +1522,9 @@ class SiteContractTests(unittest.TestCase):
         self.assertNotIn('class="guide-hero"', landing)
 
     def test_homepage_books_use_local_accessible_covers(self) -> None:
-        scripts = (ROOT / "script.js").read_text(encoding="utf-8")
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        data = json.loads((ROOT / "data" / "publications.json").read_text(encoding="utf-8"))
+        builder = (ROOT / "scripts" / "build_publications.py").read_text(encoding="utf-8")
         styles = (ROOT / "styles.css").read_text(encoding="utf-8")
         filenames = (
             "suicide-terrorism.jpg",
@@ -1529,16 +1537,17 @@ class SiteContractTests(unittest.TestCase):
             path = ROOT / "assets" / "book-covers" / filename
             self.assertTrue(path.is_file(), filename)
             self.assertGreater(path.stat().st_size, 10_000, filename)
-            self.assertIn(f"assets/book-covers/{filename}", scripts)
-        self.assertEqual(4, scripts.count("coverAlt:"))
+            self.assertIn(f'src="assets/book-covers/{filename}"', homepage)
+        self.assertEqual(4, sum(1 for book in data["books"] if book.get("coverAlt")))
+        self.assertEqual(4, homepage.count('<img class="book-cover"'))
         for token in (
             'class="book-cover"',
-            "book-cover-placeholder",
             'loading="lazy"',
             'width="180"',
             'height="270"',
         ):
-            self.assertIn(token, scripts)
+            self.assertIn(token, homepage)
+        self.assertIn("book-cover-placeholder", builder)
         self.assertIn(".book-card-body {", styles)
         self.assertIn("object-fit: contain;", styles)
         self.assertEqual(
@@ -1610,6 +1619,50 @@ class SiteContractTests(unittest.TestCase):
             "const observer = new IntersectionObserver(entries => {", 1
         )[1].split("}, { rootMargin:", 1)[0]
         self.assertIn("syncActiveNavigationAtDocumentBottom()", observer_callback)
+
+    def test_homepage_publications_are_prerendered_and_in_sync(self) -> None:
+        result = subprocess.run(
+            ["python3", "scripts/build_publications.py", "--check"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+
+        homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+        data = json.loads((ROOT / "data" / "publications.json").read_text(encoding="utf-8"))
+        books_block = homepage.split("<!-- build:books -->", 1)[1].split("<!-- /build:books -->", 1)[0]
+        articles_block = homepage.split("<!-- build:articles -->", 1)[1].split("<!-- /build:articles -->", 1)[0]
+
+        self.assertEqual(len(data["books"]), books_block.count('class="book-card"'))
+        self.assertEqual(len(data["publications"]), articles_block.count('<article class="pub-item'))
+        for book in data["books"]:
+            self.assertIn(html_text(book["title"]), books_block)
+        for pub in data["publications"]:
+            self.assertIn(html_text(pub["title"]), articles_block)
+
+        # Entries past the default five stay in the DOM and searchable.
+        self.assertEqual(1, articles_block.count('hidden="until-found"'))
+        more_block = articles_block.split('id="more-publications"', 1)[1]
+        self.assertEqual(
+            max(0, len(data["publications"]) - 5),
+            more_block.count('<article class="pub-item'),
+        )
+        styles = (ROOT / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".pub-more:not([hidden])", styles)
+        self.assertIn(f"5 of {len(data['publications'])} entries shown", homepage)
+
+        # Embedded JSON matches the source and cannot close its script element early.
+        payload = homepage.split('<script type="application/json" id="publication-data">', 1)[1]
+        payload = payload.split("</script>", 1)[0]
+        self.assertEqual(data, json.loads(payload))
+        self.assertNotIn("</", payload)
+
+        scripts = (ROOT / "script.js").read_text(encoding="utf-8")
+        self.assertNotIn("innerHTML", scripts)
+        self.assertIn('"beforematch"', scripts)
+        workflow = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
+        self.assertIn("python3 scripts/build_publications.py", workflow)
 
     def test_homepage_scrollspy_tracks_intersections_across_callbacks(self) -> None:
         harness = r"""
@@ -1979,8 +2032,13 @@ process.stdout.write(JSON.stringify([
             "Managing High-Volume Digital Sources in Political Research "
             "with Emerging Technologies"
         )
-        self.assertNotIn(high_volume_title, homepage)
-        self.assertIn(high_volume_title, scripts)
+        # The retired "method feature" block stays off the homepage; the working
+        # paper itself remains in the publication list.
+        current_work = homepage.split('id="current-work"', 1)[1].split("</section>", 1)[0]
+        self.assertNotIn(high_volume_title, current_work)
+        self.assertNotIn("method-entity-tracker", homepage)
+        data = json.loads((ROOT / "data" / "publications.json").read_text(encoding="utf-8"))
+        self.assertIn(high_volume_title, [pub["title"] for pub in data["publications"]])
 
         self.assertNotIn("Root Causes of Suicide Terrorism", scripts)
         self.assertNotIn("book-root-causes.html", sitemap)

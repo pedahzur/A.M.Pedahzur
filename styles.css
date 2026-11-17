@@ -756,6 +756,17 @@ h3 {
   gap: .75rem;
 }
 
+/* Collapsed entries (index 6+). Display is set only when the wrapper is shown:
+   display or visibility on a hidden="until-found" element breaks Find in page. */
+.pub-more:not([hidden]) {
+  display: contents;
+}
+
+/* The collapsed wrapper is an empty grid row; cancel its extra gap. */
+.pub-list:has(> .pub-more[hidden="until-found"]) {
+  margin-bottom: -.75rem;
+}
+
 .pub-item {
   background: rgba(255, 255, 255, .84);
   border: 1px solid var(--border);
