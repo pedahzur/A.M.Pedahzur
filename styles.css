@@ -1,3 +1,106 @@
+/* ── Metric-matched fallback fonts ──
+   While Literata and IBM Plex Sans load, text renders in Georgia or Arial
+   (Gelasio and Liberation Sans are their metric-compatible stand-ins),
+   scaled per weight to the web font's measured width, with the web font's
+   ascent and descent, so the page does not jump when the web fonts arrive.
+   size-adjust = measured width ratio on the site's running prose; ascent/descent = Capsize
+   metrics divided by size-adjust. unicode-range matches Google's latin
+   subset, so glyphs the web fonts lack (arrows) render as before. Keep identical in styles.css,
+   blog/blog.css and field-guide/guide.css. */
+
+@font-face {
+  font-family: "Literata Fallback";
+  src: local("Georgia"), local("Gelasio Regular"), local("Gelasio-Regular");
+  font-weight: 1 450;
+  size-adjust: 106.79%;
+  ascent-override: 110.22%;
+  descent-override: 28.84%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Literata Fallback";
+  src: local("Georgia"), local("Gelasio Regular"), local("Gelasio-Regular");
+  font-weight: 451 550;
+  size-adjust: 109.17%;
+  ascent-override: 107.81%;
+  descent-override: 28.21%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Literata Fallback";
+  src: local("Georgia Bold"), local("Georgia-Bold"), local("Gelasio Bold"), local("Gelasio-Bold");
+  font-weight: 551 650;
+  size-adjust: 95.44%;
+  ascent-override: 123.32%;
+  descent-override: 32.27%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Literata Fallback";
+  src: local("Georgia Bold"), local("Georgia-Bold"), local("Gelasio Bold"), local("Gelasio-Bold");
+  font-weight: 651 1000;
+  size-adjust: 98.09%;
+  ascent-override: 119.99%;
+  descent-override: 31.40%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans");
+  font-weight: 1 450;
+  size-adjust: 100.87%;
+  ascent-override: 101.62%;
+  descent-override: 27.26%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans");
+  font-weight: 451 550;
+  size-adjust: 103.03%;
+  ascent-override: 99.49%;
+  descent-override: 26.69%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold");
+  font-weight: 551 650;
+  size-adjust: 96.94%;
+  ascent-override: 105.74%;
+  descent-override: 28.37%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold");
+  font-weight: 651 1000;
+  size-adjust: 98.31%;
+  ascent-override: 104.26%;
+  descent-override: 27.97%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ── end fallback fonts ── */
+
+
+
+
 :root {
   --bg: #f8f8f5;
   --bg-soft: #eef1f4;
@@ -13,8 +116,8 @@
   --shadow: 0 22px 60px rgba(31, 41, 51, .1);
   --radius: 14px;
   --radius-sm: 8px;
-  --font-serif: 'Literata', Georgia, serif;
-  --font-sans: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+  --font-serif: 'Literata', 'Literata Fallback', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', 'IBM Plex Sans Fallback', 'Helvetica Neue', sans-serif;
 }
 
 *, *::before, *::after {
