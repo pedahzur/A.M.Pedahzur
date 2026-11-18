@@ -40,6 +40,11 @@ STYLESHEETS = {
     "field-guide/guide.css": [
         "family=IBM+Plex+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,500;7..72,600&display=swap",
     ],
+    # Map-sheet look for the blog hub and the challenge pages.
+    "assets/map-sheet.css": [
+        "family=Barlow+Condensed:wght@500;600;700&family=Literata:ital,wght@0,400;0,600;1,400&display=swap",
+        "family=Noto+Sans+Hebrew:wght@400;600&display=swap",
+    ],
 }
 
 LICENSES = {
@@ -47,6 +52,7 @@ LICENSES = {
     "literata": "https://raw.githubusercontent.com/google/fonts/main/ofl/literata/OFL.txt",
     "noto-sans-hebrew": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanshebrew/OFL.txt",
     "noto-serif-hebrew": "https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifhebrew/OFL.txt",
+    "barlow-condensed": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/OFL.txt",
 }
 
 # Subsets the site's text uses. Google also serves Cyrillic, Greek and Vietnamese;

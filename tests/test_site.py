@@ -1063,13 +1063,28 @@ class SiteContractTests(unittest.TestCase):
             '<link rel="canonical" href="https://pedahzur.github.io/A.M.Pedahzur/blog/">',
             blog,
         )
-        self.assertIn('href="blog.css"', blog)
+        self.assertIn('href="../assets/map-sheet.css"', blog)
         self.assertIn("https://pedahzur.github.io/A.M.Pedahzur/blog/", sitemap)
         self.assertIn(
             "<loc>https://pedahzur.github.io/A.M.Pedahzur/</loc>\n"
             "    <lastmod>2026-08-14</lastmod>",
             sitemap,
         )
+
+    def test_blog_hub_links_challenge_pages(self) -> None:
+        blog = (ROOT / "blog" / "index.html").read_text(encoding="utf-8")
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        challenge = ROOT / "challenges" / "hostile-referee" / "index.html"
+
+        self.assertIn('id="challenges"', blog)
+        self.assertIn('id="essays"', blog)
+        self.assertTrue(challenge.is_file())
+        self.assertIn('href="../challenges/hostile-referee/"', blog)
+        self.assertIn(
+            "https://pedahzur.github.io/A.M.Pedahzur/challenges/hostile-referee/",
+            sitemap,
+        )
+        self.assertIn('href="../../assets/map-sheet.css"', challenge.read_text(encoding="utf-8"))
 
     def test_newspaper_agent_post_is_discoverable(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -1730,7 +1745,7 @@ class SiteContractTests(unittest.TestCase):
         )
 
         referenced: set[Path] = set()
-        for name in ("styles.css", "blog/blog.css", "field-guide/guide.css"):
+        for name in ("styles.css", "blog/blog.css", "field-guide/guide.css", "assets/map-sheet.css"):
             sheet = ROOT / name
             css = sheet.read_text(encoding="utf-8")
             self.assertTrue(css.startswith("/* ── Self-hosted web fonts"), name)
@@ -1751,7 +1766,7 @@ class SiteContractTests(unittest.TestCase):
                 self.assertIn((page.parent / href).resolve(), referenced, f"{page}: {href}")
         self.assertEqual(2, len(re.findall(r'rel="preload"[^>]+as="font"', (ROOT / "index.html").read_text(encoding="utf-8"))))
 
-        for family in ("ibm-plex-sans", "literata", "noto-sans-hebrew", "noto-serif-hebrew"):
+        for family in ("ibm-plex-sans", "literata", "noto-sans-hebrew", "noto-serif-hebrew", "barlow-condensed"):
             license_text = (ROOT / "assets" / "fonts" / family / "OFL.txt").read_text(encoding="utf-8")
             self.assertIn("SIL OPEN FONT LICENSE", license_text.upper())
 
